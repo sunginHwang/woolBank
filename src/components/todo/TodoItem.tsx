@@ -21,7 +21,7 @@ const S: {
   TodoItem: styled.div`
     width: 20rem;
     height: 10rem;
-    background-color: #e8e8e8;
+    background-color: ${props => props.theme.colors.mainThemeColor};
     color: red;
     display: flex;
     flex-direction: column;
