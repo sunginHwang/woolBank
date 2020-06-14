@@ -6,12 +6,17 @@ import {BrowserRouter} from "react-router-dom";
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-    <React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store()}>
+      <ThemeProvider theme={themeColors}>
         <BrowserRouter>
-            <App/>
+          <GlobalStyle/>
+          <App/>
         </BrowserRouter>
-    </React.StrictMode>,
-    document.getElementById('root')
+      </ThemeProvider>
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
