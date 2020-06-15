@@ -3,7 +3,7 @@ import { keyframes } from 'styled-components';
 export default {
   colors: {
     mainThemeColor: '#6e827f',
-    whiteColor: '#fff',
+    white: '#fff',
     customGrayColor: 'rgba(23, 42, 58, .1)',
     sideFontGrayColor: '#c2cab9',
     titleFontColor: '#6e827f',
@@ -18,9 +18,10 @@ export default {
     greyD1: '#383838',
     greyD2: '#868e96',
     cyanL1: '#56b6c2',
-    whiteL1: '#c6cbd1',
+    whiteL1: '#F0F3F7',
     whiteL2: '#dfe2e5',
     whiteL3: '#f6f8fa',
+    navyD1: '#515EC0',
     textColor: '#6e827f',
     markdownCodeColor: '#6e827f',
     imgOpacity: '1',

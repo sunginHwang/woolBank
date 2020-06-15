@@ -1,6 +1,6 @@
 import { normalize } from 'styled-normalize';
 import { createGlobalStyle } from 'styled-components';
-
+import colors from './colors';
 const GlobalStyle = createGlobalStyle`
   ${normalize}
   
@@ -38,6 +38,7 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5;
     display: flex;
     flex-direction: column;
+    background-color: ${colors.colors.whiteL1};
   }
   
   ol, ul, li {
