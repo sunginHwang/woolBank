@@ -1,6 +1,6 @@
 describe('main e2e test', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:5000')
+        cy.visit('/')
     })
 
 
