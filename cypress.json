@@ -1,3 +1,6 @@
 {
-  "baseUrl": "http://localhost:5000"
+  "baseUrl": "http://localhost:5000",
+  "viewportWidth": 375,
+  "viewportHeight": 812,
+  "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X)\nAppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75\nMobile/14E5239e Safari/602.1"
 }
