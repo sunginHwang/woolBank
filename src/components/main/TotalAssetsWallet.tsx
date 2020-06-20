@@ -24,7 +24,7 @@ const S: {
 } = {
   TotalAssetsWallet: styled.div`
     width: 100%;
-    height: 30rem;
+    height: 25rem;
     background-color: ${props => props.theme.colors.whiteL1};
     color: ${props => props.theme.colors.white};
     display: flex;
