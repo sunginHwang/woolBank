@@ -14,8 +14,7 @@ function WalletList({ wallets }: WalletListProps) {
       {
         wallets.map((wallet, index) => {
           return <WalletListItem key={index}
-                                 title={wallet.title}
-                                 asset={wallet.asset}/>;
+                                 wallet={wallet}/>;
         })
       }
     </S.WalletList>
