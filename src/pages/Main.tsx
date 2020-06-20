@@ -2,8 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import TotalAssetsWallet from '../components/main/TotalAssetsWallet';
-import WalletList from '../components/wallet/WalletList';
 import { IWallet } from '../models/IWallet';
+import MainCardArea from '../components/main/MainCardArea';
+import WalletListItem from '../components/wallet/WalletListItem';
+import BucketListItem from '../components/bucketList/BucketList/BucketListItem';
+import { IBucketList } from '../models/IBucketList';
 
 const assets = [{
   title: '첫 고정적금',
@@ -19,13 +22,30 @@ const assets = [{
   endAt: '2021-03-24'
 }] as IWallet[];
 
+const bucketList = [{
+  title: '버킷리스트 1번 목표',
+  percent: 82
+}, {
+  title: '버킷리스트 2번 목표',
+  percent: 24
+}] as IBucketList[];
+
 function Main() {
   const todo = useSelector((state: RootState) => state.todo);
   console.log(todo);
   return (
     <>
       <TotalAssetsWallet totalPrice={50000}/>
-      <WalletList wallets={assets}/>
+      <MainCardArea title='자산현황'>
+        {
+          assets.map((wallet, index) => <WalletListItem key={index} wallet={wallet}/>)
+        }
+      </MainCardArea>
+      <MainCardArea title='버킷리스트'>
+        {
+          bucketList.map((bucket, index) => <BucketListItem key={index} bucketList={bucket}/>)
+        }
+      </MainCardArea>
     </>
   );
 }
