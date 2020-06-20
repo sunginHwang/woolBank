@@ -1,13 +1,20 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import WalletListItem from './WalletListItem';
 import withThemeRender from '../../support/test/withThemeRender';
+import { IWallet } from '../../models/IWallet';
 
 describe('<WalletListItem />', () => {
   const setup = () => {
-    const utils = withThemeRender(<WalletListItem title='적금' asset={3000}/>);
+    const wallet: IWallet = {
+      title: '적금',
+      asset: 3000,
+      endAt: '2020-04-03',
+      maturityPrice: 50000,
+      type: '정기적금'
+    };
+    const utils = withThemeRender(<WalletListItem wallet={wallet}/>);
     return {
-      ...utils,
+      ...utils
     };
   };
 

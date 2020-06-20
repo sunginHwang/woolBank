@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { IWallet } from '../../models/IWallet';
+import CardItem from '../common/CardItem';
 
 type WalletListItemProps = {
   wallet: IWallet;
@@ -16,7 +17,7 @@ function WalletListItem({
                           }
                         }: WalletListItemProps) {
   return (
-    <S.WalletListItem>
+    <CardItem>
       <S.Top>
         <p>{title}</p>
         <span>{type} ></span>
@@ -28,27 +29,16 @@ function WalletListItem({
         <p>만기일 : {endAt}</p>
         <span>만기금액 : {maturityPrice}원</span>
       </S.Bottom>
-    </S.WalletListItem>
-  )
-    ;
+    </CardItem>
+  );
 }
 
 
 const S: {
-  WalletListItem: any;
   Top: any;
   Content: any;
   Bottom: any;
 } = {
-  WalletListItem: styled.div`
-    padding: 2rem;
-    background-color: ${props => props.theme.colors.white};
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1.6rem;
-    border-radius: 1.2rem;
-    color: ${props => props.theme.colors.blackL1};
-  `,
   Top: styled.div`
     display: flex;
     justify-content: space-between;
