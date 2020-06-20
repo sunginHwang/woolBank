@@ -5,10 +5,16 @@ import { IWallet } from '../../models/IWallet';
 
 const wallets: IWallet[] = [{
   title: '적금1',
-  asset: 3000
+  asset: 3000,
+  maturityPrice: 300000,
+  type: '고정적금',
+  endAt: '2022-02-24'
 }, {
   title: '적금2',
-  asset: 5000
+  asset: 5000,
+  maturityPrice: 300000,
+  type: '고정적금',
+  endAt: '2022-02-24'
 }];
 
 describe('<WalletList />', () => {
