@@ -3,15 +3,35 @@ import styled from 'styled-components';
 
 type TotalAssetsWalletProps = {
   totalPrice: number;
+  lastMonthTotalPrice: number;
 }
 
-function TotalAssetsWallet({ totalPrice }: TotalAssetsWalletProps) {
+function TotalAssetsWallet({
+                             totalPrice,
+                             lastMonthTotalPrice
+                           }: TotalAssetsWalletProps) {
+
+  const isIncreaseAsset = totalPrice > lastMonthTotalPrice;
+  const isEqualAsset = totalPrice === lastMonthTotalPrice;
+
+  const renderIncreaseAsset = isEqualAsset
+    ? <p>지난달과 동일한 자산입니다.</p>
+    :
+    <p>지난달 대비 <span>{Math.abs(totalPrice - lastMonthTotalPrice)}원</span> 자산이 {isIncreaseAsset ? '증가' : '감소'}하였습니다.</p>;
+
   return (
     <S.TotalAssetsWallet>
       <div>
-        <h3>총 자산</h3>
         <S.Wallet>
-          <p>{totalPrice}</p>
+          <S.Top>
+            <span>총 저축금액</span>
+            <S.WalletPrice>
+              {totalPrice > 0}<span> 원</span>
+            </S.WalletPrice>
+          </S.Top>
+          <S.Bottom>
+            {renderIncreaseAsset}
+          </S.Bottom>
         </S.Wallet>
       </div>
     </S.TotalAssetsWallet>
@@ -21,10 +41,14 @@ function TotalAssetsWallet({ totalPrice }: TotalAssetsWalletProps) {
 const S: {
   TotalAssetsWallet: any;
   Wallet: any;
+  WalletPrice: any;
+  Bottom: any;
+  Top: any;
 } = {
   TotalAssetsWallet: styled.div`
     width: 100%;
-    height: 25rem;
+    height: 20rem;
+    margin-bottom: 3rem;
     background-color: ${props => props.theme.colors.whiteL1};
     color: ${props => props.theme.colors.white};
     display: flex;
@@ -37,7 +61,7 @@ const S: {
       top: 0;
       content: "";
       display: block;
-      height: 15rem;
+      height: 14rem;
       background: ${props => props.theme.colors.navyD1};;
     }
 
@@ -46,24 +70,45 @@ const S: {
       position: relative;
     }
 
-    h3 {
-      font-size: 2.4rem;
-      color: ${props => props.theme.colors.cyanL1};
-      margin: 4rem 0 1rem 0;
-      padding: 0;
-    }
-
-    p {
-      font-size: 1.2rem;
-      color: ${props => props.theme.colors.cyanL1};
-    }
+    
   `,
   Wallet: styled.div`
-    height: 6rem;
+    margin-top: 3.6rem;
     background-color: ${props => props.theme.colors.white};
     border-radius: 1.5rem;
     box-shadow: 0 .1rem .3rem 0 rgba(0,0,0,0.09);
-    padding: 2rem 3rem;
+    padding: 2rem 2rem; 
+  `,
+  WalletPrice: styled.p`
+    display: flex;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: bold;
+    color: ${props => props.theme.colors.navyD1};
+    >span{
+      margin-left: .4rem;
+      font-size: 2rem;
+      font-weight: normal;
+    }
+  `,
+  Top: styled.div`
+    >span{
+      color: ${props => props.theme.colors.blackL1};
+      font-size: 1.5rem;
+    }
+  `,
+  Bottom: styled.div`
+    border-top: .1rem solid ${props => props.theme.colors.greyL6};
+    padding-top: 2rem;    
+    >p{
+      color: ${props => props.theme.colors.blackL1};
+      font-size: 1.4rem;
+      
+      >span{
+        font-weight: bold;
+        color: ${props => props.theme.colors.navyD1};
+      }
+    }
   `
 
 };

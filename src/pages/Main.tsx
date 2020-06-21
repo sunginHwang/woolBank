@@ -35,7 +35,7 @@ function Main() {
   console.log(todo);
   return (
     <>
-      <TotalAssetsWallet totalPrice={50000}/>
+      <TotalAssetsWallet totalPrice={50000} lastMonthTotalPrice={30000}/>
       <MainCardArea title='자산현황'>
         {
           assets.map((wallet, index) => <WalletListItem key={index} wallet={wallet}/>)
