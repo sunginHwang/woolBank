@@ -26,7 +26,7 @@ function TotalAssetsWallet({
           <S.Top>
             <span>총 저축금액</span>
             <S.WalletPrice>
-              {totalPrice > 0}<span> 원</span>
+              {totalPrice}<span> 원</span>
             </S.WalletPrice>
           </S.Top>
           <S.Bottom>
@@ -48,7 +48,7 @@ const S: {
   TotalAssetsWallet: styled.div`
     width: 100%;
     height: 20rem;
-    margin-bottom: 3rem;
+    margin: 2rem 0 3rem 0;
     background-color: ${props => props.theme.colors.whiteL1};
     color: ${props => props.theme.colors.white};
     display: flex;
@@ -84,6 +84,7 @@ const S: {
     align-items: center;
     font-size: 3rem;
     font-weight: bold;
+    margin-bottom: .4rem;
     color: ${props => props.theme.colors.navyD1};
     >span{
       margin-left: .4rem;

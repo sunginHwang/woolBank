@@ -7,6 +7,7 @@ import MainCardArea from '../components/main/MainCardArea';
 import WalletListItem from '../components/wallet/WalletListItem';
 import BucketListItem from '../components/bucketList/BucketList/BucketListItem';
 import { IBucketList } from '../models/IBucketList';
+import Header from '../components/layout/Header';
 
 const assets = [{
   title: '첫 고정적금',
@@ -35,6 +36,7 @@ function Main() {
   console.log(todo);
   return (
     <>
+      <Header/>
       <TotalAssetsWallet totalPrice={50000} lastMonthTotalPrice={30000}/>
       <MainCardArea title='자산현황'>
         {
