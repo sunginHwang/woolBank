@@ -16,6 +16,7 @@ export default {
     greyL3: '#ebebeb',
     greyL4: '#e8e8e8',
     greyL5: '#666',
+    greyL6: '#DCDCE9',
     greyD1: '#383838',
     greyD2: '#868e96',
     cyanL1: '#56b6c2',
