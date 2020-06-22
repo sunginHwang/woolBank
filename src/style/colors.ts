@@ -33,6 +33,9 @@ export default {
     loadingAnimationColor2: 'hsl(0,0%,85%)',
     loadingAnimationColor3: 'hsl(0,0%,89%)',
   },
+  zIndex: {
+    navigationBar: 100,
+  },
   animations: {
     loading: keyframes`
       0% {

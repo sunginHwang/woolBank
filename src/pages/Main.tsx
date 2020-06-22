@@ -8,6 +8,7 @@ import WalletListItem from '../components/wallet/WalletListItem';
 import BucketListItem from '../components/bucketList/BucketList/BucketListItem';
 import { IBucketList } from '../models/IBucketList';
 import Header from '../components/layout/Header';
+import NavigationBar from '../components/layout/NavigationBar';
 
 const assets = [{
   title: '첫 고정적금',
@@ -48,6 +49,7 @@ function Main() {
           bucketList.map((bucket, index) => <BucketListItem key={index} bucketList={bucket}/>)
         }
       </MainCardArea>
+      <NavigationBar activeNavBar='home'/>
     </>
   );
 }
