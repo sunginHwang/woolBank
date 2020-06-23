@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import PhaseTemplate from '../components/common/PhaseTemplate';
 import styled from 'styled-components';
+import WalletInfoAddPhase from '../components/wallet/addPhase/WalletInfoAddPhase';
 
-const FirstPhase = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: red;
-`;
 
 const SecondPhase = styled.div`
   width: 100%;
@@ -29,9 +25,7 @@ function Wallet() {
   return (
     <>
       <PhaseTemplate active={phase >= 1}>
-        <FirstPhase>
-          <button onClick={goNextPage}>다음페이지</button>
-        </FirstPhase>
+        <WalletInfoAddPhase/>
       </PhaseTemplate>
       <PhaseTemplate active={phase >= 2}>
         <SecondPhase>
