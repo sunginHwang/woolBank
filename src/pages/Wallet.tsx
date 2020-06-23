@@ -1,38 +1,53 @@
 import React, { useState } from 'react';
-import InputPhaseWrapper from '../components/wallet/inputPhase/InputPhaseWrapper';
+import PhaseTemplate from '../components/common/PhaseTemplate';
+import styled from 'styled-components';
+
+const FirstPhase = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: red;
+`;
+
+const SecondPhase = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: blue;
+`;
+
+const ThirdPhase = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: green;
+`;
 
 function Wallet() {
   const [phase, setPhase] = useState(1);
 
   const goNextPage = () => setPhase(phase + 1);
   const goPrevPage = () => setPhase(phase - 1);
-  console.log(phase);
+
   return (
     <>
-      <InputPhaseWrapper
-        active={phase >= 1}
-        color='red'
-        isNextPhase
-        goNextPhase={goNextPage}
-        goPrevPhase={goPrevPage}
-      />
-      <InputPhaseWrapper
-        active={phase >= 2}
-        color='blue'
-        isPrevPhase
-        isNextPhase
-        goNextPhase={goNextPage}
-        goPrevPhase={goPrevPage}
-      />
-      <InputPhaseWrapper
-        active={phase >= 3}
-        color='black'
-        isPrevPhase
-        goNextPhase={goNextPage}
-        goPrevPhase={goPrevPage}
-      />
+      <PhaseTemplate active={phase >= 1}>
+        <FirstPhase>
+          <button onClick={goNextPage}>다음페이지</button>
+        </FirstPhase>
+      </PhaseTemplate>
+      <PhaseTemplate active={phase >= 2}>
+        <SecondPhase>
+          <button onClick={goPrevPage}>이전페이지</button>
+          <button onClick={goNextPage}>다음페이지</button>
+        </SecondPhase>
+      </PhaseTemplate>
+      <PhaseTemplate active={phase >= 3}>
+        <ThirdPhase>
+          <button onClick={goPrevPage}>이전페이지</button>
+        </ThirdPhase>
+      </PhaseTemplate>
     </>
   );
 }
 
 export default Wallet;
+
+
