@@ -29,12 +29,14 @@ export default {
     imgOpacity: '1',
     headerColor: '#fff',
     contentColor: '#6e827f',
+    deem: 'rgba(0,0,0,.75)',
     loadingAnimationColor1: 'hsl(0,0%,89%)',
     loadingAnimationColor2: 'hsl(0,0%,85%)',
-    loadingAnimationColor3: 'hsl(0,0%,89%)',
+    loadingAnimationColor3: 'hsl(0,0%,89%)'
   },
   zIndex: {
     navigationBar: 100,
+    modalDeem: 500
   },
   animations: {
     loading: keyframes`
@@ -47,6 +49,6 @@ export default {
       100% {
         background-color: hsl(0,0%,89%);
       }
-`,
+`
   }
 };
