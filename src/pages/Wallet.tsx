@@ -3,7 +3,6 @@ import PhaseTemplate from '../components/common/PhaseTemplate';
 import styled from 'styled-components';
 import WalletInfoAddPhase from '../components/wallet/addPhase/WalletInfoAddPhase';
 
-
 const SecondPhase = styled.div`
   width: 100%;
   height: 100%;
@@ -25,7 +24,7 @@ function Wallet() {
   return (
     <>
       <PhaseTemplate active={phase >= 1}>
-        <WalletInfoAddPhase/>
+        <WalletInfoAddPhase />
       </PhaseTemplate>
       <PhaseTemplate active={phase >= 2}>
         <SecondPhase>
@@ -43,5 +42,4 @@ function Wallet() {
 }
 
 export default Wallet;
-
 

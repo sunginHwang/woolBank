@@ -4,16 +4,20 @@ import IcoChevronLeft from '../../icon/IcoChevronLeft';
 import theme from '../../../style/colors';
 import BaseInput from '../../common/BaseInput';
 import WalletTypeAddModal from './WalletTypeAddModal';
+import WalletDateModal from './WalletDateModal';
 
 type WalletInfoAddPhaseProps = {};
 
 function WalletInfoAddPhase({}: WalletInfoAddPhaseProps) {
   const [value, setValue] = useState('');
   const [menu, setMenu] = useState(false);
+  const [menu2, setMenu2] = useState(false);
+
   const setWalletValue = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value);
   const clearWalletValue = () => setValue('');
   const onClick = () => setMenu(!menu);
+  const onClick2 = () => setMenu2(!menu2);
   return (
     <S.WalletInfoAddPhase>
       <S.Header>
@@ -38,11 +42,17 @@ function WalletInfoAddPhase({}: WalletInfoAddPhaseProps) {
         <BaseInput
           label='만기일'
           placeHolder='만기일을 선택해 주세요.'
+          onClick={onClick2}
           value=''
           disable
         />
       </S.Content>
       <WalletTypeAddModal visible={menu} oncloseModal={onClick} />
+      <WalletDateModal
+        visible={menu2}
+        oncloseModal={onClick2}
+        date={new Date()}
+      />
     </S.WalletInfoAddPhase>
   );
 }
