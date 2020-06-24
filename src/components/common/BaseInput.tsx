@@ -3,22 +3,24 @@ import styled from 'styled-components';
 import IcoCloseCircle from '../icon/IcoCloseCircle';
 
 type BaseInputProps = {
-  label: string
+  label: string;
   placeHolder?: string;
   value: string;
   disable?: boolean;
   onChange?: React.ChangeEventHandler;
   onClear?: () => void;
+  onClick?: () => void;
 };
 
 function BaseInput({
-                     label,
-                     placeHolder,
-                     value,
-                     disable = false,
-                     onChange,
-                     onClear
-                   }: BaseInputProps) {
+  label,
+  placeHolder,
+  value,
+  disable = false,
+  onChange,
+  onClear,
+  onClick
+}: BaseInputProps) {
   const isExistInputValue = value !== '';
 
   const [focus, setFocus] = useState(false);
@@ -27,19 +29,25 @@ function BaseInput({
   const onBlur = useCallback(() => setFocus(false), []);
 
   return (
-    <S.BaseInput focus={focus}>
+    <S.BaseInput focus={focus} onClick={onClick}>
       <label>{label}</label>
-      <input type='text'
-             placeholder={placeHolder}
-             value={value}
-             onFocus={onFocus}
-             onBlur={onBlur}
-             onChange={onChange}
-             disabled={disable}/>
-      {isExistInputValue && <i onClick={onClear}><IcoCloseCircle width={28} height={32} fill='#958d9e'/></i>}
+      <input
+        type='text'
+        placeholder={placeHolder}
+        value={value}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={onChange}
+        disabled={disable}
+      />
+      {isExistInputValue && (
+        <i onClick={onClear}>
+          <IcoCloseCircle width={28} height={32} fill='#958d9e' />
+        </i>
+      )}
     </S.BaseInput>
   );
-};
+}
 
 const S: any = {
   BaseInput: styled.div`
@@ -50,34 +58,37 @@ const S: any = {
     label {
       font-size: 1.2rem;
       font-weight: 500;
-      color: ${(props: any) => props.focus ? props.theme.colors.navyD1 : props.theme.colors.blackL1};
+      color: ${(props: any) =>
+        props.focus ? props.theme.colors.navyD1 : props.theme.colors.blackL1};
       text-align: left;
     }
-    
+
     input {
       background: transparent;
       border: none;
-      border-bottom: ${(props: any) => props.focus ? '.2rem' : '.1rem'} solid ${(props: any) => props.focus ? props.theme.colors.navyD1 : props.theme.colors.blackL1};
+      border-bottom: ${(props: any) => (props.focus ? '.2rem' : '.1rem')} solid
+        ${(props: any) =>
+          props.focus ? props.theme.colors.navyD1 : props.theme.colors.blackL1};
       padding-right: 3rem;
       border-radius: 0;
       height: 4rem;
-      color: #27173E;
+      color: #27173e;
       font-size: 1.5rem;
-      
-      :focus{
+
+      :focus {
         outline: none;
       }
     }
-    
-    i{
+
+    i {
       align-items: center;
       justify-content: center;
       position: absolute;
       right: 0;
       bottom: 0;
-      opacity: .5;
+      opacity: 0.5;
     }
-`
+  `
 };
 
 export default BaseInput;
