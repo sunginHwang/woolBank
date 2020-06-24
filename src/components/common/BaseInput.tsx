@@ -6,6 +6,7 @@ type BaseInputProps = {
   label: string
   placeHolder?: string;
   value: string;
+  name?: string;
   disable?: boolean;
   onChange?: React.ChangeEventHandler;
   onClear?: () => void;
@@ -15,6 +16,7 @@ function BaseInput({
                      label,
                      placeHolder,
                      value,
+                     name,
                      disable = false,
                      onChange,
                      onClear
@@ -31,6 +33,7 @@ function BaseInput({
       <label>{label}</label>
       <input type='text'
              placeholder={placeHolder}
+             name={name}
              value={value}
              onFocus={onFocus}
              onBlur={onBlur}

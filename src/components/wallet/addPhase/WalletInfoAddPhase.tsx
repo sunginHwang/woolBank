@@ -3,14 +3,29 @@ import styled from 'styled-components';
 import IcoChevronLeft from '../../icon/IcoChevronLeft';
 import theme from '../../../style/colors';
 import BaseInput from '../../common/BaseInput';
+import useInputs from '../../../support/hooks/UseInputs';
 
 type WalletInfoAddPhaseProps = {}
 
 function WalletInfoAddPhase({}: WalletInfoAddPhaseProps) {
 
-  const [value, setValue] = useState('');
-  const setWalletValue = (e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
-  const clearWalletValue = () => setValue('');
+
+  const [walletForm, onChange, inputDispatch] = useInputs({
+    title: '',
+    type: '',
+    date: ''
+  });
+
+  const [openModalName, setOpenModalName] = useState('');
+  const clearWalletTitle = () => inputDispatch({ name: 'title', value: '' });
+  const clearWalletType = () => {
+    inputDispatch({ name: 'type', value: '' });
+    // hide modal;
+  };
+  const clearWalletDate = () => {
+    inputDispatch({ name: 'type', value: '' });
+    // hide modal;
+  };
 
   return (
     <S.WalletInfoAddPhase>
@@ -21,9 +36,10 @@ function WalletInfoAddPhase({}: WalletInfoAddPhaseProps) {
       <S.Content>
         <BaseInput label='예/적금명'
                    placeHolder='예/적금 명을 입력해 주세요.'
-                   value={value}
-                   onChange={setWalletValue}
-                   onClear={clearWalletValue}/>
+                   name='title'
+                   value={walletForm.title}
+                   onChange={onChange}
+                   onClear={clearWalletTitle}/>
         <BaseInput label='예/적금 종류'
                    placeHolder='예/적금 종류를 선택해 주세요.'
                    value=''
