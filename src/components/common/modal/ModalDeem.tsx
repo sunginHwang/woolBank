@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import styled from 'styled-components';
 
 type ModalDeemProps = {
@@ -8,17 +8,18 @@ type ModalDeemProps = {
 };
 
 function ModalDeem({ visible, children, onDeemClick }: ModalDeemProps) {
-  const onModalDeemClick = useCallback(
-    (e: MouseEvent) => {
-      if (onDeemClick) {
-        onDeemClick();
-      }
-      e.preventDefault();
-    },
-    [onDeemClick]
-  );
+  const modalDeemRef = useRef(null);
+  const onModalDeemClick = useCallback((e: MouseEvent) => {
+    if (e && e.target && modalDeemRef.current === e.target) {
+      onDeemClick && onDeemClick();
+    }
+  }, [onDeemClick]);
   return (
-    <S.ModalDeem visible={visible} onClick={onModalDeemClick}>
+    <S.ModalDeem
+      ref={modalDeemRef}
+      visible={visible}
+      onClick={onModalDeemClick}
+    >
       {children}
     </S.ModalDeem>
   );
