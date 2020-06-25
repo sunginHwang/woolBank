@@ -6,6 +6,7 @@ type BaseInputProps = {
   label: string;
   placeHolder?: string;
   value: string;
+  name?: string;
   disable?: boolean;
   onChange?: React.ChangeEventHandler;
   onClear?: () => void;
@@ -16,6 +17,7 @@ function BaseInput({
   label,
   placeHolder,
   value,
+  name,
   disable = false,
   onChange,
   onClear,
@@ -27,13 +29,17 @@ function BaseInput({
 
   const onFocus = useCallback(() => setFocus(true), []);
   const onBlur = useCallback(() => setFocus(false), []);
-
+  const onInputClear = (e: any) => {
+    onClear && onClear();
+    e.stopPropagation();
+  };
   return (
     <S.BaseInput focus={focus} onClick={onClick}>
       <label>{label}</label>
       <input
         type='text'
         placeholder={placeHolder}
+        name={name}
         value={value}
         onFocus={onFocus}
         onBlur={onBlur}
@@ -41,7 +47,7 @@ function BaseInput({
         disabled={disable}
       />
       {isExistInputValue && (
-        <i onClick={onClear}>
+        <i onClick={onInputClear}>
           <IcoCloseCircle width={28} height={32} fill='#958d9e' />
         </i>
       )}
@@ -77,6 +83,7 @@ const S: any = {
 
       :focus {
         outline: none;
+        -webkit-tap-highlight-color: transparent;
       }
     }
 
