@@ -80,11 +80,6 @@ const S: any = {
       height: 4rem;
       color: #27173e;
       font-size: 1.5rem;
-
-      :focus {
-        outline: none;
-        -webkit-tap-highlight-color: transparent;
-      }
     }
 
     i {

@@ -49,7 +49,63 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+  input:focus {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  [role="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="button"],
+  button {
+      -webkit-box-sizing: content-box;
+         -moz-box-sizing: content-box;
+              box-sizing: content-box;
+  }
+
+  /* Reset \`button\` and button-style \`input\` default styles */
+  input[type="submit"],
+  input[type="reset"],
+  input[type="button"],
+  button {
+      background: none;
+      border: 0;
+      color: inherit;
+      /* cursor: default; */
+      font: inherit;
+      line-height: normal;
+      overflow: visible;
+      padding: 0;
+      -webkit-appearance: button; /* for input */
+      -webkit-user-select: none; /* for button */
+         -moz-user-select: none;
+          -ms-user-select: none;
+  }
+  
+  button:focus{
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  input::-moz-focus-inner,
+  button::-moz-focus-inner {
+      border: 0;
+      padding: 0;
+  }
+  
+  /* Make \`a\` like a button */
+  [role="button"] {
+      color: inherit;
+      cursor: default;
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+      white-space: pre;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+  }
+
 
 `;
 
-export default GlobalStyle
+export default GlobalStyle;
