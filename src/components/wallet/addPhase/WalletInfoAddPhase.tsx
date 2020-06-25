@@ -7,6 +7,7 @@ import WalletTypeAddModal from './WalletTypeAddModal';
 import WalletDateModal from './WalletDateModal';
 import useInputs from '../../../support/hooks/UseInputs';
 import { IAssetType } from '../../../models/IAssetType';
+import { DATE_FORMAT, parseDate } from '../../../support/util/date';
 
 type modalType = 'type' | 'date' | '';
 type WalletInfoAddPhaseProps = {
@@ -95,7 +96,7 @@ function WalletInfoAddPhase({ goNextPage }: WalletInfoAddPhaseProps) {
           placeHolder='만기일을 선택해 주세요.'
           onClick={openDateModal}
           onClear={clearWalletDate}
-          value={walletForm.date}
+          value={parseDate(walletForm.date, DATE_FORMAT.YYYY_MM_DD)}
           disable
         />
       </S.Content>
