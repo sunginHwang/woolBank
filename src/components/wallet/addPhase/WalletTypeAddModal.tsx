@@ -1,20 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 import ModalDeem from '../../common/modal/ModalDeem';
+import { IAssetType } from '../../../models/IAssetType';
 
 type WalletTypeAddModalProps = {
   visible: boolean;
+  assetTypes: IAssetType[];
   oncloseModal: any;
+  onChangeAssetType: (assetType: IAssetType) => void;
 };
 
 function WalletTypeAddModal({
   visible,
-  oncloseModal
+  assetTypes,
+  oncloseModal,
+  onChangeAssetType
 }: WalletTypeAddModalProps) {
   return (
     <ModalDeem visible={visible} onDeemClick={oncloseModal}>
       <S.WalletTypeAddModal visible={visible}>
-        <p onClick={() => console.log('요소 클릭')}>12</p>
+        {assetTypes.map((assetType) => {
+          return (
+            <p
+              key={assetType.name}
+              onClick={() => onChangeAssetType(assetType)}
+            >
+              {assetType.name}
+            </p>
+          );
+        })}
       </S.WalletTypeAddModal>
     </ModalDeem>
   );

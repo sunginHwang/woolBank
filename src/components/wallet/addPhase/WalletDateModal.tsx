@@ -7,12 +7,14 @@ import '../../../style/css/customCalendar.css';
 type WalletDateModalProps = {
   visible: boolean;
   oncloseModal: any;
+  onChangeDate: (date: string) => void;
   date: Date;
 };
 
 function WalletDateModal({
   date,
   visible,
+  onChangeDate,
   oncloseModal
 }: WalletDateModalProps) {
   return (
@@ -20,7 +22,7 @@ function WalletDateModal({
       <S.WalletDateModal visible={visible}>
         <Calendar
           value={date}
-          onChange={(date: Date | Date[]) => console.log(date)}
+          onChange={(date: Date | Date[]) => onChangeDate(String(date))}
         />
       </S.WalletDateModal>
     </ModalDeem>

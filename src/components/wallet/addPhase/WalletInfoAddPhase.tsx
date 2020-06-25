@@ -5,19 +5,52 @@ import theme from '../../../style/colors';
 import BaseInput from '../../common/BaseInput';
 import WalletTypeAddModal from './WalletTypeAddModal';
 import WalletDateModal from './WalletDateModal';
+import useInputs from '../../../support/hooks/UseInputs';
+import { IAssetType } from '../../../models/IAssetType';
 
+type modalType = 'type' | 'date' | '';
 type WalletInfoAddPhaseProps = {};
 
-function WalletInfoAddPhase({}: WalletInfoAddPhaseProps) {
-  const [value, setValue] = useState('');
-  const [menu, setMenu] = useState(false);
-  const [menu2, setMenu2] = useState(false);
+const assetTypes: IAssetType[] = [
+  {
+    type: '1',
+    name: '정기적금'
+  },
+  {
+    type: '1',
+    name: '정기예금'
+  },
+  {
+    type: '1',
+    name: '자유적금'
+  }
+];
 
-  const setWalletValue = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setValue(e.target.value);
-  const clearWalletValue = () => setValue('');
-  const onClick = () => setMenu(!menu);
-  const onClick2 = () => setMenu2(!menu2);
+function WalletInfoAddPhase({}: WalletInfoAddPhaseProps) {
+  const [walletForm, onChange, inputDispatch] = useInputs({
+    title: '',
+    type: '',
+    date: ''
+  });
+
+  const [openModalName, setOpenModalName] = useState<modalType>('');
+  const clearWalletTitle = () => inputDispatch({ name: 'title', value: '' });
+  const clearWalletType = () => inputDispatch({ name: 'type', value: '' });
+  const clearWalletDate = () => inputDispatch({ name: 'date', value: '' });
+
+  const openTypeModal = () => setOpenModalName('type');
+  const openDateModal = () => setOpenModalName('date');
+  const closeModal = () => setOpenModalName('');
+  const onChangeDate = (date: string) => {
+    inputDispatch({ name: 'date', value: date });
+    closeModal();
+  };
+
+  const onChangeAssetType = (assetType: IAssetType) => {
+    inputDispatch({ name: 'type', value: assetType.name });
+    closeModal();
+  };
+
   return (
     <S.WalletInfoAddPhase>
       <S.Header>
@@ -28,29 +61,38 @@ function WalletInfoAddPhase({}: WalletInfoAddPhaseProps) {
         <BaseInput
           label='예/적금명'
           placeHolder='예/적금 명을 입력해 주세요.'
-          value={value}
-          onChange={setWalletValue}
-          onClear={clearWalletValue}
+          name='title'
+          value={walletForm.title}
+          onChange={onChange}
+          onClear={clearWalletTitle}
         />
         <BaseInput
           label='예/적금 종류'
           placeHolder='예/적금 종류를 선택해 주세요.'
-          onClick={onClick}
-          value=''
+          onClick={openTypeModal}
+          onClear={clearWalletType}
+          value={walletForm.type}
           disable
         />
         <BaseInput
           label='만기일'
           placeHolder='만기일을 선택해 주세요.'
-          onClick={onClick2}
-          value=''
+          onClick={openDateModal}
+          onClear={clearWalletDate}
+          value={walletForm.date}
           disable
         />
       </S.Content>
-      <WalletTypeAddModal visible={menu} oncloseModal={onClick} />
+      <WalletTypeAddModal
+        assetTypes={assetTypes}
+        visible={openModalName === 'type'}
+        onChangeAssetType={onChangeAssetType}
+        oncloseModal={closeModal}
+      />
       <WalletDateModal
-        visible={menu2}
-        oncloseModal={onClick2}
+        visible={openModalName === 'date'}
+        oncloseModal={closeModal}
+        onChangeDate={onChangeDate}
         date={new Date()}
       />
     </S.WalletInfoAddPhase>
