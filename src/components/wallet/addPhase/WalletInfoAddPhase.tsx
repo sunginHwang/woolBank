@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import IcoChevronLeft from '../../icon/IcoChevronLeft';
 import theme from '../../../style/colors';
@@ -9,7 +9,9 @@ import useInputs from '../../../support/hooks/UseInputs';
 import { IAssetType } from '../../../models/IAssetType';
 
 type modalType = 'type' | 'date' | '';
-type WalletInfoAddPhaseProps = {};
+type WalletInfoAddPhaseProps = {
+  goNextPage: () => void;
+};
 
 const assetTypes: IAssetType[] = [
   {
@@ -26,8 +28,12 @@ const assetTypes: IAssetType[] = [
   }
 ];
 
-function WalletInfoAddPhase({}: WalletInfoAddPhaseProps) {
-  const [walletForm, onChange, inputDispatch] = useInputs({
+function WalletInfoAddPhase({ goNextPage }: WalletInfoAddPhaseProps) {
+  const [walletForm, onChange, inputDispatch] = useInputs<{
+    title: string;
+    type: string;
+    date: string;
+  }>({
     title: '',
     type: '',
     date: ''
@@ -50,6 +56,16 @@ function WalletInfoAddPhase({}: WalletInfoAddPhaseProps) {
     inputDispatch({ name: 'type', value: assetType.name });
     closeModal();
   };
+
+  // todo 이전 날짜 비교하기
+  const isAllowWalletFormValidation =
+    walletForm.title !== '' && walletForm.type !== '' && walletForm.date !== '';
+
+  const goNextPhase = useCallback(() => {
+    if (isAllowWalletFormValidation) {
+      goNextPage();
+    }
+  }, [isAllowWalletFormValidation]);
 
   return (
     <S.WalletInfoAddPhase>
@@ -83,6 +99,12 @@ function WalletInfoAddPhase({}: WalletInfoAddPhaseProps) {
           disable
         />
       </S.Content>
+      <S.CompleteButton
+        active={isAllowWalletFormValidation}
+        onClick={goNextPhase}
+      >
+        작성하기
+      </S.CompleteButton>
       <WalletTypeAddModal
         assetTypes={assetTypes}
         visible={openModalName === 'type'}
@@ -93,7 +115,7 @@ function WalletInfoAddPhase({}: WalletInfoAddPhaseProps) {
         visible={openModalName === 'date'}
         oncloseModal={closeModal}
         onChangeDate={onChangeDate}
-        date={new Date()}
+        date={walletForm.date === '' ? new Date() : new Date(walletForm.date)}
       />
     </S.WalletInfoAddPhase>
   );
@@ -103,8 +125,8 @@ const S: {
   WalletInfoAddPhase: any;
   Header: any;
   Content: any;
-  Input: any;
   Menu: any;
+  CompleteButton: any;
 } = {
   WalletInfoAddPhase: styled.div`
     width: 100%;
@@ -150,7 +172,16 @@ const S: {
       margin-top: 4rem;
     }
   `,
-  Input: styled.div``
+  CompleteButton: styled.button`
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5.5rem;
+    color: ${(props) => props.theme.colors.white};
+    background-color: ${(props) => props.theme.colors.navyD1};
+    opacity: ${(props: any) => (props.active ? 1 : 0.5)};
+  `
 };
 
 export default WalletInfoAddPhase;

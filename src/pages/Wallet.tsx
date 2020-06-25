@@ -24,7 +24,7 @@ function Wallet() {
   return (
     <>
       <PhaseTemplate active={phase >= 1}>
-        <WalletInfoAddPhase />
+        <WalletInfoAddPhase goNextPage={goNextPage} />
       </PhaseTemplate>
       <PhaseTemplate active={phase >= 2}>
         <SecondPhase>
@@ -42,4 +42,3 @@ function Wallet() {
 }
 
 export default Wallet;
-
