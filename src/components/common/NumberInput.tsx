@@ -31,11 +31,11 @@ function NumberInput({}: NumberInputProps) {
           <tr>
             <td>←</td>
             <td>0</td>
-            <td>취소</td>
+            <td>X</td>
           </tr>
           </tbody>
         </S.InputTable>
-        <S.Complete>보내기</S.Complete>
+        <S.Complete>작성하기</S.Complete>
       </S.Input>
     </S.NumberInput>
   );
@@ -50,13 +50,13 @@ const S: {
 } = {
   NumberInput: styled.div`
     width: 100%;
-    height: 100%;
+    height: calc(100% - 5.5rem);
     display: flex;
-    justify-content: space-around;
     flex-direction: column;
     background-color: ${(props) => props.theme.colors.white};
   `,
   Input: styled.div`
+    margin-top: auto;
   `,
   InputDisplay: styled.div`
     height: 10rem;
@@ -78,9 +78,8 @@ const S: {
   `,
   InputTable: styled.table`
     width: 100%;
-    margin-bottom: 4rem;
     text-align: center;
-    
+    flex: 1;
     color: ${(props) => props.theme.colors.blackL1};
     
     td{
@@ -88,10 +87,16 @@ const S: {
       height: 10rem;
       width: 33.33333%;
     }
+    
+    td:active{
+      border-radius: 1.6rem;
+      background-color: ${(props) => props.theme.colors.greyL3};
+    }
   `,
   Complete: styled.button`
+    width: calc(100% - 2rem);
     height: 5rem;
-    margin: 0 1rem 2rem 1rem;
+    margin: 4rem 1rem 2rem 1rem;
     border-radius: .8rem;
     color: ${(props) => props.theme.colors.white};
     background-color: ${(props) => props.theme.colors.navyD1};
