@@ -25,12 +25,12 @@ function Wallet() {
 
   return (
     <>
-      <PhaseTemplate active={phase >= 2}>
+      <PhaseTemplate active={phase >= 1}>
         <WalletInfoAddPhase goNextPage={goNextPage} />
       </PhaseTemplate>
-      <PhaseTemplate active={phase >= 1}>
+      <PhaseTemplate active={phase >= 2}>
         <SecondPhase>
-          <S.Header>
+          <S.Header onClick={goPrevPage}>
             <IcoChevronLeft width={26} height={26} fill={theme.colors.navyD1} />
             <p>예/적금액 작성</p>
           </S.Header>

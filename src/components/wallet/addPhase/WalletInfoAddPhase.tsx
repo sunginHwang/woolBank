@@ -130,8 +130,10 @@ const S: {
   CompleteButton: any;
 } = {
   WalletInfoAddPhase: styled.div`
-    width: 100%;
     height: 100%;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
     background-color: ${(props) => props.theme.colors.white};
   `,
   Menu: styled.div`
@@ -159,7 +161,7 @@ const S: {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding-left: 1rem;
+
     p {
       font-size: 1.6rem;
       margin-top: 0.4rem;
@@ -168,17 +170,17 @@ const S: {
   `,
   Content: styled.div`
     margin-top: 2rem;
-    padding: 0 2rem;
+    padding: 0 1rem;
     > div + div {
       margin-top: 4rem;
     }
   `,
   CompleteButton: styled.button`
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    
+    margin-top: auto;
+    margin-bottom: 2rem;
     height: 5.5rem;
+    border-radius: .8rem;
     color: ${(props) => props.theme.colors.white};
     background-color: ${(props) => props.theme.colors.navyD1};
     opacity: ${(props: any) => (props.active ? 1 : 0.5)};
