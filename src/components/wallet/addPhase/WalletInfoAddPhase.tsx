@@ -1,60 +1,51 @@
-import React, { useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import styled from 'styled-components';
-import IcoChevronLeft from '../../icon/IcoChevronLeft';
-import theme from '../../../style/colors';
 import BaseInput from '../../common/BaseInput';
 import WalletTypeAddModal from './WalletTypeAddModal';
 import WalletDateModal from './WalletDateModal';
-import useInputs from '../../../support/hooks/UseInputs';
 import { IAssetType } from '../../../models/IAssetType';
 import { DATE_FORMAT, parseDate } from '../../../support/util/date';
+import PhaseTemplate from '../../common/PhaseTemplate';
+import HeaderWithBack from '../../common/HeaderWithBack';
+import { IWalletForm } from '../../../models/IWalletForm';
 
 type modalType = 'type' | 'date' | '';
 type WalletInfoAddPhaseProps = {
+  isActivePhase: boolean;
+  assetTypes: IAssetType[];
   goNextPage: () => void;
+  walletForm: IWalletForm;
+  onChangeWalletForm: (type: string, value: string) => void;
 };
 
-const assetTypes: IAssetType[] = [
-  {
-    type: '1',
-    name: '정기적금'
-  },
-  {
-    type: '1',
-    name: '정기예금'
-  },
-  {
-    type: '1',
-    name: '자유적금'
-  }
-];
 
-function WalletInfoAddPhase({ goNextPage }: WalletInfoAddPhaseProps) {
-  const [walletForm, onChange, inputDispatch] = useInputs<{
-    title: string;
-    type: string;
-    date: string;
-  }>({
-    title: '',
-    type: '',
-    date: ''
-  });
+function WalletInfoAddPhase({
+                              isActivePhase,
+                              walletForm,
+                              assetTypes,
+                              onChangeWalletForm,
+                              goNextPage
+                            }: WalletInfoAddPhaseProps) {
 
+  // 모달 팝업
   const [openModalName, setOpenModalName] = useState<modalType>('');
-  const clearWalletTitle = () => inputDispatch({ name: 'title', value: '' });
-  const clearWalletType = () => inputDispatch({ name: 'type', value: '' });
-  const clearWalletDate = () => inputDispatch({ name: 'date', value: '' });
-
   const openTypeModal = () => setOpenModalName('type');
   const openDateModal = () => setOpenModalName('date');
   const closeModal = () => setOpenModalName('');
+
+  // 폼 값 초기화
+  const clearWalletTitle = () => onChangeWalletForm('title', '');
+  const clearWalletType = () => onChangeWalletForm('type', '');
+  const clearWalletDate = () => onChangeWalletForm('date', '');
+
+  // 폼 값 변경 이벤트
+  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => onChangeWalletForm('title', e.target.value);
   const onChangeDate = (date: string) => {
-    inputDispatch({ name: 'date', value: date });
+    onChangeWalletForm('date', date);
     closeModal();
   };
-
   const onChangeAssetType = (assetType: IAssetType) => {
-    inputDispatch({ name: 'type', value: assetType.name });
+    onChangeWalletForm('type', assetType.name);
     closeModal();
   };
 
@@ -62,6 +53,7 @@ function WalletInfoAddPhase({ goNextPage }: WalletInfoAddPhaseProps) {
   const isAllowWalletFormValidation =
     walletForm.title !== '' && walletForm.type !== '' && walletForm.date !== '';
 
+  // 다음 페이즈 입력으로 이동
   const goNextPhase = useCallback(() => {
     if (isAllowWalletFormValidation) {
       goNextPage();
@@ -69,62 +61,60 @@ function WalletInfoAddPhase({ goNextPage }: WalletInfoAddPhaseProps) {
   }, [isAllowWalletFormValidation]);
 
   return (
-    <S.WalletInfoAddPhase>
-      <S.Header>
-        <IcoChevronLeft width={26} height={26} fill={theme.colors.navyD1} />
-        <p>예/적금 정보 작성하기</p>
-      </S.Header>
-      <S.Content>
-        <BaseInput
-          label='예/적금명'
-          placeHolder='예/적금 명을 입력해 주세요.'
-          name='title'
-          value={walletForm.title}
-          onChange={onChange}
-          onClear={clearWalletTitle}
+    <PhaseTemplate active={isActivePhase}>
+      <S.WalletInfoAddPhase>
+        <HeaderWithBack title='예/적금 정보 작성하기' onBackClick={() => console.log('12')}/>
+        <S.Content>
+          <BaseInput
+            label='예/적금명'
+            placeHolder='예/적금 명을 입력해 주세요.'
+            name='title'
+            value={walletForm.title}
+            onChange={onChangeTitle}
+            onClear={clearWalletTitle}
+          />
+          <BaseInput
+            label='예/적금 종류'
+            placeHolder='예/적금 종류를 선택해 주세요.'
+            onClick={openTypeModal}
+            onClear={clearWalletType}
+            value={walletForm.type}
+            disable
+          />
+          <BaseInput
+            label='만기일'
+            placeHolder='만기일을 선택해 주세요.'
+            onClick={openDateModal}
+            onClear={clearWalletDate}
+            value={parseDate(walletForm.date, DATE_FORMAT.YYYY_MM_DD)}
+            disable
+          />
+        </S.Content>
+        <S.CompleteButton
+          active={isAllowWalletFormValidation}
+          onClick={goNextPhase}
+        >
+          작성하기
+        </S.CompleteButton>
+        <WalletTypeAddModal
+          assetTypes={assetTypes}
+          visible={openModalName === 'type'}
+          onChangeAssetType={onChangeAssetType}
+          oncloseModal={closeModal}
         />
-        <BaseInput
-          label='예/적금 종류'
-          placeHolder='예/적금 종류를 선택해 주세요.'
-          onClick={openTypeModal}
-          onClear={clearWalletType}
-          value={walletForm.type}
-          disable
+        <WalletDateModal
+          visible={openModalName === 'date'}
+          oncloseModal={closeModal}
+          onChangeDate={onChangeDate}
+          date={walletForm.date === '' ? new Date() : new Date(walletForm.date)}
         />
-        <BaseInput
-          label='만기일'
-          placeHolder='만기일을 선택해 주세요.'
-          onClick={openDateModal}
-          onClear={clearWalletDate}
-          value={parseDate(walletForm.date, DATE_FORMAT.YYYY_MM_DD)}
-          disable
-        />
-      </S.Content>
-      <S.CompleteButton
-        active={isAllowWalletFormValidation}
-        onClick={goNextPhase}
-      >
-        작성하기
-      </S.CompleteButton>
-      <WalletTypeAddModal
-        assetTypes={assetTypes}
-        visible={openModalName === 'type'}
-        onChangeAssetType={onChangeAssetType}
-        oncloseModal={closeModal}
-      />
-      <WalletDateModal
-        visible={openModalName === 'date'}
-        oncloseModal={closeModal}
-        onChangeDate={onChangeDate}
-        date={walletForm.date === '' ? new Date() : new Date(walletForm.date)}
-      />
-    </S.WalletInfoAddPhase>
+      </S.WalletInfoAddPhase>
+    </PhaseTemplate>
   );
 }
 
 const S: {
   WalletInfoAddPhase: any;
-  Header: any;
   Content: any;
   Menu: any;
   CompleteButton: any;
@@ -156,18 +146,6 @@ const S: {
       font-size: 1.5rem;
     }
   `,
-  Header: styled.div`
-    height: 5.5rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-
-    p {
-      font-size: 1.6rem;
-      margin-top: 0.4rem;
-      color: ${(props) => props.theme.colors.blackL1};
-    }
-  `,
   Content: styled.div`
     margin-top: 2rem;
     padding: 0 1rem;
@@ -176,7 +154,6 @@ const S: {
     }
   `,
   CompleteButton: styled.button`
-    
     margin-top: auto;
     margin-bottom: 2rem;
     height: 5.5rem;

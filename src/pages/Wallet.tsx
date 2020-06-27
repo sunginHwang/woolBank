@@ -3,8 +3,9 @@ import PhaseTemplate from '../components/common/PhaseTemplate';
 import styled from 'styled-components';
 import WalletInfoAddPhase from '../components/wallet/addPhase/WalletInfoAddPhase';
 import NumberInput from '../components/common/NumberInput';
-import IcoChevronLeft from '../components/icon/IcoChevronLeft';
-import theme from '../style/colors';
+import HeaderWithBack from '../components/common/HeaderWithBack';
+import { IAssetType } from '../models/IAssetType';
+import { IWalletForm } from '../models/IWalletForm';
 
 const SecondPhase = styled.div`
   width: 100%;
@@ -17,24 +18,53 @@ const ThirdPhase = styled.div`
   background-color: green;
 `;
 
+const assetTypes: IAssetType[] = [
+  {
+    type: '1',
+    name: '정기적금'
+  },
+  {
+    type: '1',
+    name: '정기예금'
+  },
+  {
+    type: '1',
+    name: '자유적금'
+  }
+];
+
 function Wallet() {
   const [phase, setPhase] = useState(1);
+  const [walletForm, setWalletForm] = useState<IWalletForm>({
+    title: '',
+    type: '',
+    date: '',
+    amount: 0
+  });
+
+  const onChangeWalletForm = (type: string, value: string) => {
+    setWalletForm({
+      ...walletForm,
+      [type]: value
+    });
+  };
+
 
   const goNextPage = () => setPhase(phase + 1);
   const goPrevPage = () => setPhase(phase - 1);
 
   return (
     <>
-      <PhaseTemplate active={phase >= 1}>
-        <WalletInfoAddPhase goNextPage={goNextPage} />
-      </PhaseTemplate>
+      <WalletInfoAddPhase
+        walletForm={walletForm}
+        assetTypes={assetTypes}
+        isActivePhase={phase >= 1}
+        onChangeWalletForm={onChangeWalletForm}
+        goNextPage={goNextPage}/>
       <PhaseTemplate active={phase >= 2}>
         <SecondPhase>
-          <S.Header onClick={goPrevPage}>
-            <IcoChevronLeft width={26} height={26} fill={theme.colors.navyD1} />
-            <p>예/적금액 작성</p>
-          </S.Header>
-          <NumberInput />
+          <HeaderWithBack title='예/적금액 작성' onBackClick={goPrevPage}/>
+          <NumberInput/>
         </SecondPhase>
       </PhaseTemplate>
       <PhaseTemplate active={phase >= 3}>
