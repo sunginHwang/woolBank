@@ -42,7 +42,6 @@ function WalletConfirmPhase({ wallet, isActivePhase, goPrevPhase, onComplete }: 
             </S.CardRow>
           </div>
         </S.Card>
-
         <S.Info>
           <p>
             유의사항
@@ -122,11 +121,10 @@ const S: {
     }
   `,
   CompleteButton: styled.button`
-    position: fixed;
-    left: 1rem;
-    bottom: 2rem;
+    margin-top: auto;
+    margin-bottom: 7.5rem;
     height: 5.5rem;
-    width: calc(100% - 2rem);
+    width: 100%;
     border-radius: .8rem;
     color: ${(props) => props.theme.colors.white};
     background-color: ${(props) => props.theme.colors.navyD1};
