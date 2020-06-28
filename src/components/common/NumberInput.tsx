@@ -1,41 +1,61 @@
 import React from 'react';
 import styled from 'styled-components/';
+import { addComma, numberToKorean } from '../../support/util/String';
 
-type NumberInputProps = {};
+type NumberInputProps = {
+  currentAmount: number;
+  isActiveComplete: boolean;
+  onChangeAmount: (number: number) => void;
+  onCompleteClick: () => void;
+};
 
-function NumberInput({}: NumberInputProps) {
+function NumberInput({ currentAmount, isActiveComplete, onChangeAmount, onCompleteClick }: NumberInputProps) {
+
+  const addNumber = (number: number) => {
+    const addedNumber = Number(currentAmount + String(number));
+    onChangeAmount(addedNumber);
+  };
+  const removeLastInput = () => {
+    const stringNumber = String(currentAmount);
+    onChangeAmount(Number(stringNumber.substring(0, stringNumber.length - 1)));
+  };
+
+  const initNumber = () => onChangeAmount(0);
+
+  const displayAmount = `${addComma(currentAmount)}원`;
+  const displayKoreanAmount = `총 적금액 : ${numberToKorean(currentAmount)}원`;
   return (
     <S.NumberInput>
       <S.InputDisplay>
-        <p>12,1212원</p>
-        <span>총 적금 액 14만 312원</span>
+        <p>{displayAmount}</p>
+        <span>{displayKoreanAmount}</span>
       </S.InputDisplay>
       <S.Input>
         <S.InputTable>
           <tbody>
           <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
+            <td onClick={() => addNumber(1)}>1</td>
+            <td onClick={() => addNumber(2)}>2</td>
+            <td onClick={() => addNumber(3)}>3</td>
           </tr>
           <tr>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
+            <td onClick={() => addNumber(4)}>4</td>
+            <td onClick={() => addNumber(5)}>5</td>
+            <td onClick={() => addNumber(6)}>6</td>
           </tr>
           <tr>
-            <td>7</td>
-            <td>8</td>
-            <td>9</td>
+            <td onClick={() => addNumber(7)}>7</td>
+            <td onClick={() => addNumber(8)}>8</td>
+            <td onClick={() => addNumber(9)}>9</td>
           </tr>
           <tr>
-            <td>←</td>
-            <td>0</td>
-            <td>X</td>
+            <td onClick={removeLastInput}>←</td>
+            <td onClick={() => addNumber(0)}>0</td>
+            <td onClick={initNumber}>x</td>
           </tr>
           </tbody>
         </S.InputTable>
-        <S.Complete>작성하기</S.Complete>
+        <S.Complete active={isActiveComplete} onClick={onCompleteClick}>작성하기</S.Complete>
       </S.Input>
     </S.NumberInput>
   );
