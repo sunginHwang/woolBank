@@ -1,22 +1,9 @@
 import React, { useState } from 'react';
-import PhaseTemplate from '../components/common/PhaseTemplate';
-import styled from 'styled-components';
 import WalletInfoAddPhase from '../components/wallet/addPhase/WalletInfoAddPhase';
-import NumberInput from '../components/common/NumberInput';
-import HeaderWithBack from '../components/common/HeaderWithBack';
 import { IAssetType } from '../models/IAssetType';
 import { IWalletForm } from '../models/IWalletForm';
-
-const SecondPhase = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
-const ThirdPhase = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: green;
-`;
+import WalletAmountAddPhase from '../components/wallet/addPhase/walletAmountAddPhase';
+import WalletConfirmPhase from '../components/wallet/addPhase/WalletConfirmPhase';
 
 const assetTypes: IAssetType[] = [
   {
@@ -42,7 +29,7 @@ function Wallet() {
     amount: 0
   });
 
-  const onChangeWalletForm = (type: string, value: string) => {
+  const onChangeWalletForm = (type: string, value: string | number) => {
     setWalletForm({
       ...walletForm,
       [type]: value
@@ -55,43 +42,23 @@ function Wallet() {
 
   return (
     <>
-      <WalletInfoAddPhase
-        walletForm={walletForm}
-        assetTypes={assetTypes}
-        isActivePhase={phase >= 1}
-        onChangeWalletForm={onChangeWalletForm}
-        goNextPage={goNextPage}/>
-      <PhaseTemplate active={phase >= 2}>
-        <SecondPhase>
-          <HeaderWithBack title='예/적금액 작성' onBackClick={goPrevPage}/>
-          <NumberInput/>
-        </SecondPhase>
-      </PhaseTemplate>
-      <PhaseTemplate active={phase >= 3}>
-        <ThirdPhase>
-          <button onClick={goPrevPage}>이전페이지</button>
-        </ThirdPhase>
-      </PhaseTemplate>
+      <WalletInfoAddPhase walletForm={walletForm}
+                          assetTypes={assetTypes}
+                          isActivePhase={phase >= 1}
+                          onChangeWalletForm={onChangeWalletForm}
+                          goNextPage={goNextPage}/>
+      <WalletAmountAddPhase isActivePhase={phase >= 2}
+                            amount={walletForm.amount}
+                            onChangeWalletForm={onChangeWalletForm}
+                            goPrevPhase={goPrevPage}
+                            goNextPhase={goNextPage}/>
+      <WalletConfirmPhase wallet={walletForm}
+                          isActivePhase={phase >= 3}
+                          onComplete={goNextPage}
+                          goPrevPhase={goPrevPage}/>
     </>
   );
 }
 
-const S: {
-  Header: any;
-} = {
-  Header: styled.div`
-    height: 5.5rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 1rem;
-    background-color: ${(props) => props.theme.colors.white};
-    p {
-      font-size: 1.6rem;
-      margin-top: 0.4rem;
-      color: ${(props) => props.theme.colors.blackL1};
-    }
-  `
-};
 
 export default Wallet;
