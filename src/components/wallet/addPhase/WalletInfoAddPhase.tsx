@@ -116,7 +116,6 @@ function WalletInfoAddPhase({
 const S: {
   WalletInfoAddPhase: any;
   Content: any;
-  Menu: any;
   CompleteButton: any;
 } = {
   WalletInfoAddPhase: styled.div`
@@ -125,26 +124,6 @@ const S: {
     display: flex;
     flex-direction: column;
     background-color: ${(props) => props.theme.colors.white};
-  `,
-  Menu: styled.div`
-    display: flex;
-    flex-direction: column;
-
-    label {
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: ${(props) => props.theme.colors.blackL1};
-      text-align: left;
-    }
-
-    p {
-      border-bottom: 0.1rem solid ${(props) => props.theme.colors.blackL1};
-      padding-right: 3rem;
-      border-radius: 0;
-      height: 4rem;
-      color: #27173e;
-      font-size: 1.5rem;
-    }
   `,
   Content: styled.div`
     margin-top: 2rem;
