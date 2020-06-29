@@ -53,7 +53,7 @@ function WalletConfirmPhase({ wallet, isActivePhase, goPrevPhase, onComplete }: 
           active
           onClick={onComplete}
         >
-          작성하기
+          예/적금 만들기
         </S.CompleteButton>
       </S.WalletConfirmPhase>
     </PhaseTemplate>

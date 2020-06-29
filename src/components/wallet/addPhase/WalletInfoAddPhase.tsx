@@ -95,7 +95,7 @@ function WalletInfoAddPhase({
           onClick={goNextPhase}
         >
           작성하기
-        </S.CompleteButton>
+       </S.CompleteButton>
         <WalletTypeAddModal
           assetTypes={assetTypes}
           visible={openModalName === 'type'}

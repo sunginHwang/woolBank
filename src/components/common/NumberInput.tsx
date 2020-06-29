@@ -55,7 +55,7 @@ function NumberInput({ currentAmount, isActiveComplete, onChangeAmount, onComple
           </tr>
           </tbody>
         </S.InputTable>
-        <S.Complete active={isActiveComplete} onClick={onCompleteClick}>작성하기</S.Complete>
+        <S.Complete active={isActiveComplete} onClick={onCompleteClick}>완료</S.Complete>
       </S.Input>
     </S.NumberInput>
   );
