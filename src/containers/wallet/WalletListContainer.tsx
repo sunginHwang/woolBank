@@ -1,14 +1,50 @@
 import React from 'react';
+import { IWallet } from '../../models/IWallet';
+import WalletListItem2 from '../../components/wallet/WalletListItem2';
+import styled from 'styled-components';
 
+const assets: IWallet[] = [
+  {
+    title: '첫 고정적금',
+    asset: 30000,
+    maturityPrice: 300000,
+    type: '고정적금',
+    endAt: '2022-02-24'
+  },
+  {
+    title: '첫 자유적금',
+    asset: 3000000,
+    maturityPrice: 5000000,
+    type: '자유적금',
+    endAt: '2021-03-24'
+  },
+  {
+    title: '첫 자유적금',
+    asset: 3000000,
+    maturityPrice: 5000000,
+    type: '정기예금',
+    endAt: '2021-03-24'
+  }
+];
 
 function WalletListContainer() {
-
   return (
     <>
-      12
+      <S.Wrapper>
+        {assets.map((wallet, index) => (
+          <WalletListItem2 key={index} wallet={wallet} />
+        ))}
+      </S.Wrapper>
     </>
   );
 }
 
-
 export default WalletListContainer;
+
+const S: {
+  Wrapper: any;
+} = {
+  Wrapper: styled.div`
+    margin: 4rem 1rem 0 1rem;
+  `
+};
