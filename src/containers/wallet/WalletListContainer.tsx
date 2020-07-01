@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IWallet } from '../../models/IWallet';
 import WalletListItem2 from '../../components/wallet/WalletListItem2';
 import styled from 'styled-components';
+import ToggleTab from '../../components/common/ToggleTab';
+import NavigationBar from '../../components/layout/NavigationBar';
 
 const assets: IWallet[] = [
   {
@@ -28,12 +30,16 @@ const assets: IWallet[] = [
 ];
 
 function WalletListContainer() {
+  const tabs = ['진행중', '완료'];
+  const [ activeTab, setActiveTab ] = useState(tabs[0]);
   return (
     <>
       <S.Wrapper>
+        <ToggleTab tabs={tabs} activeTab={activeTab} onChangeTab={setActiveTab}/>
         {assets.map((wallet, index) => (
-          <WalletListItem2 key={index} wallet={wallet} />
+          <WalletListItem2 key={index} wallet={wallet}/>
         ))}
+        <NavigationBar activeNavBar='home'/>
       </S.Wrapper>
     </>
   );
