@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import WalletAddContainer from '../containers/wallet/WalletAddContainer';
 import WalletListContainer from '../containers/wallet/WalletListContainer';
 import HeaderWithBack from '../components/common/HeaderWithBack';
@@ -9,16 +9,17 @@ import colors from '../style/colors';
 
 function Wallet() {
   const history = useHistory();
-  const walletAddIconEl = <div onClick={history.goBack}><IcoCashPlus width={30} height={30} fill={colors.colors.navyD1}/></div>;
+  const [phase, setPhase] = useState(0);
+  const walletAddIconEl = <div onClick={() => setPhase(1)}><IcoCashPlus width={30} height={30}
+                                                                        fill={colors.colors.navyD1}/></div>;
   return (
     <>
       <HeaderWithBack title='예/적금 리스트'
                       right={walletAddIconEl}
                       onBackClick={history.goBack}
       />
-
       <WalletListContainer/>
-      {/*<WalletAddContainer/>*/}
+      {phase >= 1 && <WalletAddContainer phase={phase} onChangePhase={setPhase}/>}
     </>
   );
 }

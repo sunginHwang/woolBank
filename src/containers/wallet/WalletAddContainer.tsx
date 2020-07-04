@@ -23,11 +23,14 @@ const assetTypes: IAssetType[] = [
 
 
 type WalletAddContainerProps = {
-
+  phase: number,
+  onChangePhase: (phase: number) => void;
 };
 
-function WalletAddContainer({}: WalletAddContainerProps) {
-  const [phase, setPhase] = useState(1);
+function WalletAddContainer({
+                              phase,
+                              onChangePhase
+                            }: WalletAddContainerProps) {
   const [walletForm, setWalletForm] = useState<IWalletForm>({
     title: '',
     type: '',
@@ -42,9 +45,8 @@ function WalletAddContainer({}: WalletAddContainerProps) {
     });
   };
 
-
-  const goNextPage = () => setPhase(phase + 1);
-  const goPrevPage = () => setPhase(phase - 1);
+  const goNextPage = () => onChangePhase(phase + 1);
+  const goPrevPage = () => onChangePhase(phase - 1);
 
   return (
     <>
@@ -52,6 +54,7 @@ function WalletAddContainer({}: WalletAddContainerProps) {
                           assetTypes={assetTypes}
                           isActivePhase={phase >= 1}
                           onChangeWalletForm={onChangeWalletForm}
+                          goPrevPhase={goPrevPage}
                           goNextPage={goNextPage}/>
       <WalletAmountAddPhase isActivePhase={phase >= 2}
                             amount={walletForm.amount}

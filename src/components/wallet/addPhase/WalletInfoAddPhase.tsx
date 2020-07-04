@@ -14,6 +14,7 @@ type WalletInfoAddPhaseProps = {
   isActivePhase: boolean;
   assetTypes: IAssetType[];
   goNextPage: () => void;
+  goPrevPhase: () => void;
   walletForm: IWalletForm;
   onChangeWalletForm: (type: string, value: string) => void;
 };
@@ -24,7 +25,8 @@ function WalletInfoAddPhase({
                               walletForm,
                               assetTypes,
                               onChangeWalletForm,
-                              goNextPage
+                              goNextPage,
+                              goPrevPhase
                             }: WalletInfoAddPhaseProps) {
 
   // 모달 팝업
@@ -63,7 +65,7 @@ function WalletInfoAddPhase({
   return (
     <PhaseTemplate active={isActivePhase}>
       <S.WalletInfoAddPhase>
-        <HeaderWithBack title='예/적금 정보 작성하기' onBackClick={() => console.log('12')}/>
+        <HeaderWithBack title='예/적금 정보 작성하기' onBackClick={goPrevPhase}/>
         <S.Content>
           <BaseInput
             label='예/적금명'
@@ -95,7 +97,7 @@ function WalletInfoAddPhase({
           onClick={goNextPhase}
         >
           작성하기
-       </S.CompleteButton>
+        </S.CompleteButton>
         <WalletTypeAddModal
           assetTypes={assetTypes}
           visible={openModalName === 'type'}
