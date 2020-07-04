@@ -28,6 +28,7 @@ const S: any = {
     align-items: center;
     padding-left: 1rem;
     background-color: ${(props) => props.theme.colors.white};
+    border-bottom: .1rem solid #DCDCE9;
     
     div {
       display: flex;
