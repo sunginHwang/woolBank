@@ -31,14 +31,18 @@ const assets: IWallet[] = [
 
 function WalletListContainer() {
   const tabs = ['진행중', '완료'];
-  const [ activeTab, setActiveTab ] = useState(tabs[0]);
+  const [activeTab, setActiveTab] = useState(tabs[0]);
+
   return (
     <>
       <S.Wrapper>
+
         <ToggleTab tabs={tabs} activeTab={activeTab} onChangeTab={setActiveTab}/>
-        {assets.map((wallet, index) => (
-          <WalletListItem2 key={index} wallet={wallet}/>
-        ))}
+        <S.List>
+          {assets.map((wallet, index) => (
+            <WalletListItem2 key={index} wallet={wallet}/>
+          ))}
+        </S.List>
         <NavigationBar activeNavBar='home'/>
       </S.Wrapper>
     </>
@@ -49,8 +53,12 @@ export default WalletListContainer;
 
 const S: {
   Wrapper: any;
+  List: any;
 } = {
   Wrapper: styled.div`
-    margin: 4rem 1rem 0 1rem;
+    margin: 1rem 1rem 0 1rem;
+  `,
+  List: styled.div`
+    margin-top: 2rem;
   `
 };
