@@ -3,7 +3,6 @@ import { IWallet } from '../../models/IWallet';
 import WalletListItem2 from '../../components/wallet/WalletListItem2';
 import styled from 'styled-components';
 import ToggleTab from '../../components/common/ToggleTab';
-import NavigationBar from '../../components/layout/NavigationBar';
 
 const assets: IWallet[] = [
   {
@@ -42,7 +41,6 @@ function WalletListContainer() {
             <WalletListItem2 key={index} wallet={wallet}/>
           ))}
         </S.List>
-        <NavigationBar activeNavBar='home'/>
       </S.Wrapper>
     </>
   );

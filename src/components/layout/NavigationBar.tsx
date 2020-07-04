@@ -5,43 +5,47 @@ import IcoBucketOutline from '../icon/IcoBucketOutline';
 import IcoWalletOutline from '../icon/IcoWallet';
 import IcoHomeOutline from '../icon/IcoHomeOutline';
 import { INavigationBar } from '../../models/layout/INavigationBar';
+import { Link, useHistory } from 'react-router-dom';
 
 
-type NavigationBarProps = {
-  activeNavBar: string;
-};
+type NavigationBarProps = {};
 
 const navigations: INavigationBar[] = [{
   name: '홈',
   value: 'home',
+  link: '/',
   icon: <IcoHomeOutline/>
 }, {
   name: '자산관리',
   value: 'wallet',
+  link: '/wallet',
   icon: <IcoWalletOutline/>
 }, {
   name: '버킷리스트',
   value: 'bucketList',
+  link: '/bucketList',
   icon: <IcoBucketOutline/>
 }, {
   name: '내 정보',
   value: 'me',
+  link: '/me',
   icon: <IcoAccountOutline/>
 }];
 
-function NavigationBar({ activeNavBar }: NavigationBarProps) {
-
+function NavigationBar({ }: NavigationBarProps) {
+  const history = useHistory();
+  const isActiveBar = (link: string) => link === history.location.pathname;
 
   return (
     <S.NavigationBar>
       {
         navigations.map(navigation => {
           return (
-            <S.NavigationBarTag key={navigation.name} active={navigation.value === activeNavBar}>
-              <div>
+            <S.NavigationBarTag key={navigation.name} active={isActiveBar(navigation.link)}>
+              <Link to={navigation.link}>
                 {navigation.icon}
                 <span>{navigation.name}</span>
-              </div>
+              </Link>
             </S.NavigationBarTag>
           );
         })
@@ -68,7 +72,7 @@ const S: {
     background-color: ${props => props.theme.colors.white};
     z-index: ${props => props.theme.zIndex.navigationBar};  
   `,
-  NavigationBarTag: styled.a`
+  NavigationBarTag: styled.div`
     letter-spacing: 0;
       text-align: center;
       width: 100%;
@@ -80,7 +84,7 @@ const S: {
       position: relative;
       color: ${(props: any) => props.active ? props.theme.colors.navyD1 : props.theme.colors.blackL1};
     
-      div{
+      a{
         width: 100%;
         line-height: 1.2rem;
         padding: 0 4px;
@@ -91,6 +95,7 @@ const S: {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        color: ${(props: any) => props.active ? props.theme.colors.navyD1 : props.theme.colors.greyD2};
         
         span{
           margin-top: .4rem;

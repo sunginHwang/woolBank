@@ -5,6 +5,7 @@ import HeaderWithBack from '../components/common/HeaderWithBack';
 import { useHistory } from 'react-router';
 import IcoCashPlus from '../components/icon/IcoCashPlus';
 import colors from '../style/colors';
+import NavigationBar from '../components/layout/NavigationBar';
 
 
 function Wallet() {
@@ -20,6 +21,7 @@ function Wallet() {
       />
       <WalletListContainer/>
       {phase >= 1 && <WalletAddContainer phase={phase} onChangePhase={setPhase}/>}
+      <NavigationBar />
     </>
   );
 }

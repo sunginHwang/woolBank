@@ -49,7 +49,7 @@ function Main() {
           bucketList.map((bucket, index) => <BucketListItem key={index} bucketList={bucket}/>)
         }
       </MainCardArea>
-      <NavigationBar activeNavBar='home'/>
+      <NavigationBar/>
     </>
   );
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import PhaseTemplate from '../../common/PhaseTemplate';
 import HeaderWithBack from '../../common/HeaderWithBack';
 import NumberInput from '../../common/NumberInput';
@@ -26,11 +25,5 @@ function WalletAmountAddPhase({ amount, isActivePhase, onChangeWalletForm, goPre
     </PhaseTemplate>
   );
 }
-
-const S: {
-  WalletAmountAddPhase: any
-} = {
-  WalletAmountAddPhase: styled.div``
-};
 
 export default WalletAmountAddPhase;
