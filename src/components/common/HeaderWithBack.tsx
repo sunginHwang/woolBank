@@ -6,15 +6,19 @@ import IcoChevronLeft from '../icon/IcoChevronLeft';
 type HeaderWithBackProps = {
   title: string;
   onBackClick: () => void;
+  right?: React.ReactNode;
 };
 
 
-function HeaderWithBack({ title, onBackClick }: HeaderWithBackProps) {
+function HeaderWithBack({ title, onBackClick, right }: HeaderWithBackProps) {
   return (
     <S.HeaderWithBack>
       <div onClick={onBackClick}>
         <IcoChevronLeft width={26} height={26} fill={theme.colors.navyD1}/>
         <p>{title}</p>
+      </div>
+      <div>
+        {right}
       </div>
     </S.HeaderWithBack>
   );
@@ -24,9 +28,9 @@ const S: any = {
   HeaderWithBack: styled.div`
     height: 5.5rem;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    padding-left: 1rem;
+    padding: 0 1.6rem;
     background-color: ${(props) => props.theme.colors.white};
     border-bottom: .1rem solid #DCDCE9;
     

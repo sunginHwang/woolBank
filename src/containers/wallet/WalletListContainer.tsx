@@ -36,7 +36,6 @@ function WalletListContainer() {
   return (
     <>
       <S.Wrapper>
-
         <ToggleTab tabs={tabs} activeTab={activeTab} onChangeTab={setActiveTab}/>
         <S.List>
           {assets.map((wallet, index) => (
