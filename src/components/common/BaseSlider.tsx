@@ -21,7 +21,6 @@ function BaseSlider({
   const [val, setValue] = useState(0);
   const te = (e: any) => setValue(e.target.value);
   const test = `${(20 - (val * .4)) * .1}rem`;
-  console.log('rendering');
   return (
     <S.BaseSlider wrapperWidth={`${val}%`} test={test}>
       <div className="range-value" id="rangeV">
@@ -37,32 +36,37 @@ const S: any = {
     background: transparent;
     border: none;
     position: relative;
+ 
     input[type=range] {
-    -webkit-appearance: none;
-    margin: 20px 0;
-    width: 100%;
-    background: linear-gradient(90deg, ${props => props.theme.colors.navyD1} ${(props: any) => props.wrapperWidth}, rgb(215, 220, 223) ${(props: any) => props.wrapperWidth});
-;
-    }
-    input[type=range]:focus {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      margin: 2rem 0;
+      width: 100%;
+      outline: none;
+      background: linear-gradient(90deg, ${props => props.theme.colors.navyD1} ${(props: any) => props.wrapperWidth}, rgb(215, 220, 223) ${(props: any) => props.wrapperWidth});
+        
+      &:focus{
         outline: none;
-    }
-    input[type=range]::-webkit-slider-runnable-track {
-        width: 100%;
-        height: .4rem;
-        cursor: pointer;
-       // background-color: ${props => props.theme.colors.greyL6};
-        border-radius: 1.3rem;
-    }
-    input[type=range]::-webkit-slider-thumb {
-        height: 4rem;
-        width: 4rem;
-        border: .4rem solid ${props => props.theme.colors.navyD1};
-        border-radius: 50%;
-        background: #fff;
-        cursor: pointer;
-        -webkit-appearance: none;
-        margin-top: -1.8rem;
+      }
+      
+      &::-webkit-slider-runnable-track {
+          width: 100%;
+          height: .4rem;
+          cursor: pointer;
+          border-radius: 1.3rem;
+      }
+      
+      &::-webkit-slider-thumb {
+          height: 4rem;
+          width: 4rem;
+          border: .4rem solid ${props => props.theme.colors.navyD1};
+          border-radius: 50%;
+          background: #fff;
+          cursor: pointer;
+          -webkit-appearance: none;
+          margin-top: -1.8rem;
+      }
     }
     
     >div{
@@ -90,12 +94,12 @@ const S: any = {
       width: 0;
       height: 0;
       border-top: .5rem solid ${props => props.theme.colors.navyD1};
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
+      border-left: .5rem solid transparent;
+      border-right: .5rem solid transparent;
       top: 100%;
       left: 50%;
-      margin-left: -5px;
-      margin-top: -1px;
+      margin-left: -.5rem;
+      margin-top: -.1rem;
     }
   }
 }
@@ -103,20 +107,3 @@ const S: any = {
 };
 
 export default BaseSlider;
-
-/*
-HTML CSS JS Result
-const
-  range = document.getElementById('range'),
-  rangeV = document.getElementById('rangeV'),
-  setValue = ()=>{
-    const
-      newValue = Number( (range.value - range.min) * 100 / (range.max - range.min) ),
-      newPosition = 10 - (newValue * 0.2);
-    rangeV.innerHTML = `<span>${range.value}</span>`;
-    rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
-  };
-document.addEventListener("DOMContentLoaded", setValue);
-range.addEventListener('input', setValue);
-
-*/

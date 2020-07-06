@@ -3,4 +3,5 @@ export interface IWalletForm {
   type: string;
   date: string | Date;
   amount: number;
+  rate: number;
 }

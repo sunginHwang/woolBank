@@ -92,6 +92,11 @@ const GlobalStyle = createGlobalStyle`
       padding: 0;
   }
   
+  input[type=range] { width:100%; -webkit-appearance: none; background: transparent; }
+  input[type=range]:focus { outline: none; }
+  input[type=range]::-webkit-slider-thumb {  -webkit-appearance: none;}
+
+
   /* Make \`a\` like a button */
   [role="button"] {
       color: inherit;

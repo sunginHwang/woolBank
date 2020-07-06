@@ -54,6 +54,9 @@ function WalletListItem2({
         <p>만기일 : {endAt}</p>
         <span>만기금액 : {addComma(maturityPrice)}원</span>
       </S.Bottom>
+      <S.Progress>
+        <div/>
+      </S.Progress>
     </CardItem>
   );
 }
@@ -62,6 +65,7 @@ const S: {
   Top: any;
   Content: any;
   Bottom: any;
+  Progress: any;
 } = {
   Top: styled.div`
     display: flex;
@@ -104,6 +108,19 @@ const S: {
       opacity: 0.7;
       color: ${(props) => props.theme.colors.navyD1};
     }
+  `,
+  Progress: styled.div`
+    margin-top: 1.6rem;
+    height: .1rem;
+    border-radius: .3rem;
+    background-color: ${(props) => props.theme.colors.greyL2};
+    
+    div {
+      width: 80%;
+      height: 100%;
+      background-color: ${(props) => props.theme.colors.navyD1};
+    }
+    
   `
 };
 

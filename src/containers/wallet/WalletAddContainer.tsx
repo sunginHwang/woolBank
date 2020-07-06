@@ -4,6 +4,7 @@ import { IWalletForm } from '../../models/IWalletForm';
 import WalletInfoAddPhase from '../../components/wallet/addPhase/WalletInfoAddPhase';
 import WalletAmountAddPhase from '../../components/wallet/addPhase/walletAmountAddPhase';
 import WalletConfirmPhase from '../../components/wallet/addPhase/WalletConfirmPhase';
+import AddRatePhase from '../../components/wallet/addPhase/AddRatePhase';
 
 
 const assetTypes: IAssetType[] = [
@@ -35,6 +36,7 @@ function WalletAddContainer({
     title: '',
     type: '',
     date: '',
+    rate: 0,
     amount: 0
   });
 
@@ -65,6 +67,9 @@ function WalletAddContainer({
                           isActivePhase={phase >= 3}
                           onComplete={goNextPage}
                           goPrevPhase={goPrevPage}/>
+      <AddRatePhase isActivePhase={phase >= 4}
+                    rate={walletForm.rate}
+                    goPrevPhase={goPrevPage}/>
     </>
   );
 }
