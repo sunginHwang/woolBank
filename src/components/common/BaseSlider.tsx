@@ -7,6 +7,7 @@ type BaseSliderProps = {
   max: number;
   step: number;
   value: number;
+  hoverMessage: string;
   height?: number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -16,6 +17,7 @@ function BaseSlider({
   max,
   step,
   height = 4,
+  hoverMessage,
   value,
   onChange
 }: BaseSliderProps) {
@@ -29,21 +31,23 @@ function BaseSlider({
     onChange && onChange(e);
   };
 
+  const rangePercent = ((value - min) * 100) / (max - min);
+
   const setSlideStyle = (value: number) => {
     if (!inputRef.current || !displayRef.current) {
       return;
     }
 
-    inputRef.current.style.background = `linear-gradient(90deg, ${colors.colors.navyD1} ${value}%, rgb(215, 220, 223) ${value}%)`;
-    displayRef.current.style.left = `calc(${value}%  + ${
-      (20 - value * 0.4) * 0.1
+    inputRef.current.style.background = `linear-gradient(90deg, ${colors.colors.navyD1} ${rangePercent}%, rgb(215, 220, 223) ${rangePercent}%)`;
+    displayRef.current.style.left = `calc(${rangePercent}%  + ${
+      (20 - rangePercent * 0.4) * 0.1
     }rem)`;
   };
 
   return (
     <S.BaseSlider>
       <div className='range-value' id='rangeV' ref={displayRef}>
-        <span>{Number(value * 0.1).toFixed(2)}%</span>
+        <span>{hoverMessage}</span>
       </div>
       <input
         ref={inputRef}
