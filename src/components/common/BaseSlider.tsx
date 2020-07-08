@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import colors from '../../style/colors';
 
 type BaseSliderProps = {
   min: number;
@@ -7,26 +8,53 @@ type BaseSliderProps = {
   step: number;
   value: number;
   height?: number;
-  onChange?: React.ChangeEventHandler;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 function BaseSlider({
-                      min,
-                      max,
-                      step,
-                      height = 4,
-                      value,
-                      onChange
-                    }: BaseSliderProps) {
-  const [val, setValue] = useState(0);
-  const te = (e: any) => setValue(e.target.value);
-  const test = `${(20 - (val * .4)) * .1}rem`;
+  min,
+  max,
+  step,
+  height = 4,
+  value,
+  onChange
+}: BaseSliderProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const displayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => setSlideStyle(value), []);
+
+  const onSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSlideStyle(Number(e.target.value));
+    onChange && onChange(e);
+  };
+
+  const setSlideStyle = (value: number) => {
+    if (!inputRef.current || !displayRef.current) {
+      return;
+    }
+
+    inputRef.current.style.background = `linear-gradient(90deg, ${colors.colors.navyD1} ${value}%, rgb(215, 220, 223) ${value}%)`;
+    displayRef.current.style.left = `calc(${value}%  + ${
+      (20 - value * 0.4) * 0.1
+    }rem)`;
+  };
+
   return (
-    <S.BaseSlider wrapperWidth={`${val}%`} test={test}>
-      <div className="range-value" id="rangeV">
-        <span>{Number(val * .1).toFixed(2)}%</span>
+    <S.BaseSlider>
+      <div className='range-value' id='rangeV' ref={displayRef}>
+        <span>{Number(value * 0.1).toFixed(2)}%</span>
       </div>
-      <input type='range' onChange={te} height={height} value={val} min={min} max={max} step={step}/>
+      <input
+        ref={inputRef}
+        type='range'
+        onChange={onSliderChange}
+        height={height}
+        value={value}
+        min={min}
+        max={max}
+        step={step}
+      />
     </S.BaseSlider>
   );
 }
@@ -44,7 +72,8 @@ const S: any = {
       margin: 2rem 0;
       width: 100%;
       outline: none;
-      background: linear-gradient(90deg, ${props => props.theme.colors.navyD1} ${(props: any) => props.wrapperWidth}, rgb(215, 220, 223) ${(props: any) => props.wrapperWidth});
+      background: linear-gradient(90deg, ${(props) =>
+        props.theme.colors.navyD1} 0%, rgb(215, 220, 223) 0);
         
       &:focus{
         outline: none;
@@ -60,7 +89,7 @@ const S: any = {
       &::-webkit-slider-thumb {
           height: 4rem;
           width: 4rem;
-          border: .4rem solid ${props => props.theme.colors.navyD1};
+          border: .6rem solid ${(props) => props.theme.colors.navyD1};
           border-radius: 50%;
           background: #fff;
           cursor: pointer;
@@ -69,16 +98,17 @@ const S: any = {
       }
     }
     
-    >div{
+     >div{
       position: absolute;
-      top: -110%;
-      left: calc(${(props: any) => props.wrapperWidth} + ${(props: any) => props.test});
+      top: -130%;
+      left: 2rem;
+      
       span{
         width: 7rem;
         height: 4rem;
         line-height: 4rem;
         text-align: center;
-        background: ${props => props.theme.colors.navyD1};
+        background: ${(props) => props.theme.colors.navyD1};
         color: #fff;
         font-size: 1.6rem;
         display: block;
@@ -93,7 +123,7 @@ const S: any = {
       position: absolute;
       width: 0;
       height: 0;
-      border-top: .5rem solid ${props => props.theme.colors.navyD1};
+      border-top: .5rem solid ${(props) => props.theme.colors.navyD1};
       border-left: .5rem solid transparent;
       border-right: .5rem solid transparent;
       top: 100%;
