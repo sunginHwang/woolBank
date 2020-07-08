@@ -8,6 +8,7 @@ import { DATE_FORMAT, parseDate } from '../../../support/util/date';
 import PhaseTemplate from '../../common/PhaseTemplate';
 import HeaderWithBack from '../../common/HeaderWithBack';
 import { IWalletForm } from '../../../models/IWalletForm';
+import BaseSlider from '../../common/BaseSlider';
 
 type modalType = 'type' | 'date' | '';
 type WalletInfoAddPhaseProps = {
@@ -31,6 +32,7 @@ function WalletInfoAddPhase({
 
   // 모달 팝업
   const [openModalName, setOpenModalName] = useState<modalType>('');
+  const [assetMonth, setAssetMonth] = useState(0);
   const openTypeModal = () => setOpenModalName('type');
   const openDateModal = () => setOpenModalName('date');
   const closeModal = () => setOpenModalName('');
@@ -38,12 +40,12 @@ function WalletInfoAddPhase({
   // 폼 값 초기화
   const clearWalletTitle = () => onChangeWalletForm('title', '');
   const clearWalletType = () => onChangeWalletForm('type', '');
-  const clearWalletDate = () => onChangeWalletForm('date', '');
+  const clearWalletDate = () => onChangeWalletForm('startDate', '');
 
   // 폼 값 변경 이벤트
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => onChangeWalletForm('title', e.target.value);
   const onChangeDate = (date: string) => {
-    onChangeWalletForm('date', date);
+    onChangeWalletForm('startDate', date);
     closeModal();
   };
   const onChangeAssetType = (assetType: IAssetType) => {
@@ -51,13 +53,17 @@ function WalletInfoAddPhase({
     closeModal();
   };
 
-  // todo 이전 날짜 비교하기
   const isAllowWalletFormValidation =
-    walletForm.title !== '' && walletForm.type !== '' && walletForm.date !== '';
+    walletForm.title !== '' && walletForm.type !== '' && walletForm.startDate !== '' && assetMonth > 0;
 
   // 다음 페이즈 입력으로 이동
   const goNextPhase = useCallback(() => {
     if (isAllowWalletFormValidation) {
+      const assetStartDate = new Date(walletForm.startDate);
+      assetStartDate.setMonth(assetStartDate.getMonth() + assetMonth)
+      const assetEndDate = assetStartDate.toLocaleDateString();
+      console.log(assetEndDate);
+      onChangeWalletForm('endDate', parseDate(assetEndDate, DATE_FORMAT.YYYY_MM_DD));
       goNextPage();
     }
   }, [isAllowWalletFormValidation]);
@@ -84,13 +90,25 @@ function WalletInfoAddPhase({
             disable
           />
           <BaseInput
-            label='만기일'
-            placeHolder='만기일을 선택해 주세요.'
+            label='시작일'
+            placeHolder='시작일을 선택해 주세요.'
             onClick={openDateModal}
             onClear={clearWalletDate}
-            value={parseDate(walletForm.date, DATE_FORMAT.YYYY_MM_DD)}
+            value={parseDate(walletForm.startDate, DATE_FORMAT.YYYY_MM_DD)}
             disable
           />
+          <S.AssetMonth>
+            <p>예/적금 기간 설정</p>
+            <BaseSlider
+              min={0}
+              max={60}
+              step={6}
+              height={2}
+              value={assetMonth}
+              hoverMessage={`${assetMonth} 개월`}
+              onChange={(e) => setAssetMonth(Number(e.target.value))}
+            />
+          </S.AssetMonth>
         </S.Content>
         <S.CompleteButton
           active={isAllowWalletFormValidation}
@@ -108,7 +126,7 @@ function WalletInfoAddPhase({
           visible={openModalName === 'date'}
           oncloseModal={closeModal}
           onChangeDate={onChangeDate}
-          date={walletForm.date === '' ? new Date() : new Date(walletForm.date)}
+          date={walletForm.startDate === '' ? new Date() : new Date(walletForm.startDate)}
         />
       </S.WalletInfoAddPhase>
     </PhaseTemplate>
@@ -119,6 +137,7 @@ const S: {
   WalletInfoAddPhase: any;
   Content: any;
   CompleteButton: any;
+  AssetMonth: any;
 } = {
   WalletInfoAddPhase: styled.div`
     height: 100%;
@@ -142,6 +161,15 @@ const S: {
     color: ${(props) => props.theme.colors.white};
     background-color: ${(props) => props.theme.colors.navyD1};
     opacity: ${(props: any) => (props.active ? 1 : 0.5)};
+  `,
+  AssetMonth: styled.div`
+    >p{
+      margin-bottom: 7rem;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color:  ${(props) => props.theme.colors.blackL1};
+      text-align: left;
+    }
   `
 };
 

@@ -9,7 +9,7 @@ type BaseSliderProps = {
   value: number;
   hoverMessage: string;
   height?: number;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 function BaseSlider({
@@ -31,13 +31,13 @@ function BaseSlider({
     onChange && onChange(e);
   };
 
-  const rangePercent = ((value - min) * 100) / (max - min);
+  const getRangePercent = (value: number) => ((value - min) * 100) / (max - min);
 
   const setSlideStyle = (value: number) => {
     if (!inputRef.current || !displayRef.current) {
       return;
     }
-
+    const rangePercent = getRangePercent(value);
     inputRef.current.style.background = `linear-gradient(90deg, ${colors.colors.navyD1} ${rangePercent}%, rgb(215, 220, 223) ${rangePercent}%)`;
     displayRef.current.style.left = `calc(${rangePercent}%  + ${
       (20 - rangePercent * 0.4) * 0.1

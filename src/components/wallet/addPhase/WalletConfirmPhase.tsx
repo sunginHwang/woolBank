@@ -37,7 +37,7 @@ function WalletConfirmPhase({ wallet, isActivePhase, goPrevPhase, onComplete }: 
               </S.CardItem>
               <S.CardItem>
                 <span>만기시점</span>
-                <p>{parseDate(wallet.date, DATE_FORMAT.YYYY_MM_DD)}</p>
+                <p>{parseDate(wallet.endDate, DATE_FORMAT.YYYY_MM_DD)}</p>
               </S.CardItem>
             </S.CardRow>
           </div>

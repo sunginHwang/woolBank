@@ -1,7 +1,8 @@
 export interface IWalletForm {
   title: string;
   type: string;
-  date: string | Date;
+  startDate: string | Date;
+  endDate: string | Date;
   amount: number;
   rate: number;
 }

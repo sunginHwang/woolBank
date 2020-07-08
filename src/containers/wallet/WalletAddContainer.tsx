@@ -35,7 +35,8 @@ function WalletAddContainer({
   const [walletForm, setWalletForm] = useState<IWalletForm>({
     title: '',
     type: '',
-    date: '',
+    startDate: '',
+    endDate: '',
     rate: 0,
     amount: 0
   });
@@ -66,6 +67,7 @@ function WalletAddContainer({
       <AddRatePhase isActivePhase={phase >= 3}
                     wallet={walletForm}
                     onChangeWalletForm={onChangeWalletForm}
+                    goNextPhase={goNextPage}
                     goPrevPhase={goPrevPage}/>
       <WalletConfirmPhase wallet={walletForm}
                           isActivePhase={phase >= 4}
