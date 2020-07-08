@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PhaseTemplate from '../../common/PhaseTemplate';
 import HeaderWithBack from '../../common/HeaderWithBack';
 import BaseSlider from '../../common/BaseSlider';
-import { addComma } from '../../../support/util/String';
 import { IWalletForm } from '../../../models/IWalletForm';
-import { diffMonth } from '../../../support/util/date';
 
 type AddRatePhaseProps = {
   isActivePhase: boolean;
@@ -20,14 +18,9 @@ function AddRatePhase({
   goPrevPhase,
   onChangeWalletForm
 }: AddRatePhaseProps) {
+  const [a, se] = useState(0);
   const onChangeRate = (e: React.ChangeEvent<HTMLInputElement>) =>
-    onChangeWalletForm('rate', Number(e.target.value));
-
-  const diffWalletMonth = diffMonth(new Date(), new Date(wallet.date));
-  console.log(diffWalletMonth);
-  console.log(wallet.rate * 0.1);
-  const futureRateAmount = wallet.amount * diffWalletMonth * ((diffWalletMonth + 1) / 2) * (wallet.rate * 0.1 / 12);
-
+    se(Number(e.target.value));
   return (
     <PhaseTemplate active={isActivePhase}>
       <HeaderWithBack title='이율 설정' onBackClick={goPrevPhase} />
@@ -37,13 +30,14 @@ function AddRatePhase({
             <p>적금의 이율을 설정해 주세요.</p>
           </S.Header>
           <div>
-            <BaseSlider min={1} max={100} value={wallet.rate} step={1} onChange={onChangeRate} />
+            <BaseSlider
+              min={1}
+              max={100}
+              value={a}
+              step={1}
+              onChange={onChangeRate}
+            />
           </div>
-          <S.Amount>
-            <p>
-              예상 만기 이자 : <span>{addComma(futureRateAmount)}원</span>
-            </p>
-          </S.Amount>
           <S.CompleteButton>이율 설정</S.CompleteButton>
         </div>
       </S.AddRatePhase>
@@ -107,4 +101,4 @@ const S: {
   `
 };
 
-export default React.memo(AddRatePhase);
+export default AddRatePhase;

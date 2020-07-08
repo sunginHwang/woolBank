@@ -63,13 +63,15 @@ function WalletAddContainer({
                             onChangeWalletForm={onChangeWalletForm}
                             goPrevPhase={goPrevPage}
                             goNextPhase={goNextPage}/>
+      <AddRatePhase isActivePhase={phase >= 3}
+                    wallet={walletForm}
+                    onChangeWalletForm={onChangeWalletForm}
+                    goPrevPhase={goPrevPage}/>
       <WalletConfirmPhase wallet={walletForm}
-                          isActivePhase={phase >= 3}
+                          isActivePhase={phase >= 4}
                           onComplete={goNextPage}
                           goPrevPhase={goPrevPage}/>
-      <AddRatePhase isActivePhase={phase >= 4}
-                    rate={walletForm.rate}
-                    goPrevPhase={goPrevPage}/>
+
     </>
   );
 }
