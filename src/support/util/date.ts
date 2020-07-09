@@ -10,12 +10,15 @@ export const secondsToTime = (seconds: number): string => {
 export const secondsToHour = (seconds: number): number =>
   Math.floor(seconds / 3600);
 
-export const diffMonth = (startDay: Date, endDay: Date): number => {
+export const diffMonth = (startDay: Date | string, endDay: Date | string): number => {
   if (!startDay || !endDay) {
     return 0;
   }
 
-  let diff = (startDay.getTime() - endDay.getTime()) / 1000;
+  const firstDay = new Date(startDay);
+  const secondDay = new Date(endDay);
+
+  let diff = (firstDay.getTime() - secondDay.getTime()) / 1000;
   diff /= 60 * 60 * 24 * 7 * 4;
   return Math.abs(Math.round(diff));
 };

@@ -1,6 +1,7 @@
 import { IAssetType } from '../models/IAssetType';
 
 export const NORMAL_RATE_TAX = 0.154;
+export const PREFERENTIAL_TAX = 0.095;
 
 export enum SAVING_TYPE {
   REGULAR_INSTALLMENT_SAVINGS = 'regularInstallmentSavings',
@@ -10,7 +11,9 @@ export enum SAVING_TYPE {
 
 export enum TAX_TYPE {
   TAX_FREE = 'taxFree',
-  NORMAL_TAX = 'normalTax'
+  NORMAL_TAX = 'normalTax',
+  PREFERENTIAL_TAX = 'preferentialTax',
+
 }
 
 export const INSTALLMENT_SAVINGS_TAX: IAssetType[] = [
@@ -21,6 +24,10 @@ export const INSTALLMENT_SAVINGS_TAX: IAssetType[] = [
   {
     type: TAX_TYPE.TAX_FREE,
     name: '비과세'
+  },
+  {
+    type: TAX_TYPE.PREFERENTIAL_TAX,
+    name: '세금우대'
   }
 ];
 

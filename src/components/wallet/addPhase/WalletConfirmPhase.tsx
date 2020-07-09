@@ -5,6 +5,7 @@ import { IWalletForm } from '../../../models/IWalletForm';
 import HeaderWithBack from '../../common/HeaderWithBack';
 import { addComma } from '../../../support/util/String';
 import { DATE_FORMAT, parseDate } from '../../../support/util/date';
+import { getRateInterestByWallet, getSavingPartName, getTaxTypeKo } from '../../../support/util/bank';
 
 type WalletConfirmPhaseProps = {
   isActivePhase: boolean;
@@ -14,25 +15,41 @@ type WalletConfirmPhaseProps = {
 };
 
 function WalletConfirmPhase({ wallet, isActivePhase, goPrevPhase, onComplete }: WalletConfirmPhaseProps) {
+  const savingPartName = getSavingPartName(wallet.savingType.type);
+  const taxTypeKo = getTaxTypeKo(wallet.taxType);
   return (
     <PhaseTemplate active={isActivePhase}>
-      <HeaderWithBack title='예/적금 작성'
+      <HeaderWithBack title='작성 정보 확인'
                       onBackClick={goPrevPhase}/>
       <S.WalletConfirmPhase>
-        <p>작성 정보 확인</p>
+        <p>{savingPartName} 정보 확인</p>
         <S.Card>
           <div>
             <S.CardItem>
-              <span>예/적금 명</span>
+              <span>{savingPartName} 이름</span>
               <p>{wallet.title}</p>
             </S.CardItem>
             <S.CardItem>
-              <span>예/적금 액</span>
+              <span>만기 원금</span>
               <p>{addComma(wallet.amount)} 원</p>
+            </S.CardItem>
+            <S.CardItem>
+              <span>만기시 예상 이자</span>
+              <p>{addComma(getRateInterestByWallet(wallet))} 원</p>
             </S.CardItem>
             <S.CardRow>
               <S.CardItem>
-                <span>예/적금 종류</span>
+                <span>세금종류</span>
+                <p>{taxTypeKo}</p>
+              </S.CardItem>
+              <S.CardItem>
+                <span>{savingPartName} 이율</span>
+                <p>{wallet.rate}%</p>
+              </S.CardItem>
+            </S.CardRow>
+            <S.CardRow>
+              <S.CardItem>
+                <span>종류</span>
                 <p>{wallet.savingType.name}</p>
               </S.CardItem>
               <S.CardItem>

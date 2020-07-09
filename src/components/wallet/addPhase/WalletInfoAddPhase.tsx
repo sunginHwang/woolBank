@@ -74,7 +74,7 @@ function WalletInfoAddPhase({
     <PhaseTemplate active={isActivePhase}>
       <S.WalletInfoAddPhase>
         <HeaderWithBack
-          title='예/적금 정보 작성하기'
+          title='정보 작성하기'
           onBackClick={goPrevPhase}
         />
         <S.Content>

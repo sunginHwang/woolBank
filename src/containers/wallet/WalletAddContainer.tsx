@@ -5,6 +5,7 @@ import WalletAmountAddPhase from '../../components/wallet/addPhase/walletAmountA
 import WalletConfirmPhase from '../../components/wallet/addPhase/WalletConfirmPhase';
 import AddRatePhase from '../../components/wallet/addPhase/AddRatePhase';
 import { IAssetType } from '../../models/IAssetType';
+import { TAX_TYPE } from '../../support/constants';
 
 type WalletAddContainerProps = {
   phase: number;
@@ -17,6 +18,7 @@ function WalletAddContainer({ phase, onChangePhase }: WalletAddContainerProps) {
     savingType: { type: '', name: '' },
     startDate: '',
     endDate: '',
+    taxType: TAX_TYPE.NORMAL_TAX,
     rate: 0,
     amount: 0
   });
