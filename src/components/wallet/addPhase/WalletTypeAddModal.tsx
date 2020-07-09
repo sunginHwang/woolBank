@@ -2,17 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import ModalDeem from '../../common/modal/ModalDeem';
 import { IAssetType } from '../../../models/IAssetType';
+import { INSTALLMENT_SAVINGS } from '../../../support/constants';
 
 type WalletTypeAddModalProps = {
   visible: boolean;
-  assetTypes: IAssetType[];
   oncloseModal: any;
   onChangeAssetType: (assetType: IAssetType) => void;
 };
 
 function WalletTypeAddModal({
   visible,
-  assetTypes,
   oncloseModal,
   onChangeAssetType
 }: WalletTypeAddModalProps) {
@@ -22,13 +21,13 @@ function WalletTypeAddModal({
         <S.Title>
           <p>작성하실 예/적금 종류를 선택해주세요.</p>
         </S.Title>
-        {assetTypes.map((assetType) => {
+        {INSTALLMENT_SAVINGS.map((installmentSaving) => {
           return (
             <p
-              key={assetType.name}
-              onClick={() => onChangeAssetType(assetType)}
+              key={installmentSaving.type}
+              onClick={() => onChangeAssetType(installmentSaving)}
             >
-              {assetType.name}
+              {installmentSaving.name}
             </p>
           );
         })}

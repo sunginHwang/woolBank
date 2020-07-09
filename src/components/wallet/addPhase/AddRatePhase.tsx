@@ -4,9 +4,13 @@ import PhaseTemplate from '../../common/PhaseTemplate';
 import HeaderWithBack from '../../common/HeaderWithBack';
 import BaseSlider from '../../common/BaseSlider';
 import { IWalletForm } from '../../../models/IWalletForm';
-import { NORMAL_RATE_TAX } from '../../../support/constants';
+import { INSTALLMENT_SAVINGS_TAX } from '../../../support/constants';
 import ToggleTab from '../../common/ToggleTab';
 import { addComma } from '../../../support/util/String';
+import { IAssetType } from '../../../models/IAssetType';
+import { getAmountWithoutTax, getInterest } from '../../../support/util/bank';
+import { getRate } from '../../../support/util/number';
+import { diffDays } from '../../../support/util/date';
 
 type AddRatePhaseProps = {
   isActivePhase: boolean;
@@ -17,34 +21,36 @@ type AddRatePhaseProps = {
 };
 
 function AddRatePhase({
-                        isActivePhase,
-                        wallet,
-                        goPrevPhase,
-                        goNextPhase,
-                        onChangeWalletForm
-                      }: AddRatePhaseProps) {
+  isActivePhase,
+  wallet,
+  goPrevPhase,
+  goNextPhase,
+  onChangeWalletForm
+}: AddRatePhaseProps) {
   const [rate, setRate] = useState(wallet.rate);
-  const onChangeRate = (e: React.ChangeEvent<HTMLInputElement>) => setRate(Number(e.target.value));
+  const [activeTab, setActiveTab] = useState(INSTALLMENT_SAVINGS_TAX[0]);
+
+  const onChangeRate = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setRate(Number(e.target.value));
 
   const onCompleteClick = () => {
     onChangeWalletForm('rate', getRate(rate));
+    console.log(wallet);
     goNextPhase();
   };
-  const diffMonth = 12;
-  const tabs = ['일반과세', '비과세'];
-  const [activeTab, setActiveTab] = useState(tabs[0]);
-  const changeTab = (tab: string) => setActiveTab(tab);
-  const getRate = (value : number) => Number(Number(value * 0.01).toFixed(2));
-  const taxFreeRateAmount = wallet.amount * ((diffMonth + 1) / 2) * (getRate(rate) * 0.01 / 12);
-  const rateAmount = activeTab === tabs[0] ? Number((taxFreeRateAmount - (taxFreeRateAmount * NORMAL_RATE_TAX)).toFixed(3)) : taxFreeRateAmount;
+  const onChangeTab = (tab: IAssetType) => setActiveTab(tab);
+
+  const diffMonth = diffDays(wallet.startDate, wallet.endDate);
+  const interest = getInterest({ amount: wallet.amount, diffMonth, rate });
+  const rateAmount = getAmountWithoutTax(interest, activeTab.type);
 
   return (
     <PhaseTemplate active={isActivePhase}>
-      <HeaderWithBack title='이율 설정' onBackClick={goPrevPhase}/>
+      <HeaderWithBack title='이율 설정' onBackClick={goPrevPhase} />
       <S.AddRatePhase>
         <div>
           <S.Header>
-            <p>적금의 이율을 설정해 주세요.</p>
+            <p>이율을 설정해 주세요.</p>
           </S.Header>
           <div>
             <BaseSlider
@@ -56,15 +62,21 @@ function AddRatePhase({
               onChange={onChangeRate}
             />
           </div>
-          {
-            rate > 0 && (
-              <S.Rate>
-                <ToggleTab tabs={tabs} activeTab={activeTab} onChangeTab={changeTab}/>
-                <p>예상 이자금액 : <span>{addComma(rateAmount)}원</span></p>
-              </S.Rate>
-            )
-          }
-          <S.CompleteButton onClick={onCompleteClick}>다음 단계</S.CompleteButton>
+          {rate > 0 && (
+            <S.Rate>
+              <ToggleTab
+                tabs={INSTALLMENT_SAVINGS_TAX}
+                activeTab={activeTab}
+                onChangeTab={onChangeTab}
+              />
+              <p>
+                예상 이자금액 : <span>{addComma(rateAmount)}원</span>
+              </p>
+            </S.Rate>
+          )}
+          <S.CompleteButton onClick={onCompleteClick}>
+            다음 단계
+          </S.CompleteButton>
         </div>
       </S.AddRatePhase>
     </PhaseTemplate>
@@ -127,19 +139,17 @@ const S: {
   `,
   Rate: styled.div`
     margin-top: 8rem;
-    
-    
-    >p{
+
+    > p {
       font-size: 1.8rem;
       color: ${(props) => props.theme.colors.blackL1};
       margin-top: 4rem;
-      
-      span{
+
+      span {
         font-weigh: bold;
         color: ${(props) => props.theme.colors.navyD1};
       }
     }
-    
   `
 };
 

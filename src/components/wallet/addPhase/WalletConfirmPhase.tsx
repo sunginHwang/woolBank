@@ -33,7 +33,7 @@ function WalletConfirmPhase({ wallet, isActivePhase, goPrevPhase, onComplete }: 
             <S.CardRow>
               <S.CardItem>
                 <span>예/적금 종류</span>
-                <p>{wallet.type}</p>
+                <p>{wallet.savingType.name}</p>
               </S.CardItem>
               <S.CardItem>
                 <span>만기시점</span>

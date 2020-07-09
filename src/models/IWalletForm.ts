@@ -1,6 +1,8 @@
+import { IAssetType } from './IAssetType';
+
 export interface IWalletForm {
   title: string;
-  type: string;
+  savingType: IAssetType;
   startDate: string | Date;
   endDate: string | Date;
   amount: number;

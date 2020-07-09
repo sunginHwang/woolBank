@@ -3,33 +3,29 @@ import styled from 'styled-components';
 import BaseInput from '../../common/BaseInput';
 import WalletTypeAddModal from './WalletTypeAddModal';
 import WalletDateModal from './WalletDateModal';
-import { IAssetType } from '../../../models/IAssetType';
 import { DATE_FORMAT, parseDate } from '../../../support/util/date';
 import PhaseTemplate from '../../common/PhaseTemplate';
 import HeaderWithBack from '../../common/HeaderWithBack';
 import { IWalletForm } from '../../../models/IWalletForm';
 import BaseSlider from '../../common/BaseSlider';
+import { IAssetType } from '../../../models/IAssetType';
 
 type modalType = 'type' | 'date' | '';
 type WalletInfoAddPhaseProps = {
   isActivePhase: boolean;
-  assetTypes: IAssetType[];
   goNextPage: () => void;
   goPrevPhase: () => void;
   walletForm: IWalletForm;
-  onChangeWalletForm: (type: string, value: string) => void;
+  onChangeWalletForm: (type: string, value: string | IAssetType) => void;
 };
 
-
 function WalletInfoAddPhase({
-                              isActivePhase,
-                              walletForm,
-                              assetTypes,
-                              onChangeWalletForm,
-                              goNextPage,
-                              goPrevPhase
-                            }: WalletInfoAddPhaseProps) {
-
+  isActivePhase,
+  walletForm,
+  onChangeWalletForm,
+  goNextPage,
+  goPrevPhase
+}: WalletInfoAddPhaseProps) {
   // 모달 팝업
   const [openModalName, setOpenModalName] = useState<modalType>('');
   const [assetMonth, setAssetMonth] = useState(0);
@@ -43,35 +39,44 @@ function WalletInfoAddPhase({
   const clearWalletDate = () => onChangeWalletForm('startDate', '');
 
   // 폼 값 변경 이벤트
-  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => onChangeWalletForm('title', e.target.value);
+  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) =>
+    onChangeWalletForm('title', e.target.value);
   const onChangeDate = (date: string) => {
     onChangeWalletForm('startDate', date);
     closeModal();
   };
   const onChangeAssetType = (assetType: IAssetType) => {
-    onChangeWalletForm('type', assetType.name);
+    onChangeWalletForm('savingType', assetType);
     closeModal();
   };
 
   const isAllowWalletFormValidation =
-    walletForm.title !== '' && walletForm.type !== '' && walletForm.startDate !== '' && assetMonth > 0;
+    walletForm.title !== '' &&
+    walletForm.savingType.name !== '' &&
+    walletForm.startDate !== '' &&
+    assetMonth > 0;
 
   // 다음 페이즈 입력으로 이동
-  const goNextPhase = useCallback(() => {
+  const goNextPhase = () => {
     if (isAllowWalletFormValidation) {
       const assetStartDate = new Date(walletForm.startDate);
-      assetStartDate.setMonth(assetStartDate.getMonth() + assetMonth)
+      assetStartDate.setMonth(assetStartDate.getMonth() + assetMonth);
       const assetEndDate = assetStartDate.toLocaleDateString();
-      console.log(assetEndDate);
-      onChangeWalletForm('endDate', parseDate(assetEndDate, DATE_FORMAT.YYYY_MM_DD));
+      onChangeWalletForm(
+        'endDate',
+        parseDate(assetEndDate, DATE_FORMAT.YYYY_MM_DD)
+      );
       goNextPage();
     }
-  }, [isAllowWalletFormValidation]);
+  };
 
   return (
     <PhaseTemplate active={isActivePhase}>
       <S.WalletInfoAddPhase>
-        <HeaderWithBack title='예/적금 정보 작성하기' onBackClick={goPrevPhase}/>
+        <HeaderWithBack
+          title='예/적금 정보 작성하기'
+          onBackClick={goPrevPhase}
+        />
         <S.Content>
           <BaseInput
             label='예/적금명'
@@ -86,7 +91,7 @@ function WalletInfoAddPhase({
             placeHolder='예/적금 종류를 선택해 주세요.'
             onClick={openTypeModal}
             onClear={clearWalletType}
-            value={walletForm.type}
+            value={walletForm.savingType.name}
             disable
           />
           <BaseInput
@@ -117,7 +122,6 @@ function WalletInfoAddPhase({
           작성하기
         </S.CompleteButton>
         <WalletTypeAddModal
-          assetTypes={assetTypes}
           visible={openModalName === 'type'}
           onChangeAssetType={onChangeAssetType}
           oncloseModal={closeModal}
@@ -126,7 +130,11 @@ function WalletInfoAddPhase({
           visible={openModalName === 'date'}
           oncloseModal={closeModal}
           onChangeDate={onChangeDate}
-          date={walletForm.startDate === '' ? new Date() : new Date(walletForm.startDate)}
+          date={
+            walletForm.startDate === ''
+              ? new Date()
+              : new Date(walletForm.startDate)
+          }
         />
       </S.WalletInfoAddPhase>
     </PhaseTemplate>
@@ -157,17 +165,17 @@ const S: {
     margin-top: auto;
     margin-bottom: 2rem;
     height: 5.5rem;
-    border-radius: .8rem;
+    border-radius: 0.8rem;
     color: ${(props) => props.theme.colors.white};
     background-color: ${(props) => props.theme.colors.navyD1};
     opacity: ${(props: any) => (props.active ? 1 : 0.5)};
   `,
   AssetMonth: styled.div`
-    >p{
+    > p {
       margin-bottom: 7rem;
       font-size: 1.2rem;
       font-weight: 500;
-      color:  ${(props) => props.theme.colors.blackL1};
+      color: ${(props) => props.theme.colors.blackL1};
       text-align: left;
     }
   `
