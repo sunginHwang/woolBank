@@ -15,22 +15,26 @@ function NumberInput({
                        onChangeAmount,
                        onCompleteClick
                      }: NumberInputProps) {
-  const [isMaxAmount, setIsMaxAmount] = useState(false);
+  const [isValidAmount, setIsValidAmount] = useState(true);
 
-  const addNumber = (number: number) => {
+  const onAddNumberClick = (number: number) => {
     const addedNumber = Number(currentAmount + String(number));
-    // 최대 입금 가능 금액 10억 세팅
-    if (addedNumber >= 1000000000) {
-      setIsMaxAmount(true);
-    } else {
-      onChangeAmount(addedNumber);
-    }
+    changeNumber(addedNumber);
   };
 
-  const onRemoveLastInput = () => {
+  const onRemoveLastInputClick = () => {
     const stringNumber = String(currentAmount);
-    onChangeAmount(Number(stringNumber.substring(0, stringNumber.length - 1)));
+    changeNumber(Number(stringNumber.substring(0, stringNumber.length - 1)));
   };
+
+  const changeNumber = (num: number) => {
+    // 최대 입금 가능 금액 10억 세팅
+    const isOverTenBullion = num >= 1000000000;
+
+    setIsValidAmount(!isOverTenBullion);
+    !isOverTenBullion && onChangeAmount(num);
+  };
+  const onInitClick = () => changeNumber(0);
 
   const getDisplayInputMessage = useCallback(() => {
     let result = `총 적금액 : ${numberToKorean(currentAmount)}원`;
@@ -39,46 +43,46 @@ function NumberInput({
       result = '금액을 입력해 주세요.';
     }
 
-    if (isMaxAmount) {
+    if (!isValidAmount) {
       result = '입금액은 최대 10억까지 입니다.';
     }
 
     return result;
 
 
-  }, [isMaxAmount, currentAmount]);
+  }, [isValidAmount, currentAmount]);
 
-  const initNumber = () => onChangeAmount(0);
   const displayAmount = `${addComma(currentAmount)}원`;
+  const displayInputMessage = getDisplayInputMessage();
 
   return (
     <S.NumberInput>
       <S.InputDisplay>
         <p>{displayAmount}</p>
-        <S.InputDisplayMessage active={isMaxAmount}>{getDisplayInputMessage()}</S.InputDisplayMessage>
+        <S.InputDisplayMessage active={!isValidAmount}>{displayInputMessage}</S.InputDisplayMessage>
       </S.InputDisplay>
       <S.Input>
         <S.InputTable>
           <tbody>
           <tr>
-            <td onClick={() => addNumber(1)}>1</td>
-            <td onClick={() => addNumber(2)}>2</td>
-            <td onClick={() => addNumber(3)}>3</td>
+            <td onClick={() => onAddNumberClick(1)}>1</td>
+            <td onClick={() => onAddNumberClick(2)}>2</td>
+            <td onClick={() => onAddNumberClick(3)}>3</td>
           </tr>
           <tr>
-            <td onClick={() => addNumber(4)}>4</td>
-            <td onClick={() => addNumber(5)}>5</td>
-            <td onClick={() => addNumber(6)}>6</td>
+            <td onClick={() => onAddNumberClick(4)}>4</td>
+            <td onClick={() => onAddNumberClick(5)}>5</td>
+            <td onClick={() => onAddNumberClick(6)}>6</td>
           </tr>
           <tr>
-            <td onClick={() => addNumber(7)}>7</td>
-            <td onClick={() => addNumber(8)}>8</td>
-            <td onClick={() => addNumber(9)}>9</td>
+            <td onClick={() => onAddNumberClick(7)}>7</td>
+            <td onClick={() => onAddNumberClick(8)}>8</td>
+            <td onClick={() => onAddNumberClick(9)}>9</td>
           </tr>
           <tr>
-            <td onClick={onRemoveLastInput}>←</td>
-            <td onClick={() => addNumber(0)}>0</td>
-            <td onClick={initNumber}>x</td>
+            <td onClick={onRemoveLastInputClick}>←</td>
+            <td onClick={() => onAddNumberClick(0)}>0</td>
+            <td onClick={onInitClick}>x</td>
           </tr>
           </tbody>
         </S.InputTable>
