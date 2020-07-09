@@ -10,7 +10,7 @@ import NavigationBar from '../components/layout/NavigationBar';
 
 function Wallet() {
   const history = useHistory();
-  const [phase, setPhase] = useState(1);
+  const [phase, setPhase] = useState(2);
   const walletAddIconEl = <div onClick={() => setPhase(1)}><IcoCashPlus width={30} height={30}
                                                                         fill={colors.colors.navyD1}/></div>;
   return (

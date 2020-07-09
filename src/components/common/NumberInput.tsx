@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/';
 import { addComma, numberToKorean } from '../../support/util/String';
 
@@ -9,11 +9,21 @@ type NumberInputProps = {
   onCompleteClick: () => void;
 };
 
-function NumberInput({ currentAmount, isActiveComplete, onChangeAmount, onCompleteClick }: NumberInputProps) {
-
+function NumberInput({
+  currentAmount,
+  isActiveComplete,
+  onChangeAmount,
+  onCompleteClick
+}: NumberInputProps) {
+  const [isMaxAmount, setIsMaxAmount] = useState(false);
   const addNumber = (number: number) => {
     const addedNumber = Number(currentAmount + String(number));
-    onChangeAmount(addedNumber);
+
+    if (addedNumber >= 1000000000) {
+      setIsMaxAmount(true);
+    } else {
+      onChangeAmount(addedNumber);
+    }
   };
   const removeLastInput = () => {
     const stringNumber = String(currentAmount);
@@ -24,38 +34,42 @@ function NumberInput({ currentAmount, isActiveComplete, onChangeAmount, onComple
 
   const displayAmount = `${addComma(currentAmount)}원`;
   const displayKoreanAmount = `총 적금액 : ${numberToKorean(currentAmount)}원`;
+  const isDisplayKoreanAmount = currentAmount > 0 && !isMaxAmount;
   return (
     <S.NumberInput>
       <S.InputDisplay>
         <p>{displayAmount}</p>
-        <span>{displayKoreanAmount}</span>
+        {isDisplayKoreanAmount && <span>{displayKoreanAmount}</span>}
+        {isMaxAmount && <S.AlertMessage>입금액은 최대 10억까지 입니다.</S.AlertMessage>}
       </S.InputDisplay>
       <S.Input>
         <S.InputTable>
           <tbody>
-          <tr>
-            <td onClick={() => addNumber(1)}>1</td>
-            <td onClick={() => addNumber(2)}>2</td>
-            <td onClick={() => addNumber(3)}>3</td>
-          </tr>
-          <tr>
-            <td onClick={() => addNumber(4)}>4</td>
-            <td onClick={() => addNumber(5)}>5</td>
-            <td onClick={() => addNumber(6)}>6</td>
-          </tr>
-          <tr>
-            <td onClick={() => addNumber(7)}>7</td>
-            <td onClick={() => addNumber(8)}>8</td>
-            <td onClick={() => addNumber(9)}>9</td>
-          </tr>
-          <tr>
-            <td onClick={removeLastInput}>←</td>
-            <td onClick={() => addNumber(0)}>0</td>
-            <td onClick={initNumber}>x</td>
-          </tr>
+            <tr>
+              <td onClick={() => addNumber(1)}>1</td>
+              <td onClick={() => addNumber(2)}>2</td>
+              <td onClick={() => addNumber(3)}>3</td>
+            </tr>
+            <tr>
+              <td onClick={() => addNumber(4)}>4</td>
+              <td onClick={() => addNumber(5)}>5</td>
+              <td onClick={() => addNumber(6)}>6</td>
+            </tr>
+            <tr>
+              <td onClick={() => addNumber(7)}>7</td>
+              <td onClick={() => addNumber(8)}>8</td>
+              <td onClick={() => addNumber(9)}>9</td>
+            </tr>
+            <tr>
+              <td onClick={removeLastInput}>←</td>
+              <td onClick={() => addNumber(0)}>0</td>
+              <td onClick={initNumber}>x</td>
+            </tr>
           </tbody>
         </S.InputTable>
-        <S.Complete active={isActiveComplete} onClick={onCompleteClick}>완료</S.Complete>
+        <S.Complete active={isActiveComplete} onClick={onCompleteClick}>
+          완료
+        </S.Complete>
       </S.Input>
     </S.NumberInput>
   );
@@ -66,6 +80,7 @@ const S: {
   InputTable: any;
   Input: any;
   InputDisplay: any;
+  AlertMessage: any;
   Complete: any;
 } = {
   NumberInput: styled.div`
@@ -85,13 +100,13 @@ const S: {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    p {
+    >p {
       font-size: 4.5rem;
       font-weight: bold;
       color: ${(props) => props.theme.colors.blackL1};
     }
-    
-    span{
+
+    >span {
       font-size: 1.4rem;
       color: ${(props) => props.theme.colors.greyL1};
     }
@@ -101,14 +116,14 @@ const S: {
     text-align: center;
     flex: 1;
     color: ${(props) => props.theme.colors.blackL1};
-    
-    td{
+
+    td {
       font-size: 2.8rem;
       height: 10rem;
       width: 33.33333%;
     }
-    
-    td:active{
+
+    td:active {
       border-radius: 1.6rem;
       background-color: ${(props) => props.theme.colors.greyL3};
     }
@@ -117,10 +132,14 @@ const S: {
     width: calc(100% - 2rem);
     height: 5rem;
     margin: 4rem 1rem 2rem 1rem;
-    border-radius: .8rem;
+    border-radius: 0.8rem;
     color: ${(props) => props.theme.colors.white};
     background-color: ${(props) => props.theme.colors.navyD1};
     opacity: ${(props: any) => (props.active ? 1 : 0.5)};
+  `,
+  AlertMessage: styled.span`
+    font-size: 1.4rem;
+    color: ${(props) => props.theme.colors.redL1};
   `
 };
 

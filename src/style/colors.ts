@@ -30,6 +30,7 @@ export default {
     headerColor: '#fff',
     contentColor: '#6e827f',
     deem: 'rgba(0,0,0,.75)',
+    redL1: '#ed234b',
     loadingAnimationColor1: 'hsl(0,0%,89%)',
     loadingAnimationColor2: 'hsl(0,0%,85%)',
     loadingAnimationColor3: 'hsl(0,0%,89%)'
