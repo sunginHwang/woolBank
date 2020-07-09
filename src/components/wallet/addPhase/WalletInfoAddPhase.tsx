@@ -103,16 +103,22 @@ function WalletInfoAddPhase({
             disable
           />
           <S.AssetMonth>
-            <p>예/적금 기간 설정</p>
-            <BaseSlider
-              min={0}
-              max={60}
-              step={6}
-              height={2}
-              value={assetMonth}
-              hoverMessage={`${assetMonth} 개월`}
-              onChange={(e) => setAssetMonth(Number(e.target.value))}
-            />
+            {
+              walletForm.startDate && (
+                <>
+                  <p>예/적금 기간 설정</p>
+                  <BaseSlider
+                    min={0}
+                    max={60}
+                    step={6}
+                    height={2}
+                    value={assetMonth}
+                    hoverMessage={`${assetMonth} 개월`}
+                    onChange={(e) => setAssetMonth(Number(e.target.value))}
+                  />
+                </>
+              )
+            }
           </S.AssetMonth>
         </S.Content>
         <S.CompleteButton
