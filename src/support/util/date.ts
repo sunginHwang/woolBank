@@ -2,12 +2,28 @@ export const secondsToTime = (seconds: number): string => {
   const hh = secondsToHour(seconds);
   const mm = Math.floor((seconds % 3600) / 60);
   const ss = seconds % 60;
-  return [hh, mm > 9 ? mm : hh ? '0' + mm : mm || '0', ss > 9 ? ss : '0' + ss].filter(a => a).join(':');
+  return [hh, mm > 9 ? mm : hh ? '0' + mm : mm || '0', ss > 9 ? ss : '0' + ss]
+    .filter((a) => a)
+    .join(':');
 };
 
-export const secondsToHour = (seconds: number): number => Math.floor(seconds / 3600);
+export const secondsToHour = (seconds: number): number =>
+  Math.floor(seconds / 3600);
 
-export const diffDays = (startDay: Date | string, endDay: Date | string): number => {
+export const diffMonth = (startDay: Date, endDay: Date): number => {
+  if (!startDay || !endDay) {
+    return 0;
+  }
+
+  let diff = (startDay.getTime() - endDay.getTime()) / 1000;
+  diff /= 60 * 60 * 24 * 7 * 4;
+  return Math.abs(Math.round(diff));
+};
+
+export const diffDays = (
+  startDay: Date | string,
+  endDay: Date | string
+): number => {
   if (!startDay || !endDay) {
     return 0;
   }
@@ -27,11 +43,11 @@ export const isDateExpired = (until: string, check: string): boolean => {
 };
 
 export const DATE_FORMAT: {
-  YYYY_MM_DD: 'YYYY_MM_DD',
-  KO_YYYY_MM_DD: 'KO_YYYY_MM_DD',
-  KO_MM_DD: 'KO_MM_DD',
-  YYYY_MM_DD_TIME: 'YYYY_MM_DD_TIME',
-  YYYYMMDD: 'YYYYMMDD',
+  YYYY_MM_DD: 'YYYY_MM_DD';
+  KO_YYYY_MM_DD: 'KO_YYYY_MM_DD';
+  KO_MM_DD: 'KO_MM_DD';
+  YYYY_MM_DD_TIME: 'YYYY_MM_DD_TIME';
+  YYYYMMDD: 'YYYYMMDD';
 } = {
   YYYY_MM_DD: 'YYYY_MM_DD', // format : YYYY-MM-DD
   KO_YYYY_MM_DD: 'KO_YYYY_MM_DD', // format : YYYY년 MM월 DD일
@@ -41,12 +57,16 @@ export const DATE_FORMAT: {
 };
 
 // defaultParse : now() YYYY_MM_DD
-export const parseDate = (datetime : Date | string = new Date(), parseType = DATE_FORMAT.YYYY_MM_DD) => {
-  if(datetime === ''){
+export const parseDate = (
+  datetime: Date | string = new Date(),
+  parseType = DATE_FORMAT.YYYY_MM_DD
+) => {
+  if (datetime === '') {
     return '';
   }
   if (!datetime) new Error('datetime is empty');
-  if ('function' !== typeof DATE_FORMAT[parseType]) new Error(`${parseType} is now allow dateParse type`);
+  if ('function' !== typeof DATE_FORMAT[parseType])
+    new Error(`${parseType} is now allow dateParse type`);
   return parseDatetime[parseType](datetime);
 };
 
@@ -60,7 +80,9 @@ parseDatetime[DATE_FORMAT.YYYY_MM_DD] = (datetime: Date | string): string => {
   return `${year}-${month}-${day}`;
 };
 
-parseDatetime[DATE_FORMAT.KO_YYYY_MM_DD] = (datetime: Date | string): string => {
+parseDatetime[DATE_FORMAT.KO_YYYY_MM_DD] = (
+  datetime: Date | string
+): string => {
   const today = new Date(datetime);
   const year = today.getFullYear();
   const month = (today.getMonth() + 1).toString().padStart(2, '0');
@@ -69,7 +91,9 @@ parseDatetime[DATE_FORMAT.KO_YYYY_MM_DD] = (datetime: Date | string): string => 
   return `${year}년 ${month}월 ${day}일`;
 };
 
-parseDatetime[DATE_FORMAT.YYYY_MM_DD_TIME] = (datetime: Date | string): string => {
+parseDatetime[DATE_FORMAT.YYYY_MM_DD_TIME] = (
+  datetime: Date | string
+): string => {
   const today = new Date(datetime);
   const year = today.getFullYear();
   const month = (today.getMonth() + 1).toString().padStart(2, '0');
