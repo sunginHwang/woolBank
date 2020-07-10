@@ -11,15 +11,17 @@ type InputPhaseWrapperProps = {
 };
 
 function PhaseTemplate({
-  active,
-  title,
-  onBackClick,
-  usePadding = true,
-  children
-}: InputPhaseWrapperProps) {
+                         active,
+                         title,
+                         onBackClick,
+                         usePadding = true,
+                         children
+                       }: InputPhaseWrapperProps) {
   return (
     <S.PhaseTemplate active={active}>
-      <HeaderWithBack title={title} onBackClick={onBackClick} />
+      {
+        active && <HeaderWithBack title={title} onBackClick={onBackClick}/>
+      }
       <S.Content usePadding={usePadding}>{children}</S.Content>
     </S.PhaseTemplate>
   );
@@ -37,12 +39,12 @@ const S: {
     position: fixed;
     top: 0;
     right: ${(props: any) => (props.active ? 0 : '-100%')};
-    z-index: 200;
+    z-index: ${(props) => props.theme.zIndex.phase};
     transition: all 0.3s ease 0s;
   `,
   Content: styled.div`
     padding: ${(props: any) =>
-      props.usePadding ? '5.5rem 2rem 0 2rem' : '5.5rem 0 0 0'};
+    props.usePadding ? '5.5rem 2rem 0 2rem' : '5.5rem 0 0 0'};
     height: 100%;
     background-color: ${(props) => props.theme.colors.white};
   `

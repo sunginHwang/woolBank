@@ -1,6 +1,5 @@
 import React from 'react';
 import PhaseTemplate from '../../common/PhaseTemplate';
-import HeaderWithBack from '../../common/HeaderWithBack';
 import NumberInput from '../../common/NumberInput';
 
 type WalletAmountAddPhaseProps = {

@@ -23,12 +23,12 @@ type WalletInfoAddPhaseProps = {
 };
 
 function WalletInfoAddPhase({
-  isActivePhase,
-  walletForm,
-  onChangeWalletForm,
-  goNextPage,
-  goPrevPhase
-}: WalletInfoAddPhaseProps) {
+                              isActivePhase,
+                              walletForm,
+                              onChangeWalletForm,
+                              goNextPage,
+                              goPrevPhase
+                            }: WalletInfoAddPhaseProps) {
   // 모달 팝업
   const [openModalName, setOpenModalName] = useState<modalType>('');
   const [assetMonth, setAssetMonth] = useState(0);
@@ -94,8 +94,8 @@ function WalletInfoAddPhase({
   return (
     <PhaseTemplate
       active={isActivePhase}
-      usePadding={false}
       title='정보 작성하기'
+      usePadding={false}
       onBackClick={goPrevPhase}
     >
       <S.WalletInfoAddPhase>
@@ -122,7 +122,7 @@ function WalletInfoAddPhase({
               <BaseSlider
                 min={1}
                 max={31}
-                step={6}
+                step={1}
                 size='medium'
                 value={regularTransferDate}
                 hoverMessage={`${regularTransferDate}일`}

@@ -41,5 +41,7 @@ const S: {
   `,
   Content: styled.div`
     padding-top: 5.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   `
 };

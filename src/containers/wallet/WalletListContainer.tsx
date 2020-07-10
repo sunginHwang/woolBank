@@ -47,6 +47,7 @@ function WalletListContainer() {
       <S.Wrapper>
         <ToggleTab
           tabs={tabs}
+          useOutline={false}
           activeTab={activeTab}
           onChangeTab={setActiveTab}
         />
@@ -67,7 +68,6 @@ const S: {
   List: any;
 } = {
   Wrapper: styled.div`
-    margin: 1rem 1rem 0 1rem;
   `,
   List: styled.div`
     margin-top: 2rem;

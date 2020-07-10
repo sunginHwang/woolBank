@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PhaseTemplate from '../../common/PhaseTemplate';
-import HeaderWithBack from '../../common/HeaderWithBack';
 import BaseSlider from '../../common/BaseSlider';
 import { IWalletForm } from '../../../models/IWalletForm';
 import { INSTALLMENT_SAVINGS_TAX } from '../../../support/constants';
@@ -10,7 +9,7 @@ import { addComma } from '../../../support/util/String';
 import { IAssetType } from '../../../models/IAssetType';
 import { getAmountWithTax, getInterest } from '../../../support/util/bank';
 import { getRate } from '../../../support/util/number';
-import { diffDays, diffMonth } from '../../../support/util/date';
+import { diffMonth } from '../../../support/util/date';
 
 type AddRatePhaseProps = {
   isActivePhase: boolean;
@@ -32,7 +31,7 @@ function AddRatePhase({
 
   const onChangeRate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRate(getRate(Number(e.target.value)));
-  }
+  };
 
   const onCompleteClick = () => {
     onChangeWalletForm('rate', rate);
@@ -55,7 +54,10 @@ function AddRatePhase({
   const sliderHoverMessage = `${(rate * 100).toFixed(2)}%`;
 
   return (
-    <PhaseTemplate active={isActivePhase} title='이율 설정' onBackClick={goPrevPhase} usePadding={false}>
+    <PhaseTemplate active={isActivePhase}
+                   title='이율 설정'
+                   usePadding={false}
+                   onBackClick={goPrevPhase}>
       <S.AddRatePhase>
         <div>
           <S.Header>

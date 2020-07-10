@@ -65,9 +65,6 @@ const S: {
   `,
   Tab: styled.button`
     width: 100%;
-    border: 0.1rem solid
-      ${(props: any) =>
-        props.active ? props.theme.colors.navyD1 : props.theme.colors.greyL1};
     color: ${(props: any) =>
       props.active ? props.theme.colors.navyD1 : props.theme.colors.blackL1};
     border-bottom: ${(props: any) => (props.active ? '.2rem' : '.1rem')} solid

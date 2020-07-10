@@ -8,7 +8,7 @@ import PageTemplate from '../components/common/PageTemplate';
 
 function Wallet() {
   const history = useHistory();
-  const [phase, setPhase] = useState(3);
+  const [phase, setPhase] = useState(0);
   const walletAddIconEl = (
     <div onClick={() => setPhase(1)}>
       <IcoCashPlus width={30} height={30} fill={colors.colors.navyD1} />

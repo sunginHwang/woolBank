@@ -38,7 +38,8 @@ export default {
   zIndex: {
     navigationBar: 100,
     header: 100,
-    modalDeem: 500
+    modalDeem: 500,
+    phase: 300
   },
   animations: {
     loading: keyframes`
