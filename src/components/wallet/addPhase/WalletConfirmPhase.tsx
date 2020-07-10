@@ -44,7 +44,7 @@ function WalletConfirmPhase({ wallet, isActivePhase, goPrevPhase, onComplete }: 
               </S.CardItem>
               <S.CardItem>
                 <span>{savingPartName} 이율</span>
-                <p>{wallet.rate}%</p>
+                <p>{wallet.rate * 100}%</p>
               </S.CardItem>
             </S.CardRow>
             <S.CardRow>

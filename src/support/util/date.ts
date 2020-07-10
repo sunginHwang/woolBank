@@ -20,7 +20,7 @@ export const diffMonth = (startDay: Date | string, endDay: Date | string): numbe
 
   let diff = (firstDay.getTime() - secondDay.getTime()) / 1000;
   diff /= 60 * 60 * 24 * 7 * 4;
-  return Math.abs(Math.round(diff));
+  return Math.abs(Math.round(diff)) - 1;
 };
 
 export const diffDays = (

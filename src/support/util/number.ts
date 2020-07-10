@@ -1,1 +1,1 @@
-export const getRate = (value : number) => Number(Number(value * 0.01).toFixed(2));
+export const getRate = (value : number) => Number(Number(value * 0.0001).toFixed(4));

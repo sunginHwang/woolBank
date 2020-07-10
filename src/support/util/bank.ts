@@ -46,7 +46,7 @@ export const getTimeSavingInterest = ({
                                         savingPeriod,
                                         rate
                                       }: getInterestType): number => {
-  return amount * ((savingPeriod + 1) / 2) * ((rate * 0.01) / 12);
+  return amount * ((savingPeriod + 1) / 2) * (rate / 12);
 };
 
 /*
@@ -57,7 +57,7 @@ export const getFixedDepositInterest = ({
                                           savingPeriod,
                                           rate
                                         }: getInterestType): number => {
-  return amount + amount * rate * (rate * 0.1);
+  return (amount * (1 + rate * savingPeriod / 12)) - amount;
 };
 
 export const isTimeSavingType = (type: SAVING_TYPE | string) => {

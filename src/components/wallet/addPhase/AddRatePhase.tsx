@@ -30,11 +30,12 @@ function AddRatePhase({
   const [rate, setRate] = useState(wallet.rate);
   const [activeTab, setActiveTab] = useState(INSTALLMENT_SAVINGS_TAX[0]);
 
-  const onChangeRate = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setRate(Number(e.target.value));
+  const onChangeRate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRate(getRate(Number(e.target.value)));
+  }
 
   const onCompleteClick = () => {
-    onChangeWalletForm('rate', getRate(rate));
+    onChangeWalletForm('rate', rate);
     goNextPhase();
   };
   const onChangeTab = (tab: IAssetType) => {
@@ -47,9 +48,11 @@ function AddRatePhase({
     savingPeriod,
     amount: wallet.amount,
     savingType: wallet.savingType.type,
-    rate: getRate(rate)
+    rate: rate
   });
   const rateAmount = getAmountWithTax(interest, activeTab.type);
+
+  const sliderHoverMessage = `${(rate * 100).toFixed(2)}%`;
 
   return (
     <PhaseTemplate active={isActivePhase}>
@@ -63,8 +66,8 @@ function AddRatePhase({
             <BaseSlider
               min={1}
               max={1000}
-              value={rate}
-              hoverMessage={`${getRate(rate)}%`}
+              value={rate * 10000}
+              hoverMessage={sliderHoverMessage}
               step={1}
               onChange={onChangeRate}
             />
