@@ -5,7 +5,6 @@ import WalletAmountAddPhase from '../../components/wallet/addPhase/walletAmountA
 import WalletConfirmPhase from '../../components/wallet/addPhase/WalletConfirmPhase';
 import AddRatePhase from '../../components/wallet/addPhase/AddRatePhase';
 import { IAssetType } from '../../models/IAssetType';
-import { TAX_TYPE } from '../../support/constants';
 
 type WalletAddContainerProps = {
   phase: number;
@@ -16,9 +15,10 @@ function WalletAddContainer({ phase, onChangePhase }: WalletAddContainerProps) {
   const [walletForm, setWalletForm] = useState<IWalletForm>({
     title: '',
     savingType: { type: '', name: '' },
-    startDate: '',
+    startDate: '12',
     endDate: '',
-    taxType: TAX_TYPE.NORMAL_TAX,
+    taxType: '',
+    regularTransferDate: 0, // 정기이체일 정기적금에만 사용
     rate: 0,
     amount: 0
   });
@@ -27,9 +27,11 @@ function WalletAddContainer({ phase, onChangePhase }: WalletAddContainerProps) {
     type: string,
     value: string | number | IAssetType
   ) => {
-    setWalletForm({
-      ...walletForm,
-      [type]: value
+    setWalletForm((prevState) => {
+      return {
+        ...prevState,
+        [type]: value
+      };
     });
   };
 

@@ -2,11 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import colors from '../../style/colors';
 
+type SliderSize = 'medium' | 'large';
+
 type BaseSliderProps = {
   min: number;
   max: number;
   step: number;
   value: number;
+  size?: SliderSize;
   hoverMessage: string;
   height?: number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -18,6 +21,7 @@ function BaseSlider({
   step,
   height = 4,
   hoverMessage,
+  size = 'large',
   value,
   onChange
 }: BaseSliderProps) {
@@ -31,21 +35,24 @@ function BaseSlider({
     onChange && onChange(e);
   };
 
-  const getRangePercent = (value: number) => ((value - min) * 100) / (max - min);
+  const getRangePercent = (value: number) =>
+    ((value - min) * 100) / (max - min);
 
   const setSlideStyle = (value: number) => {
     if (!inputRef.current || !displayRef.current) {
       return;
     }
     const rangePercent = getRangePercent(value);
+    const displaySize = size === 'medium' ? 10 : 20;
+    const displayPercent = size === 'medium' ? 0.2 : 0.4;
     inputRef.current.style.background = `linear-gradient(90deg, ${colors.colors.navyD1} ${rangePercent}%, rgb(215, 220, 223) ${rangePercent}%)`;
     displayRef.current.style.left = `calc(${rangePercent}%  + ${
-      (20 - rangePercent * 0.4) * 0.1
+      (displaySize - rangePercent * displayPercent) * 0.1
     }rem)`;
   };
 
   return (
-    <S.BaseSlider>
+    <S.BaseSlider size={size}>
       <div className='range-value' id='rangeV' ref={displayRef}>
         <span>{hoverMessage}</span>
       </div>
@@ -85,36 +92,36 @@ const S: any = {
       
       &::-webkit-slider-runnable-track {
           width: 100%;
-          height: .4rem;
+          height: ${(props:any) => props.size === 'medium' ? '.2' : '.4'}rem;
           cursor: pointer;
           border-radius: 1.3rem;
       }
       
       &::-webkit-slider-thumb {
-          height: 4rem;
-          width: 4rem;
-          border: .6rem solid ${(props) => props.theme.colors.navyD1};
+          height: ${(props:any) => props.size === 'medium' ? '2' : '4'}rem;
+          width:  ${(props:any) => props.size === 'medium' ? '2' : '4'}rem;
+          border: .3rem solid ${(props) => props.theme.colors.navyD1};
           border-radius: 50%;
           background: #fff;
           cursor: pointer;
           -webkit-appearance: none;
-          margin-top: -1.8rem;
+          margin-top: ${(props:any) => props.size === 'medium' ? '-0.8' : '-1.8'}rem;
       }
     }
     
      >div{
       position: absolute;
-      top: -130%;
+      top: ${(props:any) => props.size === 'medium' ? '-70%' : '-130%'};
       left: 2rem;
       
       span{
-        width: 7rem;
-        height: 4rem;
-        line-height: 4rem;
+        width:  ${(props:any) => props.size === 'medium' ? '6' : '7'}rem;
+        height: ${(props:any) => props.size === 'medium' ? '3' : '4'}rem;
+        line-height: ${(props:any) => props.size === 'medium' ? '3' : '4'}rem;;
         text-align: center;
         background: ${(props) => props.theme.colors.navyD1};
         color: #fff;
-        font-size: 1.6rem;
+        font-size: ${(props:any) => props.size === 'medium' ? '1.4' : '1.6'}rem;;
         display: block;
         position: absolute;
         left: 50%;

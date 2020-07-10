@@ -55,8 +55,7 @@ function AddRatePhase({
   const sliderHoverMessage = `${(rate * 100).toFixed(2)}%`;
 
   return (
-    <PhaseTemplate active={isActivePhase}>
-      <HeaderWithBack title='이율 설정' onBackClick={goPrevPhase}/>
+    <PhaseTemplate active={isActivePhase} title='이율 설정' onBackClick={goPrevPhase} usePadding={false}>
       <S.AddRatePhase>
         <div>
           <S.Header>
@@ -102,15 +101,15 @@ const S: {
 } = {
   AddRatePhase: styled.div`
     justify-content: space-between;
+    overflow-y: scroll;
     background-color: ${(props) => props.theme.colors.white};
     font-size: 1.8rem;
     height: 100%;
-
+    padding: 0 2rem;
     > div {
       height: 100%;
       display: flex;
       flex-direction: column;
-      margin: 0 2rem;
     }
   `,
   Header: styled.div`
@@ -140,15 +139,16 @@ const S: {
   `,
   CompleteButton: styled.button`
     margin-top: auto;
-    margin-bottom: 7.5rem;
+    margin-bottom: 2rem;
     height: 5.5rem;
+    min-height: 5.5rem;
     width: 100%;
     border-radius: 0.8rem;
     color: ${(props) => props.theme.colors.white};
     background-color: ${(props) => props.theme.colors.navyD1};
   `,
   Rate: styled.div`
-    margin-top: 8rem;
+    margin: 8rem 0;
 
     > p {
       font-size: 1.8rem;
@@ -156,7 +156,7 @@ const S: {
       margin-top: 4rem;
 
       span {
-        font-weigh: bold;
+        font-weight: bold;
         color: ${(props) => props.theme.colors.navyD1};
       }
     }

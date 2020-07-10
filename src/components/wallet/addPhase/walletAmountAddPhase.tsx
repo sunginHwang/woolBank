@@ -25,8 +25,12 @@ function WalletAmountAddPhase({
   const onCompleteClick = () => isActiveComplete && goNextPhase();
 
   return (
-    <PhaseTemplate active={isActivePhase}>
-      <HeaderWithBack title='만기금액 설정' onBackClick={goPrevPhase} />
+    <PhaseTemplate
+      active={isActivePhase}
+      title='만기금액 설정'
+      usePadding={false}
+      onBackClick={goPrevPhase}
+    >
       <NumberInput
         currentAmount={amount}
         isActiveComplete={isActiveComplete}

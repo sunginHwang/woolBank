@@ -13,7 +13,7 @@ export const getAmountWithTax = (amount: number, taxType: string) => {
     result = Number((amount - amount * PREFERENTIAL_TAX).toFixed(0));
   }
 
-  return result;
+  return Number(result.toFixed(0));
 };
 
 type getInterestType = {

@@ -7,6 +7,7 @@ export interface IWalletForm {
   startDate: string | Date;
   endDate: string | Date;
   taxType: string | TAX_TYPE;
+  regularTransferDate: number; // 정기이체일
   amount: number;
   rate: number;
 }

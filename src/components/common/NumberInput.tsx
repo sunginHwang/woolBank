@@ -10,11 +10,11 @@ type NumberInputProps = {
 };
 
 function NumberInput({
-                       currentAmount,
-                       isActiveComplete,
-                       onChangeAmount,
-                       onCompleteClick
-                     }: NumberInputProps) {
+  currentAmount,
+  isActiveComplete,
+  onChangeAmount,
+  onCompleteClick
+}: NumberInputProps) {
   const [isValidAmount, setIsValidAmount] = useState(true);
 
   const onAddNumberClick = (number: number) => {
@@ -48,8 +48,6 @@ function NumberInput({
     }
 
     return result;
-
-
   }, [isValidAmount, currentAmount]);
 
   const displayAmount = `${addComma(currentAmount)}원`;
@@ -59,37 +57,39 @@ function NumberInput({
     <S.NumberInput>
       <S.InputDisplay>
         <p>{displayAmount}</p>
-        <S.InputDisplayMessage active={!isValidAmount}>{displayInputMessage}</S.InputDisplayMessage>
+        <S.InputDisplayMessage active={!isValidAmount}>
+          {displayInputMessage}
+        </S.InputDisplayMessage>
       </S.InputDisplay>
       <S.Input>
         <S.InputTable>
           <tbody>
-          <tr>
-            <td onClick={() => onAddNumberClick(1)}>1</td>
-            <td onClick={() => onAddNumberClick(2)}>2</td>
-            <td onClick={() => onAddNumberClick(3)}>3</td>
-          </tr>
-          <tr>
-            <td onClick={() => onAddNumberClick(4)}>4</td>
-            <td onClick={() => onAddNumberClick(5)}>5</td>
-            <td onClick={() => onAddNumberClick(6)}>6</td>
-          </tr>
-          <tr>
-            <td onClick={() => onAddNumberClick(7)}>7</td>
-            <td onClick={() => onAddNumberClick(8)}>8</td>
-            <td onClick={() => onAddNumberClick(9)}>9</td>
-          </tr>
-          <tr>
-            <td onClick={onRemoveLastInputClick}>←</td>
-            <td onClick={() => onAddNumberClick(0)}>0</td>
-            <td onClick={onInitClick}>x</td>
-          </tr>
+            <tr>
+              <td onClick={() => onAddNumberClick(1)}>1</td>
+              <td onClick={() => onAddNumberClick(2)}>2</td>
+              <td onClick={() => onAddNumberClick(3)}>3</td>
+            </tr>
+            <tr>
+              <td onClick={() => onAddNumberClick(4)}>4</td>
+              <td onClick={() => onAddNumberClick(5)}>5</td>
+              <td onClick={() => onAddNumberClick(6)}>6</td>
+            </tr>
+            <tr>
+              <td onClick={() => onAddNumberClick(7)}>7</td>
+              <td onClick={() => onAddNumberClick(8)}>8</td>
+              <td onClick={() => onAddNumberClick(9)}>9</td>
+            </tr>
+            <tr>
+              <td onClick={onRemoveLastInputClick}>←</td>
+              <td onClick={() => onAddNumberClick(0)}>0</td>
+              <td onClick={onInitClick}>x</td>
+            </tr>
           </tbody>
         </S.InputTable>
-        <S.Complete active={isActiveComplete} onClick={onCompleteClick}>
-          완료
-        </S.Complete>
       </S.Input>
+      <S.Complete active={isActiveComplete} onClick={onCompleteClick}>
+        완료
+      </S.Complete>
     </S.NumberInput>
   );
 }
@@ -104,23 +104,26 @@ const S: {
 } = {
   NumberInput: styled.div`
     width: 100%;
-    height: calc(100% - 5.5rem);
+    height: 100%;
     display: flex;
     flex-direction: column;
     background-color: ${(props) => props.theme.colors.white};
   `,
   Input: styled.div`
-    margin-top: auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   `,
   InputDisplay: styled.div`
-    height: 10rem;
-    margin: 4rem 0;
+    height: 34%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
-    >p {
+
+    > p {
       font-size: 4.5rem;
       font-weight: bold;
       color: ${(props) => props.theme.colors.blackL1};
@@ -131,10 +134,10 @@ const S: {
     text-align: center;
     flex: 1;
     color: ${(props) => props.theme.colors.blackL1};
+    height: 83%;
 
     td {
       font-size: 2.8rem;
-      height: 10rem;
       width: 33.33333%;
     }
 
@@ -144,9 +147,11 @@ const S: {
     }
   `,
   Complete: styled.button`
-    width: calc(100% - 2rem);
-    height: 5rem;
-    margin: 4rem 1rem 2rem 1rem;
+    width: calc(100% - 4rem);
+    margin-top: auto;
+    margin: 2rem;
+    height: 5.5rem;
+    min-height: 5.5rem;
     border-radius: 0.8rem;
     color: ${(props) => props.theme.colors.white};
     background-color: ${(props) => props.theme.colors.navyD1};
@@ -154,7 +159,8 @@ const S: {
   `,
   InputDisplayMessage: styled.span`
     font-size: 1.4rem;
-    color: ${(props: any) => props.active ? props.theme.colors.redL1 : props.theme.colors.blackL1};
+    color: ${(props: any) =>
+      props.active ? props.theme.colors.redL1 : props.theme.colors.blackL1};
   `
 };
 
