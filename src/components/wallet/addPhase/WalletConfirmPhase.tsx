@@ -9,6 +9,7 @@ import {
   getSavingPartName,
   getTaxTypeKo
 } from '../../../support/util/bank';
+import DownSlide from '../../common/DownSlide';
 
 type WalletConfirmPhaseProps = {
   isActivePhase: boolean;
@@ -23,8 +24,8 @@ function WalletConfirmPhase({
   goPrevPhase,
   onComplete
 }: WalletConfirmPhaseProps) {
-  const savingPartName = getSavingPartName(wallet.savingType.type);
   const taxTypeKo = getTaxTypeKo(wallet.taxType);
+  const rateInterest = getRateInterestByWallet(wallet); // 만기이자
   return (
     <PhaseTemplate
       active={isActivePhase}
@@ -32,49 +33,49 @@ function WalletConfirmPhase({
       onBackClick={goPrevPhase}
     >
       <S.WalletConfirmPhase>
-        <p>{savingPartName} 정보 확인</p>
+        <S.CardTitle>
+          <p>{wallet.title}</p>
+        </S.CardTitle>
         <S.Card>
           <div>
-            <S.CardItem>
-              <span>{savingPartName} 이름</span>
-              <p>{wallet.title}</p>
-            </S.CardItem>
-            <S.CardItem>
-              <span>만기 원금</span>
-              <p>{addComma(wallet.amount)} 원</p>
-            </S.CardItem>
-            <S.CardRow>
-              <S.CardItem>
-                <span>만기시 예상 이자</span>
-                <p>{addComma(getRateInterestByWallet(wallet))} 원</p>
-              </S.CardItem>
-              {wallet.regularTransferDate > 0 && (
+            <S.CardAmountItem>
+              <span>예상 만기액</span>
+              <p>{addComma(wallet.amount + rateInterest)} 원</p>
+            </S.CardAmountItem>
+            {
+              wallet.regularTransferDate > 0 && (
                 <S.CardItem>
                   <span>정기 이체 일</span>
                   <p>{wallet.regularTransferDate}일</p>
                 </S.CardItem>
-              )}
-            </S.CardRow>
-            <S.CardRow>
+              )
+            }
+            <DownSlide>
               <S.CardItem>
-                <span>세금종류</span>
-                <p>{taxTypeKo}</p>
+                <span>예상 만기 이자</span>
+                <p>{addComma(rateInterest)} 원</p>
               </S.CardItem>
               <S.CardItem>
-                <span>{savingPartName} 이율</span>
-                <p>{(wallet.rate * 100).toFixed(2)}%</p>
+                <span>예상 만기 원금</span>
+                <p>{addComma(wallet.amount)} 원</p>
               </S.CardItem>
-            </S.CardRow>
-            <S.CardRow>
-              <S.CardItem>
-                <span>종류</span>
-                <p>{wallet.savingType.name}</p>
-              </S.CardItem>
-              <S.CardItem>
-                <span>만기시점</span>
-                <p>{parseDate(wallet.endDate, DATE_FORMAT.YYYY_MM_DD)}</p>
-              </S.CardItem>
-            </S.CardRow>
+            </DownSlide>
+            <S.CardItem>
+              <span>적금 종류</span>
+              <p>{wallet.savingType.name}</p>
+            </S.CardItem>
+            <S.CardItem>
+              <span>세금종류</span>
+              <p>{taxTypeKo}</p>
+            </S.CardItem>
+            <S.CardItem>
+              <span>이율</span>
+              <p>{(wallet.rate * 100).toFixed(2)}%</p>
+            </S.CardItem>
+            <S.CardItem>
+              <span>만기일</span>
+              <p>{parseDate(wallet.endDate, DATE_FORMAT.YYYY_MM_DD)}</p>
+            </S.CardItem>
           </div>
         </S.Card>
         <S.Info>
@@ -99,8 +100,9 @@ function WalletConfirmPhase({
 const S: {
   WalletConfirmPhase: any;
   Card: any;
+  CardTitle: any;
+  CardAmountItem: any;
   CardItem: any;
-  CardRow: any;
   Info: any;
   CompleteButton: any;
 } = {
@@ -111,11 +113,17 @@ const S: {
     flex-direction: column;
     background-color: ${(props) => props.theme.colors.white};
 
+  `,
+  CardTitle: styled.div`
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-end;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    
     > p {
-      margin-top: 2rem;
       font-size: 2rem;
       color: ${(props) => props.theme.colors.blackL1};
-      margin-bottom: 1rem;
     }
   `,
   Card: styled.div`
@@ -127,21 +135,27 @@ const S: {
       padding: 2rem;
     }
   `,
+  CardAmountItem: styled.div`
+    display: flex;
+    flex-direction: column;
+    
+    span:first-child {
+        opacity: 0.5;
+    }
+    
+    p{
+      margin: 1rem 0;
+      text-align: right;
+      font-size: 3rem;
+    }
+  `,
   CardItem: styled.div`
-    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
     span {
       font-size: 1.4rem;
       opacity: 0.5;
-    }
-  `,
-  CardRow: styled.div`
-    display: flex;
-    justify-content: space-between;
-
-    > div {
-      &:last-child {
-        text-align: right;
-      }
     }
   `,
   Info: styled.div`
