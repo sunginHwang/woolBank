@@ -6,14 +6,26 @@ export const getAmountWithTax = (amount: number, taxType: string) => {
   let result = amount;
 
   if (taxType === TAX_TYPE.NORMAL_TAX) {
-    result = Number((amount - amount * NORMAL_RATE_TAX).toFixed(0));
+    result = (amount - amount * NORMAL_RATE_TAX);
   }
 
   if (taxType === TAX_TYPE.PREFERENTIAL_TAX) {
-    result = Number((amount - amount * PREFERENTIAL_TAX).toFixed(0));
+    result = (amount - amount * PREFERENTIAL_TAX);
   }
 
-  return Number(result.toFixed(0));
+  return Math.floor(result);
+};
+
+export const findSavingTax = (taxType: string): number => {
+  if (taxType === TAX_TYPE.NORMAL_TAX) {
+    return NORMAL_RATE_TAX;
+  }
+
+  if (taxType === TAX_TYPE.PREFERENTIAL_TAX) {
+    return PREFERENTIAL_TAX;
+  }
+
+  return 0;
 };
 
 type getInterestType = {
@@ -39,25 +51,25 @@ export const getInterest = ({
 };
 
 /*
-* 정기 적금 이율 계산
+* 정기 적금 이자 계산
 * */
 export const getTimeSavingInterest = ({
                                         amount,
                                         savingPeriod,
                                         rate
                                       }: getInterestType): number => {
-  return amount * ((savingPeriod + 1) / 2) * (rate / 12);
+  return Math.floor(amount * ((savingPeriod + 1) / 2) * (rate / 12));
 };
 
 /*
-* 정기 예금 이율 계산
+* 정기 예금 이자 계산
 * */
 export const getFixedDepositInterest = ({
                                           amount,
                                           savingPeriod,
                                           rate
                                         }: getInterestType): number => {
-  return (amount * (1 + rate * savingPeriod / 12)) - amount;
+  return Math.floor((amount * (1 + rate * savingPeriod / 12)) - amount);
 };
 
 export const isTimeSavingType = (type: SAVING_TYPE | string) => {

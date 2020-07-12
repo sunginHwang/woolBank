@@ -19,15 +19,15 @@ export enum TAX_TYPE {
 export const INSTALLMENT_SAVINGS_TAX: IAssetType[] = [
   {
     type: TAX_TYPE.NORMAL_TAX,
-    name: '일반과세'
+    name: '일반과세',
   },
   {
     type: TAX_TYPE.TAX_FREE,
-    name: '비과세'
+    name: '비과세',
   },
   {
     type: TAX_TYPE.PREFERENTIAL_TAX,
-    name: '세금우대'
+    name: '세금우대',
   }
 ];
 
