@@ -29,6 +29,7 @@ function WalletInfoAddPhase({
                               goNextPage,
                               goPrevPhase
                             }: WalletInfoAddPhaseProps) {
+  const now = new Date();
   // 모달 팝업
   const [openModalName, setOpenModalName] = useState<modalType>('');
   const [assetMonth, setAssetMonth] = useState(0);
@@ -55,8 +56,8 @@ function WalletInfoAddPhase({
     closeModal();
   };
   const onChangeAssetType = (assetType: IAssetType) => {
-    // 적금 타입 변경시 정기예치일 초기화
-    setRegularTransferDate(1);
+    // 적금 타입 변경시 정기예치일 오늘날짜로 초기화
+    setRegularTransferDate(now.getDate());
     onChangeWalletForm('regularTransferDate', 0);
 
     onChangeWalletForm('savingType', assetType);
@@ -144,8 +145,8 @@ function WalletInfoAddPhase({
                 <p>예/적금 기간 설정</p>
                 <BaseSlider
                   min={0}
-                  max={60}
-                  step={6}
+                  max={120}
+                  step={3}
                   size='medium'
                   value={assetMonth}
                   hoverMessage={`${assetMonth} 개월`}
