@@ -45,6 +45,16 @@ export const isDateExpired = (until: string, check: string): boolean => {
   return checkDate <= untilDate;
 };
 
+export const getKoMonth = (month: number): string => {
+  if (month < 12) {
+    return `${month}개월`;
+  }
+
+  const koYear = `${Math.floor(month / 12)}년`;
+  const koMonth = month % 12 === 0 ? '' : `${month % 12}개월`
+  return `${koYear} ${koMonth}`;
+};
+
 export const DATE_FORMAT: {
   YYYY_MM_DD: 'YYYY_MM_DD';
   KO_YYYY_MM_DD: 'KO_YYYY_MM_DD';

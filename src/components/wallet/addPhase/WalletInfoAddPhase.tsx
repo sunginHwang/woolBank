@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import BaseInput from '../../common/BaseInput';
 import WalletTypeAddModal from './WalletTypeAddModal';
 import WalletDateModal from './WalletDateModal';
-import { DATE_FORMAT, parseDate } from '../../../support/util/date';
+import { DATE_FORMAT, getKoMonth, parseDate } from '../../../support/util/date';
 import PhaseTemplate from '../../common/PhaseTemplate';
 import { IWalletForm } from '../../../models/IWalletForm';
 import BaseSlider from '../../common/BaseSlider';
@@ -149,7 +149,7 @@ function WalletInfoAddPhase({
                   step={3}
                   size='medium'
                   value={assetMonth}
-                  hoverMessage={`${assetMonth} 개월`}
+                  hoverMessage={getKoMonth(assetMonth)}
                   onChange={(e) => setAssetMonth(Number(e.target.value))}
                 />
               </>
