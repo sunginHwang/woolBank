@@ -26,12 +26,13 @@ function WalletAmountAddPhase({
   return (
     <PhaseTemplate
       active={isActivePhase}
-      title='만기금액 설정'
+      title='금액을 입력해 주세요'
       usePadding={false}
       onBackClick={goPrevPhase}
     >
       <NumberInput
         currentAmount={amount}
+        label='만기 금액 설정'
         isActiveComplete={isActiveComplete}
         onCompleteClick={onCompleteClick}
         onChangeAmount={onChangeAmount}

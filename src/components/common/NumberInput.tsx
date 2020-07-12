@@ -1,24 +1,29 @@
-import React, { useCallback, useState } from 'react';
+import React, { MouseEventHandler, useCallback, useState } from 'react';
 import styled from 'styled-components/';
 import { addComma, numberToKorean } from '../../support/util/String';
 
 type NumberInputProps = {
   currentAmount: number;
+  label: string;
   isActiveComplete: boolean;
   onChangeAmount: (number: number) => void;
   onCompleteClick: () => void;
 };
 
 function NumberInput({
-  currentAmount,
-  isActiveComplete,
-  onChangeAmount,
-  onCompleteClick
-}: NumberInputProps) {
+                       currentAmount,
+                       label,
+                       isActiveComplete,
+                       onChangeAmount,
+                       onCompleteClick
+                     }: NumberInputProps) {
   const [isValidAmount, setIsValidAmount] = useState(true);
+  const isNotInputValue = currentAmount === 0;
 
-  const onAddNumberClick = (number: number) => {
-    const addedNumber = Number(currentAmount + String(number));
+  const displayAmount = `${addComma(currentAmount)}원`;
+
+  const onAddNumberClick = (e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>) => {
+    const addedNumber = Number(currentAmount + String(e.currentTarget.innerText));
     changeNumber(addedNumber);
   };
 
@@ -39,8 +44,8 @@ function NumberInput({
   const getDisplayInputMessage = useCallback(() => {
     let result = `총 적금액 : ${numberToKorean(currentAmount)}원`;
 
-    if (currentAmount === 0) {
-      result = '금액을 입력해 주세요.';
+    if (isNotInputValue) {
+      result = '';
     }
 
     if (!isValidAmount) {
@@ -50,12 +55,12 @@ function NumberInput({
     return result;
   }, [isValidAmount, currentAmount]);
 
-  const displayAmount = `${addComma(currentAmount)}원`;
   const displayInputMessage = getDisplayInputMessage();
 
   return (
     <S.NumberInput>
       <S.InputDisplay>
+        <S.InputDisplayMessage>{label}</S.InputDisplayMessage>
         <p>{displayAmount}</p>
         <S.InputDisplayMessage active={!isValidAmount}>
           {displayInputMessage}
@@ -64,26 +69,26 @@ function NumberInput({
       <S.Input>
         <S.InputTable>
           <tbody>
-            <tr>
-              <td onClick={() => onAddNumberClick(1)}>1</td>
-              <td onClick={() => onAddNumberClick(2)}>2</td>
-              <td onClick={() => onAddNumberClick(3)}>3</td>
-            </tr>
-            <tr>
-              <td onClick={() => onAddNumberClick(4)}>4</td>
-              <td onClick={() => onAddNumberClick(5)}>5</td>
-              <td onClick={() => onAddNumberClick(6)}>6</td>
-            </tr>
-            <tr>
-              <td onClick={() => onAddNumberClick(7)}>7</td>
-              <td onClick={() => onAddNumberClick(8)}>8</td>
-              <td onClick={() => onAddNumberClick(9)}>9</td>
-            </tr>
-            <tr>
-              <td onClick={onRemoveLastInputClick}>←</td>
-              <td onClick={() => onAddNumberClick(0)}>0</td>
-              <td onClick={onInitClick}>x</td>
-            </tr>
+          <tr>
+            <S.InputTd onClick={onAddNumberClick}>1</S.InputTd>
+            <S.InputTd onClick={onAddNumberClick}>2</S.InputTd>
+            <S.InputTd onClick={onAddNumberClick}>3</S.InputTd>
+          </tr>
+          <tr>
+            <S.InputTd onClick={onAddNumberClick}>4</S.InputTd>
+            <S.InputTd onClick={onAddNumberClick}>5</S.InputTd>
+            <S.InputTd onClick={onAddNumberClick}>6</S.InputTd>
+          </tr>
+          <tr>
+            <S.InputTd onClick={onAddNumberClick}>7</S.InputTd>
+            <S.InputTd onClick={onAddNumberClick}>8</S.InputTd>
+            <S.InputTd onClick={onAddNumberClick}>9</S.InputTd>
+          </tr>
+          <tr>
+            <S.InputTd isHide={isNotInputValue} onClick={onRemoveLastInputClick}>{!isNotInputValue && '←'}</S.InputTd>
+            <S.InputTd onClick={onAddNumberClick}>0</S.InputTd>
+            <S.InputTd isHide={isNotInputValue} onClick={onInitClick}>{!isNotInputValue && 'x'}</S.InputTd>
+          </tr>
           </tbody>
         </S.InputTable>
       </S.Input>
@@ -97,6 +102,7 @@ function NumberInput({
 const S: {
   NumberInput: any;
   InputTable: any;
+  InputTd: any;
   Input: any;
   InputDisplay: any;
   InputDisplayMessage: any;
@@ -122,7 +128,7 @@ const S: {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    
     > p {
       font-size: 4.5rem;
       font-weight: bold;
@@ -135,15 +141,14 @@ const S: {
     flex: 1;
     color: ${(props) => props.theme.colors.blackL1};
     height: 83%;
-
-    td {
-      font-size: 2.8rem;
-      width: 33.33333%;
-    }
-
-    td:active {
+  `,
+  InputTd: styled.td`
+    font-size: 2.8rem;
+    width: 33.33333%;
+    
+    &:active {
       border-radius: 1.6rem;
-      background-color: ${(props) => props.theme.colors.greyL3};
+      background-color: ${(props: any) => props.isHide ?  props.theme.colors.white : props.theme.colors.greyL3};
     }
   `,
   Complete: styled.button`
@@ -159,8 +164,9 @@ const S: {
   `,
   InputDisplayMessage: styled.span`
     font-size: 1.4rem;
+    margin-bottom: 1rem;
     color: ${(props: any) =>
-      props.active ? props.theme.colors.redL1 : props.theme.colors.blackL1};
+    props.active ? props.theme.colors.redL1 : props.theme.colors.blackL1};
   `
 };
 
