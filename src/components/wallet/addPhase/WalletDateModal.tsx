@@ -22,6 +22,7 @@ function WalletDateModal({
       <S.WalletDateModal visible={visible}>
         <Calendar
           value={date}
+          showFixedNumberOfWeeks={true}
           onChange={(date: Date | Date[]) => onChangeDate(String(date))}
         />
       </S.WalletDateModal>

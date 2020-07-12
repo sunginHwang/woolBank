@@ -172,9 +172,7 @@ function WalletInfoAddPhase({
           oncloseModal={closeModal}
           onChangeDate={onChangeDate}
           date={
-            walletForm.startDate === ''
-              ? new Date()
-              : new Date(walletForm.startDate)
+            walletForm.startDate === '' ? now : new Date(walletForm.startDate)
           }
         />
       </S.WalletInfoAddPhase>

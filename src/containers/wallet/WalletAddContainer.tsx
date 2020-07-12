@@ -15,7 +15,7 @@ function WalletAddContainer({ phase, onChangePhase }: WalletAddContainerProps) {
   const [walletForm, setWalletForm] = useState<IWalletForm>({
     title: '',
     savingType: { type: '', name: '' },
-    startDate: '12',
+    startDate: '',
     endDate: '',
     taxType: '',
     regularTransferDate: 0, // 정기이체일 정기적금에만 사용
