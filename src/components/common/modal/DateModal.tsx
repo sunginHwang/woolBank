@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Calendar from 'react-calendar';
-import ModalDeem from '../../common/modal/ModalDeem';
+import ModalDeem from './ModalDeem';
 import '../../../style/css/customCalendar.css';
 
 type WalletDateModalProps = {
@@ -11,7 +11,7 @@ type WalletDateModalProps = {
   date: Date;
 };
 
-function WalletDateModal({
+function DateModal({
   date,
   visible,
   onChangeDate,
@@ -19,21 +19,21 @@ function WalletDateModal({
 }: WalletDateModalProps) {
   return (
     <ModalDeem visible={visible} onDeemClick={oncloseModal}>
-      <S.WalletDateModal visible={visible}>
+      <S.DateModal visible={visible}>
         <Calendar
           value={date}
-          showFixedNumberOfWeeks={true}
+          showFixedNumberOfWeeks
           onChange={(date: Date | Date[]) => onChangeDate(String(date))}
         />
-      </S.WalletDateModal>
+      </S.DateModal>
     </ModalDeem>
   );
 }
 
 const S: {
-  WalletDateModal: any;
+  DateModal: any;
 } = {
-  WalletDateModal: styled.div`
+  DateModal: styled.div`
     position: fixed;
     bottom: ${(props: any) => (props.visible ? '0' : '-30rem')};
     width: 100%;
@@ -51,4 +51,4 @@ const S: {
   `
 };
 
-export default WalletDateModal;
+export default DateModal;

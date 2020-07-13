@@ -2,24 +2,26 @@ import React from 'react';
 import PhaseTemplate from '../../common/PhaseTemplate';
 import NumberInput from '../../common/NumberInput';
 
-type WalletAmountAddPhaseProps = {
+type AmountAddPhaseProps = {
   isActivePhase: boolean;
   amount: number;
   goPrevPhase: () => void;
   goNextPhase: () => void;
-  onChangeWalletForm: (type: string, value: number) => void;
+  onChangeAccount: (type: string, value: number) => void;
 };
 
-function WalletAmountAddPhase({
+function AmountAddPhase({
   amount,
   isActivePhase,
-  onChangeWalletForm,
+  onChangeAccount,
   goPrevPhase,
   goNextPhase
-}: WalletAmountAddPhaseProps) {
+}: AmountAddPhaseProps) {
   const isActiveComplete = amount > 0;
 
-  const onChangeAmount = (num: number) => onChangeWalletForm('amount', num);
+  const onChangeAmount = (num: number) => {
+    onChangeAccount('amount', num)
+  };
 
   const onCompleteClick = () => isActiveComplete && goNextPhase();
 
@@ -41,4 +43,4 @@ function WalletAmountAddPhase({
   );
 }
 
-export default WalletAmountAddPhase;
+export default AmountAddPhase;

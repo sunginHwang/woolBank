@@ -2,31 +2,35 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PhaseTemplate from '../../common/PhaseTemplate';
 import BaseSlider from '../../common/BaseSlider';
-import { IWalletForm } from '../../../models/IWalletForm';
+import { IAccount } from '../../../models/IAccount';
 import { INSTALLMENT_SAVINGS_TAX } from '../../../support/constants';
 import ToggleTab from '../../common/ToggleTab';
 import { addComma } from '../../../support/util/String';
 import { IAssetType } from '../../../models/IAssetType';
-import { findSavingTax, getAmountWithTax, getInterest } from '../../../support/util/bank';
+import {
+  findSavingTax,
+  getAmountWithTax,
+  getInterest
+} from '../../../support/util/bank';
 import { getRate } from '../../../support/util/number';
 import { diffMonth } from '../../../support/util/date';
 
 type AddRatePhaseProps = {
   isActivePhase: boolean;
-  wallet: IWalletForm;
+  account: IAccount;
   goPrevPhase: () => void;
   goNextPhase: () => void;
-  onChangeWalletForm: (type: string, value: number | string) => void;
+  onChangeAccount: (type: string, value: number | string) => void;
 };
 
-function AddRatePhase({
-                        isActivePhase,
-                        wallet,
-                        goPrevPhase,
-                        goNextPhase,
-                        onChangeWalletForm
-                      }: AddRatePhaseProps) {
-  const [rate, setRate] = useState(wallet.rate);
+function RateAddPhase({
+  isActivePhase,
+  account,
+  goPrevPhase,
+  goNextPhase,
+  onChangeAccount
+}: AddRatePhaseProps) {
+  const [rate, setRate] = useState(account.rate);
   const [activeTab, setActiveTab] = useState(INSTALLMENT_SAVINGS_TAX[0]);
 
   const onChangeRate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,19 +38,19 @@ function AddRatePhase({
   };
 
   const onCompleteClick = () => {
-    onChangeWalletForm('rate', rate);
+    onChangeAccount('rate', rate);
     goNextPhase();
   };
   const onChangeTab = (tab: IAssetType) => {
-    onChangeWalletForm('taxType', tab.type);
+    onChangeAccount('taxType', tab.type);
     setActiveTab(tab);
   };
 
-  const savingPeriod = diffMonth(wallet.startDate, wallet.endDate);
+  const savingPeriod = diffMonth(account.startDate, account.endDate);
   const interest = getInterest({
     savingPeriod,
-    amount: wallet.amount,
-    savingType: wallet.savingType.type,
+    amount: account.amount,
+    savingType: account.savingType.type,
     rate: rate
   });
   const rateAmount = getAmountWithTax(interest, activeTab.type);
@@ -54,10 +58,12 @@ function AddRatePhase({
   const displayTax = `${findSavingTax(activeTab.type) * 100}%`;
 
   return (
-    <PhaseTemplate active={isActivePhase}
-                   title='이율 설정'
-                   usePadding={false}
-                   onBackClick={goPrevPhase}>
+    <PhaseTemplate
+      active={isActivePhase}
+      title='이율 설정'
+      usePadding={false}
+      onBackClick={goPrevPhase}
+    >
       <S.AddRatePhase>
         <div>
           <S.Header>
@@ -83,19 +89,21 @@ function AddRatePhase({
               <div>
                 <S.RateItem>
                   <span>예상 입금액</span>
-                  <span>+ {addComma(wallet.amount)}원</span>
+                  <span>+ {addComma(account.amount)}원</span>
                 </S.RateItem>
                 <S.RateItem>
                   <span>순이자</span>
                   <span>+ {addComma(interest)}원</span>
                 </S.RateItem>
                 <S.RateItem isTax>
-                  <span>세금 (<label>{displayTax}</label>)</span>
+                  <span>
+                    세금 (<label>{displayTax}</label>)
+                  </span>
                   <span>- {addComma(interest - rateAmount)}원</span>
                 </S.RateItem>
                 <S.RateItem isTotal>
                   <span>예상 만기금액</span>
-                  <span>{addComma(rateAmount + wallet.amount)}원</span>
+                  <span>{addComma(rateAmount + account.amount)}원</span>
                 </S.RateItem>
               </div>
             </S.Rate>
@@ -168,18 +176,19 @@ const S: {
   Rate: styled.div`
     margin: 8rem 0;
 
-    >div:last-child {
+    > div:last-child {
       margin-top: 2rem;
     }
   `,
   RateItem: styled.div`
     display: flex;
     justify-content: space-between;
-    margin-top: ${(props: any) => props.isTotal ? '1' : '0'}rem;
+    margin-top: ${(props: any) => (props.isTotal ? '1' : '0')}rem;
     align-items: center;
-    border-top : ${(props: any) => props.isTotal ? `.1rem dashed ${props.theme.colors.greyL1}` : ''};
+    border-top: ${(props: any) =>
+      props.isTotal ? `.1rem dashed ${props.theme.colors.greyL1}` : ''};
     padding-top: 1rem;
-    
+
     label {
       color: ${(props) => props.theme.colors.redL1};
     }
@@ -187,13 +196,14 @@ const S: {
       font-size: 1.4rem;
       color: ${(props) => props.theme.colors.greyD1};
     }
-    
+
     span:last-child {
-      font-size: ${(props: any) => props.isTotal ? '2' : '1.4'}rem;
-      color: ${(props: any) => props.isTax ? props.theme.colors.redL1 : props.theme.colors.blackL1};
+      font-size: ${(props: any) => (props.isTotal ? '2' : '1.4')}rem;
+      color: ${(props: any) =>
+        props.isTax ? props.theme.colors.redL1 : props.theme.colors.blackL1};
       font-weight: bold;
     }
   `
 };
 
-export default AddRatePhase;
+export default RateAddPhase;

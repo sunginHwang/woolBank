@@ -1,58 +1,77 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store';
 import TotalAssetsWallet from '../components/main/TotalAssetsWallet';
-import { IWallet } from '../models/IWallet';
 import MainCardArea from '../components/main/MainCardArea';
-import WalletListItem from '../components/wallet/WalletListItem';
 import BucketListItem from '../components/bucketList/BucketList/BucketListItem';
 import { IBucketList } from '../models/IBucketList';
 import Header from '../components/layout/Header';
 import NavigationBar from '../components/layout/NavigationBar';
+import { IAccount } from '../models/IAccount';
+import { INSTALLMENT_SAVINGS, TAX_TYPE } from '../support/constants';
+import AccountListItem from '../components/account/AccountListItem';
+import PageTemplate from '../components/common/PageTemplate';
 
-const assets = [{
-  title: '첫 고정적금',
-  asset: 30000,
-  maturityPrice: 300000,
-  type: '고정적금',
-  endAt: '2022-02-24'
-}, {
-  title: '첫 자유적금',
-  asset: 3000000,
-  maturityPrice: 5000000,
-  type: '자유적금',
-  endAt: '2021-03-24'
-}] as IWallet[];
+const accounts: IAccount[] = [
+  {
+    title: '첫 고정적금',
+    amount: 40000000,
+    currentAmount: 30000,
+    startDate: '2019-01-01',
+    endDate: '2021-01-01',
+    savingType: INSTALLMENT_SAVINGS[0],
+    taxType: TAX_TYPE.NORMAL_TAX,
+    rate: 0.1
+  },
+  {
+    title: '두번째 적금',
+    amount: 40000000,
+    currentAmount: 30000,
+    startDate: '2019-02-01',
+    endDate: '2022-02-01',
+    savingType: INSTALLMENT_SAVINGS[1],
+    taxType: TAX_TYPE.NORMAL_TAX,
+    rate: 0.2
+  },
+  {
+    title: '마지막 고정적금',
+    amount: 40000000,
+    currentAmount: 30000,
+    startDate: '2019-02-11',
+    endDate: '2024-02-11',
+    savingType: INSTALLMENT_SAVINGS[2],
+    taxType: TAX_TYPE.NORMAL_TAX,
+    rate: 0.3
+  }
+];
 
-const bucketList = [{
-  title: '버킷리스트 1번 목표',
-  percent: 82
-}, {
-  title: '버킷리스트 2번 목표',
-  percent: 24
-}] as IBucketList[];
+const bucketList: IBucketList[] = [
+  {
+    title: '버킷리스트 1번 목표',
+    percent: 82
+  },
+  {
+    title: '버킷리스트 2번 목표',
+    percent: 24
+  }
+];
 
 function Main() {
-  const todo = useSelector((state: RootState) => state.todo);
-  console.log(todo);
   return (
-    <>
-      <Header/>
-      <TotalAssetsWallet totalPrice={50000} lastMonthTotalPrice={30000}/>
+    <PageTemplate isMain>
+      <Header />
+      <TotalAssetsWallet totalPrice={50000} lastMonthTotalPrice={30000} />
       <MainCardArea title='자산현황'>
-        {
-          assets.map((wallet, index) => <WalletListItem key={index} wallet={wallet}/>)
-        }
+        {accounts.map((account, index) => (
+          <AccountListItem key={index} account={account} />
+        ))}
       </MainCardArea>
       <MainCardArea title='버킷리스트'>
-        {
-          bucketList.map((bucket, index) => <BucketListItem key={index} bucketList={bucket}/>)
-        }
+        {bucketList.map((bucket, index) => (
+          <BucketListItem key={index} bucketList={bucket} />
+        ))}
       </MainCardArea>
-      <NavigationBar/>
-    </>
+      <NavigationBar />
+    </PageTemplate>
   );
 }
-
 
 export default Main;

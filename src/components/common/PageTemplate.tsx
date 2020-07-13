@@ -2,28 +2,44 @@ import React from 'react';
 import styled from 'styled-components';
 import HeaderWithBack from './HeaderWithBack';
 import NavigationBar from '../layout/NavigationBar';
+import Header from '../layout/Header';
 
 type InputPhaseWrapperProps = {
-  title: string;
+  title?: string;
+  isMain?: boolean;
   rightHeader?: React.ReactNode;
-  onBackClick: () => void;
+  onBackClick?: () => void;
   children: React.ReactNode;
 };
 
 function PageTemplate({
-  title,
+  title = '',
+  isMain = false,
   onBackClick,
-  rightHeader,
+  rightHeader = null,
   children
 }: InputPhaseWrapperProps) {
+  const onHeaderBackClick = () => {
+    onBackClick && onBackClick();
+  };
+
   return (
     <S.PageTemplate>
-      <HeaderWithBack
-        title={title}
-        onBackClick={onBackClick}
-        right={rightHeader}
-      />
-      <S.Content>{children}</S.Content>
+      {isMain ? (
+        <>
+          <Header />
+          <div>{children}</div>
+        </>
+      ) : (
+        <>
+          <HeaderWithBack
+            title={title}
+            onBackClick={onHeaderBackClick}
+            right={rightHeader}
+          />
+          <S.Content>{children}</S.Content>
+        </>
+      )}
       <NavigationBar />
     </S.PageTemplate>
   );
