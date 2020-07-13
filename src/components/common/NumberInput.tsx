@@ -164,6 +164,7 @@ const S: {
   `,
   InputDisplayMessage: styled.span`
     font-size: 1.4rem;
+    height: 2.1rem;
     margin-top: 1rem;
     color: ${(props: any) =>
     props.active ? props.theme.colors.redL1 : props.theme.colors.blackL1};
