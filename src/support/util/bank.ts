@@ -1,6 +1,6 @@
 import { INSTALLMENT_SAVINGS_TAX, NORMAL_RATE_TAX, PREFERENTIAL_TAX, SAVING_TYPE, TAX_TYPE } from '../constants';
 import { diffMonth } from './date';
-import { IWalletForm } from '../../models/IWalletForm';
+import { IAccount } from '../../models/IAccount';
 
 export const getAmountWithTax = (amount: number, taxType: string) => {
   let result = amount;
@@ -80,12 +80,12 @@ export const getSavingPartName = (type: SAVING_TYPE | string) => {
   return isTimeSavingType(type) ? '적금' : '예금';
 };
 
-export const getTaxTypeKo = (taxType: TAX_TYPE | string) => {
+export const getTaxTypeKo = (taxType: TAX_TYPE | string): string => {
   const taxSavingType = INSTALLMENT_SAVINGS_TAX.find((savingTax) => savingTax.type === taxType);
-  return taxSavingType && taxSavingType.name;
+  return taxSavingType ? taxSavingType.name : '';
 };
 
-export const getRateInterestByWallet = (wallet: IWalletForm) => {
+export const getRateInterestByWallet = (wallet: IAccount) => {
   const savingPeriod = diffMonth(wallet.startDate, wallet.endDate);
   const interest = getInterest({
     savingPeriod,

@@ -1,31 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
 import PhaseTemplate from '../../common/PhaseTemplate';
-import { IWalletForm } from '../../../models/IWalletForm';
+import { IAccount } from '../../../models/IAccount';
 import { addComma } from '../../../support/util/String';
 import { DATE_FORMAT, parseDate } from '../../../support/util/date';
 import {
   getRateInterestByWallet,
-  getSavingPartName,
   getTaxTypeKo
 } from '../../../support/util/bank';
 import DownSlide from '../../common/DownSlide';
 
 type WalletConfirmPhaseProps = {
   isActivePhase: boolean;
-  wallet: IWalletForm;
+  account: IAccount;
   goPrevPhase: () => void;
   onComplete: () => void;
 };
 
-function WalletConfirmPhase({
-  wallet,
+const ConfirmCardItem = ({
+  title,
+  value
+}: {
+  title: string;
+  value: string;
+}) => (
+  <S.CardItem>
+    <span>{title}</span>
+    <p>{value}</p>
+  </S.CardItem>
+);
+
+function ConfirmPhase({
+  account,
   isActivePhase,
   goPrevPhase,
   onComplete
 }: WalletConfirmPhaseProps) {
-  const taxTypeKo = getTaxTypeKo(wallet.taxType);
-  const rateInterest = getRateInterestByWallet(wallet); // 만기이자
+  const taxTypeKo = getTaxTypeKo(account.taxType);
+  // 만기이자
+  const rateInterest = getRateInterestByWallet(account);
+  // 정기이체일 설정 여부
+  const useRegularTransferDate = account.regularTransferDate && account.regularTransferDate > 0;
   return (
     <PhaseTemplate
       active={isActivePhase}
@@ -34,48 +49,43 @@ function WalletConfirmPhase({
     >
       <S.WalletConfirmPhase>
         <S.CardTitle>
-          <p>{wallet.title}</p>
+          <p>{account.title}</p>
         </S.CardTitle>
         <S.Card>
           <div>
             <S.CardAmountItem>
               <span>예상 만기액</span>
-              <p>{addComma(wallet.amount + rateInterest)} 원</p>
+              <p>{addComma(account.amount + rateInterest)} 원</p>
             </S.CardAmountItem>
-            {
-              wallet.regularTransferDate > 0 && (
-                <S.CardItem>
-                  <span>정기 이체 일</span>
-                  <p>{wallet.regularTransferDate}일</p>
-                </S.CardItem>
-              )
-            }
+            {useRegularTransferDate && (
+              <ConfirmCardItem
+                title='정기 이체 일'
+                value={`${account.rate} 일`}
+              />
+            )}
             <DownSlide>
-              <S.CardItem>
-                <span>예상 만기 이자</span>
-                <p>{addComma(rateInterest)} 원</p>
-              </S.CardItem>
-              <S.CardItem>
-                <span>예상 만기 원금</span>
-                <p>{addComma(wallet.amount)} 원</p>
-              </S.CardItem>
+              <ConfirmCardItem
+                title='예상 만기 이자'
+                value={`${addComma(rateInterest)} 원`}
+              />
+              <ConfirmCardItem
+                title='예상 만기 원금'
+                value={`${addComma(account.amount)} 원`}
+              />
             </DownSlide>
-            <S.CardItem>
-              <span>적금 종류</span>
-              <p>{wallet.savingType.name}</p>
-            </S.CardItem>
-            <S.CardItem>
-              <span>세금종류</span>
-              <p>{taxTypeKo}</p>
-            </S.CardItem>
-            <S.CardItem>
-              <span>이율</span>
-              <p>{(wallet.rate * 100).toFixed(2)}%</p>
-            </S.CardItem>
-            <S.CardItem>
-              <span>만기일</span>
-              <p>{parseDate(wallet.endDate, DATE_FORMAT.YYYY_MM_DD)}</p>
-            </S.CardItem>
+            <ConfirmCardItem
+              title='적금 종류'
+              value={account.savingType.name}
+            />
+            <ConfirmCardItem title='세금 종류' value={taxTypeKo} />
+            <ConfirmCardItem
+              title='이율'
+              value={`${(account.rate * 100).toFixed(2)}%`}
+            />
+            <ConfirmCardItem
+              title='만기일'
+              value={parseDate(account.endDate, DATE_FORMAT.YYYY_MM_DD)}
+            />
           </div>
         </S.Card>
         <S.Info>
@@ -112,15 +122,14 @@ const S: {
     display: flex;
     flex-direction: column;
     background-color: ${(props) => props.theme.colors.white};
-
   `,
   CardTitle: styled.div`
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: flex-end;
     margin-top: 2rem;
     margin-bottom: 1rem;
-    
+
     > p {
       font-size: 2rem;
       color: ${(props) => props.theme.colors.blackL1};
@@ -138,12 +147,12 @@ const S: {
   CardAmountItem: styled.div`
     display: flex;
     flex-direction: column;
-    
+
     span:first-child {
-        opacity: 0.5;
+      opacity: 0.5;
     }
-    
-    p{
+
+    p {
       margin: 1rem 0;
       text-align: right;
       font-size: 3rem;
@@ -187,4 +196,4 @@ const S: {
   `
 };
 
-export default WalletConfirmPhase;
+export default ConfirmPhase;

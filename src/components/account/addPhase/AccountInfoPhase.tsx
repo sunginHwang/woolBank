@@ -1,91 +1,100 @@
 import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 import BaseInput from '../../common/BaseInput';
-import WalletTypeAddModal from './WalletTypeAddModal';
-import WalletDateModal from './WalletDateModal';
+import AccountSavingTypeModal from './AccountSavingTypeModal';
+import DateModal from '../../common/modal/DateModal';
 import { DATE_FORMAT, getKoMonth, parseDate } from '../../../support/util/date';
 import PhaseTemplate from '../../common/PhaseTemplate';
-import { IWalletForm } from '../../../models/IWalletForm';
+import { IAccount } from '../../../models/IAccount';
 import BaseSlider from '../../common/BaseSlider';
 import { IAssetType } from '../../../models/IAssetType';
 import { SAVING_TYPE } from '../../../support/constants';
 
 type modalType = 'type' | 'date' | '';
-type WalletInfoAddPhaseProps = {
+type AccountInfoPhaseProps = {
   isActivePhase: boolean;
   goNextPage: () => void;
   goPrevPhase: () => void;
-  walletForm: IWalletForm;
-  onChangeWalletForm: (
-    type: string,
-    value: string | number | IAssetType
-  ) => void;
+  account: IAccount;
+  onChangeAccount: (type: string, value: string | number | IAssetType) => void;
 };
 
-function WalletInfoAddPhase({
-                              isActivePhase,
-                              walletForm,
-                              onChangeWalletForm,
-                              goNextPage,
-                              goPrevPhase
-                            }: WalletInfoAddPhaseProps) {
+function AccountInfoPhase({
+  isActivePhase,
+  account,
+  onChangeAccount,
+  goNextPage,
+  goPrevPhase
+}: AccountInfoPhaseProps) {
   const now = new Date();
   // 모달 팝업
   const [openModalName, setOpenModalName] = useState<modalType>('');
   const [assetMonth, setAssetMonth] = useState(0);
   const [regularTransferDate, setRegularTransferDate] = useState(1);
   const useRegularTransferDate =
-    walletForm.savingType.type === SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS;
+    account.savingType.type === SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS;
 
-  const openTypeModal = () => setOpenModalName('type');
-  const openDateModal = () => setOpenModalName('date');
-  const closeModal = () => setOpenModalName('');
+  const openTypeModal = () => {
+    setOpenModalName('type');
+  };
+  const openDateModal = () => {
+    setOpenModalName('date');
+  };
+  const closeModal = () => {
+    setOpenModalName('');
+  };
 
   // 폼 값 초기화
-  const clearWalletTitle = () => onChangeWalletForm('title', '');
-  const clearWalletType = () => {
-    onChangeWalletForm('savingType', { type: '', name: '' });
+  const clearTitle = () => {
+    onChangeAccount('title', '');
   };
-  const clearWalletDate = () => onChangeWalletForm('startDate', '');
+  const clearSavingType = () => {
+    onChangeAccount('savingType', { type: '', name: '' });
+  };
+  const clearStartDate = () => {
+    onChangeAccount('startDate', '');
+  };
 
-  // 폼 값 변경 이벤트
-  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) =>
-    onChangeWalletForm('title', e.target.value);
+  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    onChangeAccount('title', e.target.value);
+  };
+
   const onChangeDate = (date: string) => {
-    onChangeWalletForm('startDate', date);
+    onChangeAccount('startDate', date);
     closeModal();
   };
+
   const onChangeAssetType = (assetType: IAssetType) => {
     // 적금 타입 변경시 정기예치일 오늘날짜로 초기화
     setRegularTransferDate(now.getDate());
-    onChangeWalletForm('regularTransferDate', 0);
+    onChangeAccount('regularTransferDate', 0);
 
-    onChangeWalletForm('savingType', assetType);
+    onChangeAccount('savingType', assetType);
     closeModal();
   };
 
-  const isAllowWalletFormValidation =
-    walletForm.title !== '' &&
-    walletForm.savingType.name !== '' &&
-    walletForm.startDate !== '' &&
+  const isAllowAccountAddValidation =
+    account.title !== '' &&
+    account.savingType.name !== '' &&
+    account.startDate !== '' &&
     assetMonth > 0;
 
   // 다음 페이즈 입력으로 이동
   const goNextPhase = () => {
-    if (isAllowWalletFormValidation) {
-      const assetStartDate = new Date(walletForm.startDate);
-      assetStartDate.setMonth(assetStartDate.getMonth() + assetMonth);
-      const assetEndDate = assetStartDate.toLocaleDateString();
-      onChangeWalletForm(
+    if (isAllowAccountAddValidation) {
+      const startDate = new Date(account.startDate);
+      startDate.setMonth(startDate.getMonth() + assetMonth);
+      const endDate = startDate.toLocaleDateString();
+      onChangeAccount(
         'endDate',
-        parseDate(assetEndDate, DATE_FORMAT.YYYY_MM_DD)
+        parseDate(endDate, DATE_FORMAT.YYYY_MM_DD)
       );
 
       if (useRegularTransferDate) {
-        onChangeWalletForm('regularTransferDate', regularTransferDate);
-        onChangeWalletForm(
+        onChangeAccount('regularTransferDate', regularTransferDate);
+        onChangeAccount(
           'endDate',
-          parseDate(assetEndDate, DATE_FORMAT.YYYY_MM_DD)
+          parseDate(endDate, DATE_FORMAT.YYYY_MM_DD)
         );
       }
       goNextPage();
@@ -99,22 +108,22 @@ function WalletInfoAddPhase({
       usePadding={false}
       onBackClick={goPrevPhase}
     >
-      <S.WalletInfoAddPhase>
+      <S.AccountInfoAddPhase>
         <S.Content>
           <BaseInput
             label='예/적금명'
             placeHolder='예/적금 명을 입력해 주세요.'
             name='title'
-            value={walletForm.title}
+            value={account.title}
             onChange={onChangeTitle}
-            onClear={clearWalletTitle}
+            onClear={clearTitle}
           />
           <BaseInput
             label='예/적금 종류'
             placeHolder='예/적금 종류를 선택해 주세요.'
             onClick={openTypeModal}
-            onClear={clearWalletType}
-            value={walletForm.savingType.name}
+            onClear={clearSavingType}
+            value={account.savingType.name}
             disable
           />
           {useRegularTransferDate && (
@@ -135,12 +144,12 @@ function WalletInfoAddPhase({
             label='시작일'
             placeHolder='시작일을 선택해 주세요.'
             onClick={openDateModal}
-            onClear={clearWalletDate}
-            value={parseDate(walletForm.startDate, DATE_FORMAT.YYYY_MM_DD)}
+            onClear={clearStartDate}
+            value={parseDate(account.startDate, DATE_FORMAT.YYYY_MM_DD)}
             disable
           />
           <S.AssetMonth>
-            {walletForm.startDate && (
+            {account.startDate && (
               <>
                 <p>예/적금 기간 설정</p>
                 <BaseSlider
@@ -157,36 +166,34 @@ function WalletInfoAddPhase({
           </S.AssetMonth>
         </S.Content>
         <S.CompleteButton
-          active={isAllowWalletFormValidation}
+          active={isAllowAccountAddValidation}
           onClick={goNextPhase}
         >
           작성하기
         </S.CompleteButton>
-        <WalletTypeAddModal
+        <AccountSavingTypeModal
           visible={openModalName === 'type'}
           onChangeAssetType={onChangeAssetType}
           oncloseModal={closeModal}
         />
-        <WalletDateModal
+        <DateModal
           visible={openModalName === 'date'}
           oncloseModal={closeModal}
           onChangeDate={onChangeDate}
-          date={
-            walletForm.startDate === '' ? now : new Date(walletForm.startDate)
-          }
+          date={account.startDate === '' ? now : new Date(account.startDate)}
         />
-      </S.WalletInfoAddPhase>
+      </S.AccountInfoAddPhase>
     </PhaseTemplate>
   );
 }
 
 const S: {
-  WalletInfoAddPhase: any;
+  AccountInfoAddPhase: any;
   Content: any;
   CompleteButton: any;
   AssetMonth: any;
 } = {
-  WalletInfoAddPhase: styled.div`
+  AccountInfoAddPhase: styled.div`
     height: 100%;
     padding: 0 2rem;
     overflow-y: scroll;
@@ -222,4 +229,4 @@ const S: {
   `
 };
 
-export default WalletInfoAddPhase;
+export default AccountInfoPhase;

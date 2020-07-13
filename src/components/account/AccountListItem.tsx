@@ -1,36 +1,40 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IWallet } from '../../models/IWallet';
 import CardItem from '../common/CardItem';
 import { addComma } from '../../support/util/String';
 import colors from '../../style/colors';
 import IcoPiggyBank from '../icon/IcoPiggyBank';
 import IcoCashUsd from '../icon/IcoCashUsd';
 import IcoCurrencyUsdCircle from '../icon/IcoCurrencyUsdCircle';
+import { IAccount } from '../../models/IAccount';
+import { DATE_FORMAT, parseDate } from '../../support/util/date';
+import { SAVING_TYPE } from '../../support/constants';
 
 type WalletListItemProps = {
-  wallet: IWallet;
+  account: IAccount;
 };
 
-function WalletListItem2({
-  wallet: { title, asset, type, endAt, maturityPrice }
+function AccountListItem({
+  account: { title, savingType, endDate, amount, currentAmount }
 }: WalletListItemProps) {
   const walletIcon = () => {
-    if (type === '고정적금') {
+    if (savingType.type === SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS) {
       return (
-        <IcoPiggyBank height={18} width={18} fill={colors.colors.greyD2} />
+        <IcoPiggyBank height={14} width={14} fill={colors.colors.greyD2} />
       );
     }
 
-    if (type === '정기예금') {
-      return (
-        <IcoCashUsd height={18} width={18} fill={colors.colors.greyD2} />
-      );
+    if (savingType.type === SAVING_TYPE.REGULAR_DEPOSIT) {
+      return <IcoCashUsd height={14} width={14} fill={colors.colors.greyD2} />;
     }
 
-    if (type === '자유적금') {
+    if (savingType.type === SAVING_TYPE.FREE_INSTALLMENT_SAVINGS) {
       return (
-        <IcoCurrencyUsdCircle height={18} width={18} fill={colors.colors.greyD2} />
+        <IcoCurrencyUsdCircle
+          height={14}
+          width={14}
+          fill={colors.colors.greyD2}
+        />
       );
     }
 
@@ -41,21 +45,21 @@ function WalletListItem2({
       <S.Top>
         <p>{title}</p>
         <div>
-          <span>{type}</span>
+          <span>{savingType.name}</span>
           {walletIcon()}
         </div>
       </S.Top>
       <S.Content>
         <p>
-          {addComma(asset)} <span>원</span>
+          {addComma(currentAmount || 0)} <span>원</span>
         </p>
       </S.Content>
       <S.Bottom>
-        <p>만기일 : {endAt}</p>
-        <span>만기금액 : {addComma(maturityPrice)}원</span>
+        <p>만기일 : {parseDate(endDate, DATE_FORMAT.YYYY_MM_DD)}</p>
+        <span>만기금액 : {addComma(amount)}원</span>
       </S.Bottom>
       <S.Progress>
-        <div/>
+        <div />
       </S.Progress>
     </CardItem>
   );
@@ -75,8 +79,13 @@ const S: {
 
     span {
       font-size: 1.4rem;
+      margin: 0.2rem 0.5rem 0 0;
       color: ${(props) => props.theme.colors.greyD2};
-      margin-right: 0.5rem;
+    }
+    
+    >div{
+      display: flex;
+      align-items: center;
     }
   `,
   Content: styled.div`
@@ -111,17 +120,16 @@ const S: {
   `,
   Progress: styled.div`
     margin-top: 1.6rem;
-    height: .1rem;
-    border-radius: .3rem;
+    height: 0.1rem;
+    border-radius: 0.3rem;
     background-color: ${(props) => props.theme.colors.greyL2};
-    
+
     div {
       width: 80%;
       height: 100%;
       background-color: ${(props) => props.theme.colors.navyD1};
     }
-    
   `
 };
 
-export default React.memo(WalletListItem2);
+export default React.memo(AccountListItem);

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { IWalletForm } from '../../models/IWalletForm';
-import WalletInfoAddPhase from '../../components/wallet/addPhase/WalletInfoAddPhase';
-import WalletAmountAddPhase from '../../components/wallet/addPhase/walletAmountAddPhase';
-import WalletConfirmPhase from '../../components/wallet/addPhase/WalletConfirmPhase';
-import AddRatePhase from '../../components/wallet/addPhase/AddRatePhase';
+import { IAccount } from '../../models/IAccount';
+import AccountInfoPhase from '../../components/account/addPhase/AccountInfoPhase';
+import AmountAddPhase from '../../components/account/addPhase/AmountAddPhase';
+import ConfirmPhase from '../../components/account/addPhase/ConfirmPhase';
+import RateAddPhase from '../../components/account/addPhase/RateAddPhase';
 import { IAssetType } from '../../models/IAssetType';
 
-type WalletAddContainerProps = {
+type AccountAddContainerProps = {
   phase: number;
   onChangePhase: (phase: number) => void;
 };
 
-function WalletAddContainer({ phase, onChangePhase }: WalletAddContainerProps) {
-  const [walletForm, setWalletForm] = useState<IWalletForm>({
+function AccountAddContainer({ phase, onChangePhase }: AccountAddContainerProps) {
+  const [account, setAccount] = useState<IAccount>({
     title: '',
     savingType: { type: '', name: '' },
     startDate: '',
@@ -23,11 +23,11 @@ function WalletAddContainer({ phase, onChangePhase }: WalletAddContainerProps) {
     amount: 0
   });
 
-  const onChangeWalletForm = (
+  const onChangeAccount = (
     type: string,
     value: string | number | IAssetType
   ) => {
-    setWalletForm((prevState) => {
+    setAccount((prevState) => {
       return {
         ...prevState,
         [type]: value
@@ -40,29 +40,29 @@ function WalletAddContainer({ phase, onChangePhase }: WalletAddContainerProps) {
 
   return (
     <>
-      <WalletInfoAddPhase
-        walletForm={walletForm}
+      <AccountInfoPhase
+        account={account}
         isActivePhase={phase >= 1}
-        onChangeWalletForm={onChangeWalletForm}
+        onChangeAccount={onChangeAccount}
         goPrevPhase={goPrevPage}
         goNextPage={goNextPage}
       />
-      <WalletAmountAddPhase
+      <AmountAddPhase
         isActivePhase={phase >= 2}
-        amount={walletForm.amount}
-        onChangeWalletForm={onChangeWalletForm}
+        amount={account.amount}
+        onChangeAccount={onChangeAccount}
         goPrevPhase={goPrevPage}
         goNextPhase={goNextPage}
       />
-      <AddRatePhase
+      <RateAddPhase
         isActivePhase={phase >= 3}
-        wallet={walletForm}
-        onChangeWalletForm={onChangeWalletForm}
+        account={account}
+        onChangeAccount={onChangeAccount}
         goNextPhase={goNextPage}
         goPrevPhase={goPrevPage}
       />
-      <WalletConfirmPhase
-        wallet={walletForm}
+      <ConfirmPhase
+        account={account}
         isActivePhase={phase >= 4}
         onComplete={goNextPage}
         goPrevPhase={goPrevPage}
@@ -71,4 +71,4 @@ function WalletAddContainer({ phase, onChangePhase }: WalletAddContainerProps) {
   );
 }
 
-export default WalletAddContainer;
+export default AccountAddContainer;
