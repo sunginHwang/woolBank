@@ -46,8 +46,9 @@ const S: {
   Amount: any;
 } = {
   AccountInfo: styled.div`
-    margin: 4rem 0 4rem 0;
+    padding: 4rem 2rem;
     display: flex;
+    background-color: ${(props) => props.theme.colors.white};
     flex-direction: column;
     align-items: center;
     color: ${(props) => props.theme.colors.blackL1};

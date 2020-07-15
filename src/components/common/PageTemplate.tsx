@@ -3,20 +3,25 @@ import styled from 'styled-components';
 import HeaderWithBack from './HeaderWithBack';
 import NavigationBar from '../layout/NavigationBar';
 import Header from '../layout/Header';
+import colors from '../../style/colors';
 
 type InputPhaseWrapperProps = {
   title?: string;
   isMain?: boolean;
   useNav?: boolean;
+  useSidePadding?: boolean;
   rightHeader?: React.ReactNode;
   onBackClick?: () => void;
   children: React.ReactNode;
+  bgColor?: string;
 };
 
 function PageTemplate({
   title = '',
   isMain = false,
   useNav = true,
+  bgColor = colors.colors.whiteL1,
+  useSidePadding = true,
   onBackClick,
   rightHeader = null,
   children
@@ -39,7 +44,9 @@ function PageTemplate({
             onBackClick={onHeaderBackClick}
             right={rightHeader}
           />
-          <S.Content>{children}</S.Content>
+          <S.Content bgColor={bgColor} useSidePadding={useSidePadding}>
+            {children}
+          </S.Content>
         </>
       )}
       {useNav && <NavigationBar />}
@@ -58,9 +65,9 @@ const S: {
     height: 100%;
   `,
   Content: styled.div`
-    background-color: ${(props) => props.theme.colors.white};
-    padding-top: 5.5rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    height: calc(100% - 5.5rem);
+    background-color: ${(props: any) => props.bgColor};
+    padding: 5.5rem
+      ${(props: any) => (props.useSidePadding ? '2rem 0 2rem' : '0 0 0')};
   `
 };

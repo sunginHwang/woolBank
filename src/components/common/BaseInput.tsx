@@ -5,8 +5,9 @@ import IcoCloseCircle from '../icon/IcoCloseCircle';
 type BaseInputProps = {
   label: string;
   placeHolder?: string;
-  value: string;
+  value: string | number;
   name?: string;
+  type?: 'text' | 'number' | 'date' | 'range';
   disable?: boolean;
   onChange?: React.ChangeEventHandler;
   onClear?: () => void;
@@ -18,6 +19,7 @@ function BaseInput({
   placeHolder,
   value,
   name,
+  type = 'text',
   disable = false,
   onChange,
   onClear,
@@ -37,7 +39,7 @@ function BaseInput({
     <S.BaseInput focus={focus} onClick={onClick}>
       <label>{label}</label>
       <input
-        type='text'
+        type={type}
         placeholder={placeHolder}
         name={name}
         value={value}

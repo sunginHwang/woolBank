@@ -14,10 +14,10 @@ function HeaderWithBack({ title, onBackClick, right }: HeaderWithBackProps) {
     <S.HeaderWithBack>
       <div>
         <div onClick={onBackClick}>
-          <IcoChevronLeft width={26} height={26} fill={theme.colors.navyD1}/>
+          <IcoChevronLeft width={26} height={26} fill={theme.colors.navyD1} />
         </div>
         <p>{title}</p>
-        <div>{right}</div>
+        <S.rightHeader>{right}</S.rightHeader>
       </div>
     </S.HeaderWithBack>
   );
@@ -37,21 +37,21 @@ const S: any = {
     background-color: ${(props) => props.theme.colors.white};
     border-bottom: 0.1rem solid #dcdce9;
 
-    >div {
+    > div {
       width: 100%;
       height: 100%;
       display: flex;
       flex-direction: row;
       align-items: center;
-      
+
       &:first-child {
         margin-left: 2rem;
       }
       &:last-child {
         margin-right: 2rem;
       }
-      
-      >div{
+
+      > div {
         flex: 1;
         display: flex;
         align-items: center;
@@ -64,17 +64,18 @@ const S: any = {
           text-align: right;
         }
       }
-      
-      >p {
-      flex: 2;
-      text-align: center;
-      font-size: 1.6rem;
-      font-weight: bold;
-      color: ${(props) => props.theme.colors.blackL1};
-     }
-    }
 
-    
+      > p {
+        flex: 2;
+        text-align: center;
+        font-size: 1.6rem;
+        font-weight: bold;
+        color: ${(props) => props.theme.colors.blackL1};
+      }
+    }
+  `,
+  rightHeader: styled.div`
+    padding-top: 0.4rem;
   `
 };
 

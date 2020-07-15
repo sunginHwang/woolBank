@@ -31,8 +31,9 @@ const S: {
   DepositRecord: any;
 } = {
   DepositRecord: styled.div`
-    padding: 5rem 0;
-    
+    margin-top: .5rem;
+    padding: 2rem 2rem 5rem 2rem;
+    background-color: ${(props) => props.theme.colors.white};
     >p {
       font-size: 2.2rem;
       color: ${props => props.theme.colors.blackL1};
