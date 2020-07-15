@@ -9,13 +9,13 @@ import IcoCurrencyUsdCircle from '../icon/IcoCurrencyUsdCircle';
 import { IAccount } from '../../models/IAccount';
 import { DATE_FORMAT, parseDate } from '../../support/util/date';
 import { SAVING_TYPE } from '../../support/constants';
-
+import { Link } from 'react-router-dom';
 type WalletListItemProps = {
   account: IAccount;
 };
 
 function AccountListItem({
-  account: { title, savingType, endDate, amount, currentAmount }
+  account: { id, title, savingType, endDate, amount, currentAmount }
 }: WalletListItemProps) {
   const walletIcon = () => {
     if (savingType.type === SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS) {
@@ -41,27 +41,29 @@ function AccountListItem({
     return '';
   };
   return (
-    <CardItem>
-      <S.Top>
-        <p>{title}</p>
-        <div>
-          <span>{savingType.name}</span>
-          {walletIcon()}
-        </div>
-      </S.Top>
-      <S.Content>
-        <p>
-          {addComma(currentAmount || 0)} <span>원</span>
-        </p>
-      </S.Content>
-      <S.Bottom>
-        <p>만기일 : {parseDate(endDate, DATE_FORMAT.YYYY_MM_DD)}</p>
-        <span>만기금액 : {addComma(amount)}원</span>
-      </S.Bottom>
-      <S.Progress>
-        <div />
-      </S.Progress>
-    </CardItem>
+    <Link to={`/accounts/${id}`}>
+      <CardItem>
+        <S.Top>
+          <p>{title}</p>
+          <div>
+            <span>{savingType.name}</span>
+            {walletIcon()}
+          </div>
+        </S.Top>
+        <S.Content>
+          <p>
+            {addComma(currentAmount || 0)} <span>원</span>
+          </p>
+        </S.Content>
+        <S.Bottom>
+          <p>만기일 : {parseDate(endDate, DATE_FORMAT.YYYY_MM_DD)}</p>
+          <span>만기금액 : {addComma(amount)}원</span>
+        </S.Bottom>
+        <S.Progress>
+          <div />
+        </S.Progress>
+      </CardItem>
+    </Link>
   );
 }
 
@@ -82,8 +84,8 @@ const S: {
       margin: 0.2rem 0.5rem 0 0;
       color: ${(props) => props.theme.colors.greyD2};
     }
-    
-    >div{
+
+    > div {
       display: flex;
       align-items: center;
     }

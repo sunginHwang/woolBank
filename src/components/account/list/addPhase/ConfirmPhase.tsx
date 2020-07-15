@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import PhaseTemplate from '../../common/PhaseTemplate';
-import { IAccount } from '../../../models/IAccount';
-import { addComma } from '../../../support/util/String';
-import { DATE_FORMAT, parseDate } from '../../../support/util/date';
+import PhaseTemplate from '../../../common/PhaseTemplate';
+import { IAccount } from '../../../../models/IAccount';
+import { addComma } from '../../../../support/util/String';
+import { DATE_FORMAT, parseDate } from '../../../../support/util/date';
 import {
   getRateInterestByWallet,
   getTaxTypeKo
-} from '../../../support/util/bank';
-import DownSlide from '../../common/DownSlide';
+} from '../../../../support/util/bank';
+import DownSlide from '../../../common/DownSlide';
 
 type WalletConfirmPhaseProps = {
   isActivePhase: boolean;

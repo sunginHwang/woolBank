@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import { IAccount } from '../../../models/IAccount';
-import AccountInfoPhase from '../../../components/account/addPhase/AccountInfoPhase';
-import AmountAddPhase from '../../../components/account/addPhase/AmountAddPhase';
-import ConfirmPhase from '../../../components/account/addPhase/ConfirmPhase';
-import RateAddPhase from '../../../components/account/addPhase/RateAddPhase';
+import AccountInfoPhase from '../../../components/account/list/addPhase/AccountInfoPhase';
+import AmountAddPhase from '../../../components/account/list/addPhase/AmountAddPhase';
+import ConfirmPhase from '../../../components/account/list/addPhase/ConfirmPhase';
+import RateAddPhase from '../../../components/account/list/addPhase/RateAddPhase';
 import { IAssetType } from '../../../models/IAssetType';
 
 type AccountAddContainerProps = {
   phase: number;
-  onChangePhase: (phase: number) => void;
+  goNextPhase: () => void;
+  goPrevPhase: () => void;
 };
 
-function AccountAddContainer({ phase, onChangePhase }: AccountAddContainerProps) {
+function AccountAddContainer({
+  phase,
+  goNextPhase,
+  goPrevPhase
+}: AccountAddContainerProps) {
   const [account, setAccount] = useState<IAccount>({
     title: '',
     savingType: { type: '', name: '' },
@@ -35,37 +40,34 @@ function AccountAddContainer({ phase, onChangePhase }: AccountAddContainerProps)
     });
   };
 
-  const goNextPage = () => onChangePhase(phase + 1);
-  const goPrevPage = () => onChangePhase(phase - 1);
-
   return (
     <>
       <AccountInfoPhase
         account={account}
         isActivePhase={phase >= 1}
         onChangeAccount={onChangeAccount}
-        goPrevPhase={goPrevPage}
-        goNextPage={goNextPage}
+        goPrevPhase={goPrevPhase}
+        goNextPage={goNextPhase}
       />
       <AmountAddPhase
         isActivePhase={phase >= 2}
         amount={account.amount}
         onChangeAccount={onChangeAccount}
-        goPrevPhase={goPrevPage}
-        goNextPhase={goNextPage}
+        goPrevPhase={goPrevPhase}
+        goNextPhase={goNextPhase}
       />
       <RateAddPhase
         isActivePhase={phase >= 3}
         account={account}
         onChangeAccount={onChangeAccount}
-        goNextPhase={goNextPage}
-        goPrevPhase={goPrevPage}
+        goPrevPhase={goPrevPhase}
+        goNextPhase={goNextPhase}
       />
       <ConfirmPhase
         account={account}
         isActivePhase={phase >= 4}
-        onComplete={goNextPage}
-        goPrevPhase={goPrevPage}
+        onComplete={goNextPhase}
+        goPrevPhase={goPrevPhase}
       />
     </>
   );

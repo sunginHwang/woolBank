@@ -1,6 +1,6 @@
 import React from 'react';
-import PhaseTemplate from '../../common/PhaseTemplate';
-import NumberInput from '../../common/NumberInput';
+import PhaseTemplate from '../../../common/PhaseTemplate';
+import NumberInput from '../../../common/NumberInput';
 
 type AmountAddPhaseProps = {
   isActivePhase: boolean;

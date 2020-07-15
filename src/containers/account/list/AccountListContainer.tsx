@@ -19,6 +19,7 @@ const tabs: IAssetType[] = [
 
 const accounts: IAccount[] = [
   {
+    id: 1,
     title: '첫 고정적금',
     amount: 40000000,
     currentAmount: 30000,
@@ -29,6 +30,7 @@ const accounts: IAccount[] = [
     rate: 0.1
   },
   {
+    id: 2,
     title: '두번째 적금',
     amount: 40000000,
     currentAmount: 30000,
@@ -39,6 +41,7 @@ const accounts: IAccount[] = [
     rate: 0.2
   },
   {
+    id: 3,
     title: '마지막 고정적금',
     amount: 40000000,
     currentAmount: 30000,

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import ModalDeem from '../../common/modal/ModalDeem';
-import { IAssetType } from '../../../models/IAssetType';
-import { INSTALLMENT_SAVINGS } from '../../../support/constants';
+import ModalDeem from '../../../common/modal/ModalDeem';
+import { IAssetType } from '../../../../models/IAssetType';
+import { INSTALLMENT_SAVINGS } from '../../../../support/constants';
 
 type AccountSavingTypeModalProps = {
   visible: boolean;

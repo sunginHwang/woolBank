@@ -1,14 +1,14 @@
 import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
-import BaseInput from '../../common/BaseInput';
+import BaseInput from '../../../common/BaseInput';
 import AccountSavingTypeModal from './AccountSavingTypeModal';
-import DateModal from '../../common/modal/DateModal';
-import { DATE_FORMAT, getKoMonth, parseDate } from '../../../support/util/date';
-import PhaseTemplate from '../../common/PhaseTemplate';
-import { IAccount } from '../../../models/IAccount';
-import BaseSlider from '../../common/BaseSlider';
-import { IAssetType } from '../../../models/IAssetType';
-import { SAVING_TYPE } from '../../../support/constants';
+import DateModal from '../../../common/modal/DateModal';
+import { DATE_FORMAT, getKoMonth, parseDate } from '../../../../support/util/date';
+import PhaseTemplate from '../../../common/PhaseTemplate';
+import { IAccount } from '../../../../models/IAccount';
+import BaseSlider from '../../../common/BaseSlider';
+import { IAssetType } from '../../../../models/IAssetType';
+import { SAVING_TYPE } from '../../../../support/constants';
 
 type modalType = 'type' | 'date' | '';
 type AccountInfoPhaseProps = {

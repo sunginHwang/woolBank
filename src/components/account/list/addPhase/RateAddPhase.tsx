@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import PhaseTemplate from '../../common/PhaseTemplate';
-import BaseSlider from '../../common/BaseSlider';
-import { IAccount } from '../../../models/IAccount';
-import { INSTALLMENT_SAVINGS_TAX } from '../../../support/constants';
-import ToggleTab from '../../common/ToggleTab';
-import { addComma } from '../../../support/util/String';
-import { IAssetType } from '../../../models/IAssetType';
+import PhaseTemplate from '../../../common/PhaseTemplate';
+import BaseSlider from '../../../common/BaseSlider';
+import { IAccount } from '../../../../models/IAccount';
+import { INSTALLMENT_SAVINGS_TAX } from '../../../../support/constants';
+import ToggleTab from '../../../common/ToggleTab';
+import { addComma } from '../../../../support/util/String';
+import { IAssetType } from '../../../../models/IAssetType';
 import {
   findSavingTax,
   getAmountWithTax,
   getInterest
-} from '../../../support/util/bank';
-import { getRate } from '../../../support/util/number';
-import { diffMonth } from '../../../support/util/date';
+} from '../../../../support/util/bank';
+import { getRate } from '../../../../support/util/number';
+import { diffMonth } from '../../../../support/util/date';
 
 type AddRatePhaseProps = {
   isActivePhase: boolean;
