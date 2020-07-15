@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import AccountAddContainer from '../../containers/account/AccountAddContainer';
-import AccountListContainer from '../../containers/account/AccountListContainer';
+import AccountAddContainer from '../../containers/account/list/AccountAddContainer';
+import AccountListContainer from '../../containers/account/list/AccountListContainer';
 import { useHistory } from 'react-router';
 import IcoCashPlus from '../../components/icon/IcoCashPlus';
 import colors from '../../style/colors';

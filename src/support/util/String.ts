@@ -1,4 +1,3 @@
-
 export const addComma = (num: number): string => {
   const addCommaReg = /\B(?=(\d{3})+(?!\d))/g;
   return num.toString().replace(addCommaReg, ',');
@@ -13,7 +12,6 @@ export const numberToKorean = (num: number): string => {
   const splitUnit = 10000;
   const resultArray: any = [];
   let resultString = '';
-
 
   unitWords.forEach((unitWord, index) => {
     let unitResult = (num % Math.pow(splitUnit, index + 1)) / Math.pow(splitUnit, index);

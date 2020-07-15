@@ -7,6 +7,7 @@ import Header from '../layout/Header';
 type InputPhaseWrapperProps = {
   title?: string;
   isMain?: boolean;
+  useNav?: boolean;
   rightHeader?: React.ReactNode;
   onBackClick?: () => void;
   children: React.ReactNode;
@@ -15,6 +16,7 @@ type InputPhaseWrapperProps = {
 function PageTemplate({
   title = '',
   isMain = false,
+  useNav = true,
   onBackClick,
   rightHeader = null,
   children
@@ -40,7 +42,7 @@ function PageTemplate({
           <S.Content>{children}</S.Content>
         </>
       )}
-      <NavigationBar />
+      {useNav && <NavigationBar />}
     </S.PageTemplate>
   );
 }
@@ -56,6 +58,7 @@ const S: {
     height: 100%;
   `,
   Content: styled.div`
+    background-color: ${(props) => props.theme.colors.white};
     padding-top: 5.5rem;
     padding-left: 2rem;
     padding-right: 2rem;

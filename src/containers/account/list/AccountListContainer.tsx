@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ToggleTab from '../../components/common/ToggleTab';
-import { IAssetType } from '../../models/IAssetType';
-import { IAccount } from '../../models/IAccount';
-import { INSTALLMENT_SAVINGS, TAX_TYPE } from '../../support/constants';
-import AccountListItem from '../../components/account/AccountListItem';
+import ToggleTab from '../../../components/common/ToggleTab';
+import { IAssetType } from '../../../models/IAssetType';
+import { IAccount } from '../../../models/IAccount';
+import { INSTALLMENT_SAVINGS, TAX_TYPE } from '../../../support/constants';
+import AccountListItem from '../../../components/account/AccountListItem';
 
 const tabs: IAssetType[] = [
   {

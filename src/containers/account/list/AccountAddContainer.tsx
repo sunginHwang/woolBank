@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { IAccount } from '../../models/IAccount';
-import AccountInfoPhase from '../../components/account/addPhase/AccountInfoPhase';
-import AmountAddPhase from '../../components/account/addPhase/AmountAddPhase';
-import ConfirmPhase from '../../components/account/addPhase/ConfirmPhase';
-import RateAddPhase from '../../components/account/addPhase/RateAddPhase';
-import { IAssetType } from '../../models/IAssetType';
+import { IAccount } from '../../../models/IAccount';
+import AccountInfoPhase from '../../../components/account/addPhase/AccountInfoPhase';
+import AmountAddPhase from '../../../components/account/addPhase/AmountAddPhase';
+import ConfirmPhase from '../../../components/account/addPhase/ConfirmPhase';
+import RateAddPhase from '../../../components/account/addPhase/RateAddPhase';
+import { IAssetType } from '../../../models/IAssetType';
 
 type AccountAddContainerProps = {
   phase: number;
