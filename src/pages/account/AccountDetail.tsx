@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import PageTemplate from '../../components/common/PageTemplate';
 import AccountDetailContainer from '../../containers/account/detail/AccountDetailContainer';
@@ -6,11 +6,14 @@ import AccountDetailModalContainer from '../../containers/account/detail/Account
 import IcoDowHorizontal from '../../components/icon/IcoDotHorizontal';
 import colors from '../../style/colors';
 import { useQuery } from '../../support/hooks/UseQuery';
+import AddDepositContainer from '../../containers/account/detail/AddDepositContainer';
 
 function AccountDetail() {
   const history = useHistory();
   const [isActiveModal, setIsActiveModal] = useState(false);
-  const { accountId } = useParams();
+  let { accountId } = useParams();
+  accountId = Number(accountId);
+
   const { mode } = useQuery(['mode']);
 
   const onBackClick = () => {
@@ -32,9 +35,13 @@ function AccountDetail() {
         onBackClick={onBackClick}
         rightHeader={editButtonEl}
       >
-        <AccountDetailContainer accountId={Number(accountId)} />
+        <AccountDetailContainer accountId={accountId} />
+        <AddDepositContainer
+          accountId={accountId}
+          useDepositPhase={mode === 'deposit'}
+        />
         <AccountDetailModalContainer
-          accountId={Number(accountId)}
+          accountId={accountId}
           isActiveModal={isActiveModal}
           useEditPhase={mode === 'edit'}
           onCloseModal={() => setIsActiveModal(false)}

@@ -32,7 +32,7 @@ const S: {
 } = {
   DepositRecord: styled.div`
     margin-top: .5rem;
-    padding: 2rem 2rem 5rem 2rem;
+    padding: 2rem 2rem 10rem 2rem;
     background-color: ${(props) => props.theme.colors.white};
     >p {
       font-size: 2.2rem;

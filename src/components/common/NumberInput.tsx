@@ -1,29 +1,41 @@
-import React, { MouseEventHandler, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components/';
 import { addComma, numberToKorean } from '../../support/util/String';
+import IcoClose from '../icon/IcoClose';
+import colors from '../../style/colors';
 
 type NumberInputProps = {
   currentAmount: number;
   label: string;
+  useClose?: boolean;
   isActiveComplete: boolean;
   onChangeAmount: (number: number) => void;
   onCompleteClick: () => void;
+  onCloseClick?: () => void;
 };
 
+const BILLION = 1000000000;
+
 function NumberInput({
-                       currentAmount,
-                       label,
-                       isActiveComplete,
-                       onChangeAmount,
-                       onCompleteClick
-                     }: NumberInputProps) {
+  currentAmount,
+  label,
+  useClose = false,
+  isActiveComplete,
+  onChangeAmount,
+  onCompleteClick,
+  onCloseClick
+}: NumberInputProps) {
   const [isValidAmount, setIsValidAmount] = useState(true);
   const isNotInputValue = currentAmount === 0;
 
   const displayAmount = `${addComma(currentAmount)}원`;
 
-  const onAddNumberClick = (e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>) => {
-    const addedNumber = Number(currentAmount + String(e.currentTarget.innerText));
+  const onAddNumberClick = (
+    e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>
+  ) => {
+    const addedNumber = Number(
+      currentAmount + String(e.currentTarget.innerText)
+    );
     changeNumber(addedNumber);
   };
 
@@ -34,7 +46,7 @@ function NumberInput({
 
   const changeNumber = (num: number) => {
     // 최대 입금 가능 금액 10억 세팅
-    const isOverTenBullion = num >= 1000000000;
+    const isOverTenBullion = num >= BILLION;
 
     setIsValidAmount(!isOverTenBullion);
     !isOverTenBullion && onChangeAmount(num);
@@ -59,6 +71,13 @@ function NumberInput({
 
   return (
     <S.NumberInput>
+      {useClose && (
+        <S.Header>
+          <i onClick={onCloseClick}>
+            <IcoClose width={30} height={30} fill={colors.colors.blackL1} />
+          </i>
+        </S.Header>
+      )}
       <S.InputDisplay>
         <S.InputDisplayMessage>{label}</S.InputDisplayMessage>
         <p>{displayAmount}</p>
@@ -69,26 +88,33 @@ function NumberInput({
       <S.Input>
         <S.InputTable>
           <tbody>
-          <tr>
-            <S.InputTd onClick={onAddNumberClick}>1</S.InputTd>
-            <S.InputTd onClick={onAddNumberClick}>2</S.InputTd>
-            <S.InputTd onClick={onAddNumberClick}>3</S.InputTd>
-          </tr>
-          <tr>
-            <S.InputTd onClick={onAddNumberClick}>4</S.InputTd>
-            <S.InputTd onClick={onAddNumberClick}>5</S.InputTd>
-            <S.InputTd onClick={onAddNumberClick}>6</S.InputTd>
-          </tr>
-          <tr>
-            <S.InputTd onClick={onAddNumberClick}>7</S.InputTd>
-            <S.InputTd onClick={onAddNumberClick}>8</S.InputTd>
-            <S.InputTd onClick={onAddNumberClick}>9</S.InputTd>
-          </tr>
-          <tr>
-            <S.InputTd isHide={isNotInputValue} onClick={onRemoveLastInputClick}>{!isNotInputValue && '←'}</S.InputTd>
-            <S.InputTd onClick={onAddNumberClick}>0</S.InputTd>
-            <S.InputTd isHide={isNotInputValue} onClick={onInitClick}>{!isNotInputValue && 'x'}</S.InputTd>
-          </tr>
+            <tr>
+              <S.InputTd onClick={onAddNumberClick}>1</S.InputTd>
+              <S.InputTd onClick={onAddNumberClick}>2</S.InputTd>
+              <S.InputTd onClick={onAddNumberClick}>3</S.InputTd>
+            </tr>
+            <tr>
+              <S.InputTd onClick={onAddNumberClick}>4</S.InputTd>
+              <S.InputTd onClick={onAddNumberClick}>5</S.InputTd>
+              <S.InputTd onClick={onAddNumberClick}>6</S.InputTd>
+            </tr>
+            <tr>
+              <S.InputTd onClick={onAddNumberClick}>7</S.InputTd>
+              <S.InputTd onClick={onAddNumberClick}>8</S.InputTd>
+              <S.InputTd onClick={onAddNumberClick}>9</S.InputTd>
+            </tr>
+            <tr>
+              <S.InputTd
+                isHide={isNotInputValue}
+                onClick={onRemoveLastInputClick}
+              >
+                {!isNotInputValue && '←'}
+              </S.InputTd>
+              <S.InputTd onClick={onAddNumberClick}>0</S.InputTd>
+              <S.InputTd isHide={isNotInputValue} onClick={onInitClick}>
+                {!isNotInputValue && 'x'}
+              </S.InputTd>
+            </tr>
           </tbody>
         </S.InputTable>
       </S.Input>
@@ -101,6 +127,7 @@ function NumberInput({
 
 const S: {
   NumberInput: any;
+  Header: any;
   InputTable: any;
   InputTd: any;
   Input: any;
@@ -115,6 +142,14 @@ const S: {
     flex-direction: column;
     background-color: ${(props) => props.theme.colors.white};
   `,
+  Header: styled.div`
+    height: 5.5rem;
+    min-height: 5.5rem;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  `,
   Input: styled.div`
     width: 100%;
     height: 100%;
@@ -128,7 +163,7 @@ const S: {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     > p {
       font-size: 4.5rem;
       font-weight: bold;
@@ -145,10 +180,11 @@ const S: {
   InputTd: styled.td`
     font-size: 2.8rem;
     width: 33.33333%;
-    
+
     &:active {
       border-radius: 1.6rem;
-      background-color: ${(props: any) => props.isHide ?  props.theme.colors.white : props.theme.colors.greyL3};
+      background-color: ${(props: any) =>
+        props.isHide ? props.theme.colors.white : props.theme.colors.greyL3};
     }
   `,
   Complete: styled.button`
@@ -167,7 +203,7 @@ const S: {
     height: 2.1rem;
     margin-top: 1rem;
     color: ${(props: any) =>
-    props.active ? props.theme.colors.redL1 : props.theme.colors.blackL1};
+      props.active ? props.theme.colors.redL1 : props.theme.colors.blackL1};
   `
 };
 
