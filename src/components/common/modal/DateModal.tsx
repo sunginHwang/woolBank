@@ -17,13 +17,15 @@ function DateModal({
   onChangeDate,
   oncloseModal
 }: WalletDateModalProps) {
+  const onChangeCalendar = (date: Date | Date[]) => onChangeDate(String(date));
+
   return (
     <ModalDeem visible={visible} onDeemClick={oncloseModal}>
       <S.DateModal visible={visible}>
         <Calendar
           value={date}
           showFixedNumberOfWeeks
-          onChange={(date: Date | Date[]) => onChangeDate(String(date))}
+          onChange={onChangeCalendar}
         />
       </S.DateModal>
     </ModalDeem>

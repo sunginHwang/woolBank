@@ -4,7 +4,7 @@ import { IAccount } from '../../models/IAccount';
 import { addComma } from '../../support/util/String';
 import Progress from '../common/Progress';
 import colors from '../../style/colors';
-import { DATE_FORMAT, parseDate } from '../../support/util/date';
+import { parseDate } from '../../support/util/date';
 
 type AccountInfoProps = {
   account: IAccount;
@@ -22,14 +22,8 @@ function AccountInfo({ account }: AccountInfoProps) {
       <Progress
         percent={35}
         color={colors.colors.navyD1}
-        startMessage={`개설일: ${parseDate(
-          account.startDate,
-          DATE_FORMAT.YYYY_MM_DD
-        )}`}
-        endMessage={`만기일: ${parseDate(
-          account.endDate,
-          DATE_FORMAT.YYYY_MM_DD
-        )}`}
+        startMessage={`개설일: ${parseDate(account.startDate)}`}
+        endMessage={`만기일: ${parseDate(account.endDate)}`}
       />
       <S.Amount>
         <span>만기예상액 : </span>

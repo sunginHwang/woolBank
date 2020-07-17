@@ -13,15 +13,19 @@ function AccountEditModal({
   oncloseModal,
   onEditClick
 }: AccountEditModalProps) {
+  const onMigrationClick = () => onEditClick('migration');
+  const onEndClick = () => onEditClick('end');
+  const onRemoveClick = () => onEditClick('remove');
+
   return (
     <ModalDeem visible={visible} onDeemClick={oncloseModal}>
       <S.AccountEditModal visible={visible}>
         <S.Title>
           <p>작성하실 예/적금 종류를 선택해주세요.</p>
         </S.Title>
-        <p onClick={() => onEditClick('migration')}>이전 입금내역 추가</p>
-        <p onClick={() => onEditClick('end')}>만기</p>
-        <p onClick={() => onEditClick('remove')}>삭제</p>
+        <p onClick={onMigrationClick}>이전 입금내역 추가</p>
+        <p onClick={onEndClick}>만기</p>
+        <p onClick={onRemoveClick}>삭제</p>
       </S.AccountEditModal>
     </ModalDeem>
   );

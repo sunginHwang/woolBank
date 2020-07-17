@@ -39,6 +39,10 @@ function AccountDetailModalContainer({
     }
   };
 
+  const onBackClick = () => {
+    history.goBack();
+  };
+
   return (
     <>
       <AccountEditModal
@@ -46,10 +50,7 @@ function AccountDetailModalContainer({
         oncloseModal={onCloseModal}
         onEditClick={onEditModalClick}
       />
-      <DepositDate
-        isActive={useEditPhase}
-        onBackClick={() => history.goBack()}
-      />
+      <DepositDate isActive={useEditPhase} onBackClick={onBackClick} />
       <ConfirmModal
         visible={isOpenEndModal}
         message='만기처리 진행 후 다시 변경이 불가능 합니다. 정말 만기처리 하시겠습니까?'

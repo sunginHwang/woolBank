@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CardItem from '../common/CardItem';
 import { addComma } from '../../support/util/String';
 import { IAccount } from '../../models/IAccount';
-import { DATE_FORMAT, parseDate } from '../../support/util/date';
+import { parseDate } from '../../support/util/date';
 import { Link } from 'react-router-dom';
 import AccountSavingTypeIcon from './list/AccountSavingTypeIcon';
 type WalletListItemProps = {
@@ -29,7 +29,7 @@ function AccountListItem({
           </p>
         </S.Content>
         <S.Bottom>
-          <p>만기일 : {parseDate(endDate, DATE_FORMAT.YYYY_MM_DD)}</p>
+          <p>만기일 : {parseDate(endDate)}</p>
           <span>만기금액 : {addComma(amount)}원</span>
         </S.Bottom>
         <S.Progress>

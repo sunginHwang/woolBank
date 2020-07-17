@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import BaseInput from '../../../common/BaseInput';
 import AccountSavingTypeModal from './AccountSavingTypeModal';
 import DateModal from '../../../common/modal/DateModal';
-import { DATE_FORMAT, getKoMonth, parseDate } from '../../../../support/util/date';
+import {
+  DATE_FORMAT,
+  getKoMonth,
+  parseDate
+} from '../../../../support/util/date';
 import PhaseTemplate from '../../../common/PhaseTemplate';
 import { IAccount } from '../../../../models/IAccount';
 import BaseSlider from '../../../common/BaseSlider';
@@ -34,12 +38,15 @@ function AccountInfoPhase({
   const useRegularTransferDate =
     account.savingType.type === SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS;
 
+  // 적금타입 모달 열기
   const openTypeModal = () => {
     setOpenModalName('type');
   };
+  // 적금 시작일 모달 열기
   const openDateModal = () => {
     setOpenModalName('date');
   };
+  // 모달 닫기
   const closeModal = () => {
     setOpenModalName('');
   };
@@ -55,6 +62,7 @@ function AccountInfoPhase({
     onChangeAccount('startDate', '');
   };
 
+  // 폼값 변경 이벤트
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     onChangeAccount('title', e.target.value);
   };
@@ -62,6 +70,14 @@ function AccountInfoPhase({
   const onChangeDate = (date: string) => {
     onChangeAccount('startDate', date);
     closeModal();
+  };
+
+  const onChangeAssetMonth = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAssetMonth(Number(e.target.value));
+  };
+
+  const onChangeTransferDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRegularTransferDate(Number(e.target.value));
   };
 
   const onChangeAssetType = (assetType: IAssetType) => {
@@ -73,30 +89,27 @@ function AccountInfoPhase({
     closeModal();
   };
 
+  // 폼 입력 전체 검증
   const isAllowAccountAddValidation =
     account.title !== '' &&
     account.savingType.name !== '' &&
     account.startDate !== '' &&
     assetMonth > 0;
 
-  // 다음 페이즈 입력으로 이동
+  // 다음 단계 입력으로 이동
   const goNextPhase = () => {
     if (isAllowAccountAddValidation) {
       const startDate = new Date(account.startDate);
-      startDate.setMonth(startDate.getMonth() + assetMonth);
       const endDate = startDate.toLocaleDateString();
-      onChangeAccount(
-        'endDate',
-        parseDate(endDate, DATE_FORMAT.YYYY_MM_DD)
-      );
+
+      startDate.setMonth(startDate.getMonth() + assetMonth);
+      onChangeAccount('endDate', parseDate(endDate));
 
       if (useRegularTransferDate) {
         onChangeAccount('regularTransferDate', regularTransferDate);
-        onChangeAccount(
-          'endDate',
-          parseDate(endDate, DATE_FORMAT.YYYY_MM_DD)
-        );
+        onChangeAccount('endDate', parseDate(endDate));
       }
+
       goNextPage();
     }
   };
@@ -136,7 +149,7 @@ function AccountInfoPhase({
                 size='medium'
                 value={regularTransferDate}
                 hoverMessage={`${regularTransferDate}일`}
-                onChange={(e) => setRegularTransferDate(Number(e.target.value))}
+                onChange={onChangeTransferDate}
               />
             </S.AssetMonth>
           )}
@@ -159,7 +172,7 @@ function AccountInfoPhase({
                   size='medium'
                   value={assetMonth}
                   hoverMessage={getKoMonth(assetMonth)}
-                  onChange={(e) => setAssetMonth(Number(e.target.value))}
+                  onChange={onChangeAssetMonth}
                 />
               </>
             )}

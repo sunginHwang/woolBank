@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { IDepositRecord } from '../../models/IDepositRecord';
-import { DATE_FORMAT, parseDate } from '../../support/util/date';
+import { parseDate } from '../../support/util/date';
 import { addComma } from '../../support/util/String';
 
 type DepositRecordItemProps = {
@@ -12,7 +12,7 @@ function DepositRecordItem({ depositRecord }: DepositRecordItemProps) {
   return (
     <S.DepositRecordItem>
       <S.Info>
-        <p>{parseDate(depositRecord.depositDate, DATE_FORMAT.YYYY_MM_DD)}</p>
+        <p>{parseDate(depositRecord.depositDate)}</p>
         <span>잔액: {addComma(depositRecord.balance)}원</span>
       </S.Info>
       <S.Amount>{addComma(depositRecord.amount)}원</S.Amount>
