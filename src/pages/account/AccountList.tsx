@@ -34,11 +34,15 @@ function AccountList() {
         rightHeader={AccountAddIconEl}
       >
         <AccountListContainer />
-        <AccountAddContainer
-          phase={addPhase}
-          goNextPhase={goNextPhase}
-          goPrevPhase={onBackClick}
-        />
+        {
+          addPhase > 0 && (
+            <AccountAddContainer
+              phase={addPhase}
+              goNextPhase={goNextPhase}
+              goPrevPhase={onBackClick}
+            />
+          )
+        }
       </PageTemplate>
     </>
   );

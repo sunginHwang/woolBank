@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory, useParams } from 'react-router';
 import PageTemplate from '../../components/common/PageTemplate';
 import AccountDetailContainer from '../../containers/account/detail/AccountDetailContainer';
@@ -7,10 +7,11 @@ import IcoDowHorizontal from '../../components/icon/IcoDotHorizontal';
 import colors from '../../style/colors';
 import { useQuery } from '../../support/hooks/UseQuery';
 import AddDepositContainer from '../../containers/account/detail/AddDepositContainer';
+import { useToggle } from '../../support/hooks/useToggle';
 
 function AccountDetail() {
   const history = useHistory();
-  const [isActiveModal, setIsActiveModal] = useState(false);
+  const [isOpenDetailModal, onDetailModal, offDetailModal] = useToggle(false);
   let { accountId } = useParams();
   accountId = Number(accountId);
 
@@ -21,7 +22,7 @@ function AccountDetail() {
   };
 
   const editButtonEl = (
-    <div onClick={() => setIsActiveModal(true)}>
+    <div onClick={onDetailModal}>
       <IcoDowHorizontal fill={colors.colors.blackL1} />
     </div>
   );
@@ -42,9 +43,9 @@ function AccountDetail() {
         />
         <AccountDetailModalContainer
           accountId={accountId}
-          isActiveModal={isActiveModal}
+          isActiveModal={isOpenDetailModal}
           useEditPhase={mode === 'edit'}
-          onCloseModal={() => setIsActiveModal(false)}
+          onCloseModal={offDetailModal}
         />
       </PageTemplate>
     </>
