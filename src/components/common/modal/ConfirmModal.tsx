@@ -28,8 +28,8 @@ function ConfirmModal({
             <p>{message}</p>
           </S.Content>
           <S.Footer>
-            <S.Button onClick={onConfirmClick}>{cancelMsg}</S.Button>
-            <S.Button onClick={onCancelClick}>{confirmMsg}</S.Button>
+            <S.Button onClick={onCancelClick}>{cancelMsg}</S.Button>
+            <S.Button onClick={onConfirmClick}>{confirmMsg}</S.Button>
           </S.Footer>
         </S.ConfirmModal>
       </S.ModalWrapper>

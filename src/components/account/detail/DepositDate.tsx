@@ -4,6 +4,7 @@ import PhaseTemplate from '../../common/PhaseTemplate';
 import BaseInput from '../../common/BaseInput';
 import DateModal from '../../common/modal/DateModal';
 import { DATE_FORMAT, parseDate } from '../../../support/util/date';
+import { useToggle } from '../../../support/hooks/useToggle';
 
 type DepositDateProps = {
   isActive: boolean;
@@ -13,10 +14,14 @@ type DepositDateProps = {
 function DepositDate({ isActive, onBackClick }: DepositDateProps) {
   const [depositDate, setDepositDate] = useState('');
   const [depositAmount, setDepositAmount] = useState(0);
-  const [isActiveDateModal, setIsActiveDateModal] = useState(false);
+  const [showDateModal, onDateModal, offDateModal] = useToggle(false);
 
-  const toggleDateModal = () => {
-    setIsActiveDateModal(!isActiveDateModal);
+  const initDepositAmount = () => {
+    setDepositAmount(0)
+  };
+
+  const initDepositDate = () => {
+    setDepositDate('')
   };
 
   const onDepositAmountChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +30,7 @@ function DepositDate({ isActive, onBackClick }: DepositDateProps) {
 
   const onDepositDateChange = useCallback((date: string) => {
     setDepositDate(date);
-    setIsActiveDateModal(false);
+    onDateModal();
   }, []);
 
   return (
@@ -40,15 +45,15 @@ function DepositDate({ isActive, onBackClick }: DepositDateProps) {
             label='입금 날짜'
             value={parseDate(depositDate, DATE_FORMAT.YYYY_MM_DD)}
             disable
-            onClick={toggleDateModal}
-            onClear={() => setDepositDate('')}
+            onClick={onDateModal}
+            onClear={initDepositDate}
           />
           <BaseInput
             label='입금액'
             value={depositAmount === 0 ? '' : depositAmount}
             type='number'
             onChange={onDepositAmountChange}
-            onClear={() => setDepositAmount(0)}
+            onClear={initDepositAmount}
           />
         </S.Form>
         <S.Info>이전에 입금하신 날짜와 금액을 입력해주세요.</S.Info>
@@ -56,8 +61,8 @@ function DepositDate({ isActive, onBackClick }: DepositDateProps) {
       </S.DepositRecord>
       <>
         <DateModal
-          visible={isActiveDateModal}
-          oncloseModal={toggleDateModal}
+          visible={showDateModal}
+          oncloseModal={offDateModal}
           onChangeDate={onDepositDateChange}
           date={depositDate === '' ? new Date() : new Date(depositDate)}
         />

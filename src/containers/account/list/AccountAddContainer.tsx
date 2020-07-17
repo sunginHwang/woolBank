@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IAccount } from '../../../models/IAccount';
 import AccountInfoPhase from '../../../components/account/list/addPhase/AccountInfoPhase';
 import AmountAddPhase from '../../../components/account/list/addPhase/AmountAddPhase';
@@ -12,21 +12,23 @@ type AccountAddContainerProps = {
   goPrevPhase: () => void;
 };
 
+const initialAccountInfo: IAccount = {
+  title: '',
+  savingType: { type: '', name: '' },
+  startDate: '',
+  endDate: '',
+  taxType: '',
+  regularTransferDate: 0, // 정기이체일 정기적금에만 사용
+  rate: 0,
+  amount: 0
+};
+
 function AccountAddContainer({
   phase,
   goNextPhase,
   goPrevPhase
 }: AccountAddContainerProps) {
-  const [account, setAccount] = useState<IAccount>({
-    title: '',
-    savingType: { type: '', name: '' },
-    startDate: '',
-    endDate: '',
-    taxType: '',
-    regularTransferDate: 0, // 정기이체일 정기적금에만 사용
-    rate: 0,
-    amount: 0
-  });
+  const [account, setAccount] = useState<IAccount>(initialAccountInfo);
 
   const onChangeAccount = (
     type: string,
@@ -39,6 +41,10 @@ function AccountAddContainer({
       };
     });
   };
+
+  useEffect(() => {
+    phase < 1 && setAccount(initialAccountInfo); // 예적금 입력 종료시 초기화 처리
+  }, [phase])
 
   return (
     <>
