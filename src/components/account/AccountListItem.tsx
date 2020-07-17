@@ -2,14 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import CardItem from '../common/CardItem';
 import { addComma } from '../../support/util/String';
-import colors from '../../style/colors';
-import IcoPiggyBank from '../icon/IcoPiggyBank';
-import IcoCashUsd from '../icon/IcoCashUsd';
-import IcoCurrencyUsdCircle from '../icon/IcoCurrencyUsdCircle';
 import { IAccount } from '../../models/IAccount';
 import { DATE_FORMAT, parseDate } from '../../support/util/date';
-import { SAVING_TYPE } from '../../support/constants';
 import { Link } from 'react-router-dom';
+import AccountSavingTypeIcon from './list/AccountSavingTypeIcon';
 type WalletListItemProps = {
   account: IAccount;
 };
@@ -17,29 +13,6 @@ type WalletListItemProps = {
 function AccountListItem({
   account: { id, title, savingType, endDate, amount, currentAmount }
 }: WalletListItemProps) {
-  const walletIcon = () => {
-    if (savingType.type === SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS) {
-      return (
-        <IcoPiggyBank height={14} width={14} fill={colors.colors.greyD2} />
-      );
-    }
-
-    if (savingType.type === SAVING_TYPE.REGULAR_DEPOSIT) {
-      return <IcoCashUsd height={14} width={14} fill={colors.colors.greyD2} />;
-    }
-
-    if (savingType.type === SAVING_TYPE.FREE_INSTALLMENT_SAVINGS) {
-      return (
-        <IcoCurrencyUsdCircle
-          height={14}
-          width={14}
-          fill={colors.colors.greyD2}
-        />
-      );
-    }
-
-    return '';
-  };
   return (
     <Link to={`/accounts/${id}`}>
       <CardItem>
@@ -47,7 +20,7 @@ function AccountListItem({
           <p>{title}</p>
           <div>
             <span>{savingType.name}</span>
-            {walletIcon()}
+            <AccountSavingTypeIcon savingType={savingType.type} />
           </div>
         </S.Top>
         <S.Content>
