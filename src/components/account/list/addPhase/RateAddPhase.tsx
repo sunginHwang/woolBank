@@ -186,7 +186,7 @@ const S: {
     margin-top: ${(props: any) => (props.isTotal ? '1' : '0')}rem;
     align-items: center;
     border-top: ${(props: any) =>
-      props.isTotal ? `.1rem dashed ${props.theme.colors.greyL1}` : ''};
+    props.isTotal ? `.1rem dashed ${props.theme.colors.greyL1}` : ''};
     padding-top: 1rem;
 
     label {
@@ -200,7 +200,7 @@ const S: {
     span:last-child {
       font-size: ${(props: any) => (props.isTotal ? '2' : '1.4')}rem;
       color: ${(props: any) =>
-        props.isTax ? props.theme.colors.redL1 : props.theme.colors.blackL1};
+    props.isTax ? props.theme.colors.redL1 : props.theme.colors.blackL1};
       font-weight: bold;
     }
   `

@@ -36,11 +36,11 @@ type getInterestType = {
 };
 
 export const getInterest = ({
-                              amount,
-                              savingPeriod,
-                              rate,
-                              savingType
-                            }: getInterestType): number => {
+  amount,
+  savingPeriod,
+  rate,
+  savingType
+}: getInterestType): number => {
   if (!savingType) {
     return 0;
   }
@@ -54,10 +54,10 @@ export const getInterest = ({
 * 정기 적금 이자 계산
 * */
 export const getTimeSavingInterest = ({
-                                        amount,
-                                        savingPeriod,
-                                        rate
-                                      }: getInterestType): number => {
+  amount,
+  savingPeriod,
+  rate
+}: getInterestType): number => {
   return Math.floor(amount * ((savingPeriod + 1) / 2) * (rate / 12));
 };
 
@@ -65,10 +65,10 @@ export const getTimeSavingInterest = ({
 * 정기 예금 이자 계산
 * */
 export const getFixedDepositInterest = ({
-                                          amount,
-                                          savingPeriod,
-                                          rate
-                                        }: getInterestType): number => {
+  amount,
+  savingPeriod,
+  rate
+}: getInterestType): number => {
   return Math.floor((amount * (1 + rate * savingPeriod / 12)) - amount);
 };
 
@@ -96,5 +96,3 @@ export const getRateInterestByWallet = (wallet: IAccount) => {
 
   return getAmountWithTax(interest, wallet.taxType);
 };
-
-

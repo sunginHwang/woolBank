@@ -7,17 +7,15 @@ type TotalAssetsWalletProps = {
 }
 
 function TotalAssetsWallet({
-                             totalPrice,
-                             lastMonthTotalPrice
-                           }: TotalAssetsWalletProps) {
-
+  totalPrice,
+  lastMonthTotalPrice
+}: TotalAssetsWalletProps) {
   const isIncreaseAsset = totalPrice > lastMonthTotalPrice;
   const isEqualAsset = totalPrice === lastMonthTotalPrice;
 
   const renderIncreaseAsset = isEqualAsset
     ? <p>지난달과 동일한 자산입니다.</p>
-    :
-    <p>지난달 대비 <span>{Math.abs(totalPrice - lastMonthTotalPrice)}원</span> 자산이 {isIncreaseAsset ? '증가' : '감소'}하였습니다.</p>;
+    : <p>지난달 대비 <span>{Math.abs(totalPrice - lastMonthTotalPrice)}원</span> 자산이 {isIncreaseAsset ? '증가' : '감소'}하였습니다.</p>;
 
   return (
     <S.TotalAssetsWallet>

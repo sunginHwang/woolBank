@@ -4,7 +4,7 @@ export const addComma = (num: number): string => {
 };
 
 export const numberToKorean = (num: number): string => {
-  if(num < 0 ){
+  if (num < 0) {
     return '';
   }
 

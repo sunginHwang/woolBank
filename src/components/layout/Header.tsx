@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type HeaderProps = {};
-
-function Header({}: HeaderProps) {
-
+function Header() {
   return (
     <S.Header>
       <h2>W.MANK</h2>
@@ -27,7 +24,7 @@ const S: {
     left: 0;
     right: 0;
     z-index: ${props => props.theme.zIndex.header};
-  `,
+  `
 };
 
 export default Header;

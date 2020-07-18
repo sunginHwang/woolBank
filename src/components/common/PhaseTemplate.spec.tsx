@@ -9,7 +9,7 @@ describe('<PhaseTemplate />', () => {
         <p>12</p>
       </PhaseTemplate>
     );
-    getByText('12')
+    getByText('12');
   });
 
   it('is active PhaseTemplate', () => {

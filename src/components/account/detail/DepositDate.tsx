@@ -16,7 +16,6 @@ function DepositDate({ isActive, onBackClick }: DepositDateProps) {
   const [depositAmount, setDepositAmount] = useState(0);
   const [showDateModal, onOpenDateModal, onCloseDateModal] = useToggle(false);
 
-
   const onClearInput = (e: React.MouseEvent<HTMLLIElement>) => {
     const type = e.currentTarget.dataset.type || '';
     type === 'amount' && setDepositAmount(0);

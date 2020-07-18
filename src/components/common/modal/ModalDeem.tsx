@@ -8,7 +8,6 @@ type ModalDeemProps = {
 };
 
 function ModalDeem({ visible, children, onDeemClick }: ModalDeemProps) {
-  console.log(visible);
   const modalDeemRef = useRef(null);
   const onModalDeemClick = useCallback((e: MouseEvent) => {
     if (e && e.target && modalDeemRef.current === e.target) {

@@ -14,8 +14,8 @@ ReactDOM.render(
     <Provider store={store()}>
       <ThemeProvider theme={themeColors}>
         <BrowserRouter>
-          <GlobalStyle/>
-          <App/>
+          <GlobalStyle />
+          <App />
         </BrowserRouter>
       </ThemeProvider>
     </Provider>

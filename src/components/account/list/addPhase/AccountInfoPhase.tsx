@@ -38,9 +38,9 @@ function AccountInfoPhase({
   const useRegularTransferDate =
     account.savingType.type === SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS;
 
-  //모달 열기
+  // 모달 열기
   const onOpenModal = (e: ChangeEvent<HTMLDivElement>) => {
-    setOpenModalName(e.currentTarget.dataset.type  || '');
+    setOpenModalName(e.currentTarget.dataset.type || '');
   };
 
   // 모달 닫기
@@ -53,11 +53,11 @@ function AccountInfoPhase({
     const formType = e.currentTarget.dataset.type || '';
     let initData: string | IAssetType = '';
 
-    if(formType === ''){
+    if (formType === '') {
       return;
     }
 
-    if(formType === 'savingType'){
+    if (formType === 'savingType') {
       initData = { type: '', name: '' };
     }
 

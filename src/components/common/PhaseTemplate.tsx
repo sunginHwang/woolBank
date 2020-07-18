@@ -11,16 +11,16 @@ type InputPhaseWrapperProps = {
 };
 
 function PhaseTemplate({
-                         active,
-                         title,
-                         onBackClick,
-                         usePadding = true,
-                         children
-                       }: InputPhaseWrapperProps) {
+  active,
+  title,
+  onBackClick,
+  usePadding = true,
+  children
+}: InputPhaseWrapperProps) {
   return (
     <S.PhaseTemplate active={active}>
       {
-        active && <HeaderWithBack title={title} onBackClick={onBackClick}/>
+        active && <HeaderWithBack title={title} onBackClick={onBackClick} />
       }
       <S.Content usePadding={usePadding}>{children}</S.Content>
     </S.PhaseTemplate>

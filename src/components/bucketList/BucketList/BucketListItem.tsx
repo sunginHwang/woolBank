@@ -29,7 +29,6 @@ function BucketListItem({
   );
 }
 
-
 const S: {
   BucketListItem: any;
   Content: any;

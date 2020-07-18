@@ -3,12 +3,8 @@ import { render } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import colors from '../../style/colors';
 
-type t = {
-  children: React.FC
-}
-
 // @ts-ignore
-const withThemeRender = children => {
+const withThemeRender = (children: React.FC) => {
   return render(
     <ThemeProvider theme={colors}>
       {children}

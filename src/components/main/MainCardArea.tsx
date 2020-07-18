@@ -6,7 +6,7 @@ type MainCardAreaProps = {
   children: ReactNode
 }
 
-function MainCardArea({ title, children}: MainCardAreaProps) {
+function MainCardArea({ title, children }: MainCardAreaProps) {
   return (
     <S.MainCardArea>
       <p>버킷리스트</p>
@@ -14,7 +14,6 @@ function MainCardArea({ title, children}: MainCardAreaProps) {
     </S.MainCardArea>
   );
 }
-
 
 const S: {
   MainCardArea: any;

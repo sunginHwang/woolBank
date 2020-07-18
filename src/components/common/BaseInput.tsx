@@ -16,17 +16,17 @@ type BaseInputProps = {
 };
 
 function BaseInput({
-                     label,
-                     placeHolder,
-                     value,
-                     name,
-                     type = 'text',
-                     dataType = '',
-                     disable = false,
-                     onChange,
-                     onClear,
-                     onClick
-                   }: BaseInputProps) {
+  label,
+  placeHolder,
+  value,
+  name,
+  type = 'text',
+  dataType = '',
+  disable = false,
+  onChange,
+  onClear,
+  onClick
+}: BaseInputProps) {
   const isExistInputValue = value !== '';
 
   const [focus, setFocus] = useState(false);
@@ -52,7 +52,7 @@ function BaseInput({
       />
       {isExistInputValue && (
         <i onClick={onInputClear} data-type={dataType}>
-          <IcoCloseCircle width={28} height={32} fill='#958d9e'/>
+          <IcoCloseCircle width={28} height={32} fill='#958d9e' />
         </i>
       )}
     </S.BaseInput>

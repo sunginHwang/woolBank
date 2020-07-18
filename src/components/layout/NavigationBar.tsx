@@ -7,8 +7,6 @@ import IcoHomeOutline from '../icon/IcoHomeOutline';
 import { INavigationBar } from '../../models/layout/INavigationBar';
 import { Link, useHistory } from 'react-router-dom';
 
-type NavigationBarProps = {};
-
 const navigations: INavigationBar[] = [
   {
     name: '홈',
@@ -36,7 +34,7 @@ const navigations: INavigationBar[] = [
   }
 ];
 
-function NavigationBar({}: NavigationBarProps) {
+function NavigationBar() {
   const history = useHistory();
   const isActiveBar = (link: string) => link === history.location.pathname;
 
