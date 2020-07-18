@@ -103,9 +103,9 @@ function AccountInfoPhase({
   const goNextPhase = () => {
     if (isAllowAccountAddValidation) {
       const startDate = new Date(account.startDate);
-      const endDate = startDate.toLocaleDateString();
+      const endDate = new Date(account.startDate);
 
-      startDate.setMonth(startDate.getMonth() + assetMonth);
+      endDate.setMonth(startDate.getMonth() + assetMonth);
       onChangeAccount('endDate', parseDate(endDate));
 
       if (useRegularTransferDate) {
