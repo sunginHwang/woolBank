@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import colors from '../../style/colors';
 
 // @ts-ignore
-const withThemeRender = (children: React.FC) => {
+const withThemeRender = (children: any) => {
   return render(
     <ThemeProvider theme={colors}>
       {children}

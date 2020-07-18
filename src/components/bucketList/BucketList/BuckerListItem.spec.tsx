@@ -9,7 +9,7 @@ describe('<BucketListItem />', () => {
       title: '버킷리스트',
       percent: 84
     };
-    const utils = withThemeRender(<BucketListItem bucketList={bucketList}/>);
+    const utils = withThemeRender(<BucketListItem bucketList={bucketList} />);
     return {
       ...utils
     };
