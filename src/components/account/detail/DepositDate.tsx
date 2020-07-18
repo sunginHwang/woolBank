@@ -14,14 +14,13 @@ type DepositDateProps = {
 function DepositDate({ isActive, onBackClick }: DepositDateProps) {
   const [depositDate, setDepositDate] = useState('');
   const [depositAmount, setDepositAmount] = useState(0);
-  const [showDateModal, onDateModal, offDateModal] = useToggle(false);
+  const [showDateModal, onOpenDateModal, onCloseDateModal] = useToggle(false);
 
-  const initDepositAmount = () => {
-    setDepositAmount(0)
-  };
 
-  const initDepositDate = () => {
-    setDepositDate('')
+  const onClearInput = (e: React.MouseEvent<HTMLLIElement>) => {
+    const type = e.currentTarget.dataset.type || '';
+    type === 'amount' && setDepositAmount(0);
+    type === 'date' && setDepositDate('');
   };
 
   const onDepositAmountChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +29,7 @@ function DepositDate({ isActive, onBackClick }: DepositDateProps) {
 
   const onDepositDateChange = useCallback((date: string) => {
     setDepositDate(date);
-    onDateModal();
+    onCloseDateModal();
   }, []);
 
   return (
@@ -42,18 +41,20 @@ function DepositDate({ isActive, onBackClick }: DepositDateProps) {
       <S.DepositRecord>
         <S.Form>
           <BaseInput
-            label='입금 날짜'
-            value={parseDate(depositDate, DATE_FORMAT.YYYY_MM_DD)}
             disable
-            onClick={onDateModal}
-            onClear={initDepositDate}
+            label='입금 날짜'
+            dataType='date'
+            value={parseDate(depositDate, DATE_FORMAT.YYYY_MM_DD)}
+            onClick={onOpenDateModal}
+            onClear={onClearInput}
           />
           <BaseInput
             label='입금액'
-            value={depositAmount === 0 ? '' : depositAmount}
             type='number'
+            dataType='amount'
+            value={depositAmount === 0 ? '' : depositAmount}
             onChange={onDepositAmountChange}
-            onClear={initDepositAmount}
+            onClear={onClearInput}
           />
         </S.Form>
         <S.Info>이전에 입금하신 날짜와 금액을 입력해주세요.</S.Info>
@@ -62,7 +63,7 @@ function DepositDate({ isActive, onBackClick }: DepositDateProps) {
       <>
         <DateModal
           visible={showDateModal}
-          oncloseModal={offDateModal}
+          oncloseModal={onCloseDateModal}
           onChangeDate={onDepositDateChange}
           date={depositDate === '' ? new Date() : new Date(depositDate)}
         />

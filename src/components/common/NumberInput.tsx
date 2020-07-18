@@ -44,6 +44,7 @@ function NumberInput({
     changeNumber(Number(stringNumber.substring(0, stringNumber.length - 1)));
   };
 
+  // 금액 변경 이벤트
   const changeNumber = (num: number) => {
     // 최대 입금 가능 금액 10억 세팅
     const isOverTenBullion = num >= BILLION;
@@ -51,7 +52,11 @@ function NumberInput({
     setIsValidAmount(!isOverTenBullion);
     !isOverTenBullion && onChangeAmount(num);
   };
-  const onInitClick = () => changeNumber(0);
+
+  // 금액 초기화
+  const onInitClick = () => {
+    changeNumber(0);
+  };
 
   const getDisplayInputMessage = useCallback(() => {
     let result = `총 적금액 : ${numberToKorean(currentAmount)}원`;
