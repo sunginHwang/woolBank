@@ -14,7 +14,7 @@ import BaseSlider from '../../../common/BaseSlider';
 import { IAssetType } from '../../../../models/IAssetType';
 import { SAVING_TYPE } from '../../../../support/constants';
 
-type modalType = 'type' | 'date' | '';
+type modalType = 'savingType' | 'startDate' | '';
 type AccountInfoPhaseProps = {
   isActivePhase: boolean;
   goNextPage: () => void;
@@ -32,52 +32,55 @@ function AccountInfoPhase({
 }: AccountInfoPhaseProps) {
   const now = new Date();
   // 모달 팝업
-  const [openModalName, setOpenModalName] = useState<modalType>('');
+  const [openModalName, setOpenModalName] = useState<modalType | string>('');
   const [assetMonth, setAssetMonth] = useState(0);
   const [regularTransferDate, setRegularTransferDate] = useState(1);
   const useRegularTransferDate =
     account.savingType.type === SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS;
 
-  // 적금타입 모달 열기
-  const openTypeModal = () => {
-    setOpenModalName('type');
+  //모달 열기
+  const onOpenModal = (e: ChangeEvent<HTMLDivElement>) => {
+    setOpenModalName(e.currentTarget.dataset.type  || '');
   };
-  // 적금 시작일 모달 열기
-  const openDateModal = () => {
-    setOpenModalName('date');
-  };
+
   // 모달 닫기
-  const closeModal = () => {
+  const onCloseModal = () => {
     setOpenModalName('');
   };
 
   // 폼 값 초기화
-  const clearTitle = () => {
-    onChangeAccount('title', '');
-  };
-  const clearSavingType = () => {
-    onChangeAccount('savingType', { type: '', name: '' });
-  };
-  const clearStartDate = () => {
-    onChangeAccount('startDate', '');
+  const onClearForm = (e: React.MouseEvent<HTMLLIElement>) => {
+    const formType = e.currentTarget.dataset.type || '';
+    let initData: string | IAssetType = '';
+
+    if(formType === ''){
+      return;
+    }
+
+    if(formType === 'savingType'){
+      initData = { type: '', name: '' };
+    }
+
+    onChangeAccount(formType, initData);
   };
 
-  // 폼값 변경 이벤트
+  // 제목 변경
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     onChangeAccount('title', e.target.value);
   };
 
   const onChangeDate = (date: string) => {
     onChangeAccount('startDate', date);
-    closeModal();
+    onCloseModal();
   };
 
-  const onChangeAssetMonth = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAssetMonth(Number(e.target.value));
-  };
+  // 슬라이드 이벤트 폼 변경 이벤트
+  const onChangeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value);
+    const type = e.target.dataset.type || '';
 
-  const onChangeTransferDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRegularTransferDate(Number(e.target.value));
+    type === 'assetMonth' && setAssetMonth(value);
+    type === 'regularTransferDate' && setRegularTransferDate(value);
   };
 
   const onChangeAssetType = (assetType: IAssetType) => {
@@ -86,7 +89,7 @@ function AccountInfoPhase({
     onChangeAccount('regularTransferDate', 0);
 
     onChangeAccount('savingType', assetType);
-    closeModal();
+    onCloseModal();
   };
 
   // 폼 입력 전체 검증
@@ -116,8 +119,8 @@ function AccountInfoPhase({
 
   return (
     <PhaseTemplate
-      active={isActivePhase}
       title='정보 작성하기'
+      active={isActivePhase}
       usePadding={false}
       onBackClick={goPrevPhase}
     >
@@ -127,17 +130,19 @@ function AccountInfoPhase({
             label='예/적금명'
             placeHolder='예/적금 명을 입력해 주세요.'
             name='title'
+            dataType='title'
             value={account.title}
             onChange={onChangeTitle}
-            onClear={clearTitle}
+            onClear={onClearForm}
           />
           <BaseInput
+            disable
             label='예/적금 종류'
             placeHolder='예/적금 종류를 선택해 주세요.'
-            onClick={openTypeModal}
-            onClear={clearSavingType}
+            dataType='savingType'
             value={account.savingType.name}
-            disable
+            onClear={onClearForm}
+            onClick={onOpenModal}
           />
           {useRegularTransferDate && (
             <S.AssetMonth>
@@ -147,19 +152,21 @@ function AccountInfoPhase({
                 max={31}
                 step={1}
                 size='medium'
+                dataType='regularTransferDate'
                 value={regularTransferDate}
                 hoverMessage={`${regularTransferDate}일`}
-                onChange={onChangeTransferDate}
+                onChange={onChangeSlider}
               />
             </S.AssetMonth>
           )}
           <BaseInput
+            disable
             label='시작일'
             placeHolder='시작일을 선택해 주세요.'
-            onClick={openDateModal}
-            onClear={clearStartDate}
+            dataType='startDate'
             value={parseDate(account.startDate, DATE_FORMAT.YYYY_MM_DD)}
-            disable
+            onClick={onOpenModal}
+            onClear={onClearForm}
           />
           <S.AssetMonth>
             {account.startDate && (
@@ -170,9 +177,10 @@ function AccountInfoPhase({
                   max={120}
                   step={3}
                   size='medium'
+                  dataType='assetMonth'
                   value={assetMonth}
                   hoverMessage={getKoMonth(assetMonth)}
-                  onChange={onChangeAssetMonth}
+                  onChange={onChangeSlider}
                 />
               </>
             )}
@@ -185,15 +193,15 @@ function AccountInfoPhase({
           작성하기
         </S.CompleteButton>
         <AccountSavingTypeModal
-          visible={openModalName === 'type'}
+          visible={openModalName === 'savingType'}
           onChangeAssetType={onChangeAssetType}
-          oncloseModal={closeModal}
+          oncloseModal={onCloseModal}
         />
         <DateModal
-          visible={openModalName === 'date'}
-          oncloseModal={closeModal}
-          onChangeDate={onChangeDate}
+          visible={openModalName === 'startDate'}
           date={account.startDate === '' ? now : new Date(account.startDate)}
+          oncloseModal={onCloseModal}
+          onChangeDate={onChangeDate}
         />
       </S.AccountInfoAddPhase>
     </PhaseTemplate>

@@ -9,34 +9,36 @@ type BaseInputProps = {
   name?: string;
   type?: 'text' | 'number' | 'date' | 'range';
   disable?: boolean;
+  dataType?: string;
   onChange?: React.ChangeEventHandler;
-  onClear?: () => void;
-  onClick?: () => void;
+  onClear?: (e: React.MouseEvent<HTMLLIElement>) => void;
+  onClick?: (e: React.ChangeEvent<HTMLDivElement>) => void;
 };
 
 function BaseInput({
-  label,
-  placeHolder,
-  value,
-  name,
-  type = 'text',
-  disable = false,
-  onChange,
-  onClear,
-  onClick
-}: BaseInputProps) {
+                     label,
+                     placeHolder,
+                     value,
+                     name,
+                     type = 'text',
+                     dataType = '',
+                     disable = false,
+                     onChange,
+                     onClear,
+                     onClick
+                   }: BaseInputProps) {
   const isExistInputValue = value !== '';
 
   const [focus, setFocus] = useState(false);
 
   const onFocus = useCallback(() => setFocus(true), []);
   const onBlur = useCallback(() => setFocus(false), []);
-  const onInputClear = (e: any) => {
-    onClear && onClear();
+  const onInputClear = (e: React.MouseEvent<HTMLLIElement>) => {
+    onClear && onClear(e);
     e.stopPropagation();
   };
   return (
-    <S.BaseInput focus={focus} onClick={onClick}>
+    <S.BaseInput focus={focus} onClick={onClick} data-type={dataType}>
       <label>{label}</label>
       <input
         type={type}
@@ -49,8 +51,8 @@ function BaseInput({
         disabled={disable}
       />
       {isExistInputValue && (
-        <i onClick={onInputClear}>
-          <IcoCloseCircle width={28} height={32} fill='#958d9e' />
+        <i onClick={onInputClear} data-type={dataType}>
+          <IcoCloseCircle width={28} height={32} fill='#958d9e'/>
         </i>
       )}
     </S.BaseInput>
@@ -67,7 +69,7 @@ const S: any = {
       font-size: 1.2rem;
       font-weight: 500;
       color: ${(props: any) =>
-        props.focus ? props.theme.colors.navyD1 : props.theme.colors.blackL1};
+    props.focus ? props.theme.colors.navyD1 : props.theme.colors.blackL1};
       text-align: left;
     }
 
@@ -76,7 +78,7 @@ const S: any = {
       border: none;
       border-bottom: ${(props: any) => (props.focus ? '.2rem' : '.1rem')} solid
         ${(props: any) =>
-          props.focus ? props.theme.colors.navyD1 : props.theme.colors.blackL1};
+    props.focus ? props.theme.colors.navyD1 : props.theme.colors.blackL1};
       padding-right: 3rem;
       border-radius: 0;
       height: 4rem;
