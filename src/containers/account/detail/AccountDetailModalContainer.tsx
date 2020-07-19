@@ -21,6 +21,8 @@ function AccountDetailModalContainer({
   const history = useHistory();
   const [isOpenEndModal, onEndModal, offEndModal] = useToggle(false);
   const [isOpenDeleteModal, onDeleteModal, offDeleteModal] = useToggle(false);
+  const [endDateSettingLoading, onEndDateSettingLoading, offEndDateSettingLoading] = useToggle(false);
+  const [removeLoading, onRemoveLoading, offRemoveLoading] = useToggle(false);
 
   // 모달 클릭 이벤트
   const onEditModalClick = (edit: 'migration' | 'end' | 'remove') => {
@@ -39,6 +41,22 @@ function AccountDetailModalContainer({
     }
   };
 
+  const onRemoveAccount = () => {
+    onRemoveLoading();
+    setTimeout(() => {
+      offRemoveLoading();
+      offDeleteModal();
+    }, 500);
+  };
+
+  const onSetEndingAccount = () => {
+    onEndDateSettingLoading();
+    setTimeout(() => {
+      offEndDateSettingLoading();
+      offEndModal();
+    }, 500);
+  };
+
   const onBackClick = () => {
     history.goBack();
   };
@@ -53,14 +71,16 @@ function AccountDetailModalContainer({
       <DepositDate isActive={useEditPhase} onBackClick={onBackClick} />
       <ConfirmModal
         visible={isOpenEndModal}
+        loading={endDateSettingLoading}
         message='만기처리 진행 후 다시 변경이 불가능 합니다. 정말 만기처리 하시겠습니까?'
-        onConfirmClick={offEndModal}
+        onConfirmClick={onSetEndingAccount}
         onCancelClick={offEndModal}
       />
       <ConfirmModal
         visible={isOpenDeleteModal}
+        loading={removeLoading}
         message='한번 삭제 이후 다시 복원이 불가능 합니다. 정말 삭제하시겠습니까?'
-        onConfirmClick={offDeleteModal}
+        onConfirmClick={onRemoveAccount}
         onCancelClick={offDeleteModal}
       />
     </>

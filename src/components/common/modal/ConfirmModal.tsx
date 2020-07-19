@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import ClipLoader from 'react-spinners/ClipLoader';
 import ModalDeem from './ModalDeem';
 import '../../../style/css/customCalendar.css';
+import colors from '../../../style/colors';
 
 type WalletDateModalProps = {
   visible: boolean;
   message: string;
+  loading?: boolean;
   confirmMsg?: string;
   cancelMsg?: string;
   onConfirmClick: () => void;
@@ -15,11 +18,14 @@ type WalletDateModalProps = {
 function ConfirmModal({
   visible,
   message,
+  loading = true,
   confirmMsg = '확인',
   cancelMsg = '취소',
   onCancelClick,
   onConfirmClick
 }: WalletDateModalProps) {
+  const LoadingEl = <S.Loading><ClipLoader size={20} color={colors.colors.navyD1} /></S.Loading>;
+
   return (
     <ModalDeem visible={visible}>
       <S.ModalWrapper>
@@ -28,8 +34,15 @@ function ConfirmModal({
             <p>{message}</p>
           </S.Content>
           <S.Footer>
-            <S.Button onClick={onCancelClick}>{cancelMsg}</S.Button>
-            <S.Button onClick={onConfirmClick}>{confirmMsg}</S.Button>
+            {
+              loading ? LoadingEl
+                : (
+                  <>
+                    <S.Button onClick={onCancelClick}>{cancelMsg}</S.Button>
+                    <S.Button onClick={onConfirmClick}>{confirmMsg}</S.Button>
+                  </>
+                )
+            }
           </S.Footer>
         </S.ConfirmModal>
       </S.ModalWrapper>
@@ -43,6 +56,7 @@ const S: {
   Content: any;
   Footer: any;
   Button: any;
+  Loading: any;
 } = {
   ConfirmModal: styled.div`
     width: 80%;
@@ -75,11 +89,17 @@ const S: {
   Footer: styled.div`
     display: flex;
     justify-content: space-between;
+    height: 5.5rem;
     border-top: .1rem solid ${props => props.theme.colors.greyL2};
+  `,
+  Loading: styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   `,
   Button: styled.button`
     width: 49%;
-    height: 5.5rem;
     font-size: 1.6rem;
     display: flex;
     justify-content: center;
