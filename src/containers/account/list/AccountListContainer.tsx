@@ -5,6 +5,8 @@ import { IAssetType } from '../../../models/IAssetType';
 import { IAccount } from '../../../models/IAccount';
 import { INSTALLMENT_SAVINGS, TAX_TYPE } from '../../../support/constants';
 import AccountListItem from '../../../components/account/AccountListItem';
+import AccountListItemPlaceHolder from '../../../components/account/list/AccountListItemPlaceHolder';
+import { useLoading } from '../../../support/hooks/UseTempLoading';
 
 const tabs: IAssetType[] = [
   {
@@ -55,6 +57,7 @@ const accounts: IAccount[] = [
 
 function AccountListContainer() {
   const [activeTab, setActiveTab] = useState(tabs[0]);
+  const loading = useLoading();
 
   return (
     <>
@@ -66,9 +69,11 @@ function AccountListContainer() {
           onChangeTab={setActiveTab}
         />
         <S.List>
-          {accounts.map((account, index) => (
-            <AccountListItem key={index} account={account} />
-          ))}
+          {loading
+            ? [...Array(10)].map(index => <AccountListItemPlaceHolder key={index} />)
+            : accounts.map((account, index) => (
+              <AccountListItem key={index} account={account} />
+            ))}
         </S.List>
       </S.Wrapper>
     </>

@@ -3,6 +3,8 @@ import { IAccount } from '../../../models/IAccount';
 import { INSTALLMENT_SAVINGS, TAX_TYPE } from '../../../support/constants';
 import DepositRecord from '../../../components/account/DepositRecord';
 import AccountInfo from '../../../components/account/AccountInfo';
+import AccountInfoPlaceHolder from '../../../components/account/detail/AccountInfoplaceHolder';
+import { useLoading } from '../../../support/hooks/UseTempLoading';
 
 const account: IAccount = {
   title: '첫 고정적금',
@@ -42,10 +44,14 @@ type AccountDetailContainerProps = {
 };
 
 function AccountDetailContainer({ accountId }: AccountDetailContainerProps) {
+  const loading = useLoading();
+
   return (
     <>
-      <AccountInfo account={account} />
-      <DepositRecord depositRecords={account.depositRecords} />
+      {
+        loading ? <AccountInfoPlaceHolder /> : <AccountInfo account={account} />
+      }
+      <DepositRecord depositRecords={account.depositRecords} isLoading={loading} />
     </>
   );
 }
