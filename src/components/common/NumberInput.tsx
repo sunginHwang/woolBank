@@ -9,6 +9,7 @@ type NumberInputProps = {
   currentAmount: number;
   label: string;
   useClose?: boolean;
+  loading?: boolean;
   isActiveComplete: boolean;
   onChangeAmount: (number: number) => void;
   onCompleteClick: () => void;
@@ -20,6 +21,7 @@ const BILLION = 1000000000;
 function NumberInput({
   currentAmount,
   label,
+  loading = false,
   useClose = false,
   isActiveComplete,
   onChangeAmount,
@@ -129,6 +131,7 @@ function NumberInput({
           message='완료'
           color='navy'
           size='full'
+          loading={loading}
           active={isActiveComplete}
           onClick={onCompleteClick}
         />

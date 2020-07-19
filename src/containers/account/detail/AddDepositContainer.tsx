@@ -7,13 +7,16 @@ import { useHistory } from 'react-router';
 type AddDepositContainerProps = {
   accountId: number;
   useDepositPhase: boolean;
+  onBackClick: () => void;
 };
 
 function AddDepositContainer({
   accountId,
-  useDepositPhase
+  useDepositPhase,
+  onBackClick
 }: AddDepositContainerProps) {
   const [depositAmount, setDepositAmount] = useState(0);
+  const [addDepositLoading, setAddDepositLoading] = useState(false);
   const history = useHistory();
 
   const createDepositAmount = (
@@ -24,7 +27,12 @@ function AddDepositContainer({
   };
 
   const createCurrentDepositAmount = () => {
-    createDepositAmount(depositAmount);
+    setAddDepositLoading(true);
+    setTimeout(() => {
+      setAddDepositLoading(false);
+      createDepositAmount(depositAmount);
+      onBackClick();
+    }, 500);
   };
 
   const onOpenDepositKeyPad = () => {
@@ -43,6 +51,7 @@ function AddDepositContainer({
           currentAmount={depositAmount}
           label='입금하실 금액을 입력해주세요.'
           useClose
+          loading={addDepositLoading}
           isActiveComplete={depositAmount > 0}
           onChangeAmount={setDepositAmount}
           onCompleteClick={createCurrentDepositAmount}

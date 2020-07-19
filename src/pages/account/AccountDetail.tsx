@@ -39,6 +39,7 @@ function AccountDetail() {
         <AccountDetailContainer accountId={accountId} />
         <AddDepositContainer
           accountId={accountId}
+          onBackClick={onBackClick}
           useDepositPhase={mode === 'deposit'}
         />
         <AccountDetailModalContainer
