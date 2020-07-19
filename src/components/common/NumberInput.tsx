@@ -3,6 +3,7 @@ import styled from 'styled-components/';
 import { addComma, numberToKorean } from '../../support/util/String';
 import IcoClose from '../icon/IcoClose';
 import colors from '../../style/colors';
+import BaseButton from './BaseButton';
 
 type NumberInputProps = {
   currentAmount: number;
@@ -123,8 +124,14 @@ function NumberInput({
           </tbody>
         </S.InputTable>
       </S.Input>
-      <S.Complete active={isActiveComplete} onClick={onCompleteClick}>
-        완료
+      <S.Complete>
+        <BaseButton
+          message='완료'
+          color='navy'
+          size='full'
+          active={isActiveComplete}
+          onClick={onCompleteClick}
+        />
       </S.Complete>
     </S.NumberInput>
   );
@@ -189,26 +196,22 @@ const S: {
     &:active {
       border-radius: 1.6rem;
       background-color: ${(props: any) =>
-        props.isHide ? props.theme.colors.white : props.theme.colors.greyL3};
+    props.isHide ? props.theme.colors.white : props.theme.colors.greyL3};
     }
   `,
-  Complete: styled.button`
+  Complete: styled.div`
     width: calc(100% - 4rem);
     margin-top: auto;
     margin: 2rem;
     height: 5.5rem;
     min-height: 5.5rem;
-    border-radius: 0.8rem;
-    color: ${(props) => props.theme.colors.white};
-    background-color: ${(props) => props.theme.colors.navyD1};
-    opacity: ${(props: any) => (props.active ? 1 : 0.5)};
   `,
   InputDisplayMessage: styled.span`
     font-size: 1.4rem;
     height: 2.1rem;
     margin-top: 1rem;
     color: ${(props: any) =>
-      props.active ? props.theme.colors.redL1 : props.theme.colors.blackL1};
+    props.active ? props.theme.colors.redL1 : props.theme.colors.blackL1};
   `
 };
 

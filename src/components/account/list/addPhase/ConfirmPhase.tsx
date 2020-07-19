@@ -9,10 +9,12 @@ import {
   getTaxTypeKo
 } from '../../../../support/util/bank';
 import DownSlide from '../../../common/DownSlide';
+import BaseButton from '../../../common/BaseButton';
 
 type WalletConfirmPhaseProps = {
   isActivePhase: boolean;
   account: IAccount;
+  loading: boolean;
   goPrevPhase: () => void;
   onComplete: () => void;
 };
@@ -32,6 +34,7 @@ const ConfirmCardItem = ({
 
 function ConfirmPhase({
   account,
+  loading,
   isActivePhase,
   goPrevPhase,
   onComplete
@@ -99,9 +102,16 @@ function ConfirmPhase({
             원할시 삭제 후 다시 등록하셔야 됩니다.
           </span>
         </S.Info>
-        <S.CompleteButton active onClick={onComplete}>
-          예/적금 만들기
-        </S.CompleteButton>
+        <S.Complete>
+          <BaseButton
+            message='예/적금 만들기'
+            color='navy'
+            size='full'
+            loading={loading}
+            onClick={onComplete}
+            active
+          />
+        </S.Complete>
       </S.WalletConfirmPhase>
     </PhaseTemplate>
   );
@@ -114,7 +124,7 @@ const S: {
   CardAmountItem: any;
   CardItem: any;
   Info: any;
-  CompleteButton: any;
+  Complete: any;
 } = {
   WalletConfirmPhase: styled.div`
     height: 100%;
@@ -183,16 +193,12 @@ const S: {
       color: ${(props) => props.theme.colors.greyL1};
     }
   `,
-  CompleteButton: styled.button`
+  Complete: styled.div`
     margin-top: auto;
     margin-bottom: 2rem;
     height: 5.5rem;
     min-height: 5.5rem;
     width: 100%;
-    border-radius: 0.8rem;
-    color: ${(props) => props.theme.colors.white};
-    background-color: ${(props) => props.theme.colors.navyD1};
-    opacity: ${(props: any) => (props.active ? 1 : 0.5)};
   `
 };
 

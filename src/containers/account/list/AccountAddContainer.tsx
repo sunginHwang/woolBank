@@ -5,6 +5,7 @@ import AmountAddPhase from '../../../components/account/list/addPhase/AmountAddP
 import ConfirmPhase from '../../../components/account/list/addPhase/ConfirmPhase';
 import RateAddPhase from '../../../components/account/list/addPhase/RateAddPhase';
 import { IAssetType } from '../../../models/IAssetType';
+import { useHistory } from 'react-router';
 
 type AccountAddContainerProps = {
   phase: number;
@@ -29,6 +30,8 @@ function AccountAddContainer({
   goPrevPhase
 }: AccountAddContainerProps) {
   const [account, setAccount] = useState<IAccount>(initialAccountInfo);
+  const [accountLoading, setAccountLoading] = useState(false);
+  const history = useHistory();
 
   const onChangeAccount = (
     type: string,
@@ -41,6 +44,14 @@ function AccountAddContainer({
       };
     });
   };
+
+  const onSaveAccount = () => {
+    setAccountLoading(true);
+    setTimeout(() => {
+      setAccountLoading(false);
+      history.push('/accounts');
+    }, 500);
+  }
 
   useEffect(() => {
     phase < 1 && setAccount(initialAccountInfo); // 예적금 입력 종료시 초기화 처리
@@ -72,7 +83,8 @@ function AccountAddContainer({
       <ConfirmPhase
         account={account}
         isActivePhase={phase >= 4}
-        onComplete={goNextPhase}
+        loading={accountLoading}
+        onComplete={onSaveAccount}
         goPrevPhase={goPrevPhase}
       />
     </>

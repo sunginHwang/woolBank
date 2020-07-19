@@ -13,6 +13,7 @@ import { IAccount } from '../../../../models/IAccount';
 import BaseSlider from '../../../common/BaseSlider';
 import { IAssetType } from '../../../../models/IAssetType';
 import { SAVING_TYPE } from '../../../../support/constants';
+import BaseButton from '../../../common/BaseButton';
 
 type modalType = 'savingType' | 'startDate' | '';
 type AccountInfoPhaseProps = {
@@ -186,12 +187,18 @@ function AccountInfoPhase({
             )}
           </S.AssetMonth>
         </S.Content>
-        <S.CompleteButton
+        <S.Complete
           active={isAllowAccountAddValidation}
           onClick={goNextPhase}
         >
-          작성하기
-        </S.CompleteButton>
+          <BaseButton
+            message='작성하기'
+            color='navy'
+            size='full'
+            active={isAllowAccountAddValidation}
+            onClick={goNextPhase}
+          />
+        </S.Complete>
         <AccountSavingTypeModal
           visible={openModalName === 'savingType'}
           onChangeAssetType={onChangeAssetType}
@@ -211,7 +218,7 @@ function AccountInfoPhase({
 const S: {
   AccountInfoAddPhase: any;
   Content: any;
-  CompleteButton: any;
+  Complete: any;
   AssetMonth: any;
 } = {
   AccountInfoAddPhase: styled.div`
@@ -229,15 +236,11 @@ const S: {
       margin-top: 4rem;
     }
   `,
-  CompleteButton: styled.button`
+  Complete: styled.div`
     margin-top: auto;
     margin-bottom: 2rem;
     height: 5.5rem;
     min-height: 5.5rem;
-    border-radius: 0.8rem;
-    color: ${(props) => props.theme.colors.white};
-    background-color: ${(props) => props.theme.colors.navyD1};
-    opacity: ${(props: any) => (props.active ? 1 : 0.5)};
   `,
   AssetMonth: styled.div`
     > p {

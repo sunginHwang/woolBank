@@ -14,6 +14,7 @@ import {
 } from '../../../../support/util/bank';
 import { getRate } from '../../../../support/util/number';
 import { diffMonth } from '../../../../support/util/date';
+import BaseButton from '../../../common/BaseButton';
 
 type AddRatePhaseProps = {
   isActivePhase: boolean;
@@ -108,9 +109,15 @@ function RateAddPhase({
               </div>
             </S.Rate>
           )}
-          <S.CompleteButton onClick={onCompleteClick}>
-            다음 단계
-          </S.CompleteButton>
+          <S.Complete>
+            <BaseButton
+              message='다음단계'
+              color='navy'
+              size='full'
+              active
+              onClick={onCompleteClick}
+            />
+          </S.Complete>
         </div>
       </S.AddRatePhase>
     </PhaseTemplate>
@@ -121,7 +128,7 @@ const S: {
   AddRatePhase: any;
   Header: any;
   Amount: any;
-  CompleteButton: any;
+  Complete: any;
   Rate: any;
   RateItem: any;
 } = {
@@ -163,15 +170,11 @@ const S: {
       }
     }
   `,
-  CompleteButton: styled.button`
+  Complete: styled.div`
     margin-top: auto;
     margin-bottom: 2rem;
     height: 5.5rem;
     min-height: 5.5rem;
-    width: 100%;
-    border-radius: 0.8rem;
-    color: ${(props) => props.theme.colors.white};
-    background-color: ${(props) => props.theme.colors.navyD1};
   `,
   Rate: styled.div`
     margin: 8rem 0;
