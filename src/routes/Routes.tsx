@@ -1,21 +1,38 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, RouteComponentProps, RouteProps, Switch } from 'react-router';
 import loadable from '@loadable/component';
 
+import LayoutContainer from '../containers/LayoutContainer';
 const todo = loadable(() => import('../pages/Todo'));
-const main = loadable(() => import('../pages/Main'));
+const Main = loadable(() => import('../pages/Main'));
 const AccountList = loadable(() => import('../pages/account/AccountList'));
 const AccountDetail = loadable(() => import('../pages/account/AccountDetail'));
 
 function Routes() {
   return (
     <Switch>
-      <Route path='/' component={main} exact />
-      <Route path='/todo' component={todo} exact />
-      <Route path='/accounts' component={AccountList} exact />
-      <Route path='/accounts/:accountId' component={AccountDetail} exact />
+      <RouteWrapper path='/' component={Main} exact />
+      <RouteWrapper path='/accounts' component={AccountList} exact />
+      <Route path='/todo' component={todo} />
+      <Route path='/accounts/:accountId' component={AccountDetail} />
     </Switch>
   );
 }
+
+interface LayoutRouteProps extends RouteProps {
+  component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+}
+
+function RouteWrapper({ component: Component, ...rest }: LayoutRouteProps) {
+  return (
+    <Route
+      {...rest} render={props =>
+        <LayoutContainer {...props}>
+          <Component {...props} />
+        </LayoutContainer>}
+    />
+  );
+}
+
 
 export default Routes;
