@@ -31,7 +31,6 @@ function AccountDetail() {
     <>
       <PageTemplate
         title='계좌정보'
-        useNav={false}
         useSidePadding={false}
         onBackClick={onBackClick}
         rightHeader={editButtonEl}

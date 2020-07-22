@@ -27,20 +27,18 @@ function AccountList() {
   };
 
   return (
-    <>
-      <PageTemplate
-        title='예금 및 적금'
-        onBackClick={onBackClick}
-        rightHeader={AccountAddIconEl}
-      >
-        <AccountListContainer />
-        <AccountAddContainer
-          phase={addPhase}
-          goNextPhase={goNextPhase}
-          goPrevPhase={onBackClick}
-        />
-      </PageTemplate>
-    </>
+    <PageTemplate
+      title='예금 및 적금'
+      onBackClick={onBackClick}
+      rightHeader={AccountAddIconEl}
+    >
+      <AccountListContainer />
+      <AccountAddContainer
+        phase={addPhase}
+        goNextPhase={goNextPhase}
+        goPrevPhase={onBackClick}
+      />
+    </PageTemplate>
   );
 }
 

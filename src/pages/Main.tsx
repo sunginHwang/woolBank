@@ -72,7 +72,6 @@ function Main() {
           <BucketListItem key={index} bucketList={bucket} />
         ))}
       </MainCardArea>
-      <NavigationBar />
     </PageTemplate>
   );
 }

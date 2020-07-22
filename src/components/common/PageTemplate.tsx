@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import HeaderWithBack from './HeaderWithBack';
-import NavigationBar from '../layout/NavigationBar';
 import Header from '../layout/Header';
 import colors from '../../style/colors';
 
 type InputPhaseWrapperProps = {
   title?: string;
   isMain?: boolean;
-  useNav?: boolean;
   useSidePadding?: boolean;
   rightHeader?: React.ReactNode;
   onBackClick?: () => void;
@@ -19,7 +17,6 @@ type InputPhaseWrapperProps = {
 function PageTemplate({
   title = '',
   isMain = false,
-  useNav = true,
   bgColor = colors.colors.whiteL1,
   useSidePadding = true,
   onBackClick,
@@ -49,7 +46,6 @@ function PageTemplate({
           </S.Content>
         </>
       )}
-      {useNav && <NavigationBar />}
     </S.PageTemplate>
   );
 }

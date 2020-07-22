@@ -11,28 +11,28 @@ const AccountDetail = loadable(() => import('../pages/account/AccountDetail'));
 function Routes() {
   return (
     <Switch>
-      <RouteWrapper path='/' component={Main} exact />
-      <RouteWrapper path='/accounts' component={AccountList} exact />
-      <Route path='/todo' component={todo} />
-      <Route path='/accounts/:accountId' component={AccountDetail} />
+      <RouteWithLayout path='/' component={Main} exact />
+      <RouteWithLayout path='/todo' component={todo} exact />
+      <RouteWithLayout path='/accounts' component={AccountList} exact />
+      <RouteWithLayout path='/accounts/:accountId' component={AccountDetail} useNavBar={false} />
     </Switch>
   );
 }
 
-interface LayoutRouteProps extends RouteProps {
-  component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+export interface LayoutRouteProps extends RouteProps {
+  component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+  useNavBar?: boolean;
 }
 
-function RouteWrapper({ component: Component, ...rest }: LayoutRouteProps) {
+function RouteWithLayout({ component: Component, useNavBar, ...rest }: LayoutRouteProps) {
   return (
     <Route
       {...rest} render={props =>
-        <LayoutContainer {...props}>
-          <Component {...props} />
+        <LayoutContainer useNavBar={useNavBar}>
+          {Component && <Component {...props} {...rest} />}
         </LayoutContainer>}
     />
   );
 }
-
 
 export default Routes;

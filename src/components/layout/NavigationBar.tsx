@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import IcoAccountOutline from '../icon/IcoAccountOutline';
 import IcoBucketOutline from '../icon/IcoBucketOutline';
@@ -36,7 +36,6 @@ const navigations: INavigationBar[] = [
 
 function NavigationBar() {
   const history = useHistory();
-  const isActiveBar = (link: string) => link === history.location.pathname;
 
   return (
     <S.NavigationBar>
@@ -44,7 +43,7 @@ function NavigationBar() {
         return (
           <S.NavigationBarTag
             key={navigation.name}
-            active={isActiveBar(navigation.link)}
+            active={navigation.link === history.location.pathname}
           >
             <Link to={navigation.link}>
               {navigation.icon}
