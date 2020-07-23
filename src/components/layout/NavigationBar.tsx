@@ -23,7 +23,7 @@ const navigations: INavigationBar[] = [
   {
     name: '버킷리스트',
     value: 'bucketList',
-    link: '/bucketList',
+    link: '/bucket-list',
     icon: <IcoBucketOutline />
   },
   {

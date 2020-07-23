@@ -7,6 +7,7 @@ const todo = loadable(() => import('../pages/Todo'));
 const Main = loadable(() => import('../pages/Main'));
 const AccountList = loadable(() => import('../pages/account/AccountList'));
 const AccountDetail = loadable(() => import('../pages/account/AccountDetail'));
+const BucketList = loadable(() => import('../pages/bucketList/BucketList'));
 
 function Routes() {
   return (
@@ -15,6 +16,7 @@ function Routes() {
       <RouteWithLayout path='/todo' component={todo} exact />
       <RouteWithLayout path='/accounts' component={AccountList} exact />
       <RouteWithLayout path='/accounts/:accountId' component={AccountDetail} useNavBar={false} />
+      <RouteWithLayout path='/bucket-list' component={BucketList} exact />
     </Switch>
   );
 }
