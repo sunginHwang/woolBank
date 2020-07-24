@@ -8,10 +8,14 @@ type BaseInputProps = {
   value: string | number;
   name?: string;
   type?: 'text' | 'number' | 'date' | 'range';
+  max?: number;
+  useLengthInfo?: boolean;
   disable?: boolean;
   dataType?: string;
   onChange?: React.ChangeEventHandler;
   onClear?: (e: React.MouseEvent<HTMLLIElement>) => void;
+  onFocusIn?: () => void;
+  onFocusOut?: () => void;
   onClick?: (e: React.ChangeEvent<HTMLDivElement>) => void;
 };
 
@@ -21,41 +25,60 @@ function BaseInput({
   value,
   name,
   type = 'text',
+  max = 999,
+  useLengthInfo = false,
   dataType = '',
   disable = false,
   onChange,
   onClear,
-  onClick
+  onClick,
+  onFocusIn,
+  onFocusOut
 }: BaseInputProps) {
   const isExistInputValue = value !== '';
 
   const [focus, setFocus] = useState(false);
 
-  const onFocus = useCallback(() => setFocus(true), []);
-  const onBlur = useCallback(() => setFocus(false), []);
+  const onFocus = useCallback(() => {
+    setFocus(true);
+    onFocusIn && onFocusIn();
+  }, []);
+
+  const onBlur = useCallback(() => {
+    setFocus(false);
+    onFocusOut && onFocusOut();
+  }, []);
+
   const onInputClear = (e: React.MouseEvent<HTMLLIElement>) => {
     onClear && onClear(e);
     e.stopPropagation();
   };
+
+  const valueLength = String(value).length;
+
   return (
-    <S.BaseInput focus={focus} onClick={onClick} data-type={dataType}>
-      <label>{label}</label>
-      <input
-        type={type}
-        placeholder={placeHolder}
-        name={name}
-        value={value}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onChange={onChange}
-        disabled={disable}
-      />
-      {isExistInputValue && (
-        <i onClick={onInputClear} data-type={dataType}>
-          <IcoCloseCircle width={28} height={32} fill='#958d9e' />
-        </i>
-      )}
-    </S.BaseInput>
+    <>
+      <S.BaseInput focus={focus} onClick={onClick} data-type={dataType}>
+        <label>{label}</label>
+        <input
+          type={type}
+          placeholder={placeHolder}
+          name={name}
+          value={value}
+          maxLength={max}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onChange={onChange}
+          disabled={disable}
+        />
+        {isExistInputValue && (
+          <i onClick={onInputClear} data-type={dataType}>
+            <IcoCloseCircle width={28} height={32} fill='#958d9e' />
+          </i>
+        )}
+      </S.BaseInput>
+      {useLengthInfo && <S.ValueLength>{valueLength}/{max}자</S.ValueLength>}
+    </>
   );
 }
 
@@ -68,22 +91,21 @@ const S: any = {
     label {
       font-size: 1.2rem;
       font-weight: 500;
-      color: ${(props: any) =>
-    props.focus ? props.theme.colors.navyD1 : props.theme.colors.blackL1};
+      color: ${(props: any) => (props.focus ? props.theme.colors.navyD1 : props.theme.colors.navyD1)};
       text-align: left;
+      margin-bottom: 0.5rem;
     }
 
     input {
       background: transparent;
       border: none;
-      border-bottom: ${(props: any) => (props.focus ? '.2rem' : '.1rem')} solid
-        ${(props: any) =>
-    props.focus ? props.theme.colors.navyD1 : props.theme.colors.blackL1};
+      border-bottom: 0.1rem solid
+        ${(props: any) => (props.focus ? props.theme.colors.navyD1 : props.theme.colors.greyL1)};
       padding-right: 3rem;
       border-radius: 0;
       height: 4rem;
       color: #27173e;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
     }
 
     i {
@@ -94,6 +116,10 @@ const S: any = {
       bottom: 0;
       opacity: 0.5;
     }
+  `,
+  ValueLength: styled.p`
+    font-size: 1.2rem;
+    color: ${(props) => props.theme.colors.greyL1};
   `
 };
 
