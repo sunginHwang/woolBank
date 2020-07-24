@@ -57,6 +57,10 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
     -webkit-tap-highlight-color: transparent;
   }
+  textarea:focus {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
   [role="button"],
   input[type="submit"],
   input[type="reset"],
