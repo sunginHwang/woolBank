@@ -3,10 +3,8 @@ import { useHistory } from 'react-router';
 import colors from '../../style/colors';
 import PageTemplate from '../../components/common/PageTemplate';
 import IcoPiggyBank from '../../components/icon/IcoPiggyBank';
-import BucketListItem from '../../components/bucketList/BucketList/BucketListItem';
-import MainCardArea from '../../components/main/MainCardArea';
-import { IBucketList } from '../../models/IBucketList';
 import BucketListContainer from '../../containers/bucketList/bucketListContainer';
+import BucketListAddContainer from '../../containers/bucketList/bucketListAddContainer';
 
 function BucketList() {
   const history = useHistory();
@@ -28,6 +26,7 @@ function BucketList() {
       rightHeader={AccountAddIconEl}
     >
       <BucketListContainer />
+      <BucketListAddContainer />
     </PageTemplate>
   );
 }
