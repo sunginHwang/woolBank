@@ -60,7 +60,6 @@ const bucketList: IBucketList[] = [
 function Main() {
   return (
     <PageTemplate isMain>
-      <Header />
       <TotalAssetsWallet totalPrice={50000} lastMonthTotalPrice={30000} />
       <MainCardArea title='자산현황'>
         {accounts.map((account, index) => (
