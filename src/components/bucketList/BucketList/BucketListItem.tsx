@@ -11,19 +11,19 @@ type BucketListItemProps = {
 }
 
 function BucketListItem({
-                          bucketList
-                        }: BucketListItemProps) {
+  bucketList
+}: BucketListItemProps) {
   return (
     <CardItem>
       <S.BucketListItem>
         <div>
-          <IcoPresent width={24} height={24} fill={colors.colors.navyD1}/>
+          <IcoPresent width={24} height={24} fill={colors.colors.navyD1} />
           <S.Content>
             <p>{bucketList.title}</p>
             <span>{bucketList.percent}% 달성</span>
           </S.Content>
         </div>
-        <IcoDowHorizontal fill={colors.colors.navyD1}/>
+        <IcoDowHorizontal fill={colors.colors.navyD1} />
       </S.BucketListItem>
     </CardItem>
   );

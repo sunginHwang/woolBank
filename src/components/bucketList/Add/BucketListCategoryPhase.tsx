@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PhaseTemplate from '../../common/PhaseTemplate';
 import BaseInput from '../../common/BaseInput';
-import BaseTextArea from '../../common/BaseTextarea';
 import { useToggle } from '../../../support/hooks/useToggle';
 import { parseDate } from '../../../support/util/date';
 import DateModal from '../../common/modal/DateModal';
 import BucketListCategoryList from '../BucketListCategoryList';
+import BaseButton from '../../common/BaseButton';
 
 function BucketListCategoryPhase() {
   const [completeDate, setCompleteDate] = useState('');
@@ -46,6 +46,9 @@ function BucketListCategoryPhase() {
           </S.AddInfo>
         </S.Content>
       </S.BucketListCategoryPhase>
+      <S.NextPhase>
+        <BaseButton message='다음단계' color='navy' size='full' />
+      </S.NextPhase>
     </PhaseTemplate>
   );
 }
@@ -54,6 +57,7 @@ const S: {
   BucketListCategoryPhase: any;
   Content: any;
   AddInfo: any;
+  NextPhase: any;
 } = {
   BucketListCategoryPhase: styled.div`
     height: calc(100vh - 5.5rem);
@@ -74,8 +78,14 @@ const S: {
       margin-top: 3rem;
       position: relative;
       transition: all .3s ease-out;
-      background: #428bca;
       height: 100%;
+  `,
+  NextPhase: styled.div`
+    width: calc(100% - 4rem);
+    left: 2rem;
+    height: 5rem;
+    position: fixed;
+    bottom: 2rem;
   `
 };
 

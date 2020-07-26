@@ -19,7 +19,7 @@ function CategoryItem({
   onSelect
 }: CategoryItemProps) {
   const isActive = activeCategoryType === bucketListCategory.type;
-  const icoSize = 24;
+  const icoSize = 30;
   const icoColor = isActive ? colors.colors.navyD1 : colors.colors.greyL1;
 
   const onClick = (e: React.ChangeEvent<HTMLLIElement>) => {
@@ -44,11 +44,22 @@ const S: {
   CategoryItem: any;
 } = {
   CategoryItem: styled.li`
-    padding: 2rem;
-    border: .1rem solid ${(props: any) => props.isActive ? props.theme.colors.greyL1 : props.theme.colors.navyD1};
+    div{
+      border: .1rem solid ${(props: any) => props.isActive ? props.theme.colors.navyD1 : props.theme.colors.greyL1};
+      border-radius: 1.3rem;
+      margin-right: 2rem;
+      height: 4rem;
+      display: flex;
+      padding: 0 1rem;
+      align-items: center;
+      justify-content: flex-start;
+      
+    }
     
-    >span {
+    span {
+      margin-left: 1rem;
       font-size: 1.2rem;
+      width: 100%;
     }
   `
 };

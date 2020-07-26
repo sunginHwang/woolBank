@@ -26,7 +26,8 @@ function BucketListCategoryList() {
   const [activeCategory, setActiveCategory] = useState('travel');
 
   return (
-    <>
+    <S.BucketListCategoryList>
+      <label>카테고리</label>
       <S.CategoryList>
         {
           categoryList.map((bucketListCategory) => {
@@ -41,17 +42,28 @@ function BucketListCategoryList() {
           })
         }
       </S.CategoryList>
-    </>
+    </S.BucketListCategoryList>
   );
 }
 
 const S: {
+  BucketListCategoryList: any;
   CategoryList: any;
 } = {
-  CategoryList: styled.ul`
-    padding: 2rem;
-    border: .1rem solid ${(props: any) => props.isActive ? props.theme.colors.greyL1 : props.theme.colors.navyD1};
+  BucketListCategoryList: styled.div`
+    margin: 2rem 0;
     
+    > label {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #515EC0;
+      text-align: left;
+    }
+  `,
+  CategoryList: styled.ul`
+    display: flex;
+    overflow-x: scroll;
+    margin-top: 1.5rem;
     >span {
       font-size: 1.2rem;
     }
