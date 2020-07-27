@@ -6,9 +6,18 @@ import { useToggle } from '../../../support/hooks/useToggle';
 import { parseDate } from '../../../support/util/date';
 import DateModal from '../../common/modal/DateModal';
 import BucketListCategoryList from '../BucketListCategoryList';
-import BaseButton from '../../common/BaseButton';
+import BottomButton from '../../common/BottomButton';
 
-function BucketListCategoryPhase() {
+type BucketListCategoryPhaseProps = {
+  isActivePhase: boolean;
+  goNextPhase: () => void;
+  goPrevPhase: () => void;
+}
+function BucketListCategoryPhase({
+  isActivePhase,
+  goPrevPhase,
+  goNextPhase
+}: BucketListCategoryPhaseProps) {
   const [completeDate, setCompleteDate] = useState('');
   const [isShowDateModal, onDateModal, offDateModal] = useToggle(false);
 
@@ -17,12 +26,13 @@ function BucketListCategoryPhase() {
     offDateModal();
   }
 
+  const isActiveNextPhase = completeDate.length > 0;
   return (
     <PhaseTemplate
       title='목표일 설정'
-      active
+      active={isActivePhase}
       usePadding={false}
-      onBackClick={() => console.log('back')}
+      onBackClick={goPrevPhase}
     >
       <S.BucketListCategoryPhase>
         <S.Content>
@@ -46,9 +56,12 @@ function BucketListCategoryPhase() {
           </S.AddInfo>
         </S.Content>
       </S.BucketListCategoryPhase>
-      <S.NextPhase>
-        <BaseButton message='다음단계' color='navy' size='full' />
-      </S.NextPhase>
+      <BottomButton
+        message='다음단계'
+        isShow={isActivePhase}
+        active={isActiveNextPhase}
+        onClick={goNextPhase}
+      />
     </PhaseTemplate>
   );
 }
@@ -57,7 +70,6 @@ const S: {
   BucketListCategoryPhase: any;
   Content: any;
   AddInfo: any;
-  NextPhase: any;
 } = {
   BucketListCategoryPhase: styled.div`
     height: calc(100vh - 5.5rem);
@@ -79,13 +91,6 @@ const S: {
       position: relative;
       transition: all .3s ease-out;
       height: 100%;
-  `,
-  NextPhase: styled.div`
-    width: calc(100% - 4rem);
-    left: 2rem;
-    height: 5rem;
-    position: fixed;
-    bottom: 2rem;
   `
 };
 

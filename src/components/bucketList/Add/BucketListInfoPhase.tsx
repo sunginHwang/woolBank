@@ -4,8 +4,19 @@ import PhaseTemplate from '../../common/PhaseTemplate';
 import BaseInput from '../../common/BaseInput';
 import BaseTextArea from '../../common/BaseTextarea';
 import { useToggle } from '../../../support/hooks/useToggle';
+import BottomButton from '../../common/BottomButton';
 
-function BucketListInfoPhase() {
+type BucketListInfoPhaseProps = {
+  isActivePhase: boolean;
+  goNextPhase: () => void;
+  goPrevPhase: () => void;
+}
+
+function BucketListInfoPhase({
+  isActivePhase,
+  goPrevPhase,
+  goNextPhase
+}: BucketListInfoPhaseProps) {
   const [state, setState] = useState('');
   const [detail, setDetail] = useState('');
   const [showDetailLayer, onShowDetailLayer, offShowDetailLayer] = useToggle(false);
@@ -15,13 +26,14 @@ function BucketListInfoPhase() {
   }
 
   const isShowDetail = (state.length > 0 && showDetailLayer) || detail.length > 0;
-
+  const isShowCompleteButton = isActivePhase && state.length > 0 && showDetailLayer;
+  const isActiveComplete = state.length > 0 && detail.length > 0;
   return (
     <PhaseTemplate
       title='버킷리스트 기본 정보 작성'
-      active
+      active={isActivePhase}
       usePadding={false}
-      onBackClick={() => console.log('back')}
+      onBackClick={goPrevPhase}
     >
       <S.AccountInfoAddPhase>
         <S.Content>
@@ -45,6 +57,12 @@ function BucketListInfoPhase() {
             />
           </S.AddInfo>
         </S.Content>
+        <BottomButton
+          message='다음단계'
+          isShow={isShowCompleteButton}
+          active={isActiveComplete}
+          onClick={goNextPhase}
+        />
       </S.AccountInfoAddPhase>
     </PhaseTemplate>
   );
@@ -64,18 +82,17 @@ const S: {
   `,
   Content: styled.div`
     padding-top: 2rem;
-    height: 100%;
+    height: 80%;
     > div + div {
       margin-top: 4rem;
     }
   `,
   AddInfo: styled.div`
-      top: ${(props:any) => props.show ? 0 : '100%'};
-      margin-top: 3rem;
-      position: relative;
-      transition: all .3s ease-out;
-      background: #428bca;
-      height: 100%;
+    top: ${(props:any) => props.show ? 0 : '100%'};
+    margin-top: 3rem;
+    position: relative;
+    transition: all .3s ease-out;
+    height: 100%;
   `
 };
 

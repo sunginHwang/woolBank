@@ -5,8 +5,19 @@ import IcoCamera from '../../icon/IcoCamera';
 import colors from '../../../style/colors';
 import IcoCloseCircle from '../../icon/IcoCloseCircle';
 import IcoImage from '../../icon/IcoImage';
+import BottomButton from '../../common/BottomButton';
 
-function BucketListPicturePhase() {
+type BucketListPicturePhaseProps = {
+  isActivePhase: boolean;
+  goNextPhase: () => void;
+  goPrevPhase: () => void;
+}
+
+function BucketListPicturePhase({
+  isActivePhase,
+  goPrevPhase,
+  goNextPhase
+}: BucketListPicturePhaseProps) {
   const [file1, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const onChangePicture = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,9 +57,9 @@ function BucketListPicturePhase() {
 
   return (
     <PhaseTemplate
-      title='목표일 설정'
-      active
-      onBackClick={() => console.log('back')}
+      title='사진 추가'
+      active={isActivePhase}
+      onBackClick={goPrevPhase}
     >
       <div style={{ marginTop: '2rem', display: 'flex' }}>
         <S.Picture>
@@ -87,6 +98,12 @@ function BucketListPicturePhase() {
           </S.PrevPicture>
         )
       }
+      <BottomButton
+        message='작성하기'
+        isShow={isActivePhase}
+        active={previewUrl.length > 0}
+        onClick={goNextPhase}
+      />
     </PhaseTemplate>
   );
 }
