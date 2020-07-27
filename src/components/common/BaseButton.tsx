@@ -46,8 +46,8 @@ function BaseButton({
   }, [size]);
 
   const onButtonClick = (e: React.ChangeEvent<HTMLButtonElement>) => {
-    // 로딩중에는 버튼 클릭 당연히 안되도록
-    if (!loading && onClick) {
+    // 로딩중 && 비활성화 상태 일시 버튼 클릭  안되도록
+    if (!loading && active && onClick) {
       onClick(e);
     }
   }
