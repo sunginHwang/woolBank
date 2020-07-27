@@ -5,18 +5,13 @@ import BaseInput from '../../common/BaseInput';
 import BaseTextArea from '../../common/BaseTextarea';
 import { useToggle } from '../../../support/hooks/useToggle';
 import BottomButton from '../../common/BottomButton';
-
-type BucketListInfoPhaseProps = {
-  isActivePhase: boolean;
-  goNextPhase: () => void;
-  goPrevPhase: () => void;
-}
+import { IPhase } from '../../../models/phase/IPhase';
 
 function BucketListInfoPhase({
   isActivePhase,
   goPrevPhase,
   goNextPhase
-}: BucketListInfoPhaseProps) {
+}: IPhase) {
   const [state, setState] = useState('');
   const [detail, setDetail] = useState('');
   const [showDetailLayer, onShowDetailLayer, offShowDetailLayer] = useToggle(false);

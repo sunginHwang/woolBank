@@ -15,12 +15,10 @@ import {
 import { getRate } from '../../../../support/util/number';
 import { diffMonth } from '../../../../support/util/date';
 import BaseButton from '../../../common/BaseButton';
+import { IPhase } from '../../../../models/phase/IPhase';
 
-type AddRatePhaseProps = {
-  isActivePhase: boolean;
+interface AddRatePhaseProps extends IPhase{
   account: IAccount;
-  goPrevPhase: () => void;
-  goNextPhase: () => void;
   onChangeAccount: (type: string, value: number | string) => void;
 };
 
@@ -40,7 +38,7 @@ function RateAddPhase({
 
   const onCompleteClick = () => {
     onChangeAccount('rate', rate);
-    goNextPhase();
+    goNextPhase && goNextPhase();
   };
   const onChangeTab = (tab: IAssetType) => {
     onChangeAccount('taxType', tab.type);

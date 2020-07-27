@@ -10,12 +10,11 @@ import {
 } from '../../../../support/util/bank';
 import DownSlide from '../../../common/DownSlide';
 import BaseButton from '../../../common/BaseButton';
+import { IPhase } from '../../../../models/phase/IPhase';
 
-type WalletConfirmPhaseProps = {
-  isActivePhase: boolean;
+interface WalletConfirmPhaseProps extends IPhase{
   account: IAccount;
   loading: boolean;
-  goPrevPhase: () => void;
   onComplete: () => void;
 };
 

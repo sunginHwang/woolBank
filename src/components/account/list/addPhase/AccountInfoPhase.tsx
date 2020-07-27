@@ -14,12 +14,10 @@ import BaseSlider from '../../../common/BaseSlider';
 import { IAssetType } from '../../../../models/IAssetType';
 import { SAVING_TYPE } from '../../../../support/constants';
 import BaseButton from '../../../common/BaseButton';
+import { IPhase } from '../../../../models/phase/IPhase';
 
 type modalType = 'savingType' | 'startDate' | '';
-type AccountInfoPhaseProps = {
-  isActivePhase: boolean;
-  goNextPage: () => void;
-  goPrevPhase: () => void;
+interface AccountInfoPhaseProps extends IPhase{
   account: IAccount;
   onChangeAccount: (type: string, value: string | number | IAssetType) => void;
 };
@@ -28,7 +26,7 @@ function AccountInfoPhase({
   isActivePhase,
   account,
   onChangeAccount,
-  goNextPage,
+  goNextPhase,
   goPrevPhase
 }: AccountInfoPhaseProps) {
   const now = new Date();
@@ -101,7 +99,7 @@ function AccountInfoPhase({
     assetMonth > 0;
 
   // 다음 단계 입력으로 이동
-  const goNextPhase = () => {
+  const onCompleteClick = () => {
     if (isAllowAccountAddValidation) {
       const startDate = new Date(account.startDate);
       const endDate = new Date(account.startDate);
@@ -114,7 +112,7 @@ function AccountInfoPhase({
         onChangeAccount('endDate', parseDate(endDate));
       }
 
-      goNextPage();
+      goNextPhase && goNextPhase();
     }
   };
 
@@ -187,16 +185,13 @@ function AccountInfoPhase({
             )}
           </S.AssetMonth>
         </S.Content>
-        <S.Complete
-          active={isAllowAccountAddValidation}
-          onClick={goNextPhase}
-        >
+        <S.Complete>
           <BaseButton
             message='작성하기'
             color='navy'
             size='full'
             active={isAllowAccountAddValidation}
-            onClick={goNextPhase}
+            onClick={onCompleteClick}
           />
         </S.Complete>
         <AccountSavingTypeModal

@@ -1,8 +1,9 @@
 import React from 'react';
 import PhaseTemplate from '../../../common/PhaseTemplate';
 import NumberInput from '../../../common/NumberInput';
+import { IPhase } from '../../../../models/phase/IPhase';
 
-type AmountAddPhaseProps = {
+interface AmountAddPhaseProps extends IPhase{
   isActivePhase: boolean;
   amount: number;
   goPrevPhase: () => void;

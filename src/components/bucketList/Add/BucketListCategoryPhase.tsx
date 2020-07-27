@@ -7,17 +7,13 @@ import { parseDate } from '../../../support/util/date';
 import DateModal from '../../common/modal/DateModal';
 import BucketListCategoryList from '../BucketListCategoryList';
 import BottomButton from '../../common/BottomButton';
+import { IPhase } from '../../../models/phase/IPhase';
 
-type BucketListCategoryPhaseProps = {
-  isActivePhase: boolean;
-  goNextPhase: () => void;
-  goPrevPhase: () => void;
-}
 function BucketListCategoryPhase({
   isActivePhase,
   goPrevPhase,
   goNextPhase
-}: BucketListCategoryPhaseProps) {
+}: IPhase) {
   const [completeDate, setCompleteDate] = useState('');
   const [isShowDateModal, onDateModal, offDateModal] = useToggle(false);
 

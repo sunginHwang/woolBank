@@ -64,7 +64,7 @@ function AccountAddContainer({
         isActivePhase={phase >= 1}
         onChangeAccount={onChangeAccount}
         goPrevPhase={goPrevPhase}
-        goNextPage={goNextPhase}
+        goNextPhase={goNextPhase}
       />
       <AmountAddPhase
         isActivePhase={phase >= 2}

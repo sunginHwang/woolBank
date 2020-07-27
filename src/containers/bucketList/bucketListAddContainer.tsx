@@ -5,7 +5,7 @@ import BucketListPicturePhase from '../../components/bucketList/Add/BucketListPi
 import { useHistory } from 'react-router';
 import AccountInfoPhase from '../../components/account/list/addPhase/AccountInfoPhase';
 
-type AddPhaseProps = {
+type BucketListAddContainerProps = {
   phase: number;
   goNextPhase: () => void;
   goPrevPhase: () => void;
@@ -15,7 +15,7 @@ function BucketListAddContainer({
   phase,
   goNextPhase,
   goPrevPhase
-}: AddPhaseProps) {
+}: BucketListAddContainerProps) {
 /*
   const history = useHistory();
 */

@@ -6,23 +6,18 @@ import colors from '../../../style/colors';
 import IcoCloseCircle from '../../icon/IcoCloseCircle';
 import IcoImage from '../../icon/IcoImage';
 import BottomButton from '../../common/BottomButton';
-
-type BucketListPicturePhaseProps = {
-  isActivePhase: boolean;
-  goNextPhase: () => void;
-  goPrevPhase: () => void;
-}
+import { IPhase } from '../../../models/phase/IPhase';
 
 function BucketListPicturePhase({
   isActivePhase,
   goPrevPhase,
   goNextPhase
-}: BucketListPicturePhaseProps) {
+}: IPhase) {
   const [file1, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const onChangePicture = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-
+    console.log(file1);
     const reader = new FileReader();
     const file = e.target.files && e.target.files[0];
 
