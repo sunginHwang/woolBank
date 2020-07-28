@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PhaseTemplate from '../../common/PhaseTemplate';
 import BaseInput from '../../common/BaseInput';
@@ -7,17 +7,36 @@ import { useToggle } from '../../../support/hooks/useToggle';
 import BottomButton from '../../common/BottomButton';
 import { IPhase } from '../../../models/phase/IPhase';
 
+interface BucketListInfoPhaseProps extends IPhase{
+  title: string;
+  description: string;
+  onCompletePhaseOne: (title: string, description: string) => void;
+}
+
 function BucketListInfoPhase({
+  title,
+  description,
+  onCompletePhaseOne,
   isActivePhase,
   goPrevPhase,
   goNextPhase
-}: IPhase) {
-  const [state, setState] = useState('');
-  const [detail, setDetail] = useState('');
+}: BucketListInfoPhaseProps) {
+  const [state, setState] = useState(title);
+  const [detail, setDetail] = useState(description);
   const [showDetailLayer, onShowDetailLayer, offShowDetailLayer] = useToggle(false);
+
+  useEffect(() => {
+    setState(title);
+    setDetail(description);
+  }, [title, description])
 
   const onChangeDetail = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
     setDetail(e.target.value);
+  }
+
+  const onCompletePhaseClick = () => {
+    onCompletePhaseOne(state, detail);
+    goNextPhase && goNextPhase();
   }
 
   const isShowDetail = (state.length > 0 && showDetailLayer) || detail.length > 0;
@@ -56,7 +75,7 @@ function BucketListInfoPhase({
           message='다음단계'
           isShow={isShowCompleteButton}
           active={isActiveComplete}
-          onClick={goNextPhase}
+          onClick={onCompletePhaseClick}
         />
       </S.AccountInfoAddPhase>
     </PhaseTemplate>
