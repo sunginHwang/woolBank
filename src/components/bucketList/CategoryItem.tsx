@@ -44,6 +44,8 @@ const S: {
   CategoryItem: any;
 } = {
   CategoryItem: styled.li`
+    margin-top: 2rem;
+    
     div{
       border: .1rem solid ${(props: any) => props.isActive ? props.theme.colors.navyD1 : props.theme.colors.greyL1};
       border-radius: 1.3rem;

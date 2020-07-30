@@ -6,6 +6,7 @@ import BaseTextArea from '../../common/BaseTextarea';
 import { useToggle } from '../../../support/hooks/useToggle';
 import BottomButton from '../../common/BottomButton';
 import { IPhase } from '../../../models/phase/IPhase';
+import LabelText from '../../common/LabelText';
 
 interface BucketListInfoPhaseProps extends IPhase{
   title: string;
@@ -51,8 +52,8 @@ function BucketListInfoPhase({
     >
       <S.AccountInfoAddPhase>
         <S.Content>
+          <LabelText>어떤 것을 이루고 싶으신가요?</LabelText>
           <BaseInput
-            label='제목'
             placeHolder='제목을 입력해 주세요.'
             dataType='text'
             max={30}
@@ -63,10 +64,10 @@ function BucketListInfoPhase({
             onChange={(e: ChangeEvent<HTMLInputElement>) => setState(e.target.value)}
           />
           <S.AddInfo show={isShowDetail}>
+            <LabelText>목표를 이루기 위해 <br /> 조금 더 자세히 적어볼까요?</LabelText>
             <BaseTextArea
-              label='좀더 자세한 내용을 알려주세요. :)'
               value={detail}
-              placeHolder='목표를 이루기 위한 자세한 사항을 알려주세요. :)'
+              placeHolder='내용을 입력하세요.'
               onChange={onChangeDetail}
             />
           </S.AddInfo>

@@ -9,6 +9,7 @@ import BucketListCategoryList from '../BucketListCategoryList';
 import BottomButton from '../../common/BottomButton';
 import { IPhase } from '../../../models/phase/IPhase';
 import { IBucketListCategory } from '../../../models/bucketList/IBucketListCategory';
+import LabelText from '../../common/LabelText';
 
 interface BucketListCategoryPhaseProps extends IPhase{
   completeDate: string;
@@ -42,10 +43,10 @@ function BucketListCategoryPhase({
     >
       <S.BucketListCategoryPhase>
         <S.Content>
+          <LabelText>언제 목표를 달성할 계획인지 <br /> 알려주세요.</LabelText>
           <BaseInput
             disable
-            label='성취일 설정'
-            placeHolder='언제 성취할 계획인지 알려주세요.'
+            placeHolder='클릭하여 날짜를 선택해 주세요.'
             dataType='startDate'
             value={parseDate(date)}
             onClick={onDateModal}

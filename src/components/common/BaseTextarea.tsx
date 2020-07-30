@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
 type BaseTextAreaProps = {
-  label: string;
+  label?: string;
   value: string;
   onChange: (e:ChangeEvent<HTMLTextAreaElement>) => void;
   placeHolder: string;
@@ -11,7 +11,7 @@ type BaseTextAreaProps = {
 function BaseTextArea({ label, value, onChange, placeHolder }: BaseTextAreaProps) {
   return (
     <S.BaseTextArea>
-      <S.Label>{label}</S.Label>
+      {label && <S.Label>{label}</S.Label>}
       <textarea value={value} onChange={onChange} placeholder={placeHolder} />
     </S.BaseTextArea>
   );

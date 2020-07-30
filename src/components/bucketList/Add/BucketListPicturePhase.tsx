@@ -7,6 +7,7 @@ import IcoCloseCircle from '../../icon/IcoCloseCircle';
 import IcoImage from '../../icon/IcoImage';
 import BottomButton from '../../common/BottomButton';
 import { IPhase } from '../../../models/phase/IPhase';
+import LabelText from '../../common/LabelText';
 
 function BucketListPicturePhase({
   isActivePhase,
@@ -56,30 +57,34 @@ function BucketListPicturePhase({
       active={isActivePhase}
       onBackClick={goPrevPhase}
     >
-      <div style={{ marginTop: '2rem', display: 'flex' }}>
-        <S.Picture>
-          <div onClick={onPictureClick}>
-            <IcoCamera width={40} height={40} fill={colors.colors.navyD1} />
-          </div>
-          <input
-            type='file'
-            ref={inputCameraRef}
-            onChange={onChangePicture}
-            accept='image/*'
-            capture='camera'
-          />
-        </S.Picture>
-        <S.Picture>
-          <div onClick={onAlbumClick}>
-            <IcoImage width={40} height={40} fill={colors.colors.navyD1} />
-          </div>
-          <input
-            ref={inputAlbumRef}
-            type='file'
-            onChange={onChangePicture}
-            accept='image/gif, image/jpeg, image/png, image/jpg'
-          />
-        </S.Picture>
+      <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column' }}>
+        <LabelText>이루고 싶은 목표가 연상되는 <br />사진을 넣어보세요.</LabelText>
+        <S.SubLabel>눈으로 보는 목표야 말로 가장 큰 원동력이 될 수 있습니다.<br /> 목표를 이루어 지는 멋진 이미지를 상상해 보세요.</S.SubLabel>
+        <div style={{ display: 'flex' }}>
+          <S.Picture>
+            <div onClick={onPictureClick}>
+              <IcoCamera width={40} height={40} fill={colors.colors.navyD1} />
+            </div>
+            <input
+              type='file'
+              ref={inputCameraRef}
+              onChange={onChangePicture}
+              accept='image/*'
+              capture='camera'
+            />
+          </S.Picture>
+          <S.Picture>
+            <div onClick={onAlbumClick}>
+              <IcoImage width={40} height={40} fill={colors.colors.navyD1} />
+            </div>
+            <input
+              ref={inputAlbumRef}
+              type='file'
+              onChange={onChangePicture}
+              accept='image/gif, image/jpeg, image/png, image/jpg'
+            />
+          </S.Picture>
+        </div>
       </div>
       {
         previewUrl !== '' && (
@@ -104,10 +109,16 @@ function BucketListPicturePhase({
 }
 
 const S: {
+  SubLabel: any;
   Picture: any;
   PrevPicture: any;
   PrevPictureDeemed: any;
 } = {
+  SubLabel: styled.p`
+    font-size: 1.2rem;
+    margin: -1rem 0 2.5rem 0;
+    color: ${props => props.theme.colors.greyD2};
+  `,
   Picture: styled.div`
     
     display: flex;

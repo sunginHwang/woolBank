@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IBucketListCategory } from '../../models/bucketList/IBucketListCategory';
 import CategoryItem from './CategoryItem';
+import LabelText from '../common/LabelText';
 
 function BucketListCategoryList() {
   const categoryList: IBucketListCategory[] = [
@@ -27,7 +28,7 @@ function BucketListCategoryList() {
 
   return (
     <S.BucketListCategoryList>
-      <label>카테고리</label>
+      <LabelText>성취할 버킷리스트의 <br />카테고리를 정해주세요.</LabelText>
       <S.CategoryList>
         {
           categoryList.map((bucketListCategory) => {
@@ -51,19 +52,12 @@ const S: {
   CategoryList: any;
 } = {
   BucketListCategoryList: styled.div`
-    margin: 2rem 0;
-    
-    > label {
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: #515EC0;
-      text-align: left;
-    }
+    margin: 4rem 0;
   `,
   CategoryList: styled.ul`
     display: flex;
-    overflow-x: scroll;
-    margin-top: 1.5rem;
+    flex-wrap: wrap;
+
     >span {
       font-size: 1.2rem;
     }

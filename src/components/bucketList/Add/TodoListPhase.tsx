@@ -8,6 +8,7 @@ import { ITodo } from '../../../models/ITodo';
 import TodoAddButton from '../../todo/TodoAddButton';
 import TodoAddModal from '../../todo/TodoAddModal';
 import { useToggle } from '../../../support/hooks/useToggle';
+import LabelText from '../../common/LabelText';
 
 interface TodoListPhaseProps extends IPhase {}
 
@@ -33,7 +34,8 @@ function TodoListPhase({ isActivePhase, goPrevPhase, goNextPhase }: TodoListPhas
     <PhaseTemplate title='할일 작성' active={isActivePhase} usePadding={false} onBackClick={goPrevPhase}>
       <S.AccountInfoAddPhase>
         <S.TodoForm>
-          <p>목표를 달성하기 위해 필요한 것을 적어보세요.~</p>
+          <LabelText>목표를 달성하기 위해 <br /> 해야할 일들을 정해보세요.</LabelText>
+          <S.SubLabel>목표를 빠르게 달성하기 위해서<br />필요한 일들을 순차적으로 나열하는것도 좋은 방법입니다. </S.SubLabel>
           <TodoList todoList={todoList} />
         </S.TodoForm>
         <S.TodoAdd>
@@ -51,18 +53,16 @@ const S: {
   Content: any;
   AddInfo: any;
   TodoForm: any;
+  SubLabel: any;
   TodoAdd: any;
 } = {
   TodoForm: styled.div`
     margin: 2rem 0 1rem 0;
-      
-    > p {
-      font-size: 1.4rem;
-      font-weight: 500;
-      color: #515EC0;
-      text-align: left;
-      margin-bottom: 2rem;
-    }   
+  `,
+  SubLabel: styled.p`
+    font-size: 1.2rem;
+    margin: -1rem 0 2.5rem 0;
+    color: ${props => props.theme.colors.greyD2};
   `,
   TodoAdd: styled.div`
     display: flex;

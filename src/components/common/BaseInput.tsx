@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import IcoCloseCircle from '../icon/IcoCloseCircle';
 
 type BaseInputProps = {
-  label: string;
+  label?: string;
   placeHolder?: string;
   value: string | number;
   name?: string;
@@ -59,7 +59,7 @@ function BaseInput({
   return (
     <>
       <S.BaseInput focus={focus} onClick={onClick} data-type={dataType}>
-        <label>{label}</label>
+        {label && <label>{label}</label>}
         <input
           type={type}
           placeholder={placeHolder}
