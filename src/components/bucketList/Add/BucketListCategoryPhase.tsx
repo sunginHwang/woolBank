@@ -8,17 +8,27 @@ import DateModal from '../../common/modal/DateModal';
 import BucketListCategoryList from '../BucketListCategoryList';
 import BottomButton from '../../common/BottomButton';
 import { IPhase } from '../../../models/phase/IPhase';
+import { IBucketListCategory } from '../../../models/bucketList/IBucketListCategory';
+
+interface BucketListCategoryPhaseProps extends IPhase{
+  completeDate: string;
+  category: IBucketListCategory;
+  onCompletePhaseTwo: (completeDate: string, category: IBucketListCategory) => void;
+}
 
 function BucketListCategoryPhase({
+  completeDate,
+  category,
   isActivePhase,
+  onCompletePhaseTwo,
   goPrevPhase,
   goNextPhase
-}: IPhase) {
-  const [completeDate, setCompleteDate] = useState('');
+}: BucketListCategoryPhaseProps) {
+  const [date, setDate] = useState(completeDate);
   const [isShowDateModal, onDateModal, offDateModal] = useToggle(false);
 
   const onChangeDate = (date: string) => {
-    setCompleteDate(parseDate(date));
+    setDate(parseDate(date));
     offDateModal();
   }
 
@@ -37,13 +47,13 @@ function BucketListCategoryPhase({
             label='성취일 설정'
             placeHolder='언제 성취할 계획인지 알려주세요.'
             dataType='startDate'
-            value={parseDate(completeDate)}
+            value={parseDate(date)}
             onClick={onDateModal}
-            onClear={() => setCompleteDate('')}
+            onClear={() => setDate('')}
           />
           <DateModal
             visible={isShowDateModal}
-            date={completeDate ? new Date(completeDate) : new Date()}
+            date={date ? new Date(date) : new Date()}
             oncloseModal={offDateModal}
             onChangeDate={onChangeDate}
           />
