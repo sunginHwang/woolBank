@@ -53,7 +53,8 @@ function BucketListPicturePhase({
 
   return (
     <PhaseTemplate
-      title='사진 추가'
+      title='이미지 설정'
+      rightMessage='3/4'
       active={isActivePhase}
       onBackClick={goPrevPhase}
     >

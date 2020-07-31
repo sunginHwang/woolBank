@@ -5,6 +5,7 @@ import HeaderWithBack from './HeaderWithBack';
 type InputPhaseWrapperProps = {
   active: boolean;
   title: string;
+  rightMessage?: string;
   onBackClick: () => void;
   usePadding?: boolean;
   children: React.ReactNode;
@@ -13,6 +14,7 @@ type InputPhaseWrapperProps = {
 function PhaseTemplate({
   active,
   title,
+  rightMessage,
   onBackClick,
   usePadding = true,
   children
@@ -20,7 +22,7 @@ function PhaseTemplate({
   return (
     <S.PhaseTemplate active={active}>
       {
-        active && <HeaderWithBack title={title} onBackClick={onBackClick} />
+        active && <HeaderWithBack title={title} right={rightMessage} onBackClick={onBackClick} />
       }
       <S.Content usePadding={usePadding}>{children}</S.Content>
     </S.PhaseTemplate>

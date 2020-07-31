@@ -6,7 +6,7 @@ import IcoChevronLeft from '../icon/IcoChevronLeft';
 type HeaderWithBackProps = {
   title: string;
   onBackClick: () => void;
-  right?: React.ReactNode;
+  right?: React.ReactNode | string;
 };
 
 function HeaderWithBack({ title, onBackClick, right }: HeaderWithBackProps) {
@@ -76,6 +76,7 @@ const S: any = {
   `,
   rightHeader: styled.div`
     padding-top: 0.4rem;
+    color: ${props => props.theme.colors.greyD2};
   `
 };
 

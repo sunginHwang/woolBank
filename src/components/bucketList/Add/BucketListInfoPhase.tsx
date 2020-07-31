@@ -7,6 +7,7 @@ import { useToggle } from '../../../support/hooks/useToggle';
 import BottomButton from '../../common/BottomButton';
 import { IPhase } from '../../../models/phase/IPhase';
 import LabelText from '../../common/LabelText';
+import SubLabelText from '../../common/SubLabelText';
 
 interface BucketListInfoPhaseProps extends IPhase{
   title: string;
@@ -45,7 +46,8 @@ function BucketListInfoPhase({
   const isActiveComplete = state.length > 0 && detail.length > 0;
   return (
     <PhaseTemplate
-      title='버킷리스트 기본 정보 작성'
+      title='기본 정보 작성'
+      rightMessage='1/4'
       active={isActivePhase}
       usePadding={false}
       onBackClick={goPrevPhase}
@@ -64,7 +66,8 @@ function BucketListInfoPhase({
             onChange={(e: ChangeEvent<HTMLInputElement>) => setState(e.target.value)}
           />
           <S.AddInfo show={isShowDetail}>
-            <LabelText>목표를 이루기 위해 <br /> 조금 더 자세히 적어볼까요?</LabelText>
+            <LabelText>어떻게 목표를 달성할지<br />자세히 적어볼까요?</LabelText>
+            <SubLabelText>목표 달성을 구체적으로 작성하면<br />목표를 달성할 가능성이 좀더 높아집니다.</SubLabelText>
             <BaseTextArea
               value={detail}
               placeHolder='내용을 입력하세요.'

@@ -34,9 +34,11 @@ function BucketListCategoryPhase({
   }
 
   const isActiveNextPhase = completeDate.length > 0;
+
   return (
     <PhaseTemplate
-      title='목표일 설정'
+      title='목표 상세 설정'
+      rightMessage='2/4'
       active={isActivePhase}
       usePadding={false}
       onBackClick={goPrevPhase}
