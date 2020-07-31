@@ -5,21 +5,27 @@ import IcoSend from '../icon/IcoSend';
 import colors from '../../style/colors';
 
 type TodoAddModalProps = {
+  title: string;
   visible: boolean;
   loading?: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onSendClick: () => void;
+  onClose: () => void;
 };
 
 function TodoAddModal({
+  title,
   visible,
   loading = true,
+  onClose,
+  onChange,
   onSendClick
 }: TodoAddModalProps) {
   return (
-    <ModalDeem visible={visible}>
+    <ModalDeem visible={visible} onDeemClick={onClose}>
       <S.AddModal visible={visible}>
         <S.Send>
-          <input type='text' placeholder='해야 할 일을 작성해 주세요.' />
+          <input type='text' placeholder='해야 할 일을 작성해 주세요.' value={title} onChange={onChange} />
           <button onClick={onSendClick}>
             <IcoSend fill={colors.colors.navyD1} />
           </button>

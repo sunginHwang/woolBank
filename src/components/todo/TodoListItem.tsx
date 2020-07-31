@@ -1,22 +1,35 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { ITodo } from '../../models/ITodo';
 import IcoCircleCheck from '../icon/IcoCircleCheck';
 import colors from '../../style/colors';
 import IcoTrashCan from '../icon/IcoTrashCan';
+import IcoBlackCircle from '../icon/IcoBlackCircle';
 
 interface TodoListItemProps {
-  todo: ITodo
+  todo: ITodo;
+  onToggleState: (id: number) => void;
+  onRemove: (id: number) => void;
 }
 
-function TodoListItem({ todo }: TodoListItemProps) {
+function TodoListItem({ todo, onToggleState, onRemove }: TodoListItemProps) {
+  const onToggleStateClick = useCallback((e: React.MouseEvent<HTMLLIElement>) => {
+    onToggleState(todo.id);
+  }, [todo, onToggleState]);
+
+  const onRemoveClick = useCallback(() => {
+    onRemove(todo.id);
+  }, [todo, onRemove]);
+
   return (
     <S.TodoListItem>
       <div>
-        <IcoCircleCheck fill={colors.colors.navyD1} />
-        <span>{todo.title}</span>
+        <i onClick={onToggleStateClick}>
+          {todo.isComplete ? <IcoCircleCheck fill={colors.colors.navyD1} /> : <IcoBlackCircle fill={colors.colors.navyD1} />}
+        </i>
+        <S.ListTitle isComplete={todo.isComplete}>{todo.title}</S.ListTitle>
       </div>
-      <div>
+      <div onClick={onRemoveClick}>
         <IcoTrashCan fill={colors.colors.greyD2} />
       </div>
     </S.TodoListItem>
@@ -25,6 +38,7 @@ function TodoListItem({ todo }: TodoListItemProps) {
 
 const S: {
   TodoListItem: any;
+  ListTitle: any;
 } = {
   TodoListItem: styled.li`
     display: flex;
@@ -36,21 +50,24 @@ const S: {
     box-shadow: rgb(220, 220, 233) .1rem .4rem 1.7rem .3rem;
     margin-bottom: 2rem;
   
-    div{
+    div {
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    span {
-      font-size: 1.4rem;
-      margin-top: .1rem;
-      line-height: 1.2rem;
-      color: black;
-      font-weight: 500;
-      margin-left: 1rem;
+    
+    i {
+      height: 2.4rem;
     }
-    
-    
+  `,
+  ListTitle: styled.div`
+    font-size: 1.4rem;
+    margin-top: .1rem;
+    line-height: 1.2rem;
+    text-decoration: ${(props: any) => props.isComplete ? 'line-through' : 'none'};
+    color: ${(props: any) => props.isComplete ? props.theme.colors.greyL1 : props.theme.colors.blackL1};
+    font-weight: 500;
+    margin-left: 1rem;
   `
 };
 

@@ -13,28 +13,28 @@ function TodoAddButton({
   loading = false,
   onClick
 }: AddTodoButtonProps) {
-  const onButtonClick = (e: React.ChangeEvent<HTMLButtonElement>) => {
+  const onAddClick = (e: React.ChangeEvent<HTMLButtonElement>) => {
     // 로딩중 && 비활성화 상태 일시 버튼 클릭  안되도록
     if (!loading && onClick) {
       onClick(e);
     }
   }
-  const elMessage = <IcoPlus />;
+
   return (
-    <S.BaseButton
-      onClick={onButtonClick}
+    <S.TodoAddButton
+      onClick={onAddClick}
     >
       {loading
         ? <ClipLoader color={colors.colors.white} size={20} />
-        : elMessage}
-    </S.BaseButton>
+        : <IcoPlus />}
+    </S.TodoAddButton>
   );
 }
 
 const S: {
-  BaseButton: any;
+  TodoAddButton: any;
 } = {
-  BaseButton: styled.button`
+  TodoAddButton: styled.button`
   border-radius: 50%; 
   height: 4rem;
   width: 4rem;
