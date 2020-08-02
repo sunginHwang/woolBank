@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { IBucketListCategory } from '../../models/bucketList/IBucketListCategory';
 import IcoDumbbell from '../icon/IcoDumbbell';
@@ -9,26 +9,25 @@ import colors from '../../style/colors';
 
 type CategoryItemProps = {
   bucketListCategory: IBucketListCategory;
-  activeCategoryType: string;
-  onSelect: (type: string) => void;
+  isSelected: boolean;
+  onSelectCategory: (category: IBucketListCategory) => void;
 }
 
 function CategoryItem({
   bucketListCategory,
-  activeCategoryType,
-  onSelect
+  isSelected,
+  onSelectCategory
 }: CategoryItemProps) {
-  const isActive = activeCategoryType === bucketListCategory.type;
   const icoSize = 30;
-  const icoColor = isActive ? colors.colors.navyD1 : colors.colors.greyL1;
+  const icoColor = isSelected ? colors.colors.navyD1 : colors.colors.greyL1;
 
-  const onClick = (e: React.ChangeEvent<HTMLLIElement>) => {
-    const selectType = e.currentTarget.dataset.type || '';
-    onSelect(selectType);
+  // 카테고리 선택
+  const onSelectCategoryClick = () => {
+    onSelectCategory(bucketListCategory);
   };
 
   return (
-    <S.CategoryItem isActive={isActive} data-type={bucketListCategory.type} onClick={onClick}>
+    <S.CategoryItem isSelected={isSelected} data-type={bucketListCategory.type} onClick={onSelectCategoryClick}>
       <div>
         {bucketListCategory.type === 'health' && <IcoDumbbell width={icoSize} height={icoSize} fill={icoColor} />}
         {bucketListCategory.type === 'work' && <IcoBriefcase width={icoSize} height={icoSize} fill={icoColor} />}
@@ -46,8 +45,8 @@ const S: {
   CategoryItem: styled.li`
     margin-top: 2rem;
     
-    div{
-      border: .1rem solid ${(props: any) => props.isActive ? props.theme.colors.navyD1 : props.theme.colors.greyL1};
+    > div {
+      border: .1rem solid ${(props: any) => props.isSelected ? props.theme.colors.navyD1 : props.theme.colors.greyL1};
       border-radius: 1.3rem;
       margin-right: 2rem;
       height: 4rem;
@@ -56,13 +55,12 @@ const S: {
       align-items: center;
       justify-content: flex-start;
       
-    }
-    
-    span {
+      > span {
       margin-left: 1rem;
       font-size: 1.2rem;
       width: 100%;
     }
+  }
   `
 };
 
