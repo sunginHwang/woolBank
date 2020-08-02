@@ -19,7 +19,11 @@ describe('<AddDepositButton />', () => {
 
   it('퍼센트 부분이 0프로로 정상 렌더링 되어야 한다.', () => {
     let isPlusClick = false;
-    const onClickButton = () => isPlusClick = true;
+
+    const onClickButton = () => {
+      isPlusClick = true;
+      return '';
+    };
 
     const { container } = setup(onClickButton);
     if (container.firstChild) {
