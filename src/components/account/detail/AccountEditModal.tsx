@@ -4,7 +4,7 @@ import ModalDeem from '../../common/modal/ModalDeem';
 
 type AccountEditModalProps = {
   visible: boolean;
-  oncloseModal: any;
+  oncloseModal: () => void;
   onEditClick: (edit: 'migration' | 'end' | 'remove') => void;
 };
 
