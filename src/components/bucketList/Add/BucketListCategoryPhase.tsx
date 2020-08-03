@@ -11,29 +11,75 @@ import { IPhase } from '../../../models/phase/IPhase';
 import { IBucketListCategory } from '../../../models/bucketList/IBucketListCategory';
 import LabelText from '../../common/LabelText';
 
+// todo: initialData 로 받아오기
+const categoryList: IBucketListCategory[] = [
+  {
+    type: 'health',
+    name: '건강'
+  },
+  {
+    type: 'work',
+    name: '일'
+  },
+  {
+    type: 'learning',
+    name: '학습'
+  },
+  {
+    type: 'travel',
+    name: '여행'
+  }
+];
+
 interface BucketListCategoryPhaseProps extends IPhase{
   completeDate: string;
-  category: IBucketListCategory;
+  bucketListCategory: IBucketListCategory;
   onCompletePhaseTwo: (completeDate: string, category: IBucketListCategory) => void;
 }
 
 function BucketListCategoryPhase({
   completeDate,
-  category,
+  bucketListCategory,
   isActivePhase,
   onCompletePhaseTwo,
   goPrevPhase,
   goNextPhase
 }: BucketListCategoryPhaseProps) {
   const [date, setDate] = useState(completeDate);
-  const [isShowDateModal, onDateModal, offDateModal] = useToggle(false);
+  const [category, setCategory] = useState<IBucketListCategory>(bucketListCategory);
+  const [showCategoryLayer, onShowCategoryLayer, offShowCategoryLayer] = useToggle(false);
+  const [ShowDateModal, onDateModal, offDateModal] = useToggle(false);
 
+  // 다음 입력 단계 검증
+  const isValidNextPhase = date.length > 0 && category.type !== '';
+  // 카테고리 레이어 팝업 보여주는 조건
+  const isShowCategoryInfo = (date.length > 0 && showCategoryLayer) || category.type !== '';
+
+  // 목표일 변경
   const onChangeDate = (date: string) => {
     setDate(parseDate(date));
     offDateModal();
-  }
+    // 날짜 선택하면 카테고리 레이어 등장 처리
+    onShowCategoryLayer();
+  };
 
-  const isActiveNextPhase = completeDate.length > 0;
+  // 카테고리 변경
+  const onChangeCategory = (category: IBucketListCategory) => {
+    setCategory(category);
+  };
+
+  // 목표일 초기화
+  const onResetDate = () => {
+    setDate('');
+  };
+
+  // 다음단계 이동
+  const onNextPhaseClick = () => {
+    if (isValidNextPhase) {
+      onCompletePhaseTwo(date, category);
+      goNextPhase && goNextPhase();
+    }
+  }
 
   return (
     <PhaseTemplate
@@ -51,25 +97,30 @@ function BucketListCategoryPhase({
             placeHolder='클릭하여 날짜를 선택해 주세요.'
             dataType='startDate'
             value={parseDate(date)}
+            onFocusIn={offShowCategoryLayer}
             onClick={onDateModal}
-            onClear={() => setDate('')}
+            onClear={onResetDate}
           />
           <DateModal
-            visible={isShowDateModal}
+            visible={ShowDateModal}
             date={date ? new Date(date) : new Date()}
             oncloseModal={offDateModal}
             onChangeDate={onChangeDate}
           />
-          <S.AddInfo show>
-            <BucketListCategoryList />
+          <S.AddInfo show={isShowCategoryInfo}>
+            <BucketListCategoryList
+              bucketListCategoryList={categoryList}
+              selectedCategory={category}
+              onChangeCategory={onChangeCategory}
+            />
           </S.AddInfo>
         </S.Content>
       </S.BucketListCategoryPhase>
       <BottomButton
         message='다음단계'
         isShow={isActivePhase}
-        active={isActiveNextPhase}
-        onClick={goNextPhase}
+        active={isValidNextPhase}
+        onClick={onNextPhaseClick}
       />
     </PhaseTemplate>
   );
@@ -90,16 +141,13 @@ const S: {
   Content: styled.div`
     padding-top: 2rem;
     height: 100%;
-    > div + div {
-      margin-top: 4rem;
-    }
   `,
   AddInfo: styled.div`
-      top: ${(props:any) => props.show ? 0 : '100%'};
-      margin-top: 3rem;
-      position: relative;
-      transition: all .3s ease-out;
-      height: 100%;
+    top: ${(props:any) => props.show ? 0 : '100%'};
+    margin-top: 4rem;
+    position: relative;
+    transition: all .3s ease-out;
+    height: 100%;
   `
 };
 

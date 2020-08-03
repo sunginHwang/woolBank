@@ -1,43 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { IBucketListCategory } from '../../models/bucketList/IBucketListCategory';
 import CategoryItem from './CategoryItem';
 import LabelText from '../common/LabelText';
 
-function BucketListCategoryList() {
-  const categoryList: IBucketListCategory[] = [
-    {
-      type: 'health',
-      name: '건강'
-    },
-    {
-      type: 'work',
-      name: '일'
-    },
-    {
-      type: 'learning',
-      name: '학습'
-    },
-    {
-      type: 'travel',
-      name: '여행'
-    }
-  ];
+type BucketListCategoryListProps = {
+  bucketListCategoryList: IBucketListCategory[];
+  selectedCategory: IBucketListCategory;
+  onChangeCategory: (category: IBucketListCategory) => void;
+}
 
-  const [activeCategory, setActiveCategory] = useState('travel');
-
+function BucketListCategoryList({
+  bucketListCategoryList,
+  selectedCategory,
+  onChangeCategory
+}: BucketListCategoryListProps) {
   return (
     <S.BucketListCategoryList>
       <LabelText>성취할 버킷리스트의 <br />카테고리를 정해주세요.</LabelText>
       <S.CategoryList>
         {
-          categoryList.map((bucketListCategory) => {
+          bucketListCategoryList.map((bucketListCategory) => {
             return (
               <CategoryItem
                 key={bucketListCategory.type}
                 bucketListCategory={bucketListCategory}
-                activeCategoryType={activeCategory}
-                onSelect={setActiveCategory}
+                isSelected={selectedCategory.type === bucketListCategory.type}
+                onSelectCategory={onChangeCategory}
               />
             );
           })
@@ -58,10 +47,10 @@ const S: {
     display: flex;
     flex-wrap: wrap;
 
-    >span {
+    > span {
       font-size: 1.2rem;
     }
   `
 };
 
-export default React.memo(BucketListCategoryList);
+export default BucketListCategoryList;
