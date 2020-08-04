@@ -64,13 +64,9 @@ function BucketListPicturePhase({
 
   // 다음 페이즈 이동
   const onNextPhaseClick = () => {
-    if (isValidNextPhase) {
-      file && onCompletePhaseThree(file);
-      goNextPhase && goNextPhase();
-    }
+    file && onCompletePhaseThree(file);
+    goNextPhase && goNextPhase();
   }
-
-  const isValidNextPhase = file !== null;
 
   return (
     <PhaseTemplate
@@ -110,9 +106,8 @@ function BucketListPicturePhase({
       </S.BucketListPicturePhase>
       <BucketListPrevImage previewUrl={previewUrl} onInitClick={onInitImage} />
       <BottomButton
-        message='작성하기'
+        message='다음단계'
         isShow={isActivePhase}
-        active={isValidNextPhase}
         onClick={onNextPhaseClick}
       />
     </PhaseTemplate>
