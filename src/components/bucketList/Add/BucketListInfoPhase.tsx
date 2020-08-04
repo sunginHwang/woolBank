@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PhaseTemplate from '../../common/PhaseTemplate';
 import BaseInput from '../../common/BaseInput';
@@ -8,6 +8,7 @@ import BottomButton from '../../common/BottomButton';
 import { IPhase } from '../../../models/phase/IPhase';
 import LabelText from '../../common/LabelText';
 import SubLabelText from '../../common/SubLabelText';
+import useInput from '../../../support/hooks/UseInput';
 
 interface BucketListInfoPhaseProps extends IPhase{
   title: string;
@@ -23,27 +24,22 @@ function BucketListInfoPhase({
   goPrevPhase,
   goNextPhase
 }: BucketListInfoPhaseProps) {
-  const [state, setState] = useState(title);
+  const [bucketListTitle, onBucketListTitleChange, onResetBucketListTitle] = useInput(title);
   const [detail, setDetail] = useState(description);
   const [showDetailLayer, onShowDetailLayer, offShowDetailLayer] = useToggle(false);
-
-  useEffect(() => {
-    setState(title);
-    setDetail(description);
-  }, [title, description])
 
   const onChangeDetail = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
     setDetail(e.target.value);
   }
 
   const onCompletePhaseClick = () => {
-    onCompletePhaseOne(state, detail);
+    onCompletePhaseOne(bucketListTitle, detail);
     goNextPhase && goNextPhase();
   }
 
-  const isShowDetail = (state.length > 0 && showDetailLayer) || detail.length > 0;
-  const isShowCompleteButton = isActivePhase && state.length > 0 && showDetailLayer;
-  const isActiveComplete = state.length > 0 && detail.length > 0;
+  const isShowDetail = (bucketListTitle.length > 0 && showDetailLayer) || detail.length > 0;
+  const isShowCompleteButton = isActivePhase && bucketListTitle.length > 0 && showDetailLayer;
+  const isActiveComplete = bucketListTitle.length > 0 && detail.length > 0;
   return (
     <PhaseTemplate
       title='기본 정보 작성'
@@ -60,10 +56,11 @@ function BucketListInfoPhase({
             dataType='text'
             max={30}
             useLengthInfo
-            value={state}
+            value={bucketListTitle}
             onFocusIn={offShowDetailLayer}
             onFocusOut={onShowDetailLayer}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setState(e.target.value)}
+            onClear={onResetBucketListTitle}
+            onChange={onBucketListTitleChange}
           />
           <S.AddInfo show={isShowDetail}>
             <LabelText>어떻게 목표를 달성할지<br />자세히 적어볼까요?</LabelText>

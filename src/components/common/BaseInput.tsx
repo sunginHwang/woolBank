@@ -16,6 +16,7 @@ type BaseInputProps = {
   onClear?: (e: React.MouseEvent<HTMLLIElement>) => void;
   onFocusIn?: () => void;
   onFocusOut?: () => void;
+  onKeyPressEnter?: () => void;
   onClick?: (e: React.ChangeEvent<HTMLDivElement>) => void;
 };
 
@@ -32,6 +33,7 @@ function BaseInput({
   onChange,
   onClear,
   onClick,
+  onKeyPressEnter,
   onFocusIn,
   onFocusOut
 }: BaseInputProps) {
@@ -54,6 +56,13 @@ function BaseInput({
     e.stopPropagation();
   };
 
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onBlur();
+      onKeyPressEnter && onKeyPressEnter();
+    }
+  };
+
   const valueLength = String(value).length;
 
   return (
@@ -68,6 +77,7 @@ function BaseInput({
           maxLength={max}
           onFocus={onFocus}
           onBlur={onBlur}
+          onKeyPress={onKeyPress}
           onChange={onChange}
           disabled={disable}
         />

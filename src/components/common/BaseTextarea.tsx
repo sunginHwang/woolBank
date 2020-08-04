@@ -4,8 +4,8 @@ import styled from 'styled-components';
 type BaseTextAreaProps = {
   label?: string;
   value: string;
-  onChange: (e:ChangeEvent<HTMLTextAreaElement>) => void;
   placeHolder: string;
+  onChange: (e:ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 function BaseTextArea({ label, value, onChange, placeHolder }: BaseTextAreaProps) {
