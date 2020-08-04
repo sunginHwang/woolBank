@@ -1,9 +1,8 @@
 import React, { useEffect, useReducer } from 'react';
 import BucketListInfoPhase from '../../components/bucketList/Add/BucketListInfoPhase';
-import BucketListCategoryPhase from '../../components/bucketList/Add/BucketListCategoryPhase';
+import BucketListCompleteDatePhase from '../../components/bucketList/Add/BucketListCompleteDatePhase';
 import BucketListPicturePhase from '../../components/bucketList/Add/BucketListPicturePhase';
 import { useHistory } from 'react-router';
-import { IBucketListCategory } from '../../models/bucketList/IBucketListCategory';
 import TodoListPhase from '../../components/bucketList/Add/TodoListPhase';
 
 type BucketListAddContainerProps = {
@@ -14,7 +13,7 @@ type BucketListAddContainerProps = {
 
 type Action =
   { type: 'SET_PHASE_ONE', payload : { title: string; description: string}} |
-  { type: 'SET_PHASE_TWO', payload : { completeDate: string; category: IBucketListCategory}} |
+  { type: 'SET_PHASE_TWO', payload : { completeDate: string }} |
   { type: 'SET_PHASE_THREE', payload : { mainImgFile: File}} |
   { type: 'SET_LAST_PHASE', payload : { todoList: any}};
 
@@ -22,7 +21,6 @@ interface IBucketList {
   title: string;
   description: string;
   completeDate: string;
-  category: IBucketListCategory;
   todoList: any;
 }
 
@@ -42,8 +40,7 @@ function reducer(state: IBucketListAddForm, action: Action): IBucketListAddForm 
     case 'SET_PHASE_TWO': {
       return {
         ...state,
-        completeDate: action.payload.completeDate,
-        category: action.payload.category
+        completeDate: action.payload.completeDate
       }
     }
     case 'SET_PHASE_THREE': {
@@ -75,10 +72,6 @@ function BucketListAddContainer({
     title: '',
     description: '',
     completeDate: '',
-    category: {
-      type: '',
-      name: ''
-    },
     mainImgFile: null,
     todoList: []
   });
@@ -93,8 +86,8 @@ function BucketListAddContainer({
     dispatch({ type: 'SET_PHASE_ONE', payload: { title, description } });
   };
 
-  const onCompletePhaseTwo = (completeDate: string, category: IBucketListCategory) => {
-    dispatch({ type: 'SET_PHASE_TWO', payload: { completeDate, category } });
+  const onCompletePhaseTwo = (completeDate: string) => {
+    dispatch({ type: 'SET_PHASE_TWO', payload: { completeDate } });
   };
 
   const onCompletePhaseThree = (mainImgFile: File) => {
@@ -121,10 +114,9 @@ function BucketListAddContainer({
         goNextPhase={goNextPhase}
       />
 
-      <BucketListCategoryPhase
+      <BucketListCompleteDatePhase
         isActivePhase={phase >= 2}
         completeDate={bucketListForm.completeDate}
-        bucketListCategory={bucketListForm.category}
         onCompletePhaseTwo={onCompletePhaseTwo}
         goPrevPhase={goPrevPhase}
         goNextPhase={goNextPhase}
