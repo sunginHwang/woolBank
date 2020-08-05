@@ -43,7 +43,14 @@ function TodoListPhase({ isActivePhase, goPrevPhase, goNextPhase }: TodoListPhas
   }
 
   return (
-    <PhaseTemplate title='할일 작성' rightMessage='4/4' active={isActivePhase} usePadding={false} onBackClick={goPrevPhase}>
+    <PhaseTemplate
+      useScroll
+      title='할일 작성'
+      rightMessage='4/4'
+      active={isActivePhase}
+      usePadding={false}
+      onBackClick={goPrevPhase}
+    >
       <S.AccountInfoAddPhase>
         <S.TodoForm>
           <LabelText>목표를 달성하기 위해 <br /> 해야할 일들을 정해보세요.</LabelText>
@@ -91,7 +98,7 @@ const S: {
     width: 100%;
     
     &:last-child {
-      margin-bottom: 0;
+      margin-bottom: 10rem;
     }
   `,
   TodoAdd: styled.div`

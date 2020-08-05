@@ -8,6 +8,7 @@ type InputPhaseWrapperProps = {
   rightMessage?: string;
   onBackClick: () => void;
   usePadding?: boolean;
+  useScroll?: boolean;
   children: React.ReactNode;
 };
 
@@ -17,6 +18,7 @@ function PhaseTemplate({
   rightMessage,
   onBackClick,
   usePadding = true,
+  useScroll = false,
   children
 }: InputPhaseWrapperProps) {
   return (
@@ -24,7 +26,12 @@ function PhaseTemplate({
       {
         active && <HeaderWithBack title={title} right={rightMessage} onBackClick={onBackClick} />
       }
-      <S.Content usePadding={usePadding}>{children}</S.Content>
+      <S.Content
+        useScroll={useScroll}
+        usePadding={usePadding}
+      >
+        {children}
+      </S.Content>
     </S.PhaseTemplate>
   );
 }
@@ -47,6 +54,7 @@ const S: {
   Content: styled.div`
     padding: ${(props: any) =>
     props.usePadding ? '5.5rem 2rem 0 2rem' : '5.5rem 0 0 0'};
+    overflow-y: ${(props: any) => props.useScroll ? 'scroll' : 'hidden'};
     height: 100%;
     background-color: ${(props) => props.theme.colors.white};
   `

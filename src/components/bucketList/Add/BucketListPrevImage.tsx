@@ -34,7 +34,7 @@ const S: {
   PrevPictureDeemed: any;
 } = {
   PrevPicture: styled.div`
-    margin-top: 2rem;
+    margin: 2rem 0 10rem 0;
     position: relative;
     > img{
       width: 100%;

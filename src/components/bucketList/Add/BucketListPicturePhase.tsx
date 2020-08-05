@@ -70,6 +70,7 @@ function BucketListPicturePhase({
 
   return (
     <PhaseTemplate
+      useScroll
       title='이미지 설정'
       rightMessage='3/4'
       active={isActivePhase}

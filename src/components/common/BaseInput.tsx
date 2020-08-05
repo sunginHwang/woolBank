@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import IcoCloseCircle from '../icon/IcoCloseCircle';
 
@@ -38,7 +38,7 @@ function BaseInput({
   onFocusOut
 }: BaseInputProps) {
   const isExistInputValue = value !== '';
-
+  const inputRef = useRef<HTMLInputElement>(null);
   const [focus, setFocus] = useState(false);
 
   const onFocus = useCallback(() => {
@@ -48,6 +48,7 @@ function BaseInput({
 
   const onBlur = useCallback(() => {
     setFocus(false);
+    inputRef.current && inputRef.current.blur();
     onFocusOut && onFocusOut();
   }, []);
 
@@ -70,6 +71,7 @@ function BaseInput({
       <S.BaseInput focus={focus} onClick={onClick} data-type={dataType}>
         {label && <label>{label}</label>}
         <input
+          ref={inputRef}
           type={type}
           placeholder={placeHolder}
           name={name}
