@@ -1,20 +1,41 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import colors from '../../style/colors';
 import IcoBlackCircle from '../icon/IcoBlackCircle';
 import IcoClose from '../icon/IcoClose';
+import useInput from '../../support/hooks/UseInput';
 
 type TodoInputProps = {
+  onAddTodo: (title: string) => void;
+  onClose: () => void;
 };
 
-function TodoInput({}: TodoInputProps) {
+function TodoInput({ onAddTodo, onClose }: TodoInputProps) {
+  const [title, onChangeTitle] = useInput('');
+  const todoInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    todoInputRef.current && todoInputRef.current.focus();
+  }, [])
+
+  const onTitleKeyPress = (e:React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onAddTodo(title);
+    }
+  }
+
   return (
     <S.TodoInput>
       <div>
-        <i>
+        <i onClick={onClose}>
           <IcoBlackCircle fill={colors.colors.navyD1} />
         </i>
-        <input />
+        <input
+          ref={todoInputRef}
+          value={title}
+          onChange={onChangeTitle}
+          onKeyPress={onTitleKeyPress}
+        />
       </div>
       <div>
         <IcoClose fill={colors.colors.greyD2} />

@@ -5,28 +5,25 @@ import BottomButton from '../../common/BottomButton';
 import { IPhase } from '../../../models/phase/IPhase';
 import { ITodo } from '../../../models/ITodo';
 import TodoAddButton from '../../todo/TodoAddButton';
-import TodoAddModal from '../../todo/TodoAddModal';
 import { useToggle } from '../../../support/hooks/useToggle';
 import LabelText from '../../common/LabelText';
-import useInput from '../../../support/hooks/UseInput';
 import TodoListItem from '../../todo/TodoListItem';
 import SubLabelText from '../../common/SubLabelText';
+import TodoInput from '../../todo/TodoInput';
 
 interface TodoListPhaseProps extends IPhase {}
 
 function TodoListPhase({ isActivePhase, goPrevPhase, goNextPhase }: TodoListPhaseProps) {
-  const [showAddModal, onAddModal, offAddModal] = useToggle(false);
-  const [todoTitle, onChangeTodoTitle, resetTodoTitle] = useInput('');
+  const [isShowAddInput, onAddInput, offAddInput] = useToggle(false);
   const [todoList, setTodoList] = useState<ITodo[]>([]);
 
-  const addTodo = () => {
+  const addTodo = (title: string) => {
     setTodoList([...todoList, {
       id: todoList.length + 1,
-      title: todoTitle,
+      title: title,
       isComplete: false
     }]);
-    offAddModal();
-    resetTodoTitle();
+    offAddInput();
   }
 
   const onToggleState = (id: number) => {
@@ -51,6 +48,13 @@ function TodoListPhase({ isActivePhase, goPrevPhase, goNextPhase }: TodoListPhas
         <S.TodoForm>
           <LabelText>목표를 달성하기 위해 <br /> 해야할 일들을 정해보세요.</LabelText>
           <SubLabelText>목표를 빠르게 달성하기 위해서<br />필요한 일들을 순차적으로 나열하는것도 좋은 방법입니다.</SubLabelText>
+          <S.TodoAdd>
+            {
+              isShowAddInput
+                ? <TodoInput onAddTodo={addTodo} onClose={offAddInput} />
+                : <TodoAddButton onClick={onAddInput} />
+            }
+          </S.TodoAdd>
           <S.TodoList>
             {
               todoList.map((todo, index) => {
@@ -66,18 +70,8 @@ function TodoListPhase({ isActivePhase, goPrevPhase, goNextPhase }: TodoListPhas
             }
           </S.TodoList>
         </S.TodoForm>
-        <S.TodoAdd>
-          <TodoAddButton onClick={onAddModal} />
-        </S.TodoAdd>
         <BottomButton message='버킷리스트 작성' isShow={isActivePhase} />
       </S.AccountInfoAddPhase>
-      <TodoAddModal
-        visible={showAddModal}
-        onSendClick={addTodo}
-        title={todoTitle}
-        onClose={offAddModal}
-        onChange={onChangeTodoTitle}
-      />
     </PhaseTemplate>
   );
 }
@@ -103,6 +97,7 @@ const S: {
   TodoAdd: styled.div`
     display: flex;
     justify-content: center;
+    margin-bottom: 3rem;
   `,
   AccountInfoAddPhase: styled.div`
     height: calc(100vh - 5.5rem);
