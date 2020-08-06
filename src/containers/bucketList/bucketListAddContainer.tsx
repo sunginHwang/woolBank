@@ -4,6 +4,7 @@ import BucketListCompleteDatePhase from '../../components/bucketList/Add/BucketL
 import BucketListPicturePhase from '../../components/bucketList/Add/BucketListPicturePhase';
 import { useHistory } from 'react-router';
 import TodoListPhase from '../../components/bucketList/Add/TodoListPhase';
+import { ITodo } from '../../models/ITodo';
 
 type BucketListAddContainerProps = {
   phase: number;
@@ -15,17 +16,19 @@ type Action =
   { type: 'SET_PHASE_ONE', payload : { title: string; description: string}} |
   { type: 'SET_PHASE_TWO', payload : { completeDate: string }} |
   { type: 'SET_PHASE_THREE', payload : { mainImgFile: File}} |
-  { type: 'SET_LAST_PHASE', payload : { todoList: any}};
+  { type: 'SET_LAST_PHASE', payload : { todoList: ITodo[]}} |
+  { type: 'TOGGLE_LOADING', payload: boolean };
 
 interface IBucketList {
   title: string;
   description: string;
   completeDate: string;
-  todoList: any;
+  todoList: ITodo[];
 }
 
 interface IBucketListAddForm extends IBucketList {
   mainImgFile: File | null;
+  loading: boolean;
 }
 
 function reducer(state: IBucketListAddForm, action: Action): IBucketListAddForm {
@@ -55,6 +58,12 @@ function reducer(state: IBucketListAddForm, action: Action): IBucketListAddForm 
         todoList: action.payload.todoList
       }
     }
+    case 'TOGGLE_LOADING': {
+      return {
+        ...state,
+        loading: action.payload
+      }
+    }
     default:
       throw new Error('Unhandled action');
   }
@@ -73,7 +82,8 @@ function BucketListAddContainer({
     description: '',
     completeDate: '',
     mainImgFile: null,
-    todoList: []
+    todoList: [],
+    loading: false
   });
 
   useEffect(() => {
@@ -101,6 +111,10 @@ function BucketListAddContainer({
 
   const onAddBucketList = () => {
     // someThing 입력 작업
+    dispatch({ type: 'TOGGLE_LOADING', payload: true });
+    setTimeout(() => {
+      dispatch({ type: 'TOGGLE_LOADING', payload: false });
+    }, 2000);
   };
 
   return (
@@ -130,6 +144,8 @@ function BucketListAddContainer({
       />
       <TodoListPhase
         isActivePhase={phase >= 4}
+        loading={bucketListForm.loading}
+        onCompleteLastPhase={onCompleteLastPhase}
         goPrevPhase={goPrevPhase}
         goNextPhase={goNextPhase}
       />

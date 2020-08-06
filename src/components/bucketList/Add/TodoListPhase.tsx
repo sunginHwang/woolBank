@@ -11,9 +11,12 @@ import TodoListItem from '../../todo/TodoListItem';
 import SubLabelText from '../../common/SubLabelText';
 import TodoInput from '../../todo/TodoInput';
 
-interface TodoListPhaseProps extends IPhase {}
+interface TodoListPhaseProps extends IPhase {
+  onCompleteLastPhase: (todoList: ITodo[]) => void;
+  loading: boolean;
+}
 
-function TodoListPhase({ isActivePhase, goPrevPhase, goNextPhase }: TodoListPhaseProps) {
+function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhase }: TodoListPhaseProps) {
   const [isShowAddInput, onAddInput, offAddInput] = useToggle(false);
   const [todoList, setTodoList] = useState<ITodo[]>([]);
 
@@ -41,6 +44,12 @@ function TodoListPhase({ isActivePhase, goPrevPhase, goNextPhase }: TodoListPhas
   const onRemove = (id: number) => {
     setTodoList(todoList.filter(todo => todo.id !== id));
   }
+
+  const onComplete = () => {
+    onCompleteLastPhase(todoList);
+  }
+
+  const isValidComplete = isActivePhase && todoList.length > 0;
 
   return (
     <PhaseTemplate
@@ -77,7 +86,13 @@ function TodoListPhase({ isActivePhase, goPrevPhase, goNextPhase }: TodoListPhas
             }
           </S.TodoList>
         </S.TodoForm>
-        <BottomButton message='버킷리스트 작성' isShow={isActivePhase} />
+        <BottomButton
+          message='버킷리스트 작성'
+          loading={loading}
+          active={isValidComplete}
+          isShow={isActivePhase}
+          onClick={onComplete}
+        />
       </S.AccountInfoAddPhase>
     </PhaseTemplate>
   );
