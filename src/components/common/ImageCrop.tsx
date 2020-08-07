@@ -1,0 +1,60 @@
+import React, { useRef } from 'react';
+import styled from 'styled-components';
+import colors from '../../style/colors';
+import HeaderWithBack from './HeaderWithBack';
+import IcoCircleCheck from '../icon/IcoCircleCheck';
+import Cropper from 'react-cropper';
+import './cropper.css';
+
+type ImageCropProps = {
+  onBackClick: () => void;
+  url: string;
+};
+
+function ImageCrop({
+  onBackClick,
+  url
+}: ImageCropProps) {
+  const checkEl = <IcoCircleCheck fill={colors.colors.navyD1} />;
+  const cropper = useRef(null);
+
+  const _crop = () => {
+    // image in dataUrl
+  }
+
+  return (
+    <S.ImageCrop>
+      <HeaderWithBack title='이미지 편집' right={checkEl} onBackClick={onBackClick} />
+      <S.Content>
+        <Cropper
+          ref={cropper}
+          src={url}
+          style={{ height: '400px', width: '100%' }}
+          aspectRatio={16 / 9}
+          guides={false}
+          crop={_crop}
+        />
+      </S.Content>
+    </S.ImageCrop>
+  );
+}
+
+const S: {
+  ImageCrop: any;
+  Content: any;
+} = {
+  ImageCrop: styled.div`
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  `,
+  Content: styled.div`
+    margin-top: 5.5rem;
+  `
+};
+
+export default ImageCrop;

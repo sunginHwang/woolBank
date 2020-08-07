@@ -8,6 +8,7 @@ import BottomButton from '../../common/BottomButton';
 import { IPhase } from '../../../models/phase/IPhase';
 import LabelText from '../../common/LabelText';
 import BucketListPrevImage from './BucketListPrevImage';
+import ImageCrop from '../../common/ImageCrop';
 
 interface BucketListPicturePhaseProps extends IPhase{
   mainImgFile: File | null;
@@ -25,6 +26,7 @@ function BucketListPicturePhase({
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const inputAlbumRef = useRef<HTMLInputElement>(null);
   const inputCameraRef = useRef<HTMLInputElement>(null);
+  const [useCrop, setUseCrop] = useState(false);
 
   // 이미지 변경 이벤트
   const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +36,7 @@ function BucketListPicturePhase({
     // 사진 파일 저장 및 미리보기 랜더링
     reader.onloadend = () => {
       uploadFile && setFile(uploadFile);
+      setUseCrop(true);
       setPreviewUrl(String(reader.result));
     }
     uploadFile && reader.readAsDataURL(uploadFile);
@@ -105,7 +108,12 @@ function BucketListPicturePhase({
           </S.Img>
         </S.ImgWrapper>
       </S.BucketListPicturePhase>
-      <BucketListPrevImage previewUrl={previewUrl} onInitClick={onInitImage} />
+      {
+        useCrop && <ImageCrop onBackClick={() => setUseCrop(false)} url={previewUrl} />
+      }
+      {
+        !useCrop && previewUrl.length > 0 && <BucketListPrevImage previewUrl={previewUrl} onInitClick={onInitImage} />
+      }
       <BottomButton
         message='다음단계'
         isShow={isActivePhase}
