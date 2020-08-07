@@ -8,18 +8,24 @@ import './cropper.css';
 
 type ImageCropProps = {
   onBackClick: () => void;
+  onCrop: (imageUrl: string) => void;
   url: string;
 };
 
 function ImageCrop({
   onBackClick,
+  onCrop,
   url
 }: ImageCropProps) {
-  const checkEl = <IcoCircleCheck fill={colors.colors.navyD1} />;
-  const cropper = useRef(null);
+  const onCompleteCrop = () => {
+    if (cropper.current) {
+      onCrop(cropper.current.getCroppedCanvas().toDataURL());
+    }
+  }
+  const checkEl = <i onClick={onCompleteCrop}><IcoCircleCheck fill={colors.colors.navyD1} /></i>;
+  const cropper = useRef<Cropper>(null);
 
   const _crop = () => {
-    // image in dataUrl
   }
 
   return (

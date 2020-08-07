@@ -9,6 +9,8 @@ import { IPhase } from '../../../models/phase/IPhase';
 import LabelText from '../../common/LabelText';
 import BucketListPrevImage from './BucketListPrevImage';
 import ImageCrop from '../../common/ImageCrop';
+import { dataURLtoFile } from '../../../support/util/file';
+import { saveImageAndGetImageUrl } from '../../../support/api/imageApi';
 
 interface BucketListPicturePhaseProps extends IPhase{
   mainImgFile: File | null;
@@ -71,6 +73,14 @@ function BucketListPicturePhase({
     goNextPhase && goNextPhase();
   }
 
+  const onImageCrop = (cropUrl: string) => {
+    setPreviewUrl(cropUrl);
+    setUseCrop(false);
+    const files:File = dataURLtoFile(cropUrl, file ? file.name : '');
+    console.log(files);
+    saveImageAndGetImageUrl(files);
+  }
+
   return (
     <PhaseTemplate
       useScroll
@@ -109,7 +119,13 @@ function BucketListPicturePhase({
         </S.ImgWrapper>
       </S.BucketListPicturePhase>
       {
-        useCrop && <ImageCrop onBackClick={() => setUseCrop(false)} url={previewUrl} />
+        useCrop && (
+          <ImageCrop
+            onCrop={onImageCrop}
+            onBackClick={() => setUseCrop(false)}
+            url={previewUrl}
+          />
+        )
       }
       {
         !useCrop && previewUrl.length > 0 && <BucketListPrevImage previewUrl={previewUrl} onInitClick={onInitImage} />
