@@ -25,9 +25,6 @@ function ImageCrop({
   const checkEl = <i onClick={onCompleteCrop}><IcoCircleCheck fill={colors.colors.navyD1} /></i>;
   const cropper = useRef<Cropper>(null);
 
-  const _crop = () => {
-  }
-
   return (
     <S.ImageCrop>
       <HeaderWithBack title='이미지 편집' right={checkEl} onBackClick={onBackClick} />
@@ -38,7 +35,6 @@ function ImageCrop({
           style={{ height: '400px', width: '100%' }}
           aspectRatio={16 / 9}
           guides={false}
-          crop={_crop}
         />
       </S.Content>
     </S.ImageCrop>
@@ -50,7 +46,7 @@ const S: {
   Content: any;
 } = {
   ImageCrop: styled.div`
-    height: 100%;
+    height: calc(100% + 5.5rem);
     width: 100%;
     background-color: white;
     position: absolute;

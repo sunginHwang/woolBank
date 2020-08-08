@@ -5,14 +5,25 @@ type BaseTextAreaProps = {
   label?: string;
   value: string;
   placeHolder: string;
+  onFocusIn?: () => void;
+  onFocusOut?: () => void;
   onChange: (e:ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-function BaseTextArea({ label, value, onChange, placeHolder }: BaseTextAreaProps) {
+function BaseTextArea({
+  label, value, placeHolder, onChange, onFocusIn,
+  onFocusOut
+}: BaseTextAreaProps) {
   return (
     <S.BaseTextArea>
       {label && <S.Label>{label}</S.Label>}
-      <textarea value={value} onChange={onChange} placeholder={placeHolder} />
+      <textarea
+        value={value}
+        placeholder={placeHolder}
+        onFocus={onFocusIn}
+        onBlur={onFocusOut}
+        onChange={onChange}
+      />
     </S.BaseTextArea>
   );
 }

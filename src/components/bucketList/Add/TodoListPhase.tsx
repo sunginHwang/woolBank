@@ -18,8 +18,10 @@ interface TodoListPhaseProps extends IPhase {
 
 function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhase }: TodoListPhaseProps) {
   const [isShowAddInput, onAddInput, offAddInput] = useToggle(false);
+  const [isFocusTodo, onFocusTodo, offFocusTodo] = useToggle(false);
   const [todoList, setTodoList] = useState<ITodo[]>([]);
 
+  // 할일 아이템 추가
   const addTodo = (title: string) => {
     setTodoList([...todoList, {
       id: todoList.length + 1,
@@ -29,6 +31,7 @@ function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhas
     offAddInput();
   }
 
+  // 할일 완료 상태 변경
   const onToggleState = (id: number) => {
     const newTodo = [...todoList].map(todo => {
       if (todo.id === id) {
@@ -41,15 +44,18 @@ function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhas
     setTodoList(newTodo);
   };
 
+  // 할일 아이템 삭제
   const onRemove = (id: number) => {
     setTodoList(todoList.filter(todo => todo.id !== id));
   }
 
+  // 할일 입력 완료
   const onComplete = () => {
     onCompleteLastPhase(todoList);
   }
 
   const isValidComplete = isActivePhase && todoList.length > 0;
+  const isShowCompleteButton = !isFocusTodo && isActivePhase;
 
   return (
     <PhaseTemplate
@@ -67,8 +73,14 @@ function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhas
           <S.TodoAdd>
             {
               isShowAddInput
-                ? <TodoInput onAddTodo={addTodo} onClose={offAddInput} />
-                : <TodoAddButton onClick={onAddInput} />
+                ? (
+                  <TodoInput
+                    onAddTodo={addTodo}
+                    onClose={offAddInput}
+                    onFocusIn={onFocusTodo}
+                    onFocusOut={offFocusTodo}
+                  />
+                ) : <TodoAddButton onClick={onAddInput} />
             }
           </S.TodoAdd>
           <S.TodoList>
@@ -90,7 +102,7 @@ function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhas
           message='버킷리스트 작성'
           loading={loading}
           active={isValidComplete}
-          isShow={isActivePhase}
+          isShow={isShowCompleteButton}
           onClick={onComplete}
         />
       </S.AccountInfoAddPhase>

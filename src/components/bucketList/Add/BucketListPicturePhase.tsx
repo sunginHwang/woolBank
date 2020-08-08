@@ -10,7 +10,7 @@ import LabelText from '../../common/LabelText';
 import BucketListPrevImage from './BucketListPrevImage';
 import ImageCrop from '../../common/ImageCrop';
 import { dataURLtoFile } from '../../../support/util/file';
-import { saveImageAndGetImageUrl } from '../../../support/api/imageApi';
+import { useToggle } from '../../../support/hooks/useToggle';
 
 interface BucketListPicturePhaseProps extends IPhase{
   mainImgFile: File | null;
@@ -28,17 +28,16 @@ function BucketListPicturePhase({
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const inputAlbumRef = useRef<HTMLInputElement>(null);
   const inputCameraRef = useRef<HTMLInputElement>(null);
-  const [useCrop, setUseCrop] = useState(false);
+  const [useCrop, onCrop, offCrop] = useToggle(false);
 
   // 이미지 변경 이벤트
   const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const reader = new FileReader();
     const uploadFile = e.target.files && e.target.files[0];
-    // 사진 파일 저장 및 미리보기 랜더링
+    // 사진 파일 저장 및 미리보기(크롭포함) 랜더링
     reader.onloadend = () => {
-      uploadFile && setFile(uploadFile);
-      setUseCrop(true);
+      onCrop();
       setPreviewUrl(String(reader.result));
     }
     uploadFile && reader.readAsDataURL(uploadFile);
@@ -59,12 +58,18 @@ function BucketListPicturePhase({
 
   // 사진 촬영 클릭
   const onPictureClick = () => {
-    inputCameraRef.current && inputCameraRef.current.click();
+    if (inputCameraRef.current) {
+      onInitImage();
+      inputCameraRef.current.click();
+    };
   }
 
   // 앨범 선택 클릭
   const onAlbumClick = () => {
-    inputAlbumRef.current && inputAlbumRef.current.click();
+    if (inputAlbumRef.current) {
+      onInitImage();
+      inputAlbumRef.current.click();
+    }
   }
 
   // 다음 페이즈 이동
@@ -73,13 +78,15 @@ function BucketListPicturePhase({
     goNextPhase && goNextPhase();
   }
 
+  // 이미지 영역 크롭
   const onImageCrop = (cropUrl: string) => {
     setPreviewUrl(cropUrl);
-    setUseCrop(false);
-    const files:File = dataURLtoFile(cropUrl, file ? file.name : '');
-    console.log(files);
-    saveImageAndGetImageUrl(files);
+    offCrop();
+    const fileName = `${new Date()}_${Math.random() * Math.random()}`;
+    setFile(dataURLtoFile(cropUrl, fileName));
   }
+
+  const showPrevImage = !useCrop && previewUrl.length > 0;
 
   return (
     <PhaseTemplate
@@ -119,16 +126,10 @@ function BucketListPicturePhase({
         </S.ImgWrapper>
       </S.BucketListPicturePhase>
       {
-        useCrop && (
-          <ImageCrop
-            onCrop={onImageCrop}
-            onBackClick={() => setUseCrop(false)}
-            url={previewUrl}
-          />
-        )
+        useCrop && <ImageCrop onCrop={onImageCrop} url={previewUrl} onBackClick={offCrop} />
       }
       {
-        !useCrop && previewUrl.length > 0 && <BucketListPrevImage previewUrl={previewUrl} onInitClick={onInitImage} />
+        showPrevImage && <BucketListPrevImage previewUrl={previewUrl} onInitClick={onInitImage} />
       }
       <BottomButton
         message='다음단계'

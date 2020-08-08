@@ -8,9 +8,11 @@ import useInput from '../../support/hooks/UseInput';
 type TodoInputProps = {
   onAddTodo: (title: string) => void;
   onClose: () => void;
+  onFocusIn: () => void;
+  onFocusOut: () => void;
 };
 
-function TodoInput({ onAddTodo, onClose }: TodoInputProps) {
+function TodoInput({ onAddTodo, onClose, onFocusIn, onFocusOut }: TodoInputProps) {
   const [title, onChangeTitle] = useInput('');
   const todoInputRef = useRef<HTMLInputElement>(null);
 
@@ -21,6 +23,8 @@ function TodoInput({ onAddTodo, onClose }: TodoInputProps) {
   const onTitleKeyPress = (e:React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       onAddTodo(title);
+      // 바로 focus 아웃 시키면 키보드 에 버튼이 보이고 내려가는 ux 상 안이쁘게 보여서 딜레이 처리
+      setTimeout(() => onFocusOut(), 150);
     }
   }
 
@@ -33,6 +37,8 @@ function TodoInput({ onAddTodo, onClose }: TodoInputProps) {
         <input
           ref={todoInputRef}
           value={title}
+          onFocus={onFocusIn}
+          onBlur={onFocusOut}
           onChange={onChangeTitle}
           onKeyPress={onTitleKeyPress}
         />

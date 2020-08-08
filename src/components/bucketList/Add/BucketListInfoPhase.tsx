@@ -26,19 +26,24 @@ function BucketListInfoPhase({
 }: BucketListInfoPhaseProps) {
   const [bucketListTitle, onBucketListTitleChange, onResetBucketListTitle] = useInput(title);
   const [detail, setDetail] = useState(description);
-  const [showDetailLayer, onShowDetailLayer, offShowDetailLayer] = useToggle(false);
+  const [showDetailLayer, onDetailLayer, offDetailLayer] = useToggle(false);
 
+  // 상세 정보 변경
   const onChangeDetail = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
     setDetail(e.target.value);
   }
 
+  // 다음 단계(2/4) 이동
   const onCompletePhaseClick = () => {
     onCompletePhaseOne(bucketListTitle, detail);
     goNextPhase && goNextPhase();
   }
 
+  // 상세보기 보여주기 (인풋 작성 이후 노출)
   const isShowDetail = (bucketListTitle.length > 0 && showDetailLayer) || detail.length > 0;
+  // 다음단계 이동 버튼 보여주는 조건
   const isShowCompleteButton = isActivePhase && bucketListTitle.length > 0 && showDetailLayer;
+  // 다음단계로 이동 활성화 조건
   const isActiveComplete = bucketListTitle.length > 0 && detail.length > 0;
   return (
     <PhaseTemplate
@@ -57,8 +62,8 @@ function BucketListInfoPhase({
             max={30}
             useLengthInfo
             value={bucketListTitle}
-            onFocusIn={offShowDetailLayer}
-            onFocusOut={onShowDetailLayer}
+            onFocusIn={offDetailLayer}
+            onFocusOut={onDetailLayer}
             onClear={onResetBucketListTitle}
             onChange={onBucketListTitleChange}
           />
