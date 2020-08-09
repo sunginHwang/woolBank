@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import PhaseTemplate from '../../common/PhaseTemplate';
 import BottomButton from '../../common/BottomButton';
@@ -20,6 +20,7 @@ function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhas
   const [isShowAddInput, onAddInput, offAddInput] = useToggle(false);
   const [isFocusTodo, onFocusTodo, offFocusTodo] = useToggle(false);
   const [todoList, setTodoList] = useState<ITodo[]>([]);
+  const addRef = useRef<HTMLDivElement>(null);
 
   // 할일 아이템 추가
   const addTodo = (title: string) => {
@@ -29,6 +30,8 @@ function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhas
       isComplete: false
     }]);
     offAddInput();
+    // 추가 후 스크롤 최하단 이동 (입력 편리 ux)
+    addRef.current && addRef.current.scrollIntoView();
   }
 
   // 할일 완료 상태 변경
@@ -70,19 +73,6 @@ function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhas
         <S.TodoForm>
           <LabelText>목표를 달성하기 위해 <br /> 해야할 일들을 정해보세요.</LabelText>
           <SubLabelText>목표를 빠르게 달성하기 위해서<br />필요한 일들을 순차적으로 나열하는것도 좋은 방법입니다.</SubLabelText>
-          <S.TodoAdd>
-            {
-              isShowAddInput
-                ? (
-                  <TodoInput
-                    onAddTodo={addTodo}
-                    onClose={offAddInput}
-                    onFocusIn={onFocusTodo}
-                    onFocusOut={offFocusTodo}
-                  />
-                ) : <TodoAddButton onClick={onAddInput} />
-            }
-          </S.TodoAdd>
           <S.TodoList>
             {
               todoList.map((todo, index) => {
@@ -97,6 +87,19 @@ function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhas
               })
             }
           </S.TodoList>
+          <S.TodoAdd ref={addRef}>
+            {
+              isShowAddInput
+                ? (
+                  <TodoInput
+                    onAddTodo={addTodo}
+                    onClose={offAddInput}
+                    onFocusIn={onFocusTodo}
+                    onFocusOut={offFocusTodo}
+                  />
+                ) : <TodoAddButton onClick={onAddInput} />
+            }
+          </S.TodoAdd>
         </S.TodoForm>
         <BottomButton
           message='버킷리스트 작성'
@@ -131,7 +134,7 @@ const S: {
   TodoAdd: styled.div`
     display: flex;
     justify-content: center;
-    margin-bottom: 3rem;
+    margin-bottom: 20rem;
   `,
   AccountInfoAddPhase: styled.div`
     height: calc(100vh - 5.5rem);
