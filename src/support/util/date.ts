@@ -23,6 +23,9 @@ export const diffMonth = (startDay: Date | string, endDay: Date | string): numbe
   return Math.abs(Math.round(diff)) - 1;
 };
 
+/*
+* 두 날짜간의 일수 차이를 구한다
+* */
 export const diffDays = (
   startDay: Date | string,
   endDay: Date | string
@@ -36,6 +39,27 @@ export const diffDays = (
 
   const timeDiff = Math.abs(firstDay.getTime() - secondDay.getTime());
   return Math.ceil(timeDiff / (1000 * 3600 * 24));
+};
+
+/*
+* 남은 일자를 구해준다. 시작일이 종료일 보다 클경우 남은 날짜는 x
+* */
+export const remainDays = (
+  startDay: Date | string,
+  endDay: Date | string
+): number => {
+  if (!startDay || !endDay) {
+    return 0;
+  }
+
+  const firstTime = new Date(startDay).getTime();
+  const secondTime = new Date(endDay).getTime();
+
+  if (firstTime >= secondTime) {
+    return 0;
+  }
+
+  return diffDays(startDay, endDay);
 };
 
 export const isDateExpired = (until: string, check: string): boolean => {

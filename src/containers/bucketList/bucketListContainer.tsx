@@ -22,11 +22,19 @@ function BucketListContainer() {
   const bucketList: IBucketList[] = [
     {
       title: '버킷리스트 1번 목표',
-      percent: 82
+      todoCount: 4,
+      completeTodoCount: 2,
+      completeDate: '2020-12-31',
+      image: {
+        thumbImageUrl: 'https://www.swedishnomad.com/wp-content/images/2019/12/Bucket-List.webp',
+        fullImageUrl: 'https://www.swedishnomad.com/wp-content/images/2019/12/Bucket-List.webp'
+      }
     },
     {
       title: '버킷리스트 2번 목표',
-      percent: 24
+      todoCount: 3,
+      completeTodoCount: 3,
+      completeDate: '2020-02-27'
     }
   ];
 

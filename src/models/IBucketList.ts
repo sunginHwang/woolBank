@@ -1,4 +1,11 @@
+
 export interface IBucketList {
   title: string;
-  percent: number;
+  completeDate: string;
+  todoCount: number;
+  completeTodoCount: number;
+  image?: {
+    thumbImageUrl: string;
+    fullImageUrl: string;
+  }
 }

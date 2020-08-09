@@ -49,11 +49,23 @@ const accounts: IAccount[] = [
 const bucketList: IBucketList[] = [
   {
     title: '버킷리스트 1번 목표',
-    percent: 82
+    todoCount: 4,
+    completeTodoCount: 2,
+    completeDate: '2020-12-31',
+    image: {
+      thumbImageUrl: 'https://www.swedishnomad.com/wp-content/images/2019/12/Bucket-List.webp',
+      fullImageUrl: 'https://www.swedishnomad.com/wp-content/images/2019/12/Bucket-List.webp'
+    }
   },
   {
     title: '버킷리스트 2번 목표',
-    percent: 24
+    todoCount: 3,
+    completeTodoCount: 1,
+    completeDate: '2020-11-31',
+    image: {
+      thumbImageUrl: 'https://www.sunlife.com.ph/static/ph/Life%20Goals/OG%20and%20Feature%20images/What%20should%20be%20in%20your%20Wealth%20and%20Health%20bucket%20list.jpg',
+      fullImageUrl: 'https://www.sunlife.com.ph/static/ph/Life%20Goals/OG%20and%20Feature%20images/What%20should%20be%20in%20your%20Wealth%20and%20Health%20bucket%20list.jpg'
+    }
   }
 ];
 
