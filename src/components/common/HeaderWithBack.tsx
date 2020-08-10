@@ -5,16 +5,24 @@ import IcoChevronLeft from '../icon/IcoChevronLeft';
 
 type HeaderWithBackProps = {
   title: string;
+  iconColor?: string;
   onBackClick: () => void;
   right?: React.ReactNode | string;
+  useSkeleton?: boolean;
 };
 
-function HeaderWithBack({ title, onBackClick, right }: HeaderWithBackProps) {
+function HeaderWithBack({
+  title,
+  iconColor = theme.colors.navyD1,
+  useSkeleton = false,
+  onBackClick,
+  right
+}: HeaderWithBackProps) {
   return (
-    <S.HeaderWithBack>
+    <S.HeaderWithBack useSkeleton={useSkeleton}>
       <div>
         <div onClick={onBackClick}>
-          <IcoChevronLeft width={26} height={26} fill={theme.colors.navyD1} />
+          <IcoChevronLeft width={26} height={26} fill={iconColor} />
         </div>
         <p>{title}</p>
         <S.rightHeader>{right}</S.rightHeader>
@@ -34,8 +42,8 @@ const S: any = {
     top: 0;
     width: 100%;
     z-index: ${(props) => props.theme.zIndex.header};
-    background-color: ${(props) => props.theme.colors.white};
-    border-bottom: 0.1rem solid #dcdce9;
+    background-color: ${(props: any) => (props.useSkeleton ? 'transparent' : props.theme.colors.white)};
+    border-bottom: ${(props: any) => (props.useSkeleton ? 'none' : '0.1rem solid #dcdce9')};
 
     > div {
       width: 100%;
@@ -76,7 +84,7 @@ const S: any = {
   `,
   rightHeader: styled.div`
     padding-top: 0.4rem;
-    color: ${props => props.theme.colors.greyD2};
+    color: ${(props) => props.theme.colors.greyD2};
   `
 };
 

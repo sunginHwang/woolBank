@@ -1,21 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
+import colors from '../../style/colors';
 
 type ProgressProps = {
   percent: number;
   color: string;
-  startMessage: string;
-  endMessage: string;
+  label: string | number;
+  labelSuffix?: string;
+  labelPrefix?: string;
+  startMessage?: string;
+  endMessage?: string;
+  messageColor?: string;
 };
 
-function Progress({ percent, color, startMessage, endMessage }: ProgressProps) {
+function Progress({ percent, color, label, labelPrefix = '', labelSuffix = '', startMessage = '', endMessage = '', messageColor = colors.colors.greyL1 }: ProgressProps) {
   return (
     <S.ProgressWrapper>
-      <S.Message percent={percent}>{percent}%</S.Message>
+      <S.Label percent={percent}>{labelPrefix}{label}{labelSuffix}</S.Label>
       <S.Progress>
         <S.Bar percent={percent} color={color} />
       </S.Progress>
-      <S.Info>
+      <S.Info color={messageColor}>
         <span>{startMessage}</span>
         <span>{endMessage}</span>
       </S.Info>
@@ -28,12 +33,12 @@ const S: {
   Progress: any;
   Bar: any;
   Info: any;
-  Message: any;
+  Label: any;
 } = {
   ProgressWrapper: styled.div`
     width: 100%;
   `,
-  Message: styled.span`
+  Label: styled.span`
     width:  4rem;
     height: 3rem;
     left: ${(props: any) => props.percent}%;
@@ -82,7 +87,7 @@ const S: {
 
     > span {
       font-size: 1.2rem;
-      color: ${(props) => props.theme.colors.greyL1};
+      color: ${(props:any) => props.color};
     }
   `
 };

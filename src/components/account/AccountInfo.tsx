@@ -22,6 +22,8 @@ function AccountInfo({ account }: AccountInfoProps) {
       <Progress
         percent={35}
         color={colors.colors.navyD1}
+        label='35'
+        labelSuffix='%'
         startMessage={`개설일: ${parseDate(account.startDate)}`}
         endMessage={`만기일: ${parseDate(account.endDate)}`}
       />

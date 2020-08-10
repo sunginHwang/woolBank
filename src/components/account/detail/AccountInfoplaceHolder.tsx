@@ -13,7 +13,7 @@ function AccountInfoPlaceHolder() {
       <S.CurrentAmount>
         <PlaceHolderBar width='23rem' height='4.4rem' />
       </S.CurrentAmount>
-      <Progress percent={0} color={colors.colors.greyL2} startMessage='개설일: 0000-00-00' endMessage='만기일: 0000-00-00' />
+      <Progress percent={0} label={0} color={colors.colors.greyL2} startMessage='개설일: 0000-00-00' endMessage='만기일: 0000-00-00' />
       <S.Amount>
         <span>만기예상액 : </span>
         <PlaceHolderBar width='18rem' height='2.4rem' />

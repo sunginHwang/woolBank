@@ -8,10 +8,12 @@ type InputPhaseWrapperProps = {
   title?: string;
   isMain?: boolean;
   useSidePadding?: boolean;
-  rightHeader?: React.ReactNode;
-  onBackClick?: () => void;
-  children: React.ReactNode;
   bgColor?: string;
+  useHeader?: boolean;
+  rightHeader?: React.ReactNode;
+  children: React.ReactNode;
+  onBackClick?: () => void;
+
 };
 
 function PageTemplate({
@@ -19,6 +21,7 @@ function PageTemplate({
   isMain = false,
   bgColor = colors.colors.whiteL1,
   useSidePadding = true,
+  useHeader = true,
   onBackClick,
   rightHeader = null,
   children
@@ -36,12 +39,8 @@ function PageTemplate({
         </>
       ) : (
         <>
-          <HeaderWithBack
-            title={title}
-            onBackClick={onHeaderBackClick}
-            right={rightHeader}
-          />
-          <S.Content bgColor={bgColor} useSidePadding={useSidePadding}>
+          {useHeader && <HeaderWithBack title={title} onBackClick={onHeaderBackClick} right={rightHeader} />}
+          <S.Content useHeader={useHeader} bgColor={bgColor} useSidePadding={useSidePadding}>
             {children}
           </S.Content>
         </>
@@ -61,9 +60,10 @@ const S: {
     height: 100%;
   `,
   Content: styled.div`
-    height: calc(100% - 5.5rem);
+    height: ${(props: any) => props.useHeader ? 'calc(100% - 5.5rem)' : '100%'};
     background-color: ${(props: any) => props.bgColor};
-    padding: 5.5rem
+    padding:
+      ${(props: any) => (props.useHeader ? '5.5rem' : '0')} // 헤더 사용 유무에 따른 상단 패딩 조정 
       ${(props: any) => (props.useSidePadding ? '2rem 0 2rem' : '0 0 0')};
   `
 };
