@@ -5,6 +5,7 @@ import { getScrollTop } from '../../../support/util/document';
 import theme from '../../../style/colors';
 import HeaderWithBack from '../../common/HeaderWithBack';
 import Progress from '../../common/Progress';
+import IcoDowHorizontal from '../../icon/IcoDotHorizontal';
 
 type BucketListDetailHeaderProps = {
   title: string;
@@ -33,12 +34,14 @@ function BucketListDetailHeader({
 
   const fixedHeaderMsg = isShowFixedHeader ? title : '';
   const headerIconColor = isShowFixedHeader ? theme.colors.navyD1 : theme.colors.white;
+  const optionButtonEl = <i><IcoDowHorizontal fill={headerIconColor} /></i>;
 
   return (
     <>
       <HeaderWithBack
         iconColor={headerIconColor}
         title={fixedHeaderMsg}
+        right={optionButtonEl}
         useSkeleton={!isShowFixedHeader}
         onBackClick={() => console.log('1')}
       />
@@ -70,12 +73,16 @@ const S :any = {
      display: flex;
      flex-direction: column;
      align-items: center;
-     justify-content: center;
+     justify-content: flex-end;
      
      > h2 {
       font-size: 2.6rem;
       color: ${props => props.theme.colors.white};
-      margin-bottom: 5rem;
+      margin-bottom: 8vh;
+     }
+     
+     > div {
+      margin-bottom: 5vh;
      }
     }
   `

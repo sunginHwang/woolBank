@@ -39,7 +39,10 @@ function BucketListDetail() {
         />
         <S.Content>
           <BucketListContentInfo />
-          <TodoList todoList={todoList} addTodo={(todo: ITodo) => {}} removeTodo={(id: number) => {}} onToggleTodoState={(id: number) => {}} />
+          <div>
+            <S.TodoTitle>할일목록</S.TodoTitle>
+            <TodoList todoList={todoList} addTodo={(todo: ITodo) => {}} removeTodo={(id: number) => {}} onToggleTodoState={(id: number) => {}} />
+          </div>
           <S.DummyArea />
         </S.Content>
       </div>
@@ -56,7 +59,13 @@ const S :any = {
     height: 1000px;
   `,
   Content: styled.div`
-    padding: 4rem 2rem;
+    padding: 2rem;
     background-color: white;
+  `,
+  TodoTitle: styled.p`
+    color: ${props => props.theme.colors.blackL1};
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 2rem;
   `
 }
