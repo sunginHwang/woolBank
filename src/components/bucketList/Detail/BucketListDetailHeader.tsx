@@ -79,6 +79,8 @@ const S :any = {
       font-size: 2.6rem;
       color: ${props => props.theme.colors.white};
       margin-bottom: 8vh;
+      text-align: center;
+      width: 80%;
      }
      
      > div {
