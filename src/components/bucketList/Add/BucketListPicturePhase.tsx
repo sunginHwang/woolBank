@@ -26,9 +26,9 @@ function BucketListPicturePhase({
 }: BucketListPicturePhaseProps) {
   const [file, setFile] = useState<File | null>(mainImgFile);
   const [previewUrl, setPreviewUrl] = useState<string>('');
+  const [useCrop, onCrop, offCrop] = useToggle(false);
   const inputAlbumRef = useRef<HTMLInputElement>(null);
   const inputCameraRef = useRef<HTMLInputElement>(null);
-  const [useCrop, onCrop, offCrop] = useToggle(false);
 
   // 이미지 변경 이벤트
   const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
