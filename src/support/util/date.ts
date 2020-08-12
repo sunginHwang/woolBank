@@ -62,6 +62,20 @@ export const remainDays = (
   return diffDays(startDay, endDay);
 };
 
+/* 시작일 ~ 종료일까지의 퍼센티지 구하기 */
+export const getRemainDatePercentage = (
+  startDay: Date | string,
+  endDay: Date | string,
+  today: Date | string = new Date()
+): number => {
+  const totalDateCount = remainDays(startDay, endDay);
+  const passDateCount = remainDays(startDay, today);
+  const remainDate = (passDateCount / totalDateCount) * 100;
+  console.log(totalDateCount);
+  console.log(passDateCount);
+  return parseInt(remainDate.toString(), 10);
+};
+
 export const isDateExpired = (until: string, check: string): boolean => {
   const untilDate = Date.parse(until);
   const checkDate = Date.parse(check);

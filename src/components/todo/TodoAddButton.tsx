@@ -25,7 +25,7 @@ function TodoAddButton({
       onClick={onAddClick}
     >
       {loading
-        ? <ClipLoader color={colors.colors.white} size={20} />
+        ? <ClipLoader color={colors.colors.navyD1} size={20} />
         : <IcoPlus />}
     </S.TodoAddButton>
   );

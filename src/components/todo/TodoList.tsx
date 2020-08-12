@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { ITodo } from '../../models/ITodo';
 import { useToggle } from '../../support/hooks/useToggle';
@@ -8,17 +8,19 @@ import TodoListItem from './TodoListItem';
 
 type TodoListProps = {
   todoList: ITodo[];
+  loading?: boolean;
   addTodo: (todo: ITodo) => void;
   removeTodo: (id: number) => void;
   onToggleTodoState: (id: number) => void;
   onFocusTodo?: () => void;
   offFocusTodo?: () => void;
-}
+};
 
 function TodoList({
   todoList,
   addTodo,
   removeTodo,
+  loading = false,
   onFocusTodo = () => {},
   offFocusTodo = () => {},
   onToggleTodoState
@@ -36,37 +38,21 @@ function TodoList({
     offAddInput();
     // 추가 후 스크롤 최하단 이동 (입력 편리 ux)
     addRef.current && addRef.current.scrollIntoView();
-  }
+  };
 
   return (
     <>
       <S.TodoList>
-        {
-          todoList.map((todo, index) => {
-            return (
-              <TodoListItem
-                key={index}
-                todo={todo}
-                onRemove={removeTodo}
-                onToggleState={onToggleTodoState}
-              />
-            )
-          })
-        }
+        {todoList.map((todo, index) => {
+          return <TodoListItem key={index} todo={todo} onRemove={removeTodo} onToggleState={onToggleTodoState} />;
+        })}
       </S.TodoList>
       <S.TodoAdd ref={addRef}>
-        {
-          isShowAddInput
-            ? (
-              <TodoInput
-                onAddTodo={onAddTodo}
-                onClose={offAddInput}
-                onFocusIn={onFocusTodo}
-                onFocusOut={offFocusTodo}
-              />
-            )
-            : <TodoAddButton onClick={onAddInput} />
-        }
+        {isShowAddInput ? (
+          <TodoInput onAddTodo={onAddTodo} onClose={offAddInput} onFocusIn={onFocusTodo} onFocusOut={offFocusTodo} />
+        ) : (
+          <TodoAddButton loading={loading} onClick={onAddInput} />
+        )}
       </S.TodoAdd>
     </>
   );
@@ -79,7 +65,7 @@ const S: {
 } = {
   TodoList: styled.ul`
     width: 100%;
-    
+
     &:last-child {
       margin-bottom: 10rem;
     }
