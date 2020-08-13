@@ -71,7 +71,9 @@ export default BucketListDetailHeader;
 
 const S :any = {
   ImageInfo: styled.div`
+    background-size: cover;
     background-image: url(${(props: any) => props.imgUrl});
+    background-color: ${props => props.theme.colors.greyD2};
     width: 100%;
     height: 40vh;
     > div {
