@@ -8,7 +8,7 @@ import TodoListItem from './TodoListItem';
 
 type TodoListProps = {
   todoList: ITodo[];
-  loading?: boolean;
+  addLoading?: boolean;
   addTodo: (todo: ITodo) => void;
   removeTodo: (id: number) => void;
   onToggleTodoState: (id: number) => void;
@@ -20,12 +20,12 @@ function TodoList({
   todoList,
   addTodo,
   removeTodo,
-  loading = false,
+  addLoading = false,
   onFocusTodo = () => {},
   offFocusTodo = () => {},
   onToggleTodoState
 }: TodoListProps) {
-  const [isShowAddInput, onAddInput, offAddInput] = useToggle(false);
+  const [showAddInput, onAddInput, offAddInput] = useToggle(false);
   const addRef = useRef<HTMLDivElement>(null);
 
   // 할일 아이템 추가
@@ -48,10 +48,10 @@ function TodoList({
         })}
       </S.TodoList>
       <S.TodoAdd ref={addRef}>
-        {isShowAddInput ? (
+        {showAddInput ? (
           <TodoInput onAddTodo={onAddTodo} onClose={offAddInput} onFocusIn={onFocusTodo} onFocusOut={offFocusTodo} />
         ) : (
-          <TodoAddButton loading={loading} onClick={onAddInput} />
+          <TodoAddButton loading={addLoading} onClick={onAddInput} />
         )}
       </S.TodoAdd>
     </>

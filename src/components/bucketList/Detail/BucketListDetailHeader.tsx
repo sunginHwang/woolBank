@@ -6,19 +6,24 @@ import theme from '../../../style/colors';
 import HeaderWithBack from '../../common/HeaderWithBack';
 import Progress from '../../common/Progress';
 import IcoDowHorizontal from '../../icon/IcoDotHorizontal';
+import { getRemainDatePercentage, remainDays } from '../../../support/util/date';
 
 type BucketListDetailHeaderProps = {
   title: string;
   imgUrl: string;
-  remainDay: number;
-  remainDayPercent: number
+  serverDate: Date | string;
+  createdDate: Date | string;
+  completeDate: Date | string;
+  onMenuClick: () => void;
 }
 
 function BucketListDetailHeader({
   title,
   imgUrl,
-  remainDay,
-  remainDayPercent
+  serverDate,
+  createdDate,
+  completeDate,
+  onMenuClick
 }: BucketListDetailHeaderProps) {
   const imgRef = useRef<HTMLDivElement>(null);
   const [isShowFixedHeader, setFixedHeader] = useState(false);
@@ -34,14 +39,16 @@ function BucketListDetailHeader({
 
   const fixedHeaderMsg = isShowFixedHeader ? title : '';
   const headerIconColor = isShowFixedHeader ? theme.colors.navyD1 : theme.colors.white;
-  const optionButtonEl = <i><IcoDowHorizontal fill={headerIconColor} /></i>;
-
+  // 목표 날짜 까지 남은 기간
+  const remainDay = remainDays(serverDate, completeDate);
+  // 목표 날짜 까지 이룬 %
+  const remainPercent = getRemainDatePercentage(createdDate, completeDate, serverDate);
   return (
     <>
       <HeaderWithBack
         iconColor={headerIconColor}
         title={fixedHeaderMsg}
-        right={optionButtonEl}
+        right={<i onClick={onMenuClick}><IcoDowHorizontal fill={headerIconColor} /></i>}
         useSkeleton={!isShowFixedHeader}
         onBackClick={() => console.log('1')}
       />
@@ -51,7 +58,7 @@ function BucketListDetailHeader({
           <Progress
             label={remainDay}
             labelPrefix='D-'
-            percent={remainDayPercent}
+            percent={remainPercent}
             color={theme.colors.navyD1}
           />
         </div>
