@@ -2,27 +2,39 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../style/colors';
 import IcoCalendarMonthOutline from '../../icon/IcoCalendarMonthOutline';
+import PlaceHolderBar from '../../common/PlaceHolderBar';
 type BucketListContentInfoProps = {
+  isLoading: boolean;
   description: string;
   completeDate: string | Date;
 }
 
 function BucketListContentInfo({
+  isLoading,
   description,
   completeDate
 }: BucketListContentInfoProps) {
   return (
     <S.BucketListContentInfo>
-      <S.ContentItem>
-        <S.Message>{description}</S.Message>
-      </S.ContentItem>
+      {isLoading && (
+        <>
+          <PlaceHolderBar width='80%' height='1.4rem' />
+          <PlaceHolderBar width='60%' height='1.4rem' />
+          <PlaceHolderBar width='50%' height='1.4rem' />
+        </>
+      )}
+      {!isLoading && (
+        <S.ContentItem>
+          <S.Message>{description}</S.Message>
+        </S.ContentItem>
+      )}
       <S.ContentItem>
         <i>
           <IcoCalendarMonthOutline width={24} height={24} fill={theme.colors.blackL1} />
         </i>
         <div>
           <S.Title>목표 달성일</S.Title>
-          <span>{completeDate}</span>
+          {isLoading ? <PlaceHolderBar width='10rem' height='1.4rem' /> : <span>{completeDate}</span>}
         </div>
       </S.ContentItem>
     </S.BucketListContentInfo>

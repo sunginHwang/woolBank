@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import TodoList from '../../todo/TodoList';
 import { ITodo } from '../../../models/ITodo';
+import PlaceHolderBar from '../../common/PlaceHolderBar';
 
 type TodoListProps = {
+  isLoading: boolean;
   todoList: ITodo[];
   addLoading: boolean;
   addTodo: (todo: ITodo) => void;
@@ -12,6 +14,7 @@ type TodoListProps = {
 };
 
 function BucketListTodoInfo({
+  isLoading,
   todoList,
   addTodo,
   removeTodo,
@@ -21,13 +24,23 @@ function BucketListTodoInfo({
   return (
     <S.BucketListTodoInfo>
       <S.TodoTitle>할일목록</S.TodoTitle>
-      <TodoList
-        addTodo={addTodo}
-        addLoading={addLoading}
-        todoList={todoList}
-        removeTodo={removeTodo}
-        onToggleTodoState={onToggleTodoState}
-      />
+      {isLoading && (
+        <>
+          <PlaceHolderBar width='100%' height='5.4rem' />
+          <PlaceHolderBar width='100%' height='5.4rem' />
+          <PlaceHolderBar width='100%' height='5.4rem' />
+          <PlaceHolderBar width='100%' height='5.4rem' />
+        </>
+      )}
+      {!isLoading && (
+        <TodoList
+          addTodo={addTodo}
+          addLoading={addLoading}
+          todoList={todoList}
+          removeTodo={removeTodo}
+          onToggleTodoState={onToggleTodoState}
+        />
+      )}
     </S.BucketListTodoInfo>
   );
 }

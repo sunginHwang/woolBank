@@ -10,6 +10,7 @@ import ConfirmModal from '../../components/common/modal/ConfirmModal';
 import { useToggle } from '../../support/hooks/useToggle';
 import BottomMenuModal from '../../components/common/modal/BottomMenuModal';
 import { IBottomMenu } from '../../models/component/IBottomMenu';
+import { useLoading } from '../../support/hooks/UseTempLoading';
 
 const bottomMenus:IBottomMenu[] = [{
   type: 'remove',
@@ -26,6 +27,7 @@ type BucketListDetailContainerProps = {
 function BucketListDetailContainer({
   bucketListId
 }: BucketListDetailContainerProps) {
+  const loading = useLoading();
   const [bucketListDetail, setBucketListDetail] = useState<IBucketListDetail>(bucketListDetailDummy.initialData);
   const [addTodoLoading, onAddTodoLoading, offAddTodoLoading] = useToggle(false);
   const [removeTodoLoading, onRemoveTodoLoading, offRemoveTodoLoading] = useToggle(false);
@@ -34,9 +36,10 @@ function BucketListDetailContainer({
   // 현재 선택된 todoId
   const [selectTodoId, setSelectTodoId] = useState(0);
 
+  // 목업 연동
   useEffect(() => {
-    setBucketListDetail(bucketListDetailDummy.loadData);
-  }, [bucketListId])
+    !loading && setBucketListDetail(bucketListDetailDummy.loadData);
+  }, [loading]);
 
   // todoItem 생성
   const addTodo = (todo: ITodo) => {
@@ -92,6 +95,7 @@ function BucketListDetailContainer({
   return (
     <>
       <BucketListDetailHeader
+        isLoading={loading}
         title={bucketListDetail.title}
         imgUrl={bucketListDetail.image.fullImageUrl}
         serverDate={bucketListDetail.serverDate}
@@ -100,10 +104,12 @@ function BucketListDetailContainer({
         onMenuClick={onMenuModal}
       />
       <BucketListContentInfo
+        isLoading={loading}
         description={bucketListDetail.description}
         completeDate={bucketListDetail.completeDate}
       />
       <BucketListTodoInfo
+        isLoading={loading}
         todoList={bucketListDetail.todoList}
         addLoading={addTodoLoading}
         addTodo={addTodo}

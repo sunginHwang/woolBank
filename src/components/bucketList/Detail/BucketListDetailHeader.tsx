@@ -7,10 +7,12 @@ import HeaderWithBack from '../../common/HeaderWithBack';
 import Progress from '../../common/Progress';
 import IcoDowHorizontal from '../../icon/IcoDotHorizontal';
 import { getRemainDatePercentage, remainDays } from '../../../support/util/date';
+import PlaceHolderBar from '../../common/PlaceHolderBar';
 
 type BucketListDetailHeaderProps = {
   title: string;
   imgUrl: string;
+  isLoading: boolean;
   serverDate: Date | string;
   createdDate: Date | string;
   completeDate: Date | string;
@@ -20,6 +22,7 @@ type BucketListDetailHeaderProps = {
 function BucketListDetailHeader({
   title,
   imgUrl,
+  isLoading,
   serverDate,
   createdDate,
   completeDate,
@@ -54,7 +57,7 @@ function BucketListDetailHeader({
       />
       <S.ImageInfo ref={imgRef} imgUrl={imgUrl}>
         <div>
-          <h2>{title}</h2>
+          {isLoading ? <PlaceHolderBar width='15rem' height='4.4rem' /> : <h2>{title}</h2>}
           <Progress
             label={remainDay}
             labelPrefix='D-'
