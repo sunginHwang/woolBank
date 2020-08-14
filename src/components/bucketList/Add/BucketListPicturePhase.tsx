@@ -27,10 +27,13 @@ function BucketListPicturePhase({
   const [file, setFile] = useState<File | null>(mainImgFile);
   const [previewUrl, setPreviewUrl] = useState<string>('');
   const [useCrop, onCrop, offCrop] = useToggle(false);
+
   const inputAlbumRef = useRef<HTMLInputElement>(null);
   const inputCameraRef = useRef<HTMLInputElement>(null);
 
-  // 이미지 변경 이벤트
+  /**
+   * 이미지 변경 이벤트s
+   */
   const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const reader = new FileReader();
@@ -43,7 +46,9 @@ function BucketListPicturePhase({
     uploadFile && reader.readAsDataURL(uploadFile);
   };
 
-  // 이미지 입력 초기화
+  /**
+   * 이미지 입력 초기화
+   */
   const onInitImage = () => {
     setFile(null);
     setPreviewUrl('');
@@ -56,7 +61,9 @@ function BucketListPicturePhase({
     }
   }
 
-  // 사진 촬영 클릭
+  /**
+   * 사진 촬영 클릭
+   */
   const onPictureClick = () => {
     if (inputCameraRef.current) {
       onInitImage();
@@ -64,7 +71,9 @@ function BucketListPicturePhase({
     };
   }
 
-  // 앨범 선택 클릭
+  /**
+   * 앨범 선택 클릭
+   */
   const onAlbumClick = () => {
     if (inputAlbumRef.current) {
       onInitImage();
@@ -72,13 +81,17 @@ function BucketListPicturePhase({
     }
   }
 
-  // 다음 페이즈 이동
+  /**
+   * 다음 페이즈 이동
+   */
   const onNextPhaseClick = () => {
     file && onCompletePhaseThree(file);
     goNextPhase && goNextPhase();
   }
 
-  // 이미지 영역 크롭
+  /**
+   * 이미지 영역 크롭
+   */
   const onImageCrop = (cropUrl: string) => {
     setPreviewUrl(cropUrl);
     offCrop();
@@ -175,10 +188,11 @@ const S: {
       border-radius: .8rem;
       margin-right: 1rem;
     }
+    
     > input {
       display: none;
     }
   `
 };
 
-export default BucketListPicturePhase;
+export default React.memo(BucketListPicturePhase);

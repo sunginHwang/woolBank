@@ -12,18 +12,21 @@ import SubLabelText from '../../common/SubLabelText';
 import TodoInput from '../../todo/TodoInput';
 
 interface TodoListPhaseProps extends IPhase {
-  onCompleteLastPhase: (todoList: ITodo[]) => void;
   loading: boolean;
+  onCompleteLastPhase: (todoList: ITodo[]) => void;
 }
 
 function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhase }: TodoListPhaseProps) {
-  const [isShowAddInput, onAddInput, offAddInput] = useToggle(false);
+  const [showAddInput, onAddInput, offAddInput] = useToggle(false);
   const [isFocusTodo, onFocusTodo, offFocusTodo] = useToggle(false);
   const [todoList, setTodoList] = useState<ITodo[]>([]);
+
   const addRef = useRef<HTMLDivElement>(null);
 
-  // 할일 아이템 추가
-  const addTodo = (title: string) => {
+  /**
+   * 할일 아이템 추가
+   */
+  const onAddTodo = (title: string) => {
     setTodoList([...todoList, {
       id: todoList.length + 1,
       title: title,
@@ -34,7 +37,9 @@ function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhas
     addRef.current && addRef.current.scrollIntoView();
   }
 
-  // 할일 완료 상태 변경
+  /**
+   * 할일 완료 상태 토글
+   */
   const onToggleState = (id: number) => {
     const newTodo = [...todoList].map(todo => {
       if (todo.id === id) {
@@ -47,12 +52,16 @@ function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhas
     setTodoList(newTodo);
   };
 
-  // 할일 아이템 삭제
+  /**
+   * 할일 삭제
+   */
   const onRemove = (id: number) => {
     setTodoList(todoList.filter(todo => todo.id !== id));
   }
 
-  // 할일 입력 완료
+  /**
+   * 할일 완료
+   */
   const onComplete = () => {
     onCompleteLastPhase(todoList);
   }
@@ -89,10 +98,10 @@ function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhas
           </S.TodoList>
           <S.TodoAdd ref={addRef}>
             {
-              isShowAddInput
+              showAddInput
                 ? (
                   <TodoInput
-                    onAddTodo={addTodo}
+                    onAdd={onAddTodo}
                     onClose={offAddInput}
                     onFocusIn={onFocusTodo}
                     onFocusOut={offFocusTodo}
@@ -159,4 +168,4 @@ const S: {
   `
 };
 
-export default TodoListPhase;
+export default React.memo(TodoListPhase);

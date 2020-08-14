@@ -3,11 +3,13 @@ import BaseButton from './BaseButton';
 import styled from 'styled-components';
 
 type BottomButtonProps = {
-  onClick?: (e: React.ChangeEvent<HTMLButtonElement>) => void;
   message: string;
   loading?: boolean;
+  // 버튼 활성화 여부
   active?: boolean;
+  // 버튼 디스플레이 여부
   isShow?: boolean;
+  onClick?: (e: React.ChangeEvent<HTMLButtonElement>) => void;
 }
 
 function BottomButton({

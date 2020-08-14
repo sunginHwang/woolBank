@@ -11,11 +11,10 @@ import { useToggle } from '../../support/hooks/useToggle';
 
 function AccountDetail() {
   const history = useHistory();
-  const [isOpenDetailModal, onDetailModal, offDetailModal] = useToggle(false);
+  const { mode } = useQuery(['mode']);
   let { accountId } = useParams();
   accountId = Number(accountId);
-
-  const { mode } = useQuery(['mode']);
+  const [isOpenDetailModal, onDetailModal, offDetailModal] = useToggle(false);
 
   const onBackClick = () => {
     history.goBack();

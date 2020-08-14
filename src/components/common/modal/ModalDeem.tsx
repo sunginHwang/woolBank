@@ -9,11 +9,13 @@ type ModalDeemProps = {
 
 function ModalDeem({ visible, children, onDeemClick }: ModalDeemProps) {
   const modalDeemRef = useRef(null);
+
   const onModalDeemClick = useCallback((e: MouseEvent) => {
     if (e && e.target && modalDeemRef.current === e.target) {
       onDeemClick && onDeemClick();
     }
   }, [onDeemClick]);
+
   return (
     <S.ModalDeem
       ref={modalDeemRef}

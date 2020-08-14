@@ -37,17 +37,14 @@ function AccountInfoPhase({
   const useRegularTransferDate =
     account.savingType.type === SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS;
 
-  // 모달 열기
   const onOpenModal = (e: ChangeEvent<HTMLDivElement>) => {
     setOpenModalName(e.currentTarget.dataset.type || '');
   };
 
-  // 모달 닫기
   const onCloseModal = () => {
     setOpenModalName('');
   };
 
-  // 폼 값 초기화
   const onClearForm = (e: React.MouseEvent<HTMLLIElement>) => {
     const formType = e.currentTarget.dataset.type || '';
     let initData: string | IAssetType = '';
@@ -63,7 +60,6 @@ function AccountInfoPhase({
     onChangeAccount(formType, initData);
   };
 
-  // 제목 변경
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     onChangeAccount('title', e.target.value);
   };
@@ -73,7 +69,6 @@ function AccountInfoPhase({
     onCloseModal();
   };
 
-  // 슬라이드 이벤트 폼 변경 이벤트
   const onChangeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     const type = e.target.dataset.type || '';
@@ -82,6 +77,9 @@ function AccountInfoPhase({
     type === 'regularTransferDate' && setRegularTransferDate(value);
   };
 
+  /**
+   * 적금 타입 변경
+   */
   const onChangeAssetType = (assetType: IAssetType) => {
     // 적금 타입 변경시 정기예치일 오늘날짜로 초기화
     setRegularTransferDate(now.getDate());
@@ -98,7 +96,9 @@ function AccountInfoPhase({
     account.startDate !== '' &&
     assetMonth > 0;
 
-  // 다음 단계 입력으로 이동
+  /**
+   * 다음 단계 입력으로 이동
+   */
   const onCompleteClick = () => {
     if (isAllowAccountAddValidation) {
       const startDate = new Date(account.startDate);

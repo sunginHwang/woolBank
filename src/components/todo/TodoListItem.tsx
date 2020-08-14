@@ -13,10 +13,16 @@ interface TodoListItemProps {
 }
 
 function TodoListItem({ todo, onToggleState, onRemove }: TodoListItemProps) {
+  /**
+   * todo 완료 상태 토글
+   */
   const onToggleStateClick = useCallback((e: React.MouseEvent<HTMLLIElement>) => {
     onToggleState(todo.id);
   }, [todo, onToggleState]);
 
+  /**
+   * todo 삭제
+   */
   const onRemoveClick = useCallback(() => {
     onRemove(todo.id);
   }, [todo, onRemove]);
@@ -25,7 +31,11 @@ function TodoListItem({ todo, onToggleState, onRemove }: TodoListItemProps) {
     <S.TodoListItem>
       <div>
         <i onClick={onToggleStateClick}>
-          {todo.isComplete ? <IcoCircleCheck fill={colors.colors.navyD1} /> : <IcoBlackCircle fill={colors.colors.navyD1} />}
+          {
+            todo.isComplete
+              ? <IcoCircleCheck fill={colors.colors.navyD1} />
+              : <IcoBlackCircle fill={colors.colors.navyD1} />
+          }
         </i>
         <S.ListTitle isComplete={todo.isComplete}>{todo.title}</S.ListTitle>
       </div>

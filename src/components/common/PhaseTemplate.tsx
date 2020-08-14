@@ -3,23 +3,24 @@ import styled from 'styled-components';
 import HeaderWithBack from './HeaderWithBack';
 
 type InputPhaseWrapperProps = {
+  // 헤더 사용 유무
   active: boolean;
   title: string;
   rightMessage?: string;
-  onBackClick: () => void;
   usePadding?: boolean;
   useScroll?: boolean;
   children: React.ReactNode;
+  onBackClick: () => void;
 };
 
 function PhaseTemplate({
   active,
   title,
   rightMessage,
-  onBackClick,
   usePadding = true,
   useScroll = false,
-  children
+  children,
+  onBackClick
 }: InputPhaseWrapperProps) {
   return (
     <S.PhaseTemplate active={active}>

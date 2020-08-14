@@ -71,8 +71,7 @@ export const getRemainDatePercentage = (
   const totalDateCount = remainDays(startDay, endDay);
   const passDateCount = remainDays(startDay, today);
   const remainDate = (passDateCount / totalDateCount) * 100;
-  console.log(totalDateCount);
-  console.log(passDateCount);
+
   return parseInt(remainDate.toString(), 10);
 };
 

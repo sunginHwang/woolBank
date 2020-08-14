@@ -90,8 +90,6 @@ function BucketListAddContainer({
     /* phase < 1 && setAccount(initialAccountInfo); // 예적금 입력 종료시 초기화 처리 */
   }, [phase]);
 
-  console.log(bucketListForm);
-
   const onCompletePhaseOne = (title: string, description: string) => {
     dispatch({ type: 'SET_PHASE_ONE', payload: { title, description } });
   };
@@ -109,6 +107,9 @@ function BucketListAddContainer({
     onAddBucketList();
   };
 
+  /**
+   * 버킷리스트 추가
+   */
   const onAddBucketList = () => {
     // someThing 입력 작업
     dispatch({ type: 'TOGGLE_LOADING', payload: true });
@@ -127,7 +128,6 @@ function BucketListAddContainer({
         goPrevPhase={goPrevPhase}
         goNextPhase={goNextPhase}
       />
-
       <BucketListCompleteDatePhase
         isActivePhase={phase >= 2}
         completeDate={bucketListForm.completeDate}

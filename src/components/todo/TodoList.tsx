@@ -9,28 +9,28 @@ import TodoListItem from './TodoListItem';
 type TodoListProps = {
   todoList: ITodo[];
   addLoading?: boolean;
-  addTodo: (todo: ITodo) => void;
-  removeTodo: (id: number) => void;
-  onToggleTodoState: (id: number) => void;
-  onFocusTodo?: () => void;
-  offFocusTodo?: () => void;
+  onAdd: (todo: ITodo) => void;
+  onRemove: (id: number) => void;
+  onToggleState: (id: number) => void;
+  onTodoItemFocusIn?: () => void;
+  onTodoItemFocusOut?: () => void;
 };
 
 function TodoList({
   todoList,
-  addTodo,
-  removeTodo,
   addLoading = false,
-  onFocusTodo = () => {},
-  offFocusTodo = () => {},
-  onToggleTodoState
+  onAdd,
+  onRemove,
+  onToggleState,
+  onTodoItemFocusIn = () => {},
+  onTodoItemFocusOut = () => {}
 }: TodoListProps) {
   const [showAddInput, onAddInput, offAddInput] = useToggle(false);
   const addRef = useRef<HTMLDivElement>(null);
 
   // 할일 아이템 추가
   const onAddTodo = (title: string) => {
-    addTodo({
+    onAdd({
       id: todoList.length + 1,
       title: title,
       isComplete: false
@@ -44,12 +44,12 @@ function TodoList({
     <>
       <S.TodoList>
         {todoList.map((todo, index) => {
-          return <TodoListItem key={index} todo={todo} onRemove={removeTodo} onToggleState={onToggleTodoState} />;
+          return <TodoListItem key={index} todo={todo} onRemove={onRemove} onToggleState={onToggleState} />;
         })}
       </S.TodoList>
       <S.TodoAdd ref={addRef}>
         {showAddInput ? (
-          <TodoInput onAddTodo={onAddTodo} onClose={offAddInput} onFocusIn={onFocusTodo} onFocusOut={offFocusTodo} />
+          <TodoInput onAdd={onAddTodo} onClose={offAddInput} onFocusIn={onTodoItemFocusIn} onFocusOut={onTodoItemFocusOut} />
         ) : (
           <TodoAddButton loading={addLoading} onClick={onAddInput} />
         )}

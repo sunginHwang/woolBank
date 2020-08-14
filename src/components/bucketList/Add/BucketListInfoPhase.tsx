@@ -19,21 +19,26 @@ interface BucketListInfoPhaseProps extends IPhase{
 function BucketListInfoPhase({
   title,
   description,
-  onCompletePhaseOne,
   isActivePhase,
+  onCompletePhaseOne,
   goPrevPhase,
   goNextPhase
 }: BucketListInfoPhaseProps) {
+  console.log('BucketListInfoPhase');
   const [bucketListTitle, onBucketListTitleChange, onResetBucketListTitle] = useInput(title);
   const [detail, setDetail] = useState(description);
   const [showDetailLayer, onDetailLayer, offDetailLayer] = useToggle(false);
 
-  // 상세 정보 변경
+  /**
+   * 상세 정보 변경
+   */
   const onChangeDetail = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
     setDetail(e.target.value);
   }
 
-  // 다음 단계(2/4) 이동
+  /**
+   * 다음 단계(2/4) 이동
+   */
   const onCompletePhaseClick = () => {
     onCompletePhaseOne(bucketListTitle, detail);
     goNextPhase && goNextPhase();
@@ -116,4 +121,4 @@ const S: {
   `
 };
 
-export default BucketListInfoPhase;
+export default React.memo(BucketListInfoPhase);

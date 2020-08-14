@@ -8,17 +8,17 @@ type TodoListProps = {
   isLoading: boolean;
   todoList: ITodo[];
   addLoading: boolean;
-  addTodo: (todo: ITodo) => void;
-  removeTodo: (id: number) => void;
+  onAddTodo: (todo: ITodo) => void;
+  onRemoveTodo: (id: number) => void;
   onToggleTodoState: (id: number) => void;
 };
 
 function BucketListTodoInfo({
   isLoading,
   todoList,
-  addTodo,
-  removeTodo,
   addLoading = false,
+  onAddTodo,
+  onRemoveTodo,
   onToggleTodoState
 }: TodoListProps) {
   return (
@@ -34,11 +34,11 @@ function BucketListTodoInfo({
       )}
       {!isLoading && (
         <TodoList
-          addTodo={addTodo}
           addLoading={addLoading}
           todoList={todoList}
-          removeTodo={removeTodo}
-          onToggleTodoState={onToggleTodoState}
+          onAdd={onAddTodo}
+          onRemove={onRemoveTodo}
+          onToggleState={onToggleTodoState}
         />
       )}
     </S.BucketListTodoInfo>

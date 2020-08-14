@@ -14,7 +14,6 @@ function BucketList() {
   const addPhase = phase ? Number(phase) : 0;
 
   const goNextPhase = () => {
-    console.log('11')
     history.push(`/bucket-list?phase=${addPhase + 1}`);
   };
 

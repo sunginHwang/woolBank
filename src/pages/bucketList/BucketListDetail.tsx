@@ -6,7 +6,6 @@ import { useParams } from 'react-router';
 function BucketListDetail() {
   let { bucketListId } = useParams();
   bucketListId = Number(bucketListId);
-
   return (
     <PageTemplate useHeader={false} useSidePadding={false}>
       <BucketListDetailContainer bucketListId={bucketListId} />

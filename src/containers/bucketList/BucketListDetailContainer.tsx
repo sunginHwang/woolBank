@@ -28,7 +28,7 @@ function BucketListDetailContainer({
   bucketListId
 }: BucketListDetailContainerProps) {
   const loading = useLoading();
-  const [bucketListDetail, setBucketListDetail] = useState<IBucketListDetail>(bucketListDetailDummy.initialData);
+  const [bucketListDetail, setBucketListDetail] = useState<IBucketListDetail>(bucketListDetailDummy.loadData);
   const [addTodoLoading, onAddTodoLoading, offAddTodoLoading] = useToggle(false);
   const [removeTodoLoading, onRemoveTodoLoading, offRemoveTodoLoading] = useToggle(false);
   const [showRemoveModal, onRemoveModal, offRemoveModal] = useToggle(false);
@@ -42,7 +42,7 @@ function BucketListDetailContainer({
   }, [loading]);
 
   // todoItem 생성
-  const addTodo = (todo: ITodo) => {
+  const onAddTodo = (todo: ITodo) => {
     onAddTodoLoading();
     setTimeout(() => {
       bucketListDetail && setBucketListDetail((prevState) => {
@@ -56,7 +56,7 @@ function BucketListDetailContainer({
   };
 
   // todoItem 삭제
-  const removeTodo = () => {
+  const onRemoveTodo = () => {
     onRemoveTodoLoading();
     setTimeout(() => {
       setBucketListDetail((prevState) => {
@@ -71,7 +71,7 @@ function BucketListDetailContainer({
   }
 
   // todoItem 상태 토글
-  const toggleTodoState = (todoId: number) => {
+  const onToggleTodoState = (todoId: number) => {
     setBucketListDetail((prevState) => {
       return {
         ...prevState,
@@ -112,16 +112,16 @@ function BucketListDetailContainer({
         isLoading={loading}
         todoList={bucketListDetail.todoList}
         addLoading={addTodoLoading}
-        addTodo={addTodo}
-        removeTodo={onTodoRemoveClick}
-        onToggleTodoState={toggleTodoState}
+        onAddTodo={onAddTodo}
+        onRemoveTodo={onTodoRemoveClick}
+        onToggleTodoState={onToggleTodoState}
       />
       {/* 비동기 호출을 통한 아이템 삭제 모달 */}
       <ConfirmModal
         visible={showRemoveModal}
         message='정말 삭제하시겠습니까?'
         loading={removeTodoLoading}
-        onConfirmClick={removeTodo}
+        onConfirmClick={onRemoveTodo}
         onCancelClick={offRemoveModal}
       />
       <BottomMenuModal
@@ -135,4 +135,4 @@ function BucketListDetailContainer({
   );
 }
 
-export default BucketListDetailContainer;
+export default React.memo(BucketListDetailContainer);

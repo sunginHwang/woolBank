@@ -6,23 +6,29 @@ import IcoClose from '../icon/IcoClose';
 import useInput from '../../support/hooks/UseInput';
 
 type TodoInputProps = {
-  onAddTodo: (title: string) => void;
+  onAdd: (title: string) => void;
   onClose: () => void;
   onFocusIn: () => void;
   onFocusOut: () => void;
 };
 
-function TodoInput({ onAddTodo, onClose, onFocusIn, onFocusOut }: TodoInputProps) {
+function TodoInput({ onAdd, onClose, onFocusIn, onFocusOut }: TodoInputProps) {
   const [title, onChangeTitle] = useInput('');
   const todoInputRef = useRef<HTMLInputElement>(null);
 
+  /**
+   * 컴포넌트 생성시 바로 포커스 UX 처리
+   */
   useEffect(() => {
     todoInputRef.current && todoInputRef.current.focus();
   }, [])
 
+  /**
+   * 인풋 버튼 키보드 입력
+   */
   const onTitleKeyPress = (e:React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      onAddTodo(title);
+      onAdd(title);
       // 바로 focus 아웃 시키면 키보드 에 버튼이 보이고 내려가는 ux 상 안이쁘게 보여서 딜레이 처리
       setTimeout(() => onFocusOut(), 150);
     }

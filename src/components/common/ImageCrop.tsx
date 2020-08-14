@@ -7,27 +7,34 @@ import Cropper from 'react-cropper';
 import './cropper.css';
 
 type ImageCropProps = {
+  url: string;
   onBackClick: () => void;
   onCrop: (imageUrl: string) => void;
-  url: string;
 };
 
 function ImageCrop({
+  url,
   onBackClick,
-  onCrop,
-  url
+  onCrop
 }: ImageCropProps) {
+  const cropper = useRef<Cropper>(null);
+
+  /**
+   * 크롭 완료 함수
+   */
   const onCompleteCrop = () => {
     if (cropper.current) {
       onCrop(cropper.current.getCroppedCanvas().toDataURL());
     }
   }
-  const checkEl = <i onClick={onCompleteCrop}><IcoCircleCheck fill={colors.colors.navyD1} /></i>;
-  const cropper = useRef<Cropper>(null);
 
   return (
     <S.ImageCrop>
-      <HeaderWithBack title='이미지 편집' right={checkEl} onBackClick={onBackClick} />
+      <HeaderWithBack
+        title='이미지 편집'
+        right={<i onClick={onCompleteCrop}><IcoCircleCheck fill={colors.colors.navyD1} /></i>}
+        onBackClick={onBackClick}
+      />
       <S.Content>
         <Cropper
           ref={cropper}

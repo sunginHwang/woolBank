@@ -17,7 +17,9 @@ function DateModal({
   onChangeDate,
   oncloseModal
 }: WalletDateModalProps) {
-  const onChangeCalendar = (date: Date | Date[]) => onChangeDate(String(date));
+  const onChangeCalendar = (date: Date | Date[]) => {
+    onChangeDate(String(date))
+  };
 
   return (
     <ModalDeem visible={visible} onDeemClick={oncloseModal}>

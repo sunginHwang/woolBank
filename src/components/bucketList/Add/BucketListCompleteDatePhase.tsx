@@ -27,18 +27,24 @@ function BucketListCompleteDatePhase({
   // 다음 입력 단계 검증
   const isValidNextPhase = date.length > 0;
 
-  // 목표일 변경
+  /**
+   * 목표일 변경
+   */
   const onChangeCompleteDate = (completeDate: string) => {
     setDate(parseDate(completeDate));
     offDateModal();
   };
 
-  // 목표일 초기화
+  /**
+   * 목표일 초기화
+   */
   const onResetCompleteDate = () => {
     setDate('');
   };
 
-  // 다음단계 이동
+  /**
+   * 다음단계 이동
+   */
   const onNextPhaseClick = () => {
     if (isValidNextPhase) {
       onCompletePhaseTwo(date);
@@ -100,4 +106,4 @@ const S: {
   `
 };
 
-export default BucketListCompleteDatePhase;
+export default React.memo(BucketListCompleteDatePhase);

@@ -17,6 +17,7 @@ const tabs: IAssetType[] = [
 ];
 
 function BucketListContainer() {
+  console.log('BucketListContainer render');
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   const bucketList: IBucketList[] = [
@@ -39,25 +40,23 @@ function BucketListContainer() {
   ];
 
   return (
-    <>
-      <S.Wrapper>
-        <ToggleTab
-          tabs={tabs}
-          useOutline={false}
-          activeTab={activeTab}
-          onChangeTab={setActiveTab}
-        />
-        <S.List>
-          {bucketList.map((bucket, index) => (
-            <BucketListItem key={index} bucketList={bucket} />
-          ))}
-        </S.List>
-      </S.Wrapper>
-    </>
+    <S.Wrapper>
+      <ToggleTab
+        tabs={tabs}
+        useOutline={false}
+        activeTab={activeTab}
+        onChangeTab={setActiveTab}
+      />
+      <S.List>
+        {bucketList.map((bucket, index) => (
+          <BucketListItem key={index} bucketList={bucket} />
+        ))}
+      </S.List>
+    </S.Wrapper>
   );
 }
 
-export default BucketListContainer;
+export default React.memo(BucketListContainer);
 
 const S: {
   Wrapper: any;
