@@ -4,7 +4,6 @@ import TotalAssetsWallet from './TotalAssetsWallet';
 
 describe('<TotalAssetsWallet />', () => {
   const setup = (totalPrice: number, lastMonthTotalPrice: number) => {
-
     const utils = withThemeRender(<TotalAssetsWallet totalPrice={totalPrice} lastMonthTotalPrice={lastMonthTotalPrice} />);
     return {
       ...utils
@@ -15,7 +14,7 @@ describe('<TotalAssetsWallet />', () => {
     const totalPrice = 30000;
     const lastMonthTotalPrice = 20000;
     const { getByText } = setup(totalPrice, lastMonthTotalPrice);
-    expect(getByText(`지난달 대비 ${totalPrice - lastMonthTotalPrice}원 자산이 증가 하였습니다.`).textContent)
+    expect(getByText('지난달 대비').textContent)
       .toBe(`지난달 대비 ${totalPrice - lastMonthTotalPrice}원 자산이 증가 하였습니다.`);
   });
 

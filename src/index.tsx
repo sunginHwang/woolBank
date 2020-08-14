@@ -10,16 +10,14 @@ import App from './App';
 import store from './store';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store()}>
-      <ThemeProvider theme={themeColors}>
-        <BrowserRouter>
-          <GlobalStyle />
-          <App />
-        </BrowserRouter>
-      </ThemeProvider>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store()}>
+    <ThemeProvider theme={themeColors}>
+      <BrowserRouter>
+        <GlobalStyle />
+        <App />
+      </BrowserRouter>
+    </ThemeProvider>
+  </Provider>,
   document.getElementById('root')
 );
 
