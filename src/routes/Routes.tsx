@@ -9,11 +9,13 @@ const AccountList = loadable(() => import('../pages/account/AccountList'));
 const AccountDetail = loadable(() => import('../pages/account/AccountDetail'));
 const BucketList = loadable(() => import('../pages/bucketList/BucketList'));
 const BucketListDetail = loadable(() => import('../pages/bucketList/BucketListDetail'));
+const Login = loadable(() => import('../pages/user/login'));
 
 function Routes() {
   return (
     <Switch>
       <RouteWithLayout path='/' component={Main} exact />
+      <RouteWithLayout path='/login' component={Login} exact useNavBar={false} />
       <RouteWithLayout path='/todo' component={todo} exact />
       <RouteWithLayout path='/accounts' component={AccountList} exact />
       <RouteWithLayout path='/accounts/:accountId' component={AccountDetail} useNavBar={false} />
