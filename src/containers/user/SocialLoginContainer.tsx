@@ -14,7 +14,8 @@ import { RootState } from '../../store';
 import Auth from '../../store/modules/Auth';
 import Layout from '../../store/modules/Layout';
 import { IUser } from '../../models/IUser';
-import keys from '../../../keys';
+import keys from '../../keys';
+import { useHistory } from 'react-router';
 
 type SocialLoginContainerProps = {
 };
@@ -22,6 +23,7 @@ type SocialLoginContainerProps = {
 function SocialLoginContainer({}: SocialLoginContainerProps) {
 
   const user = useSelector((state: RootState) => state.Auth.user);
+  const history = useHistory();
   const dispatch = useDispatch();
 
   /**
@@ -93,6 +95,7 @@ function SocialLoginContainer({}: SocialLoginContainerProps) {
 
     dispatch(Auth.actions.setUser(user));
     dispatch(Layout.actions.hideLoading());
+    history.push('/');
   }
 
   const onLoginFailure = () => {
