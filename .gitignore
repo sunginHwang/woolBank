@@ -89,3 +89,5 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# 비밀 키 정보
+src/keys.ts

@@ -1,24 +1,31 @@
 import React from 'react';
-import { Route, RouteComponentProps, RouteProps, Switch } from 'react-router';
+import { Redirect, Route, RouteComponentProps, RouteProps, Switch } from 'react-router';
 import loadable from '@loadable/component';
 
 import LayoutContainer from '../containers/LayoutContainer';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 const todo = loadable(() => import('../pages/Todo'));
 const Main = loadable(() => import('../pages/Main'));
 const AccountList = loadable(() => import('../pages/account/AccountList'));
 const AccountDetail = loadable(() => import('../pages/account/AccountDetail'));
 const BucketList = loadable(() => import('../pages/bucketList/BucketList'));
 const BucketListDetail = loadable(() => import('../pages/bucketList/BucketListDetail'));
+const Login = loadable(() => import('../pages/user/login'));
 
 function Routes() {
+  const user = useSelector((state: RootState) => state.Auth.user);
+  const isLogin = user.id > 0;
+
   return (
     <Switch>
-      <RouteWithLayout path='/' component={Main} exact />
-      <RouteWithLayout path='/todo' component={todo} exact />
-      <RouteWithLayout path='/accounts' component={AccountList} exact />
-      <RouteWithLayout path='/accounts/:accountId' component={AccountDetail} useNavBar={false} />
-      <RouteWithLayout path='/bucket-list' component={BucketList} exact />
-      <RouteWithLayout path='/bucket-list/:bucketListId' component={BucketListDetail} useNavBar={false} />
+      <RouteWrapper path='/' component={Main} exact isLogin={isLogin} />
+      <RouteWrapper path='/login' component={Login} exact useNavBar={false} checkAuth={false} />
+      <RouteWrapper path='/todo' component={todo} exact isLogin={isLogin} />
+      <RouteWrapper path='/accounts' component={AccountList} exact isLogin={isLogin} />
+      <RouteWrapper path='/accounts/:accountId' component={AccountDetail} useNavBar={false} isLogin={isLogin} />
+      <RouteWrapper path='/bucket-list' component={BucketList} exact isLogin={isLogin} />
+      <RouteWrapper path='/bucket-list/:bucketListId' component={BucketListDetail} useNavBar={false} isLogin={isLogin} />
     </Switch>
   );
 }
@@ -26,15 +33,29 @@ function Routes() {
 export interface LayoutRouteProps extends RouteProps {
   component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   useNavBar?: boolean;
+  isLogin?: boolean;
+  checkAuth?: boolean;
 }
 
-function RouteWithLayout({ component: Component, useNavBar, ...rest }: LayoutRouteProps) {
+function RouteWrapper({ component: Component, useNavBar, isLogin = false, checkAuth = true, ...rest }: LayoutRouteProps) {
+  const renderLayout = (props: any) => (
+    <LayoutContainer useNavBar={useNavBar}>
+      {Component && <Component {...props} {...rest} />}
+    </LayoutContainer>
+  );
+
+  const isNotAuth = checkAuth && !isLogin;
+
   return (
     <Route
-      {...rest} render={props =>
-        <LayoutContainer useNavBar={useNavBar}>
-          {Component && <Component {...props} {...rest} />}
-        </LayoutContainer>}
+      {...rest}
+      render={props => {
+        if (isNotAuth) {
+          return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+        }
+
+        return renderLayout(props);
+      }}
     />
   );
 }
