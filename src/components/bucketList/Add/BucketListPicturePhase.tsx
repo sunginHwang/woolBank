@@ -9,7 +9,7 @@ import { IPhase } from '../../../models/phase/IPhase';
 import LabelText from '../../common/LabelText';
 import BucketListPrevImage from './BucketListPrevImage';
 import ImageCrop from '../../common/ImageCrop';
-import { dataURLtoFile } from '../../../support/util/file';
+import { dataURLtoFile, resizeImage } from '../../../support/util/file';
 import { useToggle } from '../../../support/hooks/useToggle';
 
 interface BucketListPicturePhaseProps extends IPhase{
@@ -32,7 +32,7 @@ function BucketListPicturePhase({
   const inputCameraRef = useRef<HTMLInputElement>(null);
 
   /**
-   * 이미지 변경 이벤트s
+   * 이미지 변경 이벤트
    */
   const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -92,11 +92,14 @@ function BucketListPicturePhase({
   /**
    * 이미지 영역 크롭
    */
-  const onImageCrop = (cropUrl: string) => {
-    setPreviewUrl(cropUrl);
-    offCrop();
+  const onImageCrop = async (cropUrl: string) => {
     const fileName = `${new Date()}_${Math.random() * Math.random()}`;
-    setFile(dataURLtoFile(cropUrl, fileName));
+    const originImage = dataURLtoFile(cropUrl, fileName);
+    const resizeImageDataUrl = await resizeImage(originImage, 720, 600);
+
+    setPreviewUrl(resizeImageDataUrl);
+    offCrop();
+    setFile(dataURLtoFile(resizeImageDataUrl, fileName));
   }
 
   const showPrevImage = !useCrop && previewUrl.length > 0;
