@@ -43,7 +43,9 @@ function SocialLoginContainer({}: SocialLoginContainerProps) {
     onSocialLogin( {
       name: response.name || '',
       email: response.email || '',
-      imageUrl: response.picture?.data.url || ''
+      imageUrl: response.picture?.data.url || '',
+      socialId: response.id,
+      loginType: 'facebook'
     });
 
   }
@@ -64,7 +66,9 @@ function SocialLoginContainer({}: SocialLoginContainerProps) {
     onSocialLogin( {
       name: response.profileObj.name,
       email: response.profileObj.email,
-      imageUrl: response.profileObj.imageUrl
+      imageUrl: response.profileObj.imageUrl,
+      socialId: response.profileObj.googleId,
+      loginType: 'google'
     });
   }
 
@@ -75,7 +79,9 @@ function SocialLoginContainer({}: SocialLoginContainerProps) {
     onSocialLogin({
       name: response.profile.properties.nickname || '',
       email: response.profile.kakao_account.email || '',
-      imageUrl: response.profile.properties.thumbnail_image || ''
+      imageUrl: response.profile.properties.thumbnail_image || '',
+      socialId: String((response.profile as any).id as any), // kakaoTalk 인터페이스 스펙이랑 다름.
+      loginType: 'kakaoTalk'
     });
   }
 
