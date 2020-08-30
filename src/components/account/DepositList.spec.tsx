@@ -1,23 +1,28 @@
 import React from 'react';
-import DepositRecord from './DepositRecord';
+import DepositList from './DepositList';
 import withThemeRender from '../../support/test/withThemeRender';
 import { addComma } from '../../support/util/String';
 import { parseDate } from '../../support/util/date';
-import { IDepositRecord } from '../../models/IDepositRecord';
+import { IDeposit } from '../../models/IDeposit';
 
-describe('<DepositRecord />', () => {
-  const depositRecords: IDepositRecord[] = [{
+describe('<DepositList />', () => {
+  const depositList: IDeposit[] = [{
     amount: 10000,
     depositDate: new Date('2020-02-02'),
-    balance: 100000
+    prevTotalAmount: 100000,
+    id: 1,
+    userId: 1,
+    accountId: 1,
+    createdAt: new Date(),
+    updatedAt: new Date()
   }];
 
-  const setup = (depositRecords:IDepositRecord[] | null, isLoading: boolean) => {
+  const setup = (depositList:IDeposit[] | null, isLoading: boolean) => {
     let utils: any = '';
-    if (depositRecords === null) {
-      utils = withThemeRender(<DepositRecord isLoading={isLoading} />);
+    if (depositList === null) {
+      utils = withThemeRender(<DepositList isLoading={isLoading} />);
     } else {
-      utils = withThemeRender(<DepositRecord depositRecords={depositRecords} isLoading={isLoading} />);
+      utils = withThemeRender(<DepositList depositList={depositList} isLoading={isLoading} />);
     }
 
     return {
@@ -26,13 +31,13 @@ describe('<DepositRecord />', () => {
   };
 
   it('default 호출시 정상 렌더링이 되어야 한다.', () => {
-    const { getByText } = setup(depositRecords, false);
+    const { getByText } = setup(depositList, false);
     expect(getByText('입금 내역'));
     expect(getByText('입금 내역'));
-    depositRecords.forEach(depositRecord => {
-      expect(getByText(parseDate(depositRecord.depositDate)));
-      expect(getByText(`잔액: ${addComma(depositRecord.balance)}원`));
-      expect(getByText(`${addComma(depositRecord.amount)}원`));
+    depositList.forEach(deposit => {
+      expect(getByText(parseDate(deposit.depositDate)));
+      expect(getByText(`잔액: ${addComma(deposit.prevTotalAmount)}원`));
+      expect(getByText(`${addComma(deposit.amount)}원`));
     })
   });
 

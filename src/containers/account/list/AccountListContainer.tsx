@@ -29,7 +29,7 @@ function AccountListContainer() {
 
   const onLoadAccountList = async () => {
     // 캐싱 날짜 없으면 바로 조회
-    const needFetch = checkNeedReFetch(lastUpdatedDate, getAccountListLastUpdatedAt);
+    const needFetch = await checkNeedReFetch(lastUpdatedDate, getAccountListLastUpdatedAt);
     needFetch && dispatch(getAccountList());
   };
 
