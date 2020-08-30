@@ -4,6 +4,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { TodoState } from './modules/todo';
 import { AuthState } from './modules/Auth';
 import { LayoutState } from './modules/Layout';
+import { AccountListState } from './modules/AccountList';
 
 const initStore = () => {
   return configureStore({
@@ -16,6 +17,7 @@ export type RootState = {
   todo: TodoState;
   Auth: AuthState;
   Layout: LayoutState;
+  AccountList: AccountListState;
 };
 
 export default initStore;

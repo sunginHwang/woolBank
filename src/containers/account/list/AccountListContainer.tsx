@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ToggleTab from '../../../components/common/ToggleTab';
 import { IAssetType } from '../../../models/IAssetType';
-import { IAccount } from '../../../models/IAccount';
-import { INSTALLMENT_SAVINGS, TAX_TYPE } from '../../../support/constants';
 import AccountListItem from '../../../components/account/AccountListItem';
 import AccountListItemPlaceHolder from '../../../components/account/list/AccountListItemPlaceHolder';
-import { useLoading } from '../../../support/hooks/UseTempLoading';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store';
+import { getAccountListLastUpdatedAt } from '../../../support/api/accountApi';
+import { getAccountList } from '../../../store/modules/AccountList';
+import { checkNeedReFetch } from '../../../support/util/checkNeedReFetch';
 
 const tabs: IAssetType[] = [
   {
@@ -19,63 +21,39 @@ const tabs: IAssetType[] = [
   }
 ];
 
-const accounts: IAccount[] = [
-  {
-    id: 1,
-    title: '첫 고정적금',
-    amount: 40000000,
-    currentAmount: 30000,
-    startDate: '2019-01-01',
-    endDate: '2021-01-01',
-    savingType: INSTALLMENT_SAVINGS[0],
-    taxType: TAX_TYPE.NORMAL_TAX,
-    rate: 0.1
-  },
-  {
-    id: 2,
-    title: '두번째 적금',
-    amount: 40000000,
-    currentAmount: 30000,
-    startDate: '2019-02-01',
-    endDate: '2022-02-01',
-    savingType: INSTALLMENT_SAVINGS[1],
-    taxType: TAX_TYPE.NORMAL_TAX,
-    rate: 0.2
-  },
-  {
-    id: 3,
-    title: '마지막 고정적금',
-    amount: 40000000,
-    currentAmount: 30000,
-    startDate: '2019-02-11',
-    endDate: '2024-02-11',
-    savingType: INSTALLMENT_SAVINGS[2],
-    taxType: TAX_TYPE.NORMAL_TAX,
-    rate: 0.3
-  }
-];
-
 function AccountListContainer() {
   const [activeTab, setActiveTab] = useState(tabs[0]);
-  const loading = useLoading();
+  const accountList = useSelector((state: RootState) => state.AccountList.accountList);
+  const lastUpdatedDate = useSelector((state: RootState) => state.AccountList.lastUpdatedDate);
+  const dispatch = useDispatch();
+
+  const onLoadAccountList = async () => {
+    // 캐싱 날짜 없으면 바로 조회
+    const needFetch = checkNeedReFetch(lastUpdatedDate, getAccountListLastUpdatedAt);
+    needFetch && dispatch(getAccountList());
+  };
+
+  useEffect(() => {
+    onLoadAccountList();
+  }, []);
 
   return (
     <>
-      <S.Wrapper>
-        <ToggleTab
-          tabs={tabs}
-          useOutline={false}
-          activeTab={activeTab}
-          onChangeTab={setActiveTab}
-        />
-        <S.List>
-          {loading
-            ? [...Array(10)].map(index => <AccountListItemPlaceHolder key={index} />)
-            : accounts.map((account, index) => (
+      <ToggleTab
+        tabs={tabs}
+        useOutline={false}
+        activeTab={activeTab}
+        onChangeTab={setActiveTab}
+      />
+      <S.List>
+        {
+          accountList.loading
+            ? [...Array(10)].map((_, key) => <AccountListItemPlaceHolder key={key} />)
+            : accountList.data.map((account, index) => (
               <AccountListItem key={index} account={account} />
-            ))}
-        </S.List>
-      </S.Wrapper>
+            ))
+        }
+      </S.List>
     </>
   );
 }
@@ -83,11 +61,9 @@ function AccountListContainer() {
 export default AccountListContainer;
 
 const S: {
-  Wrapper: any;
   List: any;
 } = {
-  Wrapper: styled.div``,
   List: styled.div`
-    margin-top: 2rem;
+    margin: 2rem 0 15rem 0;
   `
 };
