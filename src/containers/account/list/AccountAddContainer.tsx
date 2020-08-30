@@ -13,7 +13,7 @@ type AccountAddContainerProps = {
   goPrevPhase: () => void;
 };
 
-const initialAccountInfo: IAccount = {
+const initialAccountInfo: any = {
   title: '',
   savingType: { type: '', name: '' },
   startDate: '',

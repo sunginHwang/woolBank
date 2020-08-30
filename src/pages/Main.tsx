@@ -10,7 +10,7 @@ import { INSTALLMENT_SAVINGS, TAX_TYPE } from '../support/constants';
 import AccountListItem from '../components/account/AccountListItem';
 import PageTemplate from '../components/common/PageTemplate';
 
-const accounts: IAccount[] = [
+const accounts: any = [
   {
     id: 1,
     title: '첫 고정적금',
@@ -74,9 +74,9 @@ function Main() {
     <PageTemplate isMain>
       <TotalAssetsWallet totalPrice={50000} lastMonthTotalPrice={30000} />
       <MainCardArea title='자산현황'>
-        {accounts.map((account, index) => (
+        {/*  {accounts.map((account, index) => (
           <AccountListItem key={index} account={account} />
-        ))}
+        ))} */}
       </MainCardArea>
       <MainCardArea title='버킷리스트'>
         {bucketList.map((bucket, index) => (
