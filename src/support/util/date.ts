@@ -72,7 +72,8 @@ export const getRemainDatePercentage = (
   const passDateCount = remainDays(startDay, today);
   const remainDate = (passDateCount / totalDateCount) * 100;
 
-  return parseInt(remainDate.toString(), 10);
+  const remainPercent = parseInt(remainDate.toString(), 10);
+  return isNaN(remainPercent) ? 0 : remainPercent;
 };
 
 export const isDateExpired = (until: string, check: string): boolean => {

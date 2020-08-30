@@ -4,6 +4,9 @@ import { useToggle } from './support/hooks/useToggle';
 import { useDispatch } from 'react-redux';
 import Auth from './store/modules/Auth';
 import Splash from './components/layout/Splash';
+import apiCall, { setHeaderAuthToken } from './support/util/apiCall';
+import { delay } from './support/util/delay';
+import { IUser } from './models/IUser';
 
 function App() {
   const [isShowSplash, showInitLoading, hideInitLoading] = useToggle(true);
@@ -18,14 +21,27 @@ function App() {
 
   const initLogin = async () => {
     showInitLoading();
+    const userInfo = await userLogin();
+    setHeaderAuthToken(userInfo.data.data);
+    const user: IUser = userInfo.data.data.user;
     await dispatch(Auth.actions.setUser({
-      id: 1,
-      name: 'sungin',
-      email: 'gommpo111@gmail.com',
-      imageUrl: ''
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      imageUrl: userInfo.data.data.user.profileImg
     }));
     hideInitLoading();
   }
+
+  const userLogin = async () => {
+    const saveInfo = {
+      email: 'xariby123@nate.com',
+      imageUrl: 'http://k.kakaocdn.net/dn/ufixE/btqBTym5cx2/KMlit4NyCYQM6GI3dwEiW0/img_110x110.jpg',
+      loginType: 'facebook',
+      socialId: '121413'
+    };
+    return await apiCall.post('/user/login/social', saveInfo);
+  };
 
   // 최초 진입 로그인 체크 지연에 따른 splash 페이징
   if (isShowSplash) {

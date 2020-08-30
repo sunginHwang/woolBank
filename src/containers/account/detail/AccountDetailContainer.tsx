@@ -1,57 +1,64 @@
-import React from 'react';
-import { IAccount } from '../../../models/IAccount';
-import { INSTALLMENT_SAVINGS, TAX_TYPE } from '../../../support/constants';
-import DepositRecord from '../../../components/account/DepositRecord';
+import React, { useEffect } from 'react';
+import DepositList from '../../../components/account/DepositList';
 import AccountInfo from '../../../components/account/AccountInfo';
 import AccountInfoPlaceHolder from '../../../components/account/detail/AccountInfoplaceHolder';
-import { useLoading } from '../../../support/hooks/UseTempLoading';
-
-const account: IAccount = {
-  title: '첫 고정적금',
-  amount: 40000000,
-  currentAmount: 30000,
-  startDate: '2019-01-01',
-  endDate: '2021-01-01',
-  savingType: INSTALLMENT_SAVINGS[0],
-  taxType: TAX_TYPE.NORMAL_TAX,
-  rate: 0.1,
-  depositRecords: [
-    {
-      amount: 50000,
-      balance: 2000000,
-      depositDate: new Date('2019-04-01')
-    },
-    {
-      amount: 10000,
-      balance: 1000000,
-      depositDate: new Date('2019-01-01')
-    },
-    {
-      amount: 20000,
-      balance: 1200000,
-      depositDate: new Date('2019-02-01')
-    },
-    {
-      amount: 30000,
-      balance: 1500000,
-      depositDate: new Date('2019-03-01')
-    }
-  ]
-};
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store';
+import { getAccount } from '../../../store/modules/AccountDetail';
+import { checkNeedReFetch } from '../../../support/util/checkNeedReFetch';
+import { getAccountLastUpdatedAt } from '../../../support/api/accountApi';
 
 type AccountDetailContainerProps = {
   accountId: number;
 };
 
 function AccountDetailContainer({ accountId }: AccountDetailContainerProps) {
-  const loading = useLoading();
+  const accountDetailList = useSelector((state: RootState) => state.AccountDetail.accountDetailList);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    onLoadAccountDetail(accountId);
+  }, [accountId]);
+
+  // 예적금 상세 정보 조회
+  const onLoadAccountDetail = async (id: number) => {
+    const account = getAccountById(id);
+
+    if (!account) {
+      dispatch(getAccount(id));
+      return;
+    }
+
+    // 실제로 정보가 변경될 경우 request 요청
+    const currentUpdatedAt = new Date(account.updatedAt);
+    const needFetch = await checkNeedReFetch(currentUpdatedAt, getAccountLastUpdatedAt, [id]);
+    needFetch && dispatch(getAccount(id));
+  };
+
+  // 캐싱된 상세 정보들 중에서 현재 선택된 정보 조회
+  const getAccountById = (id: number) => {
+    return accountDetailList.data.find(account => account.id === id);
+  };
+
+  const account = getAccountById(accountId);
+
+  if (accountDetailList.loading) {
+    return (
+      <>
+        <AccountInfoPlaceHolder />
+        <DepositList isLoading />
+      </>
+    );
+  }
+
+  if (!account) {
+    return null;
+  }
 
   return (
     <>
-      {
-        loading ? <AccountInfoPlaceHolder /> : <AccountInfo account={account} />
-      }
-      <DepositRecord depositRecords={account.depositRecords} isLoading={loading} />
+      <AccountInfo account={account} />
+      <DepositList depositList={account.deposits} />
     </>
   );
 }

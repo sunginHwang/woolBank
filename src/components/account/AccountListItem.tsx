@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CardItem from '../common/CardItem';
 import { addComma } from '../../support/util/String';
 import { IAccount } from '../../models/IAccount';
-import { parseDate } from '../../support/util/date';
+import { getRemainDatePercentage, parseDate } from '../../support/util/date';
 import { Link } from 'react-router-dom';
 import AccountSavingTypeIcon from './list/AccountSavingTypeIcon';
 type WalletListItemProps = {
@@ -11,8 +11,10 @@ type WalletListItemProps = {
 };
 
 function AccountListItem({
-  account: { id, title, savingType, endDate, amount, currentAmount }
+  account: { id, title, startDate, savingType, endDate, amount, currentAmount }
 }: WalletListItemProps) {
+  const remainPercent = getRemainDatePercentage(startDate, endDate);
+
   return (
     <Link to={`/accounts/${id}`}>
       <CardItem>
@@ -32,7 +34,7 @@ function AccountListItem({
           <p>만기일 : {parseDate(endDate)}</p>
           <span>만기금액 : {addComma(amount)}원</span>
         </S.Bottom>
-        <S.Progress>
+        <S.Progress percent={remainPercent}>
           <div />
         </S.Progress>
       </CardItem>
@@ -100,7 +102,7 @@ const S: {
     background-color: ${(props) => props.theme.colors.greyL2};
 
     div {
-      width: 80%;
+      width: ${(props:any) => props.percent}%;
       height: 100%;
       background-color: ${(props) => props.theme.colors.navyD1};
     }

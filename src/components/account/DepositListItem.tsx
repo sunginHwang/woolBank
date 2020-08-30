@@ -1,21 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IDepositRecord } from '../../models/IDepositRecord';
 import { parseDate } from '../../support/util/date';
 import { addComma } from '../../support/util/String';
+import { IDeposit } from '../../models/IDeposit';
 
 type DepositRecordItemProps = {
-  depositRecord: IDepositRecord;
+  deposit: IDeposit;
 };
 
-function DepositRecordItem({ depositRecord }: DepositRecordItemProps) {
+function DepositListItem({ deposit }: DepositRecordItemProps) {
   return (
     <S.DepositRecordItem>
       <S.Info>
-        <p>{parseDate(depositRecord.depositDate)}</p>
-        <span>잔액: {addComma(depositRecord.balance)}원</span>
+        <p>{parseDate(deposit.depositDate)}</p>
+        <span>잔액: {addComma(deposit.prevTotalAmount)}원</span>
       </S.Info>
-      <S.Amount>{addComma(depositRecord.amount)}원</S.Amount>
+      <S.Amount>{addComma(deposit.amount)}원</S.Amount>
     </S.DepositRecordItem>
   );
 }
@@ -55,4 +55,4 @@ const S: {
   `
 };
 
-export default DepositRecordItem;
+export default DepositListItem;
