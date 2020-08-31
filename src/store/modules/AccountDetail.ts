@@ -28,33 +28,44 @@ const initialState: AccountDetailState = {
 export default createSlice({
   name,
   initialState,
-  reducers: {},
+  reducers: {
+    removeAccountDetail: (state, action: PayloadAction<number>) => {
+      state.accountDetail.data = null;
+
+      // 해당 요소 캐시 삭제
+      const accountCacheList = state.accountDetailCache;
+      const removeIndex = accountCacheList.findIndex((a) => a.id === action.payload);
+      accountCacheList.splice(removeIndex, 1);
+      state.accountDetailCache = accountCacheList;
+    }
+  },
   extraReducers: {
     [getAccount.pending.type]: (state) => {
       state.accountDetail.loading = true;
     },
     [getAccount.fulfilled.type]: (state, action: PayloadAction<IAccount>) => {
       const account = action.payload;
-      const AccountCacheList = state.accountDetailCache;
+      const accountCacheList = state.accountDetailCache;
 
-      const accountCacheIndex = AccountCacheList.findIndex((a) => a.id === account.id);
+      const accountCacheIndex = accountCacheList.findIndex((a) => a.id === account.id);
 
       if (accountCacheIndex > -1) {
-        AccountCacheList[accountCacheIndex] = account;
+        accountCacheList[accountCacheIndex] = account;
       } else {
-        AccountCacheList.push(account);
+        accountCacheList.push(account);
       }
 
-      if (DETAIL_CACHE_COUNT < AccountCacheList.length) {
-        AccountCacheList.shift();
+      if (DETAIL_CACHE_COUNT < accountCacheList.length) {
+        accountCacheList.shift();
       }
 
       state.accountDetail.data = account;
-      state.accountDetailCache = AccountCacheList;
+      state.accountDetailCache = accountCacheList;
       state.accountDetail.loading = false;
     },
     [getAccount.rejected.type]: (state) => {
       state.accountDetail.loading = false;
+      state.accountDetail.data = null;
     }
   }
 });

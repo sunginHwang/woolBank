@@ -43,7 +43,11 @@ function AccountDetailContainer({ accountId }: AccountDetailContainerProps) {
   }
 
   if (!accountDetail.data) {
-    return null;
+    return (
+      <div>
+        <p>존재하지 않는 예적금 상품입니다.</p>
+      </div>
+    )
   }
 
   return (

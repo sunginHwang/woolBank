@@ -18,6 +18,10 @@ export const getAccountLastUpdatedAt = (accountId: number) => {
   return apiCall.get<ApiResType<Date>>(`/accounts/${accountId}/last-update-date`);
 };
 
+export const removeAccount = (accountId: number) => {
+  return apiCall.delete<ApiResType<Date>>(`/accounts/${accountId}/`);
+};
+
 export const addDeposit = ({
   accountId,
   amount,
