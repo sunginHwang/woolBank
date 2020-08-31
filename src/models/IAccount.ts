@@ -9,7 +9,7 @@ export interface IAccount {
   regularTransferDate?: number; // 정기이체일
   rate: number; // 이율
   amount: number; // 만기금액
-  currentAmount?: number; // 현재까지 모은 금액
+  currentAmount: number; // 현재까지 모은 금액
   userId: number; // 작성자 Id
   savingTypeId: number; // 적금타입 ID
   savingType: IAssetType; // 적금타입

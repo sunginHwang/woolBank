@@ -5,8 +5,10 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router';
 import useRequest from '../../../support/hooks/useRequest';
 import { addDeposit } from '../../../support/api/accountApi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAccount } from '../../../store/modules/AccountDetail';
+import { addComma } from '../../../support/util/String';
+import { RootState } from '../../../store';
 
 type AddDepositContainerProps = {
   accountId: number;
@@ -16,12 +18,26 @@ type AddDepositContainerProps = {
 
 function AddDepositContainer({ accountId, useDepositPhase, onBackClick }: AddDepositContainerProps) {
   const [depositAmount, setDepositAmount] = useState(0);
+
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const account = useSelector((state: RootState) => state.AccountDetail.accountDetail.data);
 
   const [onAddDepositRequest, isAddDepositLoading, error] = useRequest(addDeposit);
 
   const onAddDeposit = async () => {
+    if (!account) {
+      return;
+    }
+
+    const remainDepositAmount = account.amount - account.currentAmount;
+
+    if (depositAmount > remainDepositAmount) {
+      alert(`최대 입금 가능 금액은 ${addComma(remainDepositAmount)} 입니다.`);
+      return;
+    }
+
     await onAddDepositRequest({
       params: {
         accountId,

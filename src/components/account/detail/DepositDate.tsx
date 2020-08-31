@@ -1,20 +1,31 @@
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PhaseTemplate from '../../common/PhaseTemplate';
 import BaseInput from '../../common/BaseInput';
 import DateModal from '../../common/modal/DateModal';
 import { DATE_FORMAT, parseDate } from '../../../support/util/date';
 import { useToggle } from '../../../support/hooks/useToggle';
+import colors from '../../../style/colors';
+import { ClipLoader } from 'react-spinners';
 
 type DepositDateProps = {
   isActive: boolean;
+  isLoading: boolean;
   onBackClick: () => void;
+  onDepositClick: (amount: number, depositDate: Date) => void;
 };
 
-function DepositDate({ isActive, onBackClick }: DepositDateProps) {
-  const [depositDate, setDepositDate] = useState('');
+function DepositDate({ isActive, isLoading, onBackClick, onDepositClick }: DepositDateProps) {
+  const [depositDate, setDepositDate] = useState<string | Date>('');
   const [depositAmount, setDepositAmount] = useState(0);
   const [showDateModal, onOpenDateModal, onCloseDateModal] = useToggle(false);
+
+  useEffect(() => {
+    if (!isActive) {
+      setDepositDate('');
+      setDepositAmount(0);
+    }
+  }, [isActive]);
 
   const onClearInput = (e: React.MouseEvent<HTMLLIElement>) => {
     const type = e.currentTarget.dataset.type || '';
@@ -31,12 +42,14 @@ function DepositDate({ isActive, onBackClick }: DepositDateProps) {
     onCloseDateModal();
   }, []);
 
+  const onDepositButtonClick = useCallback(() => {
+    if (!isLoading) {
+      onDepositClick(depositAmount, new Date(depositDate));
+    }
+  }, [onDepositClick, isLoading, depositDate, depositAmount]);
+
   return (
-    <PhaseTemplate
-      active={isActive}
-      title='이전날짜 입금하기'
-      onBackClick={onBackClick}
-    >
+    <PhaseTemplate active={isActive} title='이전날짜 입금하기' onBackClick={onBackClick}>
       <S.DepositRecord>
         <S.Form>
           <BaseInput
@@ -57,7 +70,9 @@ function DepositDate({ isActive, onBackClick }: DepositDateProps) {
           />
         </S.Form>
         <S.Info>이전에 입금하신 날짜와 금액을 입력해주세요.</S.Info>
-        <S.CompleteButton>입금</S.CompleteButton>
+        <S.CompleteButton onClick={onDepositButtonClick}>
+          {isLoading ? <ClipLoader color={colors.colors.white} size={20} /> : '입금하기'}
+        </S.CompleteButton>
       </S.DepositRecord>
       <>
         <DateModal

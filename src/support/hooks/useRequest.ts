@@ -33,7 +33,7 @@ export default function useRequest<T>(axiosRequest: PromiseCreator<T>): UseReque
 
       setData(response.data);
     } catch (e) {
-      setError(error);
+      setError(e);
     } finally {
       setLoading(false);
     }
