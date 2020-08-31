@@ -17,3 +17,18 @@ export const fetchAccount = (accountId: number) => {
 export const getAccountLastUpdatedAt = (accountId: number) => {
   return apiCall.get<ApiResType<Date>>(`/accounts/${accountId}/last-update-date`);
 };
+
+export const addDeposit = ({
+  accountId,
+  amount,
+  depositDate
+}: {
+  accountId: number;
+  amount: number;
+  depositDate?: Date;
+}) => {
+  return apiCall.post<ApiResType<boolean>>(`/accounts/${accountId}/deposit`, {
+    amount,
+    depositDate
+  });
+};

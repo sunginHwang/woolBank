@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddDepositButton from '../../../components/account/detail/AddDepositButton';
 import NumberInput from '../../../components/common/NumberInput';
 import styled from 'styled-components';
 import { useHistory } from 'react-router';
+import useRequest from '../../../support/hooks/useRequest';
+import { addDeposit } from '../../../support/api/accountApi';
+import { useDispatch } from 'react-redux';
+import { getAccount } from '../../../store/modules/AccountDetail';
 
 type AddDepositContainerProps = {
   accountId: number;
@@ -10,30 +14,31 @@ type AddDepositContainerProps = {
   onBackClick: () => void;
 };
 
-function AddDepositContainer({
-  accountId,
-  useDepositPhase,
-  onBackClick
-}: AddDepositContainerProps) {
+function AddDepositContainer({ accountId, useDepositPhase, onBackClick }: AddDepositContainerProps) {
   const [depositAmount, setDepositAmount] = useState(0);
-  const [addDepositLoading, setAddDepositLoading] = useState(false);
+  const dispatch = useDispatch();
   const history = useHistory();
 
-  const createDepositAmount = (
-    amount: number,
-    depositDate: Date = new Date()
-  ) => {
-    console.log(`deposit: ${amount}, date: ${depositDate}`);
+  const [onAddDepositRequest, isAddDepositLoading, error] = useRequest(addDeposit);
+
+  const onAddDeposit = async () => {
+    await onAddDepositRequest({
+      params: {
+        accountId,
+        amount: depositAmount
+      },
+      callbackFunc: () => {
+        dispatch(getAccount(accountId));
+      }
+    });
+
+    setDepositAmount(0);
+    onBackClick();
   };
 
-  const createCurrentDepositAmount = () => {
-    setAddDepositLoading(true);
-    setTimeout(() => {
-      setAddDepositLoading(false);
-      createDepositAmount(depositAmount);
-      onBackClick();
-    }, 500);
-  };
+  useEffect(() => {
+    error && alert(error);
+  }, [error]);
 
   const onOpenDepositKeyPad = () => {
     history.push(`/accounts/${accountId}?mode=deposit`);
@@ -51,10 +56,10 @@ function AddDepositContainer({
           currentAmount={depositAmount}
           label='입금하실 금액을 입력해주세요.'
           useClose
-          loading={addDepositLoading}
+          loading={isAddDepositLoading}
           isActiveComplete={depositAmount > 0}
           onChangeAmount={setDepositAmount}
-          onCompleteClick={createCurrentDepositAmount}
+          onCompleteClick={onAddDeposit}
           onCloseClick={onCloseDepositKeyPad}
         />
       </S.Slide>
