@@ -37,6 +37,12 @@ export default createSlice({
       const removeIndex = accountCacheList.findIndex((a) => a.id === action.payload);
       accountCacheList.splice(removeIndex, 1);
       state.accountDetailCache = accountCacheList;
+    },
+    setAccountDetailFromCache: (state, action: PayloadAction<number>) => {
+      state.accountDetail.data = state.accountDetailCache.find(account => account.id === action.payload) || null;
+    },
+    clearAccountDetail: (state) => {
+      state.accountDetail.data = null;
     }
   },
   extraReducers: {
