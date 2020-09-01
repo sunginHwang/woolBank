@@ -43,5 +43,14 @@ export const expirationAccount = (accountId: number) => {
 };
 
 export const saveAccount = (accountForm: IAccountForm) => {
-  return apiCall.post('/accounts/', accountForm)
-}
+  return apiCall.post('/accounts/', {
+    title: accountForm.title,
+    taxType: accountForm.taxType,
+    regularTransferDate: accountForm.regularTransferDate,
+    rate: accountForm.rate,
+    amount: accountForm.amount,
+    startDate: accountForm.startDate,
+    endDate: accountForm.endDate,
+    savingTypeId: accountForm.savingType.id
+  });
+};

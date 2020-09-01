@@ -7,7 +7,7 @@ import { getKoMonth, parseDate } from '../../../../support/util/date';
 import PhaseTemplate from '../../../common/PhaseTemplate';
 import BaseSlider from '../../../common/BaseSlider';
 import { IAssetType } from '../../../../models/IAssetType';
-import { SAVING_TYPE } from '../../../../support/constants';
+import { INSTALLMENT_SAVINGS, SAVING_TYPE } from '../../../../support/constants';
 import BaseButton from '../../../common/BaseButton';
 import { IPhase } from '../../../../models/phase/IPhase';
 import { IAccountForm } from '../../../../containers/account/list/AccountAddContainer';
@@ -26,21 +26,35 @@ function AccountInfoPhase({
   goNextPhase,
   goPrevPhase
 }: AccountInfoPhaseProps) {
-  const now = new Date();
   // 모달 팝업
   const [openModalName, setOpenModalName] = useState<modalType | string>('');
+  // 슬라이더 데이터 (만기일 설정 및 정기적금일)
   const [assetMonth, setAssetMonth] = useState(0);
   const [regularTransferDate, setRegularTransferDate] = useState(1);
-  const useRegularTransferDate = accountForm.savingType.type === SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS;
 
+  const now = new Date();
+  // 폼 입력 전체 검증
+  const isAllowAccountAddValidation =
+    accountForm.title !== '' && accountForm.savingType.name !== '' && accountForm.startDate !== '' && assetMonth > 0;
+  const useRegularTransferDate = (accountForm.savingType.type = SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS);
+
+  /**
+   * 해당하는 데이터 타입의 모달 열기
+   */
   const onOpenModal = (e: ChangeEvent<HTMLDivElement>) => {
     setOpenModalName(e.currentTarget.dataset.type || '');
   };
 
+  /**
+   * 모든 모달 닫기
+   */
   const onCloseModal = () => {
     setOpenModalName('');
   };
 
+  /**
+   * 해당 타입에 맞는 영역 초기화
+   */
   const onClearForm = (e: React.MouseEvent<HTMLLIElement>) => {
     const formType = e.currentTarget.dataset.type || '';
     let initData: string | IAssetType = '';
@@ -56,15 +70,24 @@ function AccountInfoPhase({
     onChangeAccount(formType, initData);
   };
 
+  /**
+   * 적금명 변경
+   */
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     onChangeAccount('title', e.target.value);
   };
 
-  const onChangeDate = (date: string) => {
+  /**
+   * 시작일 변경
+   */
+  const onChangeStartDate = (date: string) => {
     onChangeAccount('startDate', date);
     onCloseModal();
   };
 
+  /**
+   * 슬라이더 움직임 이벤트
+   */
   const onChangeSlider = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
     const type = e.target.dataset.type || '';
@@ -76,18 +99,14 @@ function AccountInfoPhase({
   /**
    * 적금 타입 변경
    */
-  const onChangeAssetType = (assetType: IAssetType) => {
+  const onChangeSavingType = (savingType: IAssetType) => {
     // 적금 타입 변경시 정기예치일 오늘날짜로 초기화
     setRegularTransferDate(now.getDate());
     onChangeAccount('regularTransferDate', 0);
 
-    onChangeAccount('savingType', assetType);
+    onChangeAccount('savingType', savingType);
     onCloseModal();
   };
-
-  // 폼 입력 전체 검증
-  const isAllowAccountAddValidation =
-    accountForm.title !== '' && accountForm.savingType.name !== '' && accountForm.startDate !== '' && assetMonth > 0;
 
   /**
    * 다음 단계 입력으로 이동
@@ -183,14 +202,14 @@ function AccountInfoPhase({
         </S.Complete>
         <AccountSavingTypeModal
           visible={openModalName === 'savingType'}
-          onChangeAssetType={onChangeAssetType}
+          onChangeAssetType={onChangeSavingType}
           oncloseModal={onCloseModal}
         />
         <DateModal
           visible={openModalName === 'startDate'}
           date={accountForm.startDate === '' ? now : new Date(accountForm.startDate)}
           oncloseModal={onCloseModal}
-          onChangeDate={onChangeDate}
+          onChangeDate={onChangeStartDate}
         />
       </S.AccountInfoAddPhase>
     </PhaseTemplate>

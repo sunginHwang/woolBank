@@ -9,19 +9,12 @@ import useRequest from '../../../support/hooks/useRequest';
 import { saveAccount } from '../../../support/api/accountApi';
 import { INSTALLMENT_SAVINGS_TAX } from '../../../support/constants';
 
-type AccountAddContainerProps = {
-  phase: number;
-  goNextPhase: () => void;
-  goPrevPhase: () => void;
-};
-
 export type IAccountForm = {
   title: string;
   taxType: string;
   regularTransferDate: number;
   rate: number;
   amount: number;
-  savingTypeId: number;
   startDate: Date | string;
   endDate: Date | string;
   savingType: IAssetType;
@@ -35,15 +28,28 @@ const initialAccountInfo: IAccountForm = {
   taxType: INSTALLMENT_SAVINGS_TAX[0].type,
   regularTransferDate: 0, // 정기이체일 정기적금에만 사용
   rate: 0,
-  amount: 0,
-  savingTypeId: 0
+  amount: 0
 };
 
-function AccountAddContainer({ phase, goNextPhase, goPrevPhase }: AccountAddContainerProps) {
-  const [accountForm, setAccount] = useState<IAccountForm>(initialAccountInfo);
+const MAX_PHASE = 4;
 
+function AccountAddContainer() {
+  const [accountForm, setAccount] = useState<IAccountForm>(initialAccountInfo);
+  const [phase, setPhase] = useState(1);
   const [onSaveAccountRequest, saveAccountLoading, saveAccountError] = useRequest(saveAccount);
   const history = useHistory();
+
+  const goNextPhase = () => {
+    // 최대 4phase 까지만
+    if (phase < MAX_PHASE) {
+      setPhase((phase) => phase + 1);
+    }
+  };
+  const goPrevPhase = () => {
+    if (phase > 1) {
+      setPhase((phase) => phase - 1);
+    }
+  };
 
   const onChangeAccount = (type: string, value: string | number | Date | IAssetType) => {
     setAccount((prevState) => {
@@ -55,20 +61,19 @@ function AccountAddContainer({ phase, goNextPhase, goPrevPhase }: AccountAddCont
   };
 
   const onSaveAccount = async () => {
-    // 적금 타입 id 세팅
-    const saveAccountReq = Object.assign({}, accountForm);
-    saveAccountReq.savingTypeId = saveAccountReq.savingType.id || 0;
     await onSaveAccountRequest({
-      params: saveAccountReq,
+      params: accountForm,
       callbackFunc: (res: any) => {
-        history.push(`/accounts/${res.data.accountId}`)
+        history.push(`/accounts/${res.data.accountId}`);
       }
     });
   };
 
-  useEffect(() => {
-    phase < 1 && setAccount(initialAccountInfo); // 예적금 입력 종료시 초기화 처리
-  }, [phase]);
+  // todo 사용자 브라우저 뒤로가기 클릭시 초기화 안되는 부분 수정 필요
+  const onCloseClick = () => {
+    setAccount(initialAccountInfo); // 예적금 입력 종료시 초기화 처리
+    history.goBack();
+  };
 
   useEffect(() => {
     saveAccountError && alert(saveAccountError);
@@ -80,7 +85,7 @@ function AccountAddContainer({ phase, goNextPhase, goPrevPhase }: AccountAddCont
         accountForm={accountForm}
         isActivePhase={phase >= 1}
         onChangeAccount={onChangeAccount}
-        goPrevPhase={goPrevPhase}
+        goPrevPhase={onCloseClick}
         goNextPhase={goNextPhase}
       />
       <AmountAddPhase

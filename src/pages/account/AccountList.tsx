@@ -17,7 +17,9 @@ function AccountList() {
   };
 
   const renderAccountAddIcon = (
-    <div onClick={goNextPhase}><IcoCashPlus width={30} height={30} fill={colors.colors.navyD1} /></div>
+    <div onClick={goNextPhase}>
+      <IcoCashPlus width={30} height={30} fill={colors.colors.navyD1} />
+    </div>
   );
 
   const onBackClick = () => {
@@ -25,17 +27,9 @@ function AccountList() {
   };
 
   return (
-    <PageTemplate
-      title='예금 및 적금'
-      onBackClick={onBackClick}
-      rightHeader={renderAccountAddIcon}
-    >
+    <PageTemplate title='예금 및 적금' onBackClick={onBackClick} rightHeader={renderAccountAddIcon}>
       <AccountListContainer />
-      <AccountAddContainer
-        phase={addPhase}
-        goNextPhase={goNextPhase}
-        goPrevPhase={onBackClick}
-      />
+      <AccountAddContainer />
     </PageTemplate>
   );
 }

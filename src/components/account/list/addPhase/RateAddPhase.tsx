@@ -22,15 +22,25 @@ function RateAddPhase({ isActivePhase, accountForm, goPrevPhase, goNextPhase, on
   const [rate, setRate] = useState(accountForm.rate);
   const [activeTab, setActiveTab] = useState(INSTALLMENT_SAVINGS_TAX[0]);
 
+  /**
+   * 이율 변경
+   */
   const onChangeRate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRate(getRate(Number(e.target.value)));
   };
 
+  /**
+   * 다음 단계 이동
+   */
   const onCompleteClick = () => {
     onChangeAccount('rate', rate);
     goNextPhase && goNextPhase();
   };
-  const onChangeTab = (tab: IAssetType) => {
+
+  /**
+   * 세금 종류 탭 변경
+   */
+  const onChangeTaxType = (tab: IAssetType) => {
     onChangeAccount('taxType', tab.type);
     setActiveTab(tab);
   };
@@ -65,7 +75,7 @@ function RateAddPhase({ isActivePhase, accountForm, goPrevPhase, goNextPhase, on
           </div>
           {rate > 0 && (
             <S.Rate>
-              <ToggleTab tabs={INSTALLMENT_SAVINGS_TAX} activeTab={activeTab} onChangeTab={onChangeTab} />
+              <ToggleTab tabs={INSTALLMENT_SAVINGS_TAX} activeTab={activeTab} onChangeTab={onChangeTaxType} />
               <div>
                 <S.RateItem>
                   <span>예상 입금액</span>
