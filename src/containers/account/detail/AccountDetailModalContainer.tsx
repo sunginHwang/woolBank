@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import ConfirmModal from '../../../components/common/modal/ConfirmModal';
 import { useToggle } from '../../../support/hooks/useToggle';
 import useRequest from '../../../support/hooks/useRequest';
-import { addDeposit, removeAccount } from '../../../support/api/accountApi';
+import { addDeposit, expirationAccount, removeAccount } from '../../../support/api/accountApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAccountList } from '../../../store/modules/AccountList';
 import accountDetailModule, { getAccount } from '../../../store/modules/AccountDetail';
@@ -27,13 +27,13 @@ function AccountDetailModalContainer({
 }: AccountDetailModalContainerProps) {
   const [isOpenEndModal, onEndModal, offEndModal] = useToggle(false);
   const [isOpenDeleteModal, onDeleteModal, offDeleteModal] = useToggle(false);
-  const [endDateSettingLoading, onEndDateSettingLoading, offEndDateSettingLoading] = useToggle(false);
 
   const history = useHistory();
   const dispatch = useDispatch();
   const account = useSelector((state: RootState) => state.AccountDetail.accountDetail.data);
   const [onRemoveRequest, isRemoveLoading, removeError] = useRequest(removeAccount);
   const [onAddDepositRequest, isAddDepositLoading, depositError] = useRequest(addDeposit);
+  const [onExpirationRequest, isExpirationLoading, expirationError] = useRequest(expirationAccount);
 
   // 모달 클릭 이벤트
   const onEditModalClick = (edit: 'migration' | 'end' | 'remove') => {
@@ -91,12 +91,14 @@ function AccountDetailModalContainer({
     onBackClick();
   };
 
-  const onSetEndingAccount = () => {
-    onEndDateSettingLoading();
-    setTimeout(() => {
-      offEndDateSettingLoading();
-      offEndModal();
-    }, 500);
+  const onExpiration = async () => {
+    await onExpirationRequest({
+      params: [accountId],
+      callbackFunc: () => {
+        dispatch(getAccount(accountId));
+      }
+    });
+    offEndModal();
   };
 
   const onBackClick = () => {
@@ -105,9 +107,10 @@ function AccountDetailModalContainer({
 
   // request 에러 처리
   useEffect(() => {
-    depositError && alert(depositError);
-    removeError && alert(removeError);
-  }, [depositError, removeError]);
+    depositError && alert(depositError.message);
+    removeError && alert(removeError.message);
+    expirationError && alert(expirationError.message);
+  }, [depositError, removeError, expirationError]);
 
   return (
     <>
@@ -120,9 +123,9 @@ function AccountDetailModalContainer({
       />
       <ConfirmModal
         visible={isOpenEndModal}
-        loading={endDateSettingLoading}
+        loading={isExpirationLoading}
         message='만기처리 진행 후 다시 변경이 불가능 합니다. 정말 만기처리 하시겠습니까?'
-        onConfirmClick={onSetEndingAccount}
+        onConfirmClick={onExpiration}
         onCancelClick={offEndModal}
       />
       <ConfirmModal

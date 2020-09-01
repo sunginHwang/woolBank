@@ -33,14 +33,17 @@ export const INSTALLMENT_SAVINGS_TAX: IAssetType[] = [
 
 export const INSTALLMENT_SAVINGS: IAssetType[] = [
   {
+    id: 1,
     type: SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS,
     name: '정기적금'
   },
   {
+    id: 2,
     type: SAVING_TYPE.FREE_INSTALLMENT_SAVINGS,
     name: '자유적금'
   },
   {
+    id: 3,
     type: SAVING_TYPE.REGULAR_DEPOSIT,
     name: '정기예금'
   }

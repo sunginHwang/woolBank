@@ -115,8 +115,8 @@ export const parseDate = (
   if (datetime === '') {
     return '';
   }
-  if (!datetime) new Error('datetime is empty');
-  if (typeof DATE_FORMAT[parseType] !== 'function') { new Error(`${parseType} is now allow dateParse type`); }
+  if (!datetime) throw new Error('datetime is empty');
+  if (typeof parseDatetime[DATE_FORMAT[parseType]] !== 'function') { throw new Error(`${parseType} is now allow dateParse type`); }
   return parseDatetime[parseType](datetime);
 };
 

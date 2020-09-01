@@ -3,28 +3,25 @@ import styled from 'styled-components';
 import BaseInput from '../../../common/BaseInput';
 import AccountSavingTypeModal from './AccountSavingTypeModal';
 import DateModal from '../../../common/modal/DateModal';
-import {
-  DATE_FORMAT,
-  getKoMonth,
-  parseDate
-} from '../../../../support/util/date';
+import { getKoMonth, parseDate } from '../../../../support/util/date';
 import PhaseTemplate from '../../../common/PhaseTemplate';
-import { IAccount } from '../../../../models/IAccount';
 import BaseSlider from '../../../common/BaseSlider';
 import { IAssetType } from '../../../../models/IAssetType';
 import { SAVING_TYPE } from '../../../../support/constants';
 import BaseButton from '../../../common/BaseButton';
 import { IPhase } from '../../../../models/phase/IPhase';
+import { IAccountForm } from '../../../../containers/account/list/AccountAddContainer';
 
 type modalType = 'savingType' | 'startDate' | '';
-interface AccountInfoPhaseProps extends IPhase{
-  account: IAccount;
-  onChangeAccount: (type: string, value: string | number | IAssetType) => void;
-};
+
+interface AccountInfoPhaseProps extends IPhase {
+  accountForm: IAccountForm;
+  onChangeAccount: (type: string, value: string | number | Date | IAssetType) => void;
+}
 
 function AccountInfoPhase({
   isActivePhase,
-  account,
+  accountForm,
   onChangeAccount,
   goNextPhase,
   goPrevPhase
@@ -34,8 +31,7 @@ function AccountInfoPhase({
   const [openModalName, setOpenModalName] = useState<modalType | string>('');
   const [assetMonth, setAssetMonth] = useState(0);
   const [regularTransferDate, setRegularTransferDate] = useState(1);
-  const useRegularTransferDate =
-    account.savingType.type === SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS;
+  const useRegularTransferDate = accountForm.savingType.type === SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS;
 
   const onOpenModal = (e: ChangeEvent<HTMLDivElement>) => {
     setOpenModalName(e.currentTarget.dataset.type || '');
@@ -91,25 +87,21 @@ function AccountInfoPhase({
 
   // 폼 입력 전체 검증
   const isAllowAccountAddValidation =
-    account.title !== '' &&
-    account.savingType.name !== '' &&
-    account.startDate !== '' &&
-    assetMonth > 0;
+    accountForm.title !== '' && accountForm.savingType.name !== '' && accountForm.startDate !== '' && assetMonth > 0;
 
   /**
    * 다음 단계 입력으로 이동
    */
   const onCompleteClick = () => {
     if (isAllowAccountAddValidation) {
-      const startDate = new Date(account.startDate);
-      const endDate = new Date(account.startDate);
+      const startDate = new Date(accountForm.startDate);
+      const endDate = new Date(accountForm.startDate);
 
       endDate.setMonth(startDate.getMonth() + assetMonth);
-      onChangeAccount('endDate', parseDate(endDate));
+      onChangeAccount('endDate', endDate);
 
       if (useRegularTransferDate) {
         onChangeAccount('regularTransferDate', regularTransferDate);
-        onChangeAccount('endDate', parseDate(endDate));
       }
 
       goNextPhase && goNextPhase();
@@ -117,12 +109,7 @@ function AccountInfoPhase({
   };
 
   return (
-    <PhaseTemplate
-      title='정보 작성하기'
-      active={isActivePhase}
-      usePadding={false}
-      onBackClick={goPrevPhase}
-    >
+    <PhaseTemplate title='정보 작성하기' active={isActivePhase} usePadding={false} onBackClick={goPrevPhase}>
       <S.AccountInfoAddPhase>
         <S.Content>
           <BaseInput
@@ -130,7 +117,7 @@ function AccountInfoPhase({
             placeHolder='예/적금 명을 입력해 주세요.'
             name='title'
             dataType='title'
-            value={account.title}
+            value={accountForm.title}
             onChange={onChangeTitle}
             onClear={onClearForm}
           />
@@ -139,7 +126,7 @@ function AccountInfoPhase({
             label='예/적금 종류'
             placeHolder='예/적금 종류를 선택해 주세요.'
             dataType='savingType'
-            value={account.savingType.name}
+            value={accountForm.savingType.name}
             onClear={onClearForm}
             onClick={onOpenModal}
           />
@@ -163,12 +150,12 @@ function AccountInfoPhase({
             label='시작일'
             placeHolder='시작일을 선택해 주세요.'
             dataType='startDate'
-            value={parseDate(account.startDate, DATE_FORMAT.YYYY_MM_DD)}
+            value={parseDate(accountForm.startDate)}
             onClick={onOpenModal}
             onClear={onClearForm}
           />
           <S.AssetMonth>
-            {account.startDate && (
+            {accountForm.startDate && (
               <>
                 <p>예/적금 기간 설정</p>
                 <BaseSlider
@@ -201,7 +188,7 @@ function AccountInfoPhase({
         />
         <DateModal
           visible={openModalName === 'startDate'}
-          date={account.startDate === '' ? now : new Date(account.startDate)}
+          date={accountForm.startDate === '' ? now : new Date(accountForm.startDate)}
           oncloseModal={onCloseModal}
           onChangeDate={onChangeDate}
         />

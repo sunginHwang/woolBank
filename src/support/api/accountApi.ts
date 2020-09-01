@@ -1,6 +1,7 @@
 import { IAccount } from '../../models/IAccount';
 import apiCall from '../util/apiCall';
 import { ApiResType } from '../../models/api/ApiResType';
+import { IAccountForm } from '../../containers/account/list/AccountAddContainer';
 
 export const fetchAccountList = () => {
   return apiCall.get<ApiResType<IAccount[]>>('/accounts');
@@ -36,3 +37,11 @@ export const addDeposit = ({
     depositDate
   });
 };
+
+export const expirationAccount = (accountId: number) => {
+  return apiCall.put<ApiResType<boolean>>(`/accounts/${accountId}/expiration`);
+};
+
+export const saveAccount = (accountForm: IAccountForm) => {
+  return apiCall.post('/accounts/', accountForm)
+}

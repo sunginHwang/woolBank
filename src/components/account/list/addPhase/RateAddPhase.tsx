@@ -2,34 +2,24 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PhaseTemplate from '../../../common/PhaseTemplate';
 import BaseSlider from '../../../common/BaseSlider';
-import { IAccount } from '../../../../models/IAccount';
 import { INSTALLMENT_SAVINGS_TAX } from '../../../../support/constants';
 import ToggleTab from '../../../common/ToggleTab';
 import { addComma } from '../../../../support/util/String';
 import { IAssetType } from '../../../../models/IAssetType';
-import {
-  findSavingTax,
-  getAmountWithTax,
-  getInterest
-} from '../../../../support/util/bank';
+import { findSavingTax, getAmountWithTax, getInterest } from '../../../../support/util/bank';
 import { getRate } from '../../../../support/util/number';
 import { diffMonth } from '../../../../support/util/date';
 import BaseButton from '../../../common/BaseButton';
 import { IPhase } from '../../../../models/phase/IPhase';
+import { IAccountForm } from '../../../../containers/account/list/AccountAddContainer';
 
-interface AddRatePhaseProps extends IPhase{
-  account: IAccount;
+interface AddRatePhaseProps extends IPhase {
+  accountForm: IAccountForm;
   onChangeAccount: (type: string, value: number | string) => void;
-};
+}
 
-function RateAddPhase({
-  isActivePhase,
-  account,
-  goPrevPhase,
-  goNextPhase,
-  onChangeAccount
-}: AddRatePhaseProps) {
-  const [rate, setRate] = useState(account.rate);
+function RateAddPhase({ isActivePhase, accountForm, goPrevPhase, goNextPhase, onChangeAccount }: AddRatePhaseProps) {
+  const [rate, setRate] = useState(accountForm.rate);
   const [activeTab, setActiveTab] = useState(INSTALLMENT_SAVINGS_TAX[0]);
 
   const onChangeRate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,11 +35,11 @@ function RateAddPhase({
     setActiveTab(tab);
   };
 
-  const savingPeriod = diffMonth(account.startDate, account.endDate);
+  const savingPeriod = diffMonth(accountForm.startDate, accountForm.endDate);
   const interest = getInterest({
     savingPeriod,
-    amount: account.amount,
-    savingType: account.savingType.type,
+    amount: accountForm.amount,
+    savingType: accountForm.savingType.type,
     rate: rate
   });
   const rateAmount = getAmountWithTax(interest, activeTab.type);
@@ -57,12 +47,7 @@ function RateAddPhase({
   const displayTax = `${findSavingTax(activeTab.type) * 100}%`;
 
   return (
-    <PhaseTemplate
-      active={isActivePhase}
-      title='이율 설정'
-      usePadding={false}
-      onBackClick={goPrevPhase}
-    >
+    <PhaseTemplate active={isActivePhase} title='이율 설정' usePadding={false} onBackClick={goPrevPhase}>
       <S.AddRatePhase>
         <div>
           <S.Header>
@@ -80,15 +65,11 @@ function RateAddPhase({
           </div>
           {rate > 0 && (
             <S.Rate>
-              <ToggleTab
-                tabs={INSTALLMENT_SAVINGS_TAX}
-                activeTab={activeTab}
-                onChangeTab={onChangeTab}
-              />
+              <ToggleTab tabs={INSTALLMENT_SAVINGS_TAX} activeTab={activeTab} onChangeTab={onChangeTab} />
               <div>
                 <S.RateItem>
                   <span>예상 입금액</span>
-                  <span>+ {addComma(account.amount)}원</span>
+                  <span>+ {addComma(accountForm.amount)}원</span>
                 </S.RateItem>
                 <S.RateItem>
                   <span>순이자</span>
@@ -102,19 +83,13 @@ function RateAddPhase({
                 </S.RateItem>
                 <S.RateItem isTotal>
                   <span>예상 만기금액</span>
-                  <span>{addComma(rateAmount + account.amount)}원</span>
+                  <span>{addComma(rateAmount + accountForm.amount)}원</span>
                 </S.RateItem>
               </div>
             </S.Rate>
           )}
           <S.Complete>
-            <BaseButton
-              message='다음단계'
-              color='navy'
-              size='full'
-              active
-              onClick={onCompleteClick}
-            />
+            <BaseButton message='다음단계' color='navy' size='full' active onClick={onCompleteClick} />
           </S.Complete>
         </div>
       </S.AddRatePhase>
@@ -186,8 +161,7 @@ const S: {
     justify-content: space-between;
     margin-top: ${(props: any) => (props.isTotal ? '1' : '0')}rem;
     align-items: center;
-    border-top: ${(props: any) =>
-    props.isTotal ? `.1rem dashed ${props.theme.colors.greyL1}` : ''};
+    border-top: ${(props: any) => (props.isTotal ? `.1rem dashed ${props.theme.colors.greyL1}` : '')};
     padding-top: 1rem;
 
     label {
@@ -200,8 +174,7 @@ const S: {
 
     span:last-child {
       font-size: ${(props: any) => (props.isTotal ? '2' : '1.4')}rem;
-      color: ${(props: any) =>
-    props.isTax ? props.theme.colors.redL1 : props.theme.colors.blackL1};
+      color: ${(props: any) => (props.isTax ? props.theme.colors.redL1 : props.theme.colors.blackL1)};
       font-weight: bold;
     }
   `

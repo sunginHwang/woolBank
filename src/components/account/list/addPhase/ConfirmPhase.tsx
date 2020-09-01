@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import PhaseTemplate from '../../../common/PhaseTemplate';
-import { IAccount } from '../../../../models/IAccount';
 import { addComma } from '../../../../support/util/String';
 import { DATE_FORMAT, parseDate } from '../../../../support/util/date';
 import {
@@ -11,9 +10,10 @@ import {
 import DownSlide from '../../../common/DownSlide';
 import BaseButton from '../../../common/BaseButton';
 import { IPhase } from '../../../../models/phase/IPhase';
+import { IAccountForm } from '../../../../containers/account/list/AccountAddContainer';
 
 interface WalletConfirmPhaseProps extends IPhase{
-  account: IAccount;
+  accountForm: IAccountForm;
   loading: boolean;
   onComplete: () => void;
 };
@@ -32,17 +32,17 @@ const ConfirmCardItem = ({
 );
 
 function ConfirmPhase({
-  account,
+  accountForm,
   loading,
   isActivePhase,
   goPrevPhase,
   onComplete
 }: WalletConfirmPhaseProps) {
-  const taxTypeKo = getTaxTypeKo(account.taxType);
+  const taxTypeKo = getTaxTypeKo(accountForm.taxType);
   // 만기이자
-  const rateInterest = getRateInterestByWallet(account);
+  const rateInterest = getRateInterestByWallet(accountForm);
   // 정기이체일 설정 여부
-  const useRegularTransferDate = account.regularTransferDate && account.regularTransferDate > 0;
+  const useRegularTransferDate = accountForm.regularTransferDate && accountForm.regularTransferDate > 0;
   return (
     <PhaseTemplate
       active={isActivePhase}
@@ -51,18 +51,18 @@ function ConfirmPhase({
     >
       <S.WalletConfirmPhase>
         <S.CardTitle>
-          <p>{account.title}</p>
+          <p>{accountForm.title}</p>
         </S.CardTitle>
         <S.Card>
           <div>
             <S.CardAmountItem>
               <span>예상 만기액</span>
-              <p>{addComma(account.amount + rateInterest)} 원</p>
+              <p>{addComma(accountForm.amount + rateInterest)} 원</p>
             </S.CardAmountItem>
             {useRegularTransferDate && (
               <ConfirmCardItem
                 title='정기 이체 일'
-                value={`${account.rate} 일`}
+                value={`${accountForm.rate} 일`}
               />
             )}
             <DownSlide>
@@ -72,21 +72,21 @@ function ConfirmPhase({
               />
               <ConfirmCardItem
                 title='예상 만기 원금'
-                value={`${addComma(account.amount)} 원`}
+                value={`${addComma(accountForm.amount)} 원`}
               />
             </DownSlide>
             <ConfirmCardItem
               title='적금 종류'
-              value={account.savingType.name}
+              value={accountForm.savingType.name}
             />
             <ConfirmCardItem title='세금 종류' value={taxTypeKo} />
             <ConfirmCardItem
               title='이율'
-              value={`${(account.rate * 100).toFixed(2)}%`}
+              value={`${(accountForm.rate * 100).toFixed(2)}%`}
             />
             <ConfirmCardItem
               title='만기일'
-              value={parseDate(account.endDate, DATE_FORMAT.YYYY_MM_DD)}
+              value={parseDate(accountForm.endDate, DATE_FORMAT.YYYY_MM_DD)}
             />
           </div>
         </S.Card>

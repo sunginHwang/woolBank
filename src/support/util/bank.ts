@@ -1,6 +1,7 @@
 import { INSTALLMENT_SAVINGS_TAX, NORMAL_RATE_TAX, PREFERENTIAL_TAX, SAVING_TYPE, TAX_TYPE } from '../constants';
 import { diffMonth } from './date';
 import { IAccount } from '../../models/IAccount';
+import { IAccountForm } from '../../containers/account/list/AccountAddContainer';
 
 export const getAmountWithTax = (amount: number, taxType: string) => {
   let result = amount;
@@ -85,7 +86,7 @@ export const getTaxTypeKo = (taxType: TAX_TYPE | string): string => {
   return taxSavingType ? taxSavingType.name : '';
 };
 
-export const getRateInterestByWallet = (wallet: IAccount) => {
+export const getRateInterestByWallet = (wallet: IAccount | IAccountForm) => {
   const savingPeriod = diffMonth(wallet.startDate, wallet.endDate);
   const interest = getInterest({
     savingPeriod,
