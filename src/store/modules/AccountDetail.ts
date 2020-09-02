@@ -38,8 +38,8 @@ export default createSlice({
       accountCacheList.splice(removeIndex, 1);
       state.accountDetailCache = accountCacheList;
     },
-    setAccountDetailFromCache: (state, action: PayloadAction<number>) => {
-      state.accountDetail.data = state.accountDetailCache.find(account => account.id === action.payload) || null;
+    setAccountDetail: (state, action: PayloadAction<IAccount>) => {
+      state.accountDetail.data = action.payload;
     },
     clearAccountDetail: (state) => {
       state.accountDetail.data = null;

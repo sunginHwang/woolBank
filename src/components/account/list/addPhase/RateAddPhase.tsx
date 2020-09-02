@@ -11,7 +11,7 @@ import { getRate } from '../../../../support/util/number';
 import { diffMonth } from '../../../../support/util/date';
 import BaseButton from '../../../common/BaseButton';
 import { IPhase } from '../../../../models/phase/IPhase';
-import { IAccountForm } from '../../../../containers/account/list/AccountAddContainer';
+import { IAccountForm } from '../../../../models/IAccountForm';
 
 interface AddRatePhaseProps extends IPhase {
   accountForm: IAccountForm;

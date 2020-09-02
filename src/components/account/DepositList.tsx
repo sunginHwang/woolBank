@@ -22,14 +22,14 @@ function DepositList({ depositList, isLoading = false }: DepositRecordProps) {
     );
   }
 
-  const isEmptyDeposit = !depositList;
+  const isEmptyDeposit = !depositList || depositList.length === 0;
 
   return (
     <S.DepositRecord>
       <p>입금 내역</p>
       {
         isEmptyDeposit
-          ? <div>입금 기록이 없습니다.</div>
+          ? <S.EmptyDeposit>입금 기록이 존재하지 않습니다. :(</S.EmptyDeposit>
           : depositList && depositList.map((deposit, index) => {
             return <DepositListItem key={index} deposit={deposit} />;
           })
@@ -40,6 +40,7 @@ function DepositList({ depositList, isLoading = false }: DepositRecordProps) {
 
 const S: {
   DepositRecord: any;
+  EmptyDeposit: any;
 } = {
   DepositRecord: styled.div`
     margin-top: .5rem;
@@ -50,6 +51,13 @@ const S: {
       color: ${props => props.theme.colors.blackL1};
       font-weight: bold;
     }
+  `,
+  EmptyDeposit: styled.div`
+    display: flex;
+    margin-top: 5rem;
+    justify-content: center;
+    
+    color: ${props => props.theme.colors.blackL1}
   `
 };
 

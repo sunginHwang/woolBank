@@ -14,6 +14,8 @@ type AccountDetailContainerProps = {
 
 function AccountDetailContainer({ accountId }: AccountDetailContainerProps) {
   const accountDetail = useSelector((state: RootState) => state.AccountDetail.accountDetail);
+  const accountDetailCache = useSelector((state: RootState) => state.AccountDetail.accountDetailCache);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,22 +24,24 @@ function AccountDetailContainer({ accountId }: AccountDetailContainerProps) {
     return () => {
       // 리스트 -> 상세 재 진입시 이전 상세 데이터가 잠시 보이는 부분이 있어 삭제 처리
       dispatch(AccountDetail.actions.clearAccountDetail());
-    }
+    };
   }, [accountId]);
 
   // 예적금 상세 정보 조회
   const onLoadAccountDetail = async (id: number) => {
-    // 캐싱 정보 먼저 입력
-    dispatch(AccountDetail.actions.setAccountDetailFromCache(accountId));
-    if (!accountDetail.data) {
+    // 1. 캐싱 정보 조회
+    const accountDetail = accountDetailCache.find((account) => account.id === id);
+
+    // 2. 캐시 없을경우 fetch
+    if (!accountDetail) {
       dispatch(getAccount(id));
       return;
     }
 
-    // 실제로 정보가 변경될 경우 request 요청
-    const currentUpdatedAt = new Date(accountDetail.data.updatedAt);
+    const currentUpdatedAt = new Date(accountDetail.updatedAt);
     const needFetch = await checkNeedReFetch(currentUpdatedAt, getAccountLastUpdatedAt, [id]);
-    needFetch && dispatch(getAccount(id));
+    // 실제로 정보가 변경될 경우 request 요청 아닌 경우 캐시 사용
+    needFetch ? dispatch(getAccount(id)) : dispatch(AccountDetail.actions.setAccountDetail(accountDetail));
   };
 
   if (accountDetail.loading) {
@@ -50,11 +54,7 @@ function AccountDetailContainer({ accountId }: AccountDetailContainerProps) {
   }
 
   if (!accountDetail.data) {
-    return (
-      <div>
-        <p>존재하지 않는 예적금 상품입니다.</p>
-      </div>
-    );
+    return null;
   }
 
   return (

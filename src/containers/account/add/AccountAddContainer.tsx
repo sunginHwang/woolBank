@@ -8,17 +8,7 @@ import { useHistory } from 'react-router';
 import useRequest from '../../../support/hooks/useRequest';
 import { saveAccount } from '../../../support/api/accountApi';
 import { INSTALLMENT_SAVINGS_TAX } from '../../../support/constants';
-
-export type IAccountForm = {
-  title: string;
-  taxType: string;
-  regularTransferDate: number;
-  rate: number;
-  amount: number;
-  startDate: Date | string;
-  endDate: Date | string;
-  savingType: IAssetType;
-};
+import { IAccountForm } from '../../../models/IAccountForm';
 
 const initialAccountInfo: IAccountForm = {
   title: '',
@@ -61,12 +51,18 @@ function AccountAddContainer() {
   };
 
   const onSaveAccount = async () => {
+    let savedAccountId = 0;
+
     await onSaveAccountRequest({
       params: accountForm,
       callbackFunc: (res: any) => {
-        history.push(`/accounts/${res.data.accountId}`);
+        savedAccountId = res.data.accountId;
       }
     });
+
+    if (savedAccountId > 0) {
+      history.push(`/accounts/${savedAccountId}`);
+    }
   };
 
   // todo 사용자 브라우저 뒤로가기 클릭시 초기화 안되는 부분 수정 필요

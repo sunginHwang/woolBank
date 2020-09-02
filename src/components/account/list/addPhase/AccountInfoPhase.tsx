@@ -7,10 +7,10 @@ import { getKoMonth, parseDate } from '../../../../support/util/date';
 import PhaseTemplate from '../../../common/PhaseTemplate';
 import BaseSlider from '../../../common/BaseSlider';
 import { IAssetType } from '../../../../models/IAssetType';
-import { INSTALLMENT_SAVINGS, SAVING_TYPE } from '../../../../support/constants';
+import { SAVING_TYPE } from '../../../../support/constants';
 import BaseButton from '../../../common/BaseButton';
 import { IPhase } from '../../../../models/phase/IPhase';
-import { IAccountForm } from '../../../../containers/account/list/AccountAddContainer';
+import { IAccountForm } from '../../../../models/IAccountForm';
 
 type modalType = 'savingType' | 'startDate' | '';
 

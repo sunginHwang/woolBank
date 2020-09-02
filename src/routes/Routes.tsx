@@ -9,6 +9,7 @@ const todo = loadable(() => import('../pages/Todo'));
 const Main = loadable(() => import('../pages/Main'));
 const AccountList = loadable(() => import('../pages/account/AccountList'));
 const AccountDetail = loadable(() => import('../pages/account/AccountDetail'));
+const AccountRegister = loadable(() => import('../pages/account/AccountRegister'));
 const BucketList = loadable(() => import('../pages/bucketList/BucketList'));
 const BucketListDetail = loadable(() => import('../pages/bucketList/BucketListDetail'));
 const Login = loadable(() => import('../pages/user/login'));
@@ -23,6 +24,7 @@ function Routes() {
       <RouteWrapper path='/login' component={Login} exact useNavBar={false} checkAuth={false} />
       <RouteWrapper path='/todo' component={todo} exact isLogin={isLogin} />
       <RouteWrapper path='/accounts' component={AccountList} exact isLogin={isLogin} />
+      <RouteWrapper path='/accounts/register' component={AccountRegister} exact isLogin={isLogin} />
       <RouteWrapper path='/accounts/:accountId' component={AccountDetail} useNavBar={false} isLogin={isLogin} />
       <RouteWrapper path='/bucket-list' component={BucketList} exact isLogin={isLogin} />
       <RouteWrapper path='/bucket-list/:bucketListId' component={BucketListDetail} useNavBar={false} isLogin={isLogin} />

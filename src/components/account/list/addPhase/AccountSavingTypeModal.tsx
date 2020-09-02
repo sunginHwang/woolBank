@@ -21,10 +21,10 @@ function AccountSavingTypeModal({
         <S.Title>
           <p>작성하실 예/적금 종류를 선택해주세요.</p>
         </S.Title>
-        {INSTALLMENT_SAVINGS.map((installmentSaving) => {
+        {INSTALLMENT_SAVINGS.map((installmentSaving, index) => {
           return (
             <p
-              key={installmentSaving.type}
+              key={index}
               onClick={() => onChangeAssetType(installmentSaving)}
             >
               {installmentSaving.name}

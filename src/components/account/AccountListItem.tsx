@@ -53,6 +53,12 @@ const S: {
     justify-content: space-between;
     font-size: 1.8rem;
     margin-bottom: 0.3rem;
+    
+    p {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
 
     span {
       font-size: 1.4rem;
@@ -62,7 +68,9 @@ const S: {
 
     > div {
       display: flex;
+      min-width: 7rem;
       align-items: center;
+      justify-content: space-between;
     }
   `,
   Content: styled.div`

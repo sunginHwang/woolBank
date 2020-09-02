@@ -1,7 +1,7 @@
 import { IAccount } from '../../models/IAccount';
 import apiCall from '../util/apiCall';
 import { ApiResType } from '../../models/api/ApiResType';
-import { IAccountForm } from '../../containers/account/list/AccountAddContainer';
+import { IAccountForm } from '../../models/IAccountForm';
 
 export const fetchAccountList = () => {
   return apiCall.get<ApiResType<IAccount[]>>('/accounts');

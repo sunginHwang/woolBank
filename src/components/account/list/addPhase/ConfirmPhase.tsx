@@ -10,7 +10,7 @@ import {
 import DownSlide from '../../../common/DownSlide';
 import BaseButton from '../../../common/BaseButton';
 import { IPhase } from '../../../../models/phase/IPhase';
-import { IAccountForm } from '../../../../containers/account/list/AccountAddContainer';
+import { IAccountForm } from '../../../../models/IAccountForm';
 
 interface WalletConfirmPhaseProps extends IPhase{
   accountForm: IAccountForm;
