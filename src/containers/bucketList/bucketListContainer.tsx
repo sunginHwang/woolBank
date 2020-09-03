@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { IBucketList } from '../../models/IBucketList';
 import BucketListItem from '../../components/bucketList/BucketList/BucketListItem';
 import ToggleTab from '../../components/common/ToggleTab';
 import { IAssetType } from '../../models/IAssetType';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { checkNeedReFetch } from '../../support/util/checkNeedReFetch';
+import { getBucketListLastUpdatedAt } from '../../support/api/bucketListApi';
+import { getBucketList } from '../../store/modules/BucketList';
 
 const tabs: IAssetType[] = [
   {
@@ -17,27 +21,20 @@ const tabs: IAssetType[] = [
 ];
 
 function BucketListContainer() {
-  console.log('BucketListContainer render');
   const [activeTab, setActiveTab] = useState(tabs[0]);
+  const dispatch = useDispatch();
+  const bucketList = useSelector((state: RootState) => state.BucketList.bucketList);
+  const lastUpdatedDate = useSelector((state: RootState) => state.BucketList.lastUpdatedDate);
 
-  const bucketList: IBucketList[] = [
-    {
-      title: '버킷리스트 1번 목표',
-      todoCount: 4,
-      completeTodoCount: 2,
-      completeDate: '2020-12-31',
-      image: {
-        thumbImageUrl: 'https://www.swedishnomad.com/wp-content/images/2019/12/Bucket-List.webp',
-        fullImageUrl: 'https://www.swedishnomad.com/wp-content/images/2019/12/Bucket-List.webp'
-      }
-    },
-    {
-      title: '버킷리스트 2번 목표',
-      todoCount: 3,
-      completeTodoCount: 3,
-      completeDate: '2020-02-27'
-    }
-  ];
+  const onLoadBucketList = async () => {
+    // 캐싱 날짜 없으면 바로 조회
+    const needFetch = await checkNeedReFetch(lastUpdatedDate, getBucketListLastUpdatedAt);
+    needFetch && dispatch(getBucketList());
+  };
+
+  useEffect(() => {
+    onLoadBucketList();
+  }, []);
 
   return (
     <S.Wrapper>
@@ -48,7 +45,7 @@ function BucketListContainer() {
         onChangeTab={setActiveTab}
       />
       <S.List>
-        {bucketList.map((bucket, index) => (
+        {bucketList.data.map((bucket, index) => (
           <BucketListItem key={index} bucketList={bucket} />
         ))}
       </S.List>
