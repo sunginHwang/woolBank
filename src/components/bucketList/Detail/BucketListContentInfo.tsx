@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import theme from '../../../style/colors';
 import IcoCalendarMonthOutline from '../../icon/IcoCalendarMonthOutline';
 import PlaceHolderBar from '../../common/PlaceHolderBar';
+import { parseDate } from '../../../support/util/date';
 type BucketListContentInfoProps = {
   isLoading: boolean;
   description: string;
@@ -34,7 +35,7 @@ function BucketListContentInfo({
         </i>
         <div>
           <S.Title>목표 달성일</S.Title>
-          {isLoading ? <PlaceHolderBar width='10rem' height='1.4rem' /> : <span>{completeDate}</span>}
+          {isLoading ? <PlaceHolderBar width='10rem' height='1.4rem' /> : <span>{parseDate(completeDate)}</span>}
         </div>
       </S.ContentItem>
     </S.BucketListContentInfo>

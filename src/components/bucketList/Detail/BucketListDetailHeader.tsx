@@ -8,12 +8,12 @@ import Progress from '../../common/Progress';
 import IcoDowHorizontal from '../../icon/IcoDotHorizontal';
 import { getRemainDatePercentage, remainDays } from '../../../support/util/date';
 import PlaceHolderBar from '../../common/PlaceHolderBar';
+import { useHistory } from 'react-router';
 
 type BucketListDetailHeaderProps = {
   title: string;
-  imgUrl: string;
+  imgUrl?: string;
   isLoading: boolean;
-  serverDate: Date | string;
   createdDate: Date | string;
   completeDate: Date | string;
   onMenuClick: () => void;
@@ -23,11 +23,12 @@ function BucketListDetailHeader({
   title,
   imgUrl,
   isLoading,
-  serverDate,
   createdDate,
   completeDate,
   onMenuClick
 }: BucketListDetailHeaderProps) {
+  const now = new Date();
+  const history = useHistory();
   const imgRef = useRef<HTMLDivElement>(null);
   const [isShowFixedHeader, setFixedHeader] = useState(false);
 
@@ -43,9 +44,10 @@ function BucketListDetailHeader({
   const fixedHeaderMsg = isShowFixedHeader ? title : '';
   const headerIconColor = isShowFixedHeader ? theme.colors.navyD1 : theme.colors.white;
   // 목표 날짜 까지 남은 기간
-  const remainDay = remainDays(serverDate, completeDate);
+  const remainDay = remainDays(now, completeDate);
   // 목표 날짜 까지 이룬 %
-  const remainPercent = getRemainDatePercentage(createdDate, completeDate, serverDate);
+  const remainPercent = getRemainDatePercentage(createdDate, completeDate, now);
+
   return (
     <>
       <HeaderWithBack
@@ -53,7 +55,7 @@ function BucketListDetailHeader({
         title={fixedHeaderMsg}
         right={<i onClick={onMenuClick}><IcoDowHorizontal fill={headerIconColor} /></i>}
         useSkeleton={!isShowFixedHeader}
-        onBackClick={() => console.log('1')}
+        onBackClick={() => history.goBack()}
       />
       <S.ImageInfo ref={imgRef} imgUrl={imgUrl}>
         <div>

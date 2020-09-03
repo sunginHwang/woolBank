@@ -2,13 +2,10 @@ export const secondsToTime = (seconds: number): string => {
   const hh = secondsToHour(seconds);
   const mm = Math.floor((seconds % 3600) / 60);
   const ss = seconds % 60;
-  return [hh, mm > 9 ? mm : hh ? '0' + mm : mm || '0', ss > 9 ? ss : '0' + ss]
-    .filter((a) => a)
-    .join(':');
+  return [hh, mm > 9 ? mm : hh ? '0' + mm : mm || '0', ss > 9 ? ss : '0' + ss].filter((a) => a).join(':');
 };
 
-export const secondsToHour = (seconds: number): number =>
-  Math.floor(seconds / 3600);
+export const secondsToHour = (seconds: number): number => Math.floor(seconds / 3600);
 
 export const diffMonth = (startDay: Date | string, endDay: Date | string): number => {
   if (!startDay || !endDay) {
@@ -24,12 +21,9 @@ export const diffMonth = (startDay: Date | string, endDay: Date | string): numbe
 };
 
 /*
-* 두 날짜간의 일수 차이를 구한다
-* */
-export const diffDays = (
-  startDay: Date | string,
-  endDay: Date | string
-): number => {
+ * 두 날짜간의 일수 차이를 구한다
+ * */
+export const diffDays = (startDay: Date | string, endDay: Date | string): number => {
   if (!startDay || !endDay) {
     return 0;
   }
@@ -42,12 +36,9 @@ export const diffDays = (
 };
 
 /*
-* 남은 일자를 구해준다. 시작일이 종료일 보다 클경우 남은 날짜는 x
-* */
-export const remainDays = (
-  startDay: Date | string,
-  endDay: Date | string
-): number => {
+ * 남은 일자를 구해준다. 시작일이 종료일 보다 클경우 남은 날짜는 x
+ * */
+export const remainDays = (startDay: Date | string, endDay: Date | string): number => {
   if (!startDay || !endDay) {
     return 0;
   }
@@ -73,7 +64,12 @@ export const getRemainDatePercentage = (
   const remainDate = (passDateCount / totalDateCount) * 100;
 
   const remainPercent = parseInt(remainDate.toString(), 10);
-  return isNaN(remainPercent) ? 0 : remainPercent;
+
+  if (isNaN(remainPercent)) {
+    return 0;
+  }
+
+  return remainPercent > 100 ? 100 : remainPercent;
 };
 
 export const isDateExpired = (until: string, check: string): boolean => {
@@ -89,7 +85,7 @@ export const getKoMonth = (month: number): string => {
   }
 
   const koYear = `${Math.floor(month / 12)}년`;
-  const koMonth = month % 12 === 0 ? '' : `${month % 12}개월`
+  const koMonth = month % 12 === 0 ? '' : `${month % 12}개월`;
   return `${koYear} ${koMonth}`;
 };
 
@@ -108,15 +104,17 @@ export const DATE_FORMAT: {
 };
 
 // defaultParse : now() YYYY_MM_DD
-export const parseDate = (
-  datetime: Date | string = new Date(),
-  parseType = DATE_FORMAT.YYYY_MM_DD
-) => {
+export const parseDate = (datetime: Date | string = new Date(), parseType = DATE_FORMAT.YYYY_MM_DD) => {
   if (datetime === '') {
     return '';
   }
+
   if (!datetime) throw new Error('datetime is empty');
-  if (typeof parseDatetime[DATE_FORMAT[parseType]] !== 'function') { throw new Error(`${parseType} is now allow dateParse type`); }
+
+  if (typeof parseDatetime[DATE_FORMAT[parseType]] !== 'function') {
+    throw new Error(`${parseType} is now allow dateParse type`);
+  }
+
   return parseDatetime[parseType](datetime);
 };
 
@@ -130,9 +128,7 @@ parseDatetime[DATE_FORMAT.YYYY_MM_DD] = (datetime: Date | string): string => {
   return `${year}-${month}-${day}`;
 };
 
-parseDatetime[DATE_FORMAT.KO_YYYY_MM_DD] = (
-  datetime: Date | string
-): string => {
+parseDatetime[DATE_FORMAT.KO_YYYY_MM_DD] = (datetime: Date | string): string => {
   const today = new Date(datetime);
   const year = today.getFullYear();
   const month = (today.getMonth() + 1).toString().padStart(2, '0');
@@ -141,9 +137,7 @@ parseDatetime[DATE_FORMAT.KO_YYYY_MM_DD] = (
   return `${year}년 ${month}월 ${day}일`;
 };
 
-parseDatetime[DATE_FORMAT.YYYY_MM_DD_TIME] = (
-  datetime: Date | string
-): string => {
+parseDatetime[DATE_FORMAT.YYYY_MM_DD_TIME] = (datetime: Date | string): string => {
   const today = new Date(datetime);
   const year = today.getFullYear();
   const month = (today.getMonth() + 1).toString().padStart(2, '0');
