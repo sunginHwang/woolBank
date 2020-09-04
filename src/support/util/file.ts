@@ -1,5 +1,6 @@
 export const dataURLtoFile = (dataUrl: string, fileName: string) => {
   const [first, second] = dataUrl.split(',');
+
   // @ts-ignore
   const mime = first && first.match(/:(.*?);/)[1];
   const bstr = atob(second);
@@ -12,6 +13,10 @@ export const dataURLtoFile = (dataUrl: string, fileName: string) => {
 
   return new File([u8arr], fileName, { type: mime });
 };
+
+export const getExtensionByDataURL = (dataUrl: string) => {
+  return dataUrl.substring('data:image/'.length, dataUrl.indexOf(';base64'));
+}
 
 export const resizeImage = (file: File, maxWidth: number, maxHeight: number): Promise<string> => {
   const reader = new FileReader();
@@ -31,8 +36,8 @@ export const resizeImage = (file: File, maxWidth: number, maxHeight: number): Pr
       const ctx = canvas.getContext('2d');
       ctx && ctx.drawImage(img, 0, 0);
 
-      let width = img.width;
-      let height = img.height;
+      let width = canvas.width;
+      let height = canvas.height;
 
       if (width > height) {
         if (width > maxWidth) {
@@ -48,9 +53,9 @@ export const resizeImage = (file: File, maxWidth: number, maxHeight: number): Pr
 
       canvas.width = width;
       canvas.height = height;
+
       // 최종 확정된 resize 이미지 canvas 랜더링
       ctx && ctx.drawImage(img, 0, 0, width, height);
-
       resolve(canvas.toDataURL(file.type));
     };
   });

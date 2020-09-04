@@ -1,94 +1,71 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import BucketListInfoPhase from '../../components/bucketList/Add/BucketListInfoPhase';
 import BucketListCompleteDatePhase from '../../components/bucketList/Add/BucketListCompleteDatePhase';
 import BucketListPicturePhase from '../../components/bucketList/Add/BucketListPicturePhase';
-import { useHistory } from 'react-router';
 import TodoListPhase from '../../components/bucketList/Add/TodoListPhase';
 import { ITodo } from '../../models/ITodo';
+import useRequest from '../../support/hooks/useRequest';
+import { IBucketListForm } from '../../models/bucketList/IBucketListForm';
+import { saveImageAndGetImageUrl } from '../../support/api/imageApi';
+import { saveBucketList } from '../../support/api/bucketListApi';
+import { useHistory } from 'react-router';
 
 type BucketListAddContainerProps = {
   phase: number;
   goNextPhase: () => void;
   goPrevPhase: () => void;
-}
+};
 
 type Action =
-  { type: 'SET_PHASE_ONE', payload : { title: string; description: string}} |
-  { type: 'SET_PHASE_TWO', payload : { completeDate: string }} |
-  { type: 'SET_PHASE_THREE', payload : { mainImgFile: File}} |
-  { type: 'SET_LAST_PHASE', payload : { todoList: ITodo[]}} |
-  { type: 'TOGGLE_LOADING', payload: boolean };
+  | { type: 'SET_PHASE_ONE'; payload: { title: string; description: string } }
+  | { type: 'SET_PHASE_TWO'; payload: { completeDate: string } }
+  | { type: 'SET_PHASE_THREE'; payload: { mainImgFile: File } }
+  | { type: 'SET_TODO_LIST'; payload: { todoList: ITodo[] } }
+  | { type: 'TOGGLE_LOADING'; payload: boolean };
 
-interface IBucketList {
-  title: string;
-  description: string;
-  completeDate: string;
-  todoList: ITodo[];
-}
-
-interface IBucketListAddForm extends IBucketList {
-  mainImgFile: File | null;
-  loading: boolean;
-}
-
-function reducer(state: IBucketListAddForm, action: Action): IBucketListAddForm {
+function reducer(state: IBucketListForm, action: Action): IBucketListForm {
   switch (action.type) {
     case 'SET_PHASE_ONE': {
       return {
         ...state,
         title: action.payload.title,
         description: action.payload.description
-      }
+      };
     }
     case 'SET_PHASE_TWO': {
       return {
         ...state,
         completeDate: action.payload.completeDate
-      }
+      };
     }
     case 'SET_PHASE_THREE': {
       return {
         ...state,
         mainImgFile: action.payload.mainImgFile
-      }
+      };
     }
-    case 'SET_LAST_PHASE': {
+    case 'SET_TODO_LIST': {
       return {
         ...state,
         todoList: action.payload.todoList
-      }
-    }
-    case 'TOGGLE_LOADING': {
-      return {
-        ...state,
-        loading: action.payload
-      }
+      };
     }
     default:
       throw new Error('Unhandled action');
   }
 }
 
-function BucketListAddContainer({
-  phase,
-  goNextPhase,
-  goPrevPhase
-}: BucketListAddContainerProps) {
-/*
+function BucketListAddContainer({ phase, goNextPhase, goPrevPhase }: BucketListAddContainerProps) {
   const history = useHistory();
-*/
   const [bucketListForm, dispatch] = useReducer(reducer, {
     title: '',
     description: '',
     completeDate: '',
     mainImgFile: null,
-    todoList: [],
-    loading: false
+    todoList: []
   });
 
-  useEffect(() => {
-    /* phase < 1 && setAccount(initialAccountInfo); // 예적금 입력 종료시 초기화 처리 */
-  }, [phase]);
+  const [onSaveRequest, saveLoading, saveError] = useRequest(saveBucketList);
 
   const onCompletePhaseOne = (title: string, description: string) => {
     dispatch({ type: 'SET_PHASE_ONE', payload: { title, description } });
@@ -102,20 +79,39 @@ function BucketListAddContainer({
     dispatch({ type: 'SET_PHASE_THREE', payload: { mainImgFile } });
   };
 
-  const onCompleteLastPhase = (todoList: any) => {
-    dispatch({ type: 'SET_LAST_PHASE', payload: { todoList } });
-    onAddBucketList();
+  const onChangeTodoList = (todoList: any) => {
+    dispatch({ type: 'SET_TODO_LIST', payload: { todoList } });
   };
 
   /**
    * 버킷리스트 추가
    */
-  const onAddBucketList = () => {
-    // someThing 입력 작업
-    dispatch({ type: 'TOGGLE_LOADING', payload: true });
-    setTimeout(() => {
-      dispatch({ type: 'TOGGLE_LOADING', payload: false });
-    }, 2000);
+  const onAddBucketList = async () => {
+    if (bucketListForm.mainImgFile) {
+      console.log(bucketListForm.mainImgFile);
+      const uploadImage = await saveImageAndGetImageUrl(bucketListForm.mainImgFile);
+
+      if (!uploadImage) {
+        alert('이미지 업로드에 실패하였습니다. 다시 시도해 주세요.');
+        return;
+      }
+
+      bucketListForm.thumbImageUrl = uploadImage.thumbImageUrl;
+      bucketListForm.imageUrl = uploadImage.imageUrl;
+    }
+
+    let savedBucketListId = 0;
+
+    await onSaveRequest({
+      params: bucketListForm,
+      callbackFunc: (res: any) => {
+        savedBucketListId = res.data.bucketListId;
+      }
+    });
+
+    if (savedBucketListId > 0) {
+      history.push(`/bucket-list/${savedBucketListId}`);
+    }
   };
 
   return (
@@ -144,8 +140,10 @@ function BucketListAddContainer({
       />
       <TodoListPhase
         isActivePhase={phase >= 4}
-        loading={bucketListForm.loading}
-        onCompleteLastPhase={onCompleteLastPhase}
+        loading={saveLoading}
+        todoList={bucketListForm.todoList}
+        onChangeTodoList={onChangeTodoList}
+        onAddBucketList={onAddBucketList}
         goPrevPhase={goPrevPhase}
         goNextPhase={goNextPhase}
       />

@@ -13,21 +13,21 @@ import TodoInput from '../../todo/TodoInput';
 
 interface TodoListPhaseProps extends IPhase {
   loading: boolean;
-  onCompleteLastPhase: (todoList: ITodo[]) => void;
+  todoList: ITodo[];
+  onChangeTodoList: (todoList: ITodo[]) => void;
+  onAddBucketList: () => void;
 }
 
-function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhase }: TodoListPhaseProps) {
+function TodoListPhase({ isActivePhase, todoList, loading, goPrevPhase, onChangeTodoList, onAddBucketList }: TodoListPhaseProps) {
   const [showAddInput, onAddInput, offAddInput] = useToggle(false);
   const [isFocusTodo, onFocusTodo, offFocusTodo] = useToggle(false);
-  const [todoList, setTodoList] = useState<ITodo[]>([]);
-
   const addRef = useRef<HTMLDivElement>(null);
 
   /**
    * 할일 아이템 추가
    */
   const onAddTodo = (title: string) => {
-    setTodoList([...todoList, {
+    onChangeTodoList([...todoList, {
       id: todoList.length + 1,
       title: title,
       isComplete: false
@@ -49,21 +49,21 @@ function TodoListPhase({ isActivePhase, loading, goPrevPhase, onCompleteLastPhas
 
       return todo;
     });
-    setTodoList(newTodo);
+    onChangeTodoList(newTodo);
   };
 
   /**
    * 할일 삭제
    */
   const onRemove = (id: number) => {
-    setTodoList(todoList.filter(todo => todo.id !== id));
+    onChangeTodoList(todoList.filter(todo => todo.id !== id));
   }
 
   /**
    * 할일 완료
    */
   const onComplete = () => {
-    onCompleteLastPhase(todoList);
+    onAddBucketList();
   }
 
   const isValidComplete = isActivePhase && todoList.length > 0;

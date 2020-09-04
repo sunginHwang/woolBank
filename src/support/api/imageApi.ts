@@ -1,23 +1,20 @@
 import apiCall from '../util/apiCall';
+import { ApiResType } from '../../models/api/ApiResType';
+import { IImage } from '../../models/IImage';
 
-const BLOG_API = 'https://api-blog.woolta.com';
-const IMAGE_API = 'https://image.woolta.com';
-
-export const saveImageAndGetImageUrl = async (imageFile: File) => {
+export const saveImageAndGetImageUrl = async (imageFile: File): Promise<null | IImage> => {
   const data = await new FormData();
-  await data.append('imageFile', imageFile);
+  await data.append('image', imageFile);
 
   try {
-    const result = await apiCall.post(`${BLOG_API}/file/upload/image`, data);
+    const result = await apiCall.post<ApiResType<IImage>>('upload', data);
 
-    if (result.status === 200 && result.data.code === 'SUCCESS') {
-      return `${IMAGE_API}/${result.data.data.originFileName}`;
-    } else {
-      alert('이미지 업로드에 실패하였습니다.');
+    if (result.status === 200) {
+      return result.data.data;
     }
   } catch (e) {
-    alert('이미지 업로드에 실패하였습니다.');
+    console.log(e);
   }
 
-  return '';
+  return null;
 };
