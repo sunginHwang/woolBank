@@ -12,6 +12,8 @@ const AccountDetail = loadable(() => import('../pages/account/AccountDetail'));
 const AccountRegister = loadable(() => import('../pages/account/AccountRegister'));
 const BucketList = loadable(() => import('../pages/bucketList/BucketList'));
 const BucketListDetail = loadable(() => import('../pages/bucketList/BucketListDetail'));
+const BucketListSave = loadable(() => import('../pages/bucketList/BucketListSave'));
+
 const Login = loadable(() => import('../pages/user/login'));
 
 function Routes() {
@@ -27,6 +29,7 @@ function Routes() {
       <RouteWrapper path='/accounts/register' component={AccountRegister} exact isLogin={isLogin} />
       <RouteWrapper path='/accounts/:accountId' component={AccountDetail} useNavBar={false} isLogin={isLogin} />
       <RouteWrapper path='/bucket-list' component={BucketList} exact isLogin={isLogin} />
+      <RouteWrapper path='/bucket-list/save' component={BucketListSave} exact isLogin={isLogin} />
       <RouteWrapper path='/bucket-list/:bucketListId' component={BucketListDetail} useNavBar={false} isLogin={isLogin} />
     </Switch>
   );

@@ -1,4 +1,5 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
+import { useHistory } from 'react-router';
 import BucketListInfoPhase from '../../components/bucketList/Add/BucketListInfoPhase';
 import BucketListCompleteDatePhase from '../../components/bucketList/Add/BucketListCompleteDatePhase';
 import BucketListPicturePhase from '../../components/bucketList/Add/BucketListPicturePhase';
@@ -8,12 +9,9 @@ import useRequest from '../../support/hooks/useRequest';
 import { IBucketListForm } from '../../models/bucketList/IBucketListForm';
 import { saveImageAndGetImageUrl } from '../../support/api/imageApi';
 import { saveBucketList } from '../../support/api/bucketListApi';
-import { useHistory } from 'react-router';
 
 type BucketListAddContainerProps = {
-  phase: number;
-  goNextPhase: () => void;
-  goPrevPhase: () => void;
+  bucketListId?: number;
 };
 
 type Action =
@@ -55,17 +53,38 @@ function reducer(state: IBucketListForm, action: Action): IBucketListForm {
   }
 }
 
-function BucketListAddContainer({ phase, goNextPhase, goPrevPhase }: BucketListAddContainerProps) {
+const saveBucketListForm: IBucketListForm = {
+  title: '',
+  description: '',
+  completeDate: '',
+  mainImgFile: null,
+  todoList: []
+};
+
+function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
+  const maxPhase = bucketListId ? 3 : 4;
+
+  const [phase, setPhase] = useState(1);
   const history = useHistory();
-  const [bucketListForm, dispatch] = useReducer(reducer, {
-    title: '',
-    description: '',
-    completeDate: '',
-    mainImgFile: null,
-    todoList: []
-  });
+  const [bucketListForm, dispatch] = useReducer(reducer, saveBucketListForm);
 
   const [onSaveRequest, saveLoading, saveError] = useRequest(saveBucketList);
+
+  useEffect(() => {
+    saveError && alert(saveError);
+  }, [saveError]);
+
+  const goNextPhase = () => {
+    if (phase < maxPhase) {
+      setPhase((phase) => phase + 1);
+    }
+  };
+
+  const goPrevPhase = () => {
+    if (phase > 1) {
+      setPhase((phase) => phase - 1);
+    }
+  };
 
   const onCompletePhaseOne = (title: string, description: string) => {
     dispatch({ type: 'SET_PHASE_ONE', payload: { title, description } });

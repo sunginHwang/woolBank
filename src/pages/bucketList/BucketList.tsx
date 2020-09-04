@@ -4,17 +4,12 @@ import colors from '../../style/colors';
 import PageTemplate from '../../components/common/PageTemplate';
 import IcoPiggyBank from '../../components/icon/IcoPiggyBank';
 import BucketListContainer from '../../containers/bucketList/bucketListContainer';
-import BucketListAddContainer from '../../containers/bucketList/bucketListAddContainer';
-import { useQuery } from '../../support/hooks/UseQuery';
 
 function BucketList() {
   const history = useHistory();
-  const { phase } = useQuery(['phase']);
 
-  const addPhase = phase ? Number(phase) : 0;
-
-  const goNextPhase = () => {
-    history.push(`/bucket-list?phase=${addPhase + 1}`);
+  const goSaveBucketListPage = () => {
+    history.push('bucket-list/save');
   };
 
   const onBackClick = () => {
@@ -22,7 +17,7 @@ function BucketList() {
   };
 
   const AccountAddIconEl = (
-    <div onClick={goNextPhase}>
+    <div onClick={goSaveBucketListPage}>
       <IcoPiggyBank width={30} height={30} fill={colors.colors.navyD1} />
     </div>
   );
@@ -34,11 +29,6 @@ function BucketList() {
       rightHeader={AccountAddIconEl}
     >
       <BucketListContainer />
-      <BucketListAddContainer
-        phase={addPhase}
-        goPrevPhase={onBackClick}
-        goNextPhase={goNextPhase}
-      />
     </PageTemplate>
   );
 }
