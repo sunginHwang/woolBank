@@ -30,3 +30,7 @@ export const saveBucketList = (bucketListForm: IBucketListForm) => {
     todoList: bucketListForm.todoList
   });
 };
+
+export const removeBucketList = (bucketListId: number) => {
+  return apiCall.delete<ApiResType<void>>(`/bucket-list/${bucketListId}/`);
+};

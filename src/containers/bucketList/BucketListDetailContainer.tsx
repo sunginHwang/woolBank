@@ -11,8 +11,10 @@ import BottomMenuModal from '../../components/common/modal/BottomMenuModal';
 import { IBottomMenu } from '../../models/component/IBottomMenu';
 import { RootState } from '../../store';
 import { checkNeedReFetch } from '../../support/util/checkNeedReFetch';
-import BucketList, { getBucketListDetail } from '../../store/modules/BucketList';
-import { getBucketListDetailLastUpdatedAt } from '../../support/api/bucketListApi';
+import BucketList, { getBucketList, getBucketListDetail } from '../../store/modules/BucketList';
+import { getBucketListDetailLastUpdatedAt, removeBucketList } from '../../support/api/bucketListApi';
+import useRequest from '../../support/hooks/useRequest';
+import { useHistory } from 'react-router';
 
 const bottomMenus: IBottomMenu[] = [
   {
@@ -37,10 +39,13 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
   // 현재 선택된 todoId
   const [selectTodoId, setSelectTodoId] = useState(0);
 
+  const [onRemoveRequest, removeLoading, removeError] = useRequest(removeBucketList);
+
   const bucketListDetail = useSelector((state: RootState) => state.BucketList.bucketListDetail);
   const bucketListDetailDetailCache = useSelector((state: RootState) => state.BucketList.bucketListDetailCache);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     onLoadBucketListDetail(bucketListId);
@@ -51,7 +56,10 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
     };
   }, [bucketListId]);
 
-  // 버킷리스트 상세 정보 조회
+  /**
+   * 버킷리스트 상세 정보 조회
+   */
+
   const onLoadBucketListDetail = async (id: number) => {
     // 1. 캐싱 정보 조회
     const bucketListDetail = bucketListDetailDetailCache.find((bucketList) => bucketList.id === id);
@@ -66,6 +74,21 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
     const needFetch = await checkNeedReFetch(currentUpdatedAt, getBucketListDetailLastUpdatedAt, [id]);
     // 실제로 정보가 변경될 경우 request 요청 아닌 경우 캐시 사용
     needFetch ? dispatch(getBucketListDetail(id)) : dispatch(BucketList.actions.setBucketListDetail(bucketListDetail));
+  };
+
+  const onRemoveBucketList = async () => {
+
+    await onRemoveRequest({
+      params: [bucketListId],
+      callbackFunc: () => {
+        // 삭제 후 리스트 싱크를 위한 조회
+        dispatch(getBucketList());
+      }
+    });
+
+    history.push('/bucket-list');
+    // store 버킷리스트 정보 삭제
+    dispatch(BucketList.actions.removeBucketListDetail(bucketListId));
   };
 
   // todoItem 생성
@@ -109,7 +132,9 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
 
   // 메뉴 클릭시 이벤트
   const onMenuClick = (type: string) => {
-    console.log(type);
+    if (type === 'remove') {
+      onRemoveModal();
+    }
     offMenuModal();
   };
 
@@ -150,8 +175,8 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
       <ConfirmModal
         visible={showRemoveModal}
         message='정말 삭제하시겠습니까?'
-        loading={removeTodoLoading}
-        onConfirmClick={onRemoveTodo}
+        loading={removeLoading}
+        onConfirmClick={onRemoveBucketList}
         onCancelClick={offRemoveModal}
       />
       <BottomMenuModal
