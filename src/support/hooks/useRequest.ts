@@ -24,8 +24,13 @@ export default function useRequest<T>(axiosRequest: PromiseCreator<T>): UseReque
   const onRequest = async ({ params, callbackFunc }: onRequestType) => {
     try {
       setLoading(true);
-      const requestParam = Array.isArray(params) ? [...params] : params;
-      const response = await axiosRequest(requestParam);
+      let response = null;
+
+      if(Array.isArray(params)){
+        response = await axiosRequest(...params);
+      }else {
+        response = await axiosRequest(params);
+      }
 
       if (callbackFunc && typeof callbackFunc === 'function') {
         await callbackFunc(response.data);

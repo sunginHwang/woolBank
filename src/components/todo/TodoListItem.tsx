@@ -8,7 +8,7 @@ import IcoBlackCircle from '../icon/IcoBlackCircle';
 
 interface TodoListItemProps {
   todo: ITodo;
-  onToggleState: (id: number) => void;
+  onToggleState: (id: ITodo) => void;
   onRemove: (id: number) => void;
 }
 
@@ -17,7 +17,7 @@ function TodoListItem({ todo, onToggleState, onRemove }: TodoListItemProps) {
    * todo 완료 상태 토글
    */
   const onToggleStateClick = useCallback((e: React.MouseEvent<HTMLLIElement>) => {
-    onToggleState(todo.id);
+    onToggleState(todo);
   }, [todo, onToggleState]);
 
   /**

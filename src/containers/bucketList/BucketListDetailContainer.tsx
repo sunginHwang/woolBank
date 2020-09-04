@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ITodo } from '../../models/ITodo';
@@ -15,6 +15,7 @@ import BucketList, { getBucketList, getBucketListDetail } from '../../store/modu
 import { getBucketListDetailLastUpdatedAt, removeBucketList } from '../../support/api/bucketListApi';
 import useRequest from '../../support/hooks/useRequest';
 import { useHistory } from 'react-router';
+import { removeTodo, saveTodo, updateTodoState } from '../../support/api/todoApi';
 
 const bottomMenus: IBottomMenu[] = [
   {
@@ -32,14 +33,13 @@ type BucketListDetailContainerProps = {
 };
 
 function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerProps) {
-  const [addTodoLoading, onAddTodoLoading, offAddTodoLoading] = useToggle(false);
-  const [removeTodoLoading, onRemoveTodoLoading, offRemoveTodoLoading] = useToggle(false);
   const [showRemoveModal, onRemoveModal, offRemoveModal] = useToggle(false);
   const [showMenuModal, onMenuModal, offMenuModal] = useToggle(false);
-  // 현재 선택된 todoId
-  const [selectTodoId, setSelectTodoId] = useState(0);
 
   const [onRemoveRequest, removeLoading, removeError] = useRequest(removeBucketList);
+  const [onSaveTodoRequest, saveTodoLoading, saveTodoError] = useRequest(saveTodo);
+  const [onRemoveTodoRequest, removeTodoLoading, removeTodoError] = useRequest(removeTodo);
+  const [onUpdateTodoStateRequest, updateTodoLoading, updateTodoError] = useRequest(updateTodoState);
 
   const bucketListDetail = useSelector((state: RootState) => state.BucketList.bucketListDetail);
   const bucketListDetailDetailCache = useSelector((state: RootState) => state.BucketList.bucketListDetailCache);
@@ -77,7 +77,6 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
   };
 
   const onRemoveBucketList = async () => {
-
     await onRemoveRequest({
       params: [bucketListId],
       callbackFunc: () => {
@@ -92,42 +91,37 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
   };
 
   // todoItem 생성
-  const onAddTodo = (todo: ITodo) => {
-    onAddTodoLoading();
-    /* setTimeout(() => {
-      bucketListDetail && setBucketListDetail((prevState) => {
-        return {
-          ...prevState,
-          todoList: prevState && [...prevState.todoList, todo]
-        };
-      });
-      offAddTodoLoading();
-    }, 300); */
+  const onAddTodo = async (todo: ITodo) => {
+    let savedTodoId = 0;
+
+    await onSaveTodoRequest({
+      params: [bucketListId, todo],
+      callbackFunc: (res: any) => {
+        savedTodoId = res.data.todoId;
+      }
+    });
+
+    todo.id = savedTodoId;
+
+    dispatch(BucketList.actions.saveTodo(todo));
   };
 
   // todoItem 삭제
-  const onRemoveTodo = () => {
-    onRemoveTodoLoading();
-    /* setTimeout(() => {
-      setBucketListDetail((prevState) => {
-        return {
-          ...prevState,
-          todoList: prevState.todoList.filter(todo => todo.id !== selectTodoId)
-        };
-      });
-      offRemoveTodoLoading();
-      offRemoveModal();
-    }, 300); */
+  const onRemoveTodo = async (todoId: number) => {
+    await onRemoveTodoRequest({ params: [todoId] });
+    dispatch(BucketList.actions.removeTodo(todoId));
   };
 
   // todoItem 상태 토글
-  const onToggleTodoState = (todoId: number) => {
-    /* setBucketListDetail((prevState) => {
-      return {
-        ...prevState,
-        todoList: prevState.todoList.map(todo => todo.id === todoId ? { ...todo, isComplete: !todo.isComplete } : todo)
-      };
-    }); */
+  const onToggleTodoState = async (todo: ITodo) => {
+    const toggleTodo = Object.assign({}, todo);
+    toggleTodo.isComplete = !toggleTodo.isComplete;
+
+    await onUpdateTodoStateRequest({
+      params: [toggleTodo.id, toggleTodo.isComplete]
+    });
+
+    dispatch(BucketList.actions.setTodoState(toggleTodo));
   };
 
   // 메뉴 클릭시 이벤트
@@ -136,12 +130,6 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
       onRemoveModal();
     }
     offMenuModal();
-  };
-
-  // todoItem 에서 삭제 클릭 이벤트 (삭제 확인 모달을 열기 위함)
-  const onTodoRemoveClick = (todoId: number) => {
-    setSelectTodoId(todoId);
-    onRemoveModal();
   };
 
   if (!bucketListDetail.data) {
@@ -166,9 +154,10 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
       <BucketListTodoInfo
         isLoading={bucketListDetail.loading}
         todoList={bucketListDetail.data.todoList}
-        addLoading={addTodoLoading}
+        addLoading={saveTodoLoading}
+        removeLoading={removeTodoLoading}
         onAddTodo={onAddTodo}
-        onRemoveTodo={onTodoRemoveClick}
+        onRemoveTodo={onRemoveTodo}
         onToggleTodoState={onToggleTodoState}
       />
       {/* 비동기 호출을 통한 아이템 삭제 모달 */}

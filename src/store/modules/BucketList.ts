@@ -4,6 +4,7 @@ import { IBucketList } from '../../models/IBucketList';
 import { fetchBucketList, fetchBucketListDetail } from '../../support/api/bucketListApi';
 import { IBucketListDetail } from '../../models/bucketList/IBucketListDetail';
 import { getAccount } from './AccountDetail';
+import { ITodo } from '../../models/ITodo';
 
 const DETAIL_CACHE_COUNT = 10;
 
@@ -57,6 +58,28 @@ export default createSlice({
     },
     clearBucketListDetail: (state) => {
       state.bucketListDetail.data = null;
+    },
+    saveTodo: (state, action: PayloadAction<ITodo>) => {
+      if (state.bucketListDetail.data) {
+        state.bucketListDetail.data.todoList.push(action.payload);
+      }
+    },
+    removeTodo: (state, action: PayloadAction<number>) => {
+      if (state.bucketListDetail.data) {
+        state.bucketListDetail.data.todoList = state.bucketListDetail.data.todoList.filter(
+          (todo) => todo.id !== action.payload
+        );
+      }
+    },
+    setTodoState: (state, action: PayloadAction<ITodo>) => {
+      if (state.bucketListDetail.data) {
+        state.bucketListDetail.data.todoList = state.bucketListDetail.data.todoList.map((todo) => {
+          if (todo.id === action.payload.id) {
+            todo.isComplete = action.payload.isComplete;
+          }
+          return todo;
+        });
+      }
     }
   },
   extraReducers: {

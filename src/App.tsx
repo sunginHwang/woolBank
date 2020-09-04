@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import Auth from './store/modules/Auth';
 import Splash from './components/layout/Splash';
 import apiCall, { setHeaderAuthToken } from './support/util/apiCall';
-import { delay } from './support/util/delay';
 import { IUser } from './models/IUser';
 
 function App() {

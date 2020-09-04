@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import PhaseTemplate from '../../common/PhaseTemplate';
 import BottomButton from '../../common/BottomButton';
@@ -40,9 +40,9 @@ function TodoListPhase({ isActivePhase, todoList, loading, goPrevPhase, onChange
   /**
    * 할일 완료 상태 토글
    */
-  const onToggleState = (id: number) => {
+  const onToggleState = (toggleTodo: ITodo) => {
     const newTodo = [...todoList].map(todo => {
-      if (todo.id === id) {
+      if (todo.id === toggleTodo.id) {
         todo.isComplete = !todo.isComplete;
         return todo;
       }

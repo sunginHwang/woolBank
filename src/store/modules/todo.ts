@@ -1,19 +1,18 @@
 import { Todo } from '../../models/Todo';
 import { createAsyncThunk, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AsyncState } from '../../models/redux';
-import { fetchTodo } from '../../support/api/todoApi';
 
 const name = 'todo';
 
-export const getAsyncTodo = createAsyncThunk(`${name}/getAsyncTodo`, async (content: string) => {
+export const getAsyncTodo = createAsyncThunk(`${name}/getAsyncTodo`, (content: string) => {
   return {
-    payload: await fetchTodo(content)
-  }
+    payload: 1
+  };
 });
 
 export type TodoState = {
-    todo: AsyncState<Todo>
-}
+  todo: AsyncState<Todo>;
+};
 
 const initialState: TodoState = {
   todo: {
@@ -47,4 +46,4 @@ export default createSlice({
       state.todo = initialState.todo;
     }
   }
-})
+});

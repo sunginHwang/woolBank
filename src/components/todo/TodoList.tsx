@@ -11,7 +11,7 @@ type TodoListProps = {
   addLoading?: boolean;
   onAdd: (todo: ITodo) => void;
   onRemove: (id: number) => void;
-  onToggleState: (id: number) => void;
+  onToggleState: (todo: ITodo) => void;
   onTodoItemFocusIn?: () => void;
   onTodoItemFocusOut?: () => void;
 };
