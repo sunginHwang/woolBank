@@ -1,43 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import TodoList from '../../todo/TodoList';
 import { ITodo } from '../../../models/ITodo';
 import PlaceHolderBar from '../../common/PlaceHolderBar';
-import ConfirmModal from '../../common/modal/ConfirmModal';
-import { useToggle } from '../../../support/hooks/useToggle';
 
 type TodoListProps = {
-  isLoading: boolean;
   todoList: ITodo[];
+  selectTodoId: number;
+  isLoading: boolean;
   addLoading: boolean;
-  removeLoading: boolean;
+  todoUpdateLoading: boolean;
   onAddTodo: (todo: ITodo) => void;
   onRemoveTodo: (id: number) => void;
   onToggleTodoState: (todo: ITodo) => void;
 };
 
 function BucketListTodoInfo({
-  isLoading,
   todoList,
+  selectTodoId,
+  isLoading,
   addLoading = false,
-  removeLoading = false,
+  todoUpdateLoading = false,
   onAddTodo,
   onRemoveTodo,
   onToggleTodoState
 }: TodoListProps) {
-  const [selectTodoId, setSelectTodoId] = useState(0);
-  const [showRemoveModal, onRemoveModal, offRemoveModal] = useToggle(false);
-
-  const onRemoveTodoClick = (todoId: number) => {
-    setSelectTodoId(todoId);
-    onRemoveModal();
-  };
-
-  const onRemoveModalConfirmClick = () => {
-    onRemoveTodo(selectTodoId);
-    // 선택 todo 초기화
-    setSelectTodoId(0);
-    offRemoveModal();
+  const todoItemLoading = {
+    isLoading: todoUpdateLoading,
+    todoId: selectTodoId
   };
 
   return (
@@ -55,20 +45,14 @@ function BucketListTodoInfo({
         {!isLoading && (
           <TodoList
             addLoading={addLoading}
+            todoItemLoading={todoItemLoading}
             todoList={todoList}
             onAdd={onAddTodo}
-            onRemove={onRemoveTodoClick}
+            onRemove={onRemoveTodo}
             onToggleState={onToggleTodoState}
           />
         )}
       </S.BucketListTodoInfo>
-      <ConfirmModal
-        visible={showRemoveModal}
-        message='정말 삭제하시겠습니까?'
-        loading={removeLoading}
-        onConfirmClick={onRemoveModalConfirmClick}
-        onCancelClick={offRemoveModal}
-      />
     </>
   );
 }
