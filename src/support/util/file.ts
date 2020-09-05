@@ -16,11 +16,12 @@ export const dataURLtoFile = (dataUrl: string, fileName: string) => {
 
 export const getExtensionByDataURL = (dataUrl: string) => {
   return dataUrl.substring('data:image/'.length, dataUrl.indexOf(';base64'));
-}
+};
 
 export const resizeImage = (file: File, maxWidth: number, maxHeight: number): Promise<string> => {
   const reader = new FileReader();
   reader.readAsDataURL(file);
+
   return new Promise(function (resolve, reject) {
     if (!file.type.match(/image.*/)) {
       reject(new Error('Not an image'));
@@ -31,32 +32,35 @@ export const resizeImage = (file: File, maxWidth: number, maxHeight: number): Pr
       const img = document.createElement('img');
       img.src = String(e && e.target ? e.target.result : '');
 
-      const canvas = document.createElement('canvas');
-      // 이미지 사이즈를 구하기 위한 1차 canvas 랜더링
-      const ctx = canvas.getContext('2d');
-      ctx && ctx.drawImage(img, 0, 0);
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        // 이미지 사이즈를 구하기 위한 1차 canvas 랜더링
+        const ctx = canvas.getContext('2d');
+        ctx && ctx.drawImage(img, 0, 0);
 
-      let width = canvas.width;
-      let height = canvas.height;
+        let width = img.width;
+        let height = img.height;
 
-      if (width > height) {
-        if (width > maxWidth) {
-          height *= maxWidth / width;
-          width = maxWidth;
+        if (width > height) {
+          if (width > maxWidth) {
+            height *= maxWidth / width;
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width *= maxHeight / height;
+            height = maxHeight;
+          }
         }
-      } else {
-        if (height > maxHeight) {
-          width *= maxHeight / height;
-          height = maxHeight;
-        }
-      }
 
-      canvas.width = width;
-      canvas.height = height;
+        canvas.width = width;
+        canvas.height = height;
 
-      // 최종 확정된 resize 이미지 canvas 랜더링
-      ctx && ctx.drawImage(img, 0, 0, width, height);
-      resolve(canvas.toDataURL(file.type));
+        // 최종 확정된 resize 이미지 canvas 랜더링
+        ctx && ctx.drawImage(img, 0, 0, width, height);
+
+        resolve(canvas.toDataURL(file.type));
+      };
     };
   });
 };

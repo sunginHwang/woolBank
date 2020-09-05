@@ -107,7 +107,6 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
    */
   const onAddBucketList = async () => {
     if (bucketListForm.mainImgFile) {
-      console.log(bucketListForm.mainImgFile);
       const uploadImage = await saveImageAndGetImageUrl(bucketListForm.mainImgFile);
 
       if (!uploadImage) {

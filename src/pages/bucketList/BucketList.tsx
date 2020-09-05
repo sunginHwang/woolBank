@@ -9,7 +9,7 @@ function BucketList() {
   const history = useHistory();
 
   const goSaveBucketListPage = () => {
-    history.push('bucket-list/save');
+    history.push('/bucket-list/save');
   };
 
   const onBackClick = () => {

@@ -100,6 +100,8 @@ function BucketListPicturePhase({
     const resizeImageDataUrl = await resizeImage(originImage, 720, 600);
 
     offCrop();
+    // resize 된 이미지 preview로 다시 전환
+    setPreviewUrl(resizeImageDataUrl);
     setFile(dataURLtoFile(resizeImageDataUrl, fileName));
   };
 
