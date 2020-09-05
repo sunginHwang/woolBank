@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
-import { ITodo } from '../../models/ITodo';
-import BucketListTodoInfo from '../../components/bucketList/Detail/BukcetListTodoInfo';
 import BucketListDetailHeader from '../../components/bucketList/Detail/BucketListDetailHeader';
 import BucketListContentInfo from '../../components/bucketList/Detail/BucketListContentInfo';
 import ConfirmModal from '../../components/common/modal/ConfirmModal';
@@ -14,8 +13,6 @@ import { checkNeedReFetch } from '../../support/util/checkNeedReFetch';
 import BucketList, { getBucketList, getBucketListDetail } from '../../store/modules/BucketList';
 import { getBucketListDetailLastUpdatedAt, removeBucketList } from '../../support/api/bucketListApi';
 import useRequest from '../../support/hooks/useRequest';
-import { useHistory } from 'react-router';
-import { removeTodo, saveTodo, updateTodoState } from '../../support/api/todoApi';
 
 const bottomMenus: IBottomMenu[] = [
   {
@@ -37,9 +34,6 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
   const [showMenuModal, onMenuModal, offMenuModal] = useToggle(false);
 
   const [onRemoveRequest, removeLoading, removeError] = useRequest(removeBucketList);
-  const [onSaveTodoRequest, saveTodoLoading, saveTodoError] = useRequest(saveTodo);
-  const [onRemoveTodoRequest, removeTodoLoading, removeTodoError] = useRequest(removeTodo);
-  const [onUpdateTodoStateRequest, updateTodoLoading, updateTodoError] = useRequest(updateTodoState);
 
   const bucketListDetail = useSelector((state: RootState) => state.BucketList.bucketListDetail);
   const bucketListDetailDetailCache = useSelector((state: RootState) => state.BucketList.bucketListDetailCache);
@@ -90,40 +84,6 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
     dispatch(BucketList.actions.removeBucketListDetail(bucketListId));
   };
 
-  // todoItem 생성
-  const onAddTodo = async (todo: ITodo) => {
-    let savedTodoId = 0;
-
-    await onSaveTodoRequest({
-      params: [bucketListId, todo],
-      callbackFunc: (res: any) => {
-        savedTodoId = res.data.todoId;
-      }
-    });
-
-    todo.id = savedTodoId;
-
-    dispatch(BucketList.actions.saveTodo(todo));
-  };
-
-  // todoItem 삭제
-  const onRemoveTodo = async (todoId: number) => {
-    await onRemoveTodoRequest({ params: [todoId] });
-    dispatch(BucketList.actions.removeTodo(todoId));
-  };
-
-  // todoItem 상태 토글
-  const onToggleTodoState = async (todo: ITodo) => {
-    const toggleTodo = Object.assign({}, todo);
-    toggleTodo.isComplete = !toggleTodo.isComplete;
-
-    await onUpdateTodoStateRequest({
-      params: [toggleTodo.id, toggleTodo.isComplete]
-    });
-
-    dispatch(BucketList.actions.setTodoState(toggleTodo));
-  };
-
   // 메뉴 클릭시 이벤트
   const onMenuClick = (type: string) => {
     if (type === 'remove') {
@@ -150,15 +110,6 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
         isLoading={bucketListDetail.loading}
         description={bucketListDetail.data.description}
         completeDate={bucketListDetail.data.completeDate}
-      />
-      <BucketListTodoInfo
-        isLoading={bucketListDetail.loading}
-        todoList={bucketListDetail.data.todoList}
-        addLoading={saveTodoLoading}
-        removeLoading={removeTodoLoading}
-        onAddTodo={onAddTodo}
-        onRemoveTodo={onRemoveTodo}
-        onToggleTodoState={onToggleTodoState}
       />
       {/* 비동기 호출을 통한 아이템 삭제 모달 */}
       <ConfirmModal
