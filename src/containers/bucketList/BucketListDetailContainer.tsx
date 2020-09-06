@@ -89,6 +89,11 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
     if (type === 'remove') {
       onRemoveModal();
     }
+
+    if (type === 'edit') {
+      history.push(`/bucket-list/save?bucketListId=${bucketListId}`);
+    }
+
     offMenuModal();
   };
 

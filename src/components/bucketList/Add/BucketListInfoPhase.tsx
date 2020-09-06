@@ -19,15 +19,16 @@ interface BucketListInfoPhaseProps extends IPhase{
 function BucketListInfoPhase({
   title,
   description,
+  maxPhase = 0,
   isActivePhase,
   onCompletePhaseOne,
   goPrevPhase,
   goNextPhase
 }: BucketListInfoPhaseProps) {
-  console.log('BucketListInfoPhase');
+
   const [bucketListTitle, onBucketListTitleChange, onResetBucketListTitle] = useInput(title);
   const [detail, setDetail] = useState(description);
-  const [showDetailLayer, onDetailLayer, offDetailLayer] = useToggle(false);
+  const [showDetailLayer, onDetailLayer, offDetailLayer] = useToggle(title !== '' && description !== '');
 
   /**
    * 상세 정보 변경
@@ -53,7 +54,7 @@ function BucketListInfoPhase({
   return (
     <PhaseTemplate
       title='기본 정보 작성'
-      rightMessage='1/4'
+      rightMessage={`1/${maxPhase}`}
       active={isActivePhase}
       usePadding={false}
       onBackClick={goPrevPhase}

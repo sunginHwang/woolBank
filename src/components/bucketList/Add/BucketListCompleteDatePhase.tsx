@@ -16,6 +16,7 @@ interface BucketListCompleteDatePhaseProps extends IPhase{
 
 function BucketListCompleteDatePhase({
   completeDate,
+  maxPhase = 0,
   isActivePhase,
   onCompletePhaseTwo,
   goPrevPhase,
@@ -55,7 +56,7 @@ function BucketListCompleteDatePhase({
   return (
     <PhaseTemplate
       title='목표일 설정'
-      rightMessage='2/4'
+      rightMessage={`2/${maxPhase}`}
       active={isActivePhase}
       usePadding={false}
       onBackClick={goPrevPhase}

@@ -14,19 +14,26 @@ import { useToggle } from '../../../support/hooks/useToggle';
 import { parseDate } from '../../../support/util/date';
 
 interface BucketListPicturePhaseProps extends IPhase {
-  mainImgFile: File | null;
-  onCompletePhaseThree: (mainImgFIle: File) => void;
+  previewURl?: string;
+  isLastPhase: boolean;
+  updateLoading: boolean;
+  onUpdateBucketList: () => void;
+  setImageFile: (mainImgFIle: File | null) => void;
 }
 
+// 개인 속성값 삭제 시켜버리자
 function BucketListPicturePhase({
-  mainImgFile,
+  previewURl,
   isActivePhase,
-  onCompletePhaseThree,
+  isLastPhase,
+  updateLoading,
+  maxPhase = 0,
+  onUpdateBucketList,
+  setImageFile,
   goPrevPhase,
   goNextPhase
 }: BucketListPicturePhaseProps) {
-  const [file, setFile] = useState<File | null>(mainImgFile);
-  const [previewUrl, setPreviewUrl] = useState<string>('');
+  const [previewUrl, setPreviewUrl] = useState<string>(previewURl || '');
   const [useCrop, onCrop, offCrop] = useToggle(false);
 
   const inputAlbumRef = useRef<HTMLInputElement>(null);
@@ -37,10 +44,14 @@ function BucketListPicturePhase({
    */
   const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+
     const reader = new FileReader();
     const uploadFile = e.target.files && e.target.files[0];
     // 사진 파일 저장 및 미리보기(크롭포함) 랜더링
     reader.onloadend = () => {
+      //  이전 이미지 초기화
+      onInitImage();
+
       onCrop();
       setPreviewUrl(String(reader.result));
     };
@@ -51,7 +62,7 @@ function BucketListPicturePhase({
    * 이미지 입력 초기화
    */
   const onInitImage = () => {
-    setFile(null);
+    setImageFile(null);
     setPreviewUrl('');
     if (inputAlbumRef && inputAlbumRef.current) {
       inputAlbumRef.current.value = '';
@@ -67,7 +78,6 @@ function BucketListPicturePhase({
    */
   const onPictureClick = () => {
     if (inputCameraRef.current) {
-      onInitImage();
       inputCameraRef.current.click();
     }
   };
@@ -77,16 +87,21 @@ function BucketListPicturePhase({
    */
   const onAlbumClick = () => {
     if (inputAlbumRef.current) {
-      onInitImage();
       inputAlbumRef.current.click();
     }
+  };
+
+  /**
+   * 버튼 클릭 이벤트
+   */
+  const onButtonClick = async () => {
+    isLastPhase ? onUpdateBucketList() : onNextPhaseClick();
   };
 
   /**
    * 다음 페이즈 이동
    */
   const onNextPhaseClick = () => {
-    file && onCompletePhaseThree(file);
     goNextPhase && goNextPhase();
   };
 
@@ -102,13 +117,18 @@ function BucketListPicturePhase({
     offCrop();
     // resize 된 이미지 preview로 다시 전환
     setPreviewUrl(resizeImageDataUrl);
-    setFile(dataURLtoFile(resizeImageDataUrl, fileName));
+    setImageFile(dataURLtoFile(resizeImageDataUrl, fileName));
   };
 
   const showPrevImage = !useCrop && previewUrl.length > 0;
-
   return (
-    <PhaseTemplate useScroll title='이미지 설정' rightMessage='3/4' active={isActivePhase} onBackClick={goPrevPhase}>
+    <PhaseTemplate
+      useScroll
+      title='이미지 설정'
+      rightMessage={`3/${maxPhase}`}
+      active={isActivePhase}
+      onBackClick={goPrevPhase}
+    >
       <S.BucketListPicturePhase>
         <LabelText>
           이루고 싶은 목표가 연상되는 <br />
@@ -140,7 +160,12 @@ function BucketListPicturePhase({
       </S.BucketListPicturePhase>
       {useCrop && <ImageCrop onCrop={onImageCrop} url={previewUrl} onBackClick={offCrop} />}
       {showPrevImage && <BucketListPrevImage previewUrl={previewUrl} onInitClick={onInitImage} />}
-      <BottomButton message='다음단계' isShow={isActivePhase} onClick={onNextPhaseClick} />
+      <BottomButton
+        loading={updateLoading}
+        message={isLastPhase ? '수정하기' : '다음단계'}
+        isShow={isActivePhase}
+        onClick={onButtonClick}
+      />
     </PhaseTemplate>
   );
 }

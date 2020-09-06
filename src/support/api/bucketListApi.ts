@@ -31,6 +31,16 @@ export const saveBucketList = (bucketListForm: IBucketListForm) => {
   });
 };
 
+export const updateBucketList = (bucketListForm: IBucketListForm) => {
+  return apiCall.put(`/bucket-list/${bucketListForm.id}`, {
+    title: bucketListForm.title,
+    description: bucketListForm.description,
+    completeDate: bucketListForm.completeDate,
+    thumbImageUrl: bucketListForm.thumbImageUrl,
+    imageUrl: bucketListForm.imageUrl
+  });
+};
+
 export const removeBucketList = (bucketListId: number) => {
   return apiCall.delete<ApiResType<void>>(`/bucket-list/${bucketListId}/`);
 };

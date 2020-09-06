@@ -18,7 +18,7 @@ interface TodoListPhaseProps extends IPhase {
   onAddBucketList: () => void;
 }
 
-function TodoListPhase({ isActivePhase, todoList, loading, goPrevPhase, onChangeTodoList, onAddBucketList }: TodoListPhaseProps) {
+function TodoListPhase({ isActivePhase, maxPhase = 0, todoList, loading, goPrevPhase, onChangeTodoList, onAddBucketList }: TodoListPhaseProps) {
   const [showAddInput, onAddInput, offAddInput] = useToggle(false);
   const [isFocusTodo, onFocusTodo, offFocusTodo] = useToggle(false);
   const addRef = useRef<HTMLDivElement>(null);
@@ -73,7 +73,7 @@ function TodoListPhase({ isActivePhase, todoList, loading, goPrevPhase, onChange
     <PhaseTemplate
       useScroll
       title='할일 작성'
-      rightMessage='4/4'
+      rightMessage={`4/${maxPhase}`}
       active={isActivePhase}
       usePadding={false}
       onBackClick={goPrevPhase}
