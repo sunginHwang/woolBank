@@ -11,6 +11,7 @@ import { getAccountList } from '../../../store/modules/AccountList';
 import accountDetailModule, { getAccount } from '../../../store/modules/AccountDetail';
 import { RootState } from '../../../store';
 import { addComma } from '../../../support/util/String';
+import { useNotification } from '../../../support/hooks/useNotification';
 
 type AccountDetailModalContainerProps = {
   accountId: number;
@@ -31,6 +32,8 @@ function AccountDetailModalContainer({
   const history = useHistory();
   const dispatch = useDispatch();
   const account = useSelector((state: RootState) => state.AccountDetail.accountDetail.data);
+
+  const [onShowNotification] = useNotification();
   const [onRemoveRequest, isRemoveLoading, removeError] = useRequest(removeAccount);
   const [onAddDepositRequest, isAddDepositLoading, depositError] = useRequest(addDeposit);
   const [onExpirationRequest, isExpirationLoading, expirationError] = useRequest(expirationAccount);
@@ -58,6 +61,7 @@ function AccountDetailModalContainer({
       callbackFunc: () => {
         // 삭제 후 리스트 싱크를 위한 조회
         dispatch(getAccountList());
+        onShowNotification('삭제되었습니다.');
       }
     });
 
@@ -86,6 +90,7 @@ function AccountDetailModalContainer({
       },
       callbackFunc: () => {
         dispatch(getAccount(accountId));
+        onShowNotification('입금이 완료되었습니다.');
       }
     });
     onBackClick();
@@ -96,6 +101,7 @@ function AccountDetailModalContainer({
       params: [accountId],
       callbackFunc: () => {
         dispatch(getAccount(accountId));
+        onShowNotification('만기처리가 완료되었습니다.');
       }
     });
     offEndModal();

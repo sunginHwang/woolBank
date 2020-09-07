@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAccount } from '../../../store/modules/AccountDetail';
 import { addComma } from '../../../support/util/String';
 import { RootState } from '../../../store';
+import { useNotification } from '../../../support/hooks/useNotification';
 
 type AddDepositContainerProps = {
   accountId: number;
@@ -25,6 +26,7 @@ function AddDepositContainer({ accountId, useDepositPhase, onBackClick }: AddDep
   const account = useSelector((state: RootState) => state.AccountDetail.accountDetail.data);
 
   const [onAddDepositRequest, isAddDepositLoading, error] = useRequest(addDeposit);
+  const [onShowNotification] = useNotification();
 
   const onAddDeposit = async () => {
     if (!account) {
@@ -45,6 +47,7 @@ function AddDepositContainer({ accountId, useDepositPhase, onBackClick }: AddDep
       },
       callbackFunc: () => {
         dispatch(getAccount(accountId));
+        onShowNotification('입금이 완료되었습니다.');
       }
     });
 

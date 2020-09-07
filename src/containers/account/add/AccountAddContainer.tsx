@@ -9,6 +9,7 @@ import useRequest from '../../../support/hooks/useRequest';
 import { saveAccount } from '../../../support/api/accountApi';
 import { INSTALLMENT_SAVINGS_TAX } from '../../../support/constants';
 import { IAccountForm } from '../../../models/IAccountForm';
+import { useNotification } from '../../../support/hooks/useNotification';
 
 const initialAccountInfo: IAccountForm = {
   title: '',
@@ -27,6 +28,7 @@ function AccountAddContainer() {
   const [accountForm, setAccount] = useState<IAccountForm>(initialAccountInfo);
   const [phase, setPhase] = useState(1);
   const [onSaveAccountRequest, saveAccountLoading, saveAccountError] = useRequest(saveAccount);
+  const [onShowNotification] = useNotification();
   const history = useHistory();
 
   const goNextPhase = () => {
@@ -61,6 +63,7 @@ function AccountAddContainer() {
     });
 
     if (savedAccountId > 0) {
+      onShowNotification('생성되었습니다.');
       history.push(`/accounts/${savedAccountId}`);
     }
   };

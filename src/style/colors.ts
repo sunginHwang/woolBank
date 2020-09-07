@@ -29,6 +29,7 @@ export default {
     imgOpacity: '1',
     headerColor: '#fff',
     contentColor: '#6e827f',
+    notificationColor: '#666666',
     deem: 'rgba(0,0,0,.75)',
     redL1: '#ed234b',
     loadingAnimationColor1: 'hsl(0,0%,89%)',
@@ -39,6 +40,7 @@ export default {
     navigationBar: 100,
     header: 100,
     modalDeem: 500,
+    notification: 600,
     phase: 300
   },
   animations: {

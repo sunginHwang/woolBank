@@ -11,6 +11,7 @@ import { saveImageAndGetImageUrl } from '../../support/api/imageApi';
 import { saveBucketList, updateBucketList } from '../../support/api/bucketListApi';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { useNotification } from '../../support/hooks/useNotification';
 
 type BucketListAddContainerProps = {
   bucketListId?: number;
@@ -98,6 +99,7 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
   const [bucketListForm, dispatch] = useReducer(reducer, initBucketListFormData);
   const [onSaveRequest, saveLoading, saveError] = useRequest(saveBucketList);
   const [onUpdateRequest, updateLoading, updateError] = useRequest(updateBucketList);
+  const [onShowNotification] = useNotification();
 
   useEffect(() => {
     saveError && alert(saveError);
@@ -160,7 +162,10 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
         }
       });
 
-      upsertBucketListId === bucketListForm.id && history.goBack();
+      if (upsertBucketListId === bucketListForm.id) {
+        history.goBack();
+        onShowNotification('수정 되었습니다.');
+      }
     } else {
       await onSaveRequest({
         params: formData,
@@ -169,7 +174,10 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
         }
       });
 
-      upsertBucketListId > 0 && history.push(`/bucket-list/${upsertBucketListId}`);
+      if (upsertBucketListId > 0) {
+        onShowNotification('생성 되었습니다.');
+        history.push(`/bucket-list/${upsertBucketListId}`);
+      }
     }
   };
 

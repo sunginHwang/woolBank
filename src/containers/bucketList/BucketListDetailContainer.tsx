@@ -13,6 +13,7 @@ import { checkNeedReFetch } from '../../support/util/checkNeedReFetch';
 import BucketList, { getBucketList, getBucketListDetail } from '../../store/modules/BucketList';
 import { getBucketListDetailLastUpdatedAt, removeBucketList } from '../../support/api/bucketListApi';
 import useRequest from '../../support/hooks/useRequest';
+import { useNotification } from '../../support/hooks/useNotification';
 
 const bottomMenus: IBottomMenu[] = [
   {
@@ -33,6 +34,7 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
   const [showRemoveModal, onRemoveModal, offRemoveModal] = useToggle(false);
   const [showMenuModal, onMenuModal, offMenuModal] = useToggle(false);
 
+  const [onShowNotification] = useNotification();
   const [onRemoveRequest, removeLoading, removeError] = useRequest(removeBucketList);
 
   const bucketListDetail = useSelector((state: RootState) => state.BucketList.bucketListDetail);
@@ -76,6 +78,7 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
       callbackFunc: () => {
         // 삭제 후 리스트 싱크를 위한 조회
         dispatch(getBucketList());
+        onShowNotification('삭제 되었습니다.')
       }
     });
 
