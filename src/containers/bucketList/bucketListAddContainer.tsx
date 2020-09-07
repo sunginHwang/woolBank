@@ -204,7 +204,7 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
         isLastPhase={isUpdateMode}
         maxPhase={maxPhase}
         updateLoading={updateLoading}
-        previewURl={bucketListForm.imageUrl}
+        mainImage={bucketListForm.imageUrl}
         setImageFile={setImageFile}
         onUpdateBucketList={onUpsertBucketList}
         goPrevPhase={goPrevPhase}

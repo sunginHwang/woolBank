@@ -14,7 +14,7 @@ import { useToggle } from '../../../support/hooks/useToggle';
 import { parseDate } from '../../../support/util/date';
 
 interface BucketListPicturePhaseProps extends IPhase {
-  previewURl?: string;
+  mainImage?: string;
   isLastPhase: boolean;
   updateLoading: boolean;
   onUpdateBucketList: () => void;
@@ -23,7 +23,7 @@ interface BucketListPicturePhaseProps extends IPhase {
 
 // 개인 속성값 삭제 시켜버리자
 function BucketListPicturePhase({
-  previewURl,
+  mainImage = '',
   isActivePhase,
   isLastPhase,
   updateLoading,
@@ -33,7 +33,8 @@ function BucketListPicturePhase({
   goPrevPhase,
   goNextPhase
 }: BucketListPicturePhaseProps) {
-  const [previewUrl, setPreviewUrl] = useState<string>(previewURl || '');
+  const [previewImage, setPreviewImage] = useState<string>(mainImage);
+  const [cropImage, setCropImage] = useState<string>('');
   const [useCrop, onCrop, offCrop] = useToggle(false);
 
   const inputAlbumRef = useRef<HTMLInputElement>(null);
@@ -49,11 +50,9 @@ function BucketListPicturePhase({
     const uploadFile = e.target.files && e.target.files[0];
     // 사진 파일 저장 및 미리보기(크롭포함) 랜더링
     reader.onloadend = () => {
-      //  이전 이미지 초기화
-      onInitImage();
-
+      // 이미지 크롭 하기 위해 크롭 이미지 및 크롭 창 세팅
       onCrop();
-      setPreviewUrl(String(reader.result));
+      setCropImage(String(reader.result));
     };
     uploadFile && reader.readAsDataURL(uploadFile);
   };
@@ -63,7 +62,8 @@ function BucketListPicturePhase({
    */
   const onInitImage = () => {
     setImageFile(null);
-    setPreviewUrl('');
+    setPreviewImage('');
+
     if (inputAlbumRef && inputAlbumRef.current) {
       inputAlbumRef.current.value = '';
     }
@@ -106,6 +106,14 @@ function BucketListPicturePhase({
   };
 
   /**
+   * 크롭 창 닫기
+   */
+  const onClearCrop = () => {
+    setCropImage('');
+    offCrop();
+  };
+
+  /**
    * 이미지 영역 크롭
    */
   const onImageCrop = async (cropUrl: string) => {
@@ -114,13 +122,14 @@ function BucketListPicturePhase({
 
     const resizeImageDataUrl = await resizeImage(originImage, 720, 600);
 
-    offCrop();
     // resize 된 이미지 preview로 다시 전환
-    setPreviewUrl(resizeImageDataUrl);
+    setPreviewImage(resizeImageDataUrl);
     setImageFile(dataURLtoFile(resizeImageDataUrl, fileName));
+    // 크롭 작업 완료 후 크롭 메뉴 닫기
+    onClearCrop();
   };
 
-  const showPrevImage = !useCrop && previewUrl.length > 0;
+  const showPrevImage = !useCrop && previewImage.length > 0;
   return (
     <PhaseTemplate
       useScroll
@@ -158,8 +167,8 @@ function BucketListPicturePhase({
           </S.Img>
         </S.ImgWrapper>
       </S.BucketListPicturePhase>
-      {useCrop && <ImageCrop onCrop={onImageCrop} url={previewUrl} onBackClick={offCrop} />}
-      {showPrevImage && <BucketListPrevImage previewUrl={previewUrl} onInitClick={onInitImage} />}
+      {useCrop && <ImageCrop onCrop={onImageCrop} url={cropImage} onBackClick={onClearCrop} />}
+      {showPrevImage && <BucketListPrevImage previewUrl={previewImage} onInitClick={onInitImage} />}
       <BottomButton
         loading={updateLoading}
         message={isLastPhase ? '수정하기' : '다음단계'}
