@@ -7,9 +7,11 @@ import { remainDays } from '../../../support/util/date';
 import IcoCircleCheck from '../../icon/IcoCircleCheck';
 import EmptyCircle from '../../common/EmptyCircle';
 import { Link } from 'react-router-dom';
+import { onImageFallback } from '../../../support/util/image';
+
 type BucketListItemProps = {
   bucketList: IBucketList;
-}
+};
 
 function BucketListItem({
   bucketList
@@ -25,7 +27,7 @@ function BucketListItem({
           <div>
             {
               bucketList.thumbImageUrl
-                ? <img src={bucketList.thumbImageUrl} alt='버킷리스트 썸네일 이미지' />
+                ? <img src={bucketList.thumbImageUrl} alt='버킷리스트 썸네일 이미지' onError={onImageFallback} />
                 : <EmptyCircle size={40} />
             }
             <S.Content>
@@ -55,15 +57,15 @@ const S: {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
-    >div{
+
+    > div {
       display: flex;
       justify-content: flex-start;
       align-items: center;
     }
-    
+
     img {
-      width: 4rem; 
+      width: 4rem;
       height: 4rem;
       border-radius: 50%;
     }
@@ -72,21 +74,21 @@ const S: {
     display: flex;
     flex-direction: column;
     margin-left: 1.4rem;
-     p{
-        margin-top: .4rem;
-        font-size: 1.6rem;
-        font-weight: 500;
-        color: ${props => props.theme.colors.blackL1};
+    p {
+      margin-top: 0.4rem;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: ${(props) => props.theme.colors.blackL1};
     }
-    span{
+    span {
       font-size: 1.2rem;
-      color: ${props => props.theme.colors.greyL1};
+      color: ${(props) => props.theme.colors.greyL1};
     }
   `,
   RemainDate: styled.p`
     font-size: 1.6rem;
     font-weight: 500;
-    color: ${props => props.theme.colors.navyD1};
+    color: ${(props) => props.theme.colors.navyD1};
   `
 };
 
