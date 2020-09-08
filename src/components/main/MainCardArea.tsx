@@ -9,7 +9,7 @@ type MainCardAreaProps = {
 function MainCardArea({ title, children }: MainCardAreaProps) {
   return (
     <S.MainCardArea>
-      <p>버킷리스트</p>
+      <p>{title}</p>
       {children}
     </S.MainCardArea>
   );
