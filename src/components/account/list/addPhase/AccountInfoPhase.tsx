@@ -36,7 +36,7 @@ function AccountInfoPhase({
   // 폼 입력 전체 검증
   const isAllowAccountAddValidation =
     accountForm.title !== '' && accountForm.savingType.name !== '' && accountForm.startDate !== '' && assetMonth > 0;
-  const useRegularTransferDate = (accountForm.savingType.type = SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS);
+  const useRegularTransferDate = accountForm.savingType.type === SAVING_TYPE.REGULAR_INSTALLMENT_SAVINGS;
 
   /**
    * 해당하는 데이터 타입의 모달 열기

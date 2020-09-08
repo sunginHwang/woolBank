@@ -11,7 +11,7 @@ import { INSTALLMENT_SAVINGS_TAX } from '../../../support/constants';
 import { IAccountForm } from '../../../models/IAccountForm';
 import { useNotification } from '../../../support/hooks/useNotification';
 
-const initialAccountInfo: IAccountForm = {
+const INIT_ACCOUNT_FORM: IAccountForm = {
   title: '',
   savingType: { id: 0, type: '', name: '' },
   startDate: '',
@@ -25,7 +25,8 @@ const initialAccountInfo: IAccountForm = {
 const MAX_PHASE = 4;
 
 function AccountAddContainer() {
-  const [accountForm, setAccount] = useState<IAccountForm>(initialAccountInfo);
+  const [accountForm, setAccount] = useState<IAccountForm>(INIT_ACCOUNT_FORM);
+
   const [phase, setPhase] = useState(1);
   const [onSaveAccountRequest, saveAccountLoading, saveAccountError] = useRequest(saveAccount);
   const [onShowNotification] = useNotification();
@@ -44,6 +45,7 @@ function AccountAddContainer() {
   };
 
   const onChangeAccount = (type: string, value: string | number | Date | IAssetType) => {
+    console.log('onChange');
     setAccount((prevState) => {
       return {
         ...prevState,
@@ -70,7 +72,6 @@ function AccountAddContainer() {
 
   // todo 사용자 브라우저 뒤로가기 클릭시 초기화 안되는 부분 수정 필요
   const onCloseClick = () => {
-    setAccount(initialAccountInfo); // 예적금 입력 종료시 초기화 처리
     history.goBack();
   };
 
