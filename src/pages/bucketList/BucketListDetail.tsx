@@ -1,8 +1,8 @@
 import React from 'react';
 import PageTemplate from '../../components/common/PageTemplate';
-import BucketListDetailContainer from '../../containers/bucketList/BucketListDetailContainer';
+import BucketListDetailContainer from '../../containers/bucketList/detail/BucketListDetailContainer';
 import { useParams } from 'react-router';
-import BucketListTodoContainer from '../../containers/bucketList/BucketListTodoContainer';
+import BucketListTodoContainer from '../../containers/bucketList/detail/BucketListTodoContainer';
 
 function BucketListDetail() {
   let { bucketListId } = useParams();

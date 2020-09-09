@@ -7,7 +7,6 @@ import colors from '../../style/colors';
 type TodoAddModalProps = {
   title: string;
   visible: boolean;
-  loading?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onSendClick: () => void;
   onClose: () => void;
@@ -16,7 +15,6 @@ type TodoAddModalProps = {
 function TodoAddModal({
   title,
   visible,
-  loading = true,
   onClose,
   onChange,
   onSendClick

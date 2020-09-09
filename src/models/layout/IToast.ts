@@ -1,4 +1,4 @@
-export interface INotification {
+export interface IToast {
   isShow:boolean;
   message: string;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import AccountEditModal from '../../../components/account/detail/AccountEditModal';
 import DepositDate from '../../../components/account/detail/DepositDate';
 import { useHistory } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { getAccountList } from '../../../store/modules/AccountList';
 import accountDetailModule, { getAccount } from '../../../store/modules/AccountDetail';
 import { RootState } from '../../../store';
 import { addComma } from '../../../support/util/String';
-import { useNotification } from '../../../support/hooks/useNotification';
+import { useToast } from '../../../support/hooks/useToast';
 
 type AccountDetailModalContainerProps = {
   accountId: number;
@@ -33,43 +33,35 @@ function AccountDetailModalContainer({
   const dispatch = useDispatch();
   const account = useSelector((state: RootState) => state.AccountDetail.accountDetail.data);
 
-  const [onShowNotification] = useNotification();
-  const [onRemoveRequest, isRemoveLoading, removeError] = useRequest(removeAccount);
-  const [onAddDepositRequest, isAddDepositLoading, depositError] = useRequest(addDeposit);
-  const [onExpirationRequest, isExpirationLoading, expirationError] = useRequest(expirationAccount);
+  const onToast = useToast();
+  const [onRemoveRequest, isRemoveLoading] = useRequest(removeAccount);
+  const [onAddDepositRequest, isAddDepositLoading] = useRequest(addDeposit);
+  const [onExpirationRequest, isExpirationLoading] = useRequest(expirationAccount);
 
-  // 모달 클릭 이벤트
-  const onEditModalClick = (edit: 'migration' | 'end' | 'remove') => {
-    onCloseModal();
-
-    if (edit === 'migration') {
-      history.push(`/accounts/${accountId}?mode=edit`);
-    }
-
-    if (edit === 'end') {
-      onEndModal();
-    }
-
-    if (edit === 'remove') {
-      onDeleteModal();
-    }
-  };
-
+  /**
+   * 예적금 삭제
+   **/
   const onRemoveAccount = async () => {
     await onRemoveRequest({
       params: [accountId],
-      callbackFunc: () => {
+      onSuccess: () => {
         // 삭제 후 리스트 싱크를 위한 조회
         dispatch(getAccountList());
-        onShowNotification('삭제되었습니다.');
+        // 캐시 내역 삭제
+        dispatch(accountDetailModule.actions.removeAccountDetail(accountId));
+        onToast('삭제되었습니다.');
+      },
+      onError: () => {
+        onToast('삭제 실패');
       }
     });
 
     history.push('/accounts');
-    // store 예적금 정보 삭제
-    dispatch(accountDetailModule.actions.removeAccountDetail(accountId));
   };
 
+  /**
+   * 해당 지정일에 입금하기 (이전 입금기록 추가)
+   **/
   const onDepositWithDate = async (amount: number, depositDate: Date) => {
     if (!account) {
       return;
@@ -88,35 +80,63 @@ function AccountDetailModalContainer({
         amount,
         depositDate
       },
-      callbackFunc: () => {
+      onSuccess: () => {
         dispatch(getAccount(accountId));
-        onShowNotification('입금이 완료되었습니다.');
+        onToast('입금이 완료되었습니다.');
+      },
+      onError: () => {
+        onToast('입금 실패');
       }
     });
+
     onBackClick();
   };
 
+  /**
+   * 예적금 만기처리
+   **/
   const onExpiration = async () => {
     await onExpirationRequest({
       params: [accountId],
-      callbackFunc: () => {
+      onSuccess: () => {
         dispatch(getAccount(accountId));
-        onShowNotification('만기처리가 완료되었습니다.');
+        onToast('만기처리가 완료되었습니다.');
+      },
+      onError: () => {
+        onToast('만기처리 실패');
       }
     });
     offEndModal();
   };
 
+  /**
+   * 우측 옵션 버튼 클릭
+   **/
+  const onEditModalClick = (edit: 'migration' | 'end' | 'remove') => {
+    onCloseModal();
+
+    switch (edit) {
+      case 'end': {
+        onEndModal();
+        break;
+      }
+      case 'migration': {
+        history.push(`/accounts/${accountId}?mode=edit`);
+        break;
+      }
+      case 'remove': {
+        onDeleteModal();
+        break;
+      }
+    }
+  };
+
+  /**
+   * 뒤로가기 버튼
+   **/
   const onBackClick = () => {
     history.goBack();
   };
-
-  // request 에러 처리
-  useEffect(() => {
-    depositError && alert(depositError.message);
-    removeError && alert(removeError.message);
-    expirationError && alert(expirationError.message);
-  }, [depositError, removeError, expirationError]);
 
   return (
     <>

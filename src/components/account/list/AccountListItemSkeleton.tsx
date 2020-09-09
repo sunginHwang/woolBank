@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CardItem from '../../common/CardItem';
 import PlaceHolderBar from '../../common/PlaceHolderBar';
 
-function AccountListItemPlaceHolder() {
+function AccountListItemSkeleton() {
   return (
     <CardItem>
       <S.Top>
@@ -49,4 +49,4 @@ const S: {
   `
 };
 
-export default React.memo(AccountListItemPlaceHolder);
+export default React.memo(AccountListItemSkeleton);

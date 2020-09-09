@@ -5,19 +5,19 @@ import SpinnerLoading from '../components/common/SpinnerLoading';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { ILayoutLoading } from '../models/layout/ILayoutLoading';
-import { INotification } from '../models/layout/INotification';
-import Notification from '../components/common/Notification';
+import { IToast } from '../models/layout/IToast';
+import Toast from '../components/common/Toast';
 
 function LayoutContainer({ children, useNavBar = true }: LayoutRouteProps) {
   const layoutLoading: ILayoutLoading = useSelector((state: RootState) => state.Layout.loading);
-  const notification: INotification = useSelector((state: RootState) => state.Layout.notification);
+  const toast: IToast = useSelector((state: RootState) => state.Layout.toast);
 
   return (
     <>
       {children}
       {useNavBar && <NavigationBar />}
       <SpinnerLoading loading={layoutLoading.isLoading} message={layoutLoading.message} />
-      {notification.isShow && <Notification visible message={notification.message} />}
+      {toast.isShow && <Toast visible message={toast.message} />}
     </>
   );
 }

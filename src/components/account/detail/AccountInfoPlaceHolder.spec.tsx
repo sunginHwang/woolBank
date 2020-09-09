@@ -1,5 +1,5 @@
 import React from 'react';
-import AccountInfoplaceHolder from './AccountInfoplaceHolder';
+import AccountInfoplaceHolder from './AccountInfoSkeleton';
 import withThemeRender from '../../../support/test/withThemeRender';
 
 describe('<AccountInfoplaceHolder />', () => {

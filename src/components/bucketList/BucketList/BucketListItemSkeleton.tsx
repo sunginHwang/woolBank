@@ -4,7 +4,7 @@ import CardItem from '../../common/CardItem';
 import EmptyCircle from '../../common/EmptyCircle';
 import PlaceHolderBar from '../../common/PlaceHolderBar';
 
-function BucketListItemPlaceHolder() {
+function BucketListItemSkeleton() {
   return (
     <CardItem>
       <S.BucketListItem>
@@ -48,4 +48,4 @@ const S: {
   `
 };
 
-export default React.memo(BucketListItemPlaceHolder);
+export default React.memo(BucketListItemSkeleton);

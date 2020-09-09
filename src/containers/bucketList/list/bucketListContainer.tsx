@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import BucketListItem from '../../components/bucketList/BucketList/BucketListItem';
-import ToggleTab from '../../components/common/ToggleTab';
-import { IAssetType } from '../../models/IAssetType';
+import BucketListItem from '../../../components/bucketList/BucketList/BucketListItem';
+import ToggleTab from '../../../components/common/ToggleTab';
+import { IAssetType } from '../../../models/IAssetType';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { checkNeedReFetch } from '../../support/util/checkNeedReFetch';
-import { getBucketListLastUpdatedAt } from '../../support/api/bucketListApi';
-import { getBucketList } from '../../store/modules/BucketList';
+import { RootState } from '../../../store';
+import { checkNeedReFetch } from '../../../support/util/checkNeedReFetch';
+import { getBucketListLastUpdatedAt } from '../../../support/api/bucketListApi';
+import { getBucketList } from '../../../store/modules/BucketList';
+import BucketListItemPlaceHolder from '../../../components/bucketList/BucketList/BucketListItemSkeleton';
 
 const tabs: IAssetType[] = [
   {
@@ -38,16 +39,11 @@ function BucketListContainer() {
 
   return (
     <S.Wrapper>
-      <ToggleTab
-        tabs={tabs}
-        useOutline={false}
-        activeTab={activeTab}
-        onChangeTab={setActiveTab}
-      />
+      <ToggleTab tabs={tabs} useOutline={false} activeTab={activeTab} onChangeTab={setActiveTab} />
       <S.List>
-        {bucketList.data.map((bucket, index) => (
-          <BucketListItem key={index} bucketList={bucket} />
-        ))}
+        {bucketList.loading
+          ? [...Array(10)].map((_, key) => <BucketListItemPlaceHolder key={key} />)
+          : bucketList.data.map((bucket, index) => <BucketListItem key={index} bucketList={bucket} />)}
       </S.List>
     </S.Wrapper>
   );

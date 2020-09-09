@@ -5,11 +5,12 @@ type PromiseCreator<T> = (...params: any[]) => AxiosPromise<T>;
 
 type onRequestType = {
   params: any;
-  callbackFunc?: Function;
+  onSuccess?: Function;
+  onError?: Function;
 };
 
 type UseRequestReturnType<T> = [
-  ({ params, callbackFunc }: onRequestType) => void,
+  (requestType: onRequestType) => void,
   boolean,
   Error | null,
   T | null,
@@ -21,24 +22,28 @@ export default function useRequest<T>(axiosRequest: PromiseCreator<T>): UseReque
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<Error | null>(null);
 
-  const onRequest = async ({ params, callbackFunc }: onRequestType) => {
+  const onRequest = async ({ params, onSuccess, onError }: onRequestType) => {
     try {
       setLoading(true);
       let response = null;
 
-      if(Array.isArray(params)){
+      if (Array.isArray(params)) {
         response = await axiosRequest(...params);
-      }else {
+      } else {
         response = await axiosRequest(params);
       }
 
-      if (callbackFunc && typeof callbackFunc === 'function') {
-        await callbackFunc(response.data);
+      if (onSuccess && typeof onSuccess === 'function') {
+        await onSuccess(response.data);
       }
 
       setData(response.data);
     } catch (e) {
       setError(e);
+
+      if (onError && typeof onError === 'function') {
+        await onError(e);
+      }
     } finally {
       setLoading(false);
     }

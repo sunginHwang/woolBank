@@ -1,17 +1,17 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import { useHistory } from 'react-router';
-import BucketListInfoPhase from '../../components/bucketList/Add/BucketListInfoPhase';
-import BucketListCompleteDatePhase from '../../components/bucketList/Add/BucketListCompleteDatePhase';
-import BucketListPicturePhase from '../../components/bucketList/Add/BucketListPicturePhase';
-import TodoListPhase from '../../components/bucketList/Add/TodoListPhase';
-import { ITodo } from '../../models/ITodo';
-import useRequest from '../../support/hooks/useRequest';
-import { IBucketListForm } from '../../models/bucketList/IBucketListForm';
-import { saveImageAndGetImageUrl } from '../../support/api/imageApi';
-import { saveBucketList, updateBucketList } from '../../support/api/bucketListApi';
+import BucketListInfoPhase from '../../../components/bucketList/Add/BucketListInfoPhase';
+import BucketListCompleteDatePhase from '../../../components/bucketList/Add/BucketListCompleteDatePhase';
+import BucketListPicturePhase from '../../../components/bucketList/Add/BucketListPicturePhase';
+import TodoListPhase from '../../../components/bucketList/Add/TodoListPhase';
+import { ITodo } from '../../../models/ITodo';
+import useRequest from '../../../support/hooks/useRequest';
+import { IBucketListForm } from '../../../models/bucketList/IBucketListForm';
+import { saveImageAndGetImageUrl } from '../../../support/api/imageApi';
+import { saveBucketList, updateBucketList } from '../../../support/api/bucketListApi';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { useNotification } from '../../support/hooks/useNotification';
+import { RootState } from '../../../store';
+import { useToast } from '../../../support/hooks/useToast';
 
 type BucketListAddContainerProps = {
   bucketListId?: number;
@@ -72,10 +72,17 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
   // 업데이트의 경우 todoList 입력 페이즈는 비노출
   const maxPhase = isUpdateMode ? 3 : 4;
   const [phase, setPhase] = useState(1);
-  const history = useHistory();
-  const bucketListDetailDetailCache = useSelector((state: RootState) => state.BucketList.bucketListDetailCache);
 
+  const history = useHistory();
+  const [onSaveRequest, saveLoading] = useRequest(saveBucketList);
+  const [onUpdateRequest, updateLoading] = useRequest(updateBucketList);
+  const onToast = useToast();
+  const bucketListDetailDetailCache = useSelector((state: RootState) => state.BucketList.bucketListDetailCache);
+  /**
+   * 버킷리스트 수정 정보 조회
+   **/
   const getUpdateBucketListForm = (bucketListId: number): IBucketListForm => {
+    // 버킷리스트 상세 캐시에서 업데이트 할 id 와 매칭되는 정보 조회
     const bucketListDetail = bucketListDetailDetailCache.find((bucketList) => bucketList.id === bucketListId);
 
     if (bucketListDetail) {
@@ -93,43 +100,51 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
 
     return saveBucketListForm;
   };
-
   const initBucketListFormData = bucketListId ? getUpdateBucketListForm(bucketListId) : saveBucketListForm;
-
   const [bucketListForm, dispatch] = useReducer(reducer, initBucketListFormData);
-  const [onSaveRequest, saveLoading, saveError] = useRequest(saveBucketList);
-  const [onUpdateRequest, updateLoading, updateError] = useRequest(updateBucketList);
-  const [onShowNotification] = useNotification();
 
-  useEffect(() => {
-    saveError && alert(saveError);
-    updateError && alert(updateError);
-  }, [saveError, updateError]);
-
+  /**
+   * 다음단계 이동
+   **/
   const goNextPhase = () => {
     if (phase < maxPhase) {
       setPhase((phase) => phase + 1);
     }
   };
 
+  /**
+   * 이전단계 이동
+   **/
   const goPrevPhase = () => {
     if (phase > 1) {
       setPhase((phase) => phase - 1);
     }
   };
 
+  /**
+   * 일단계 (제목, 내용) 작성
+   **/
   const onCompletePhaseOne = (title: string, description: string) => {
     dispatch({ type: 'SET_PHASE_ONE', payload: { title, description } });
   };
 
+  /**
+   * 이단계 (목표일) 작성
+   **/
   const onCompletePhaseTwo = (completeDate: string) => {
     dispatch({ type: 'SET_PHASE_TWO', payload: { completeDate } });
   };
 
+  /**
+   * TodoList 작성
+   **/
   const onChangeTodoList = (todoList: any) => {
     dispatch({ type: 'SET_TODO_LIST', payload: { todoList } });
   };
 
+  /**
+   * 삼단계 (이미지 파일) 등록
+   **/
   const setImageFile = (mainImgFile: File | null) => {
     dispatch({ type: 'SET_IMG_FILE', payload: { mainImgFile } });
   };
@@ -157,25 +172,31 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
     if (isUpdateMode) {
       await onUpdateRequest({
         params: formData,
-        callbackFunc: (res: any) => {
+        onSuccess: (res: any) => {
           upsertBucketListId = res.data.bucketListId;
+        },
+        onError: () => {
+          onToast('버킷리스트 수정을 실패하였습니다. 다시 시도해주세요.');
         }
       });
 
       if (upsertBucketListId === bucketListForm.id) {
         history.goBack();
-        onShowNotification('수정 되었습니다.');
+        onToast('수정 되었습니다.');
       }
     } else {
       await onSaveRequest({
         params: formData,
-        callbackFunc: (res: any) => {
+        onSuccess: (res: any) => {
           upsertBucketListId = res.data.bucketListId;
+        },
+        onError: () => {
+          onToast('버킷리스트 생성에 실패하였습니다. 다시 시도해주세요.');
         }
       });
 
       if (upsertBucketListId > 0) {
-        onShowNotification('생성 되었습니다.');
+        onToast('생성 되었습니다.');
         history.push(`/bucket-list/${upsertBucketListId}`);
       }
     }

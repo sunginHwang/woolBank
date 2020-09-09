@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ToggleTab from '../../../components/common/ToggleTab';
 import { IAssetType } from '../../../models/IAssetType';
 import AccountListItem from '../../../components/account/AccountListItem';
-import AccountListItemPlaceHolder from '../../../components/account/list/AccountListItemPlaceHolder';
+import AccountListItemSkeleton from '../../../components/account/list/AccountListItemSkeleton';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { getAccountListLastUpdatedAt } from '../../../support/api/accountApi';
@@ -23,36 +23,31 @@ const tabs: IAssetType[] = [
 
 function AccountListContainer() {
   const [activeTab, setActiveTab] = useState(tabs[0]);
+
   const accountList = useSelector((state: RootState) => state.AccountList.accountList);
   const lastUpdatedDate = useSelector((state: RootState) => state.AccountList.lastUpdatedDate);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    onLoadAccountList();
+  }, []);
+
+  /**
+   * 예적금 리스트 조회
+   **/
   const onLoadAccountList = async () => {
     // 캐싱 날짜 없으면 바로 조회
     const needFetch = await checkNeedReFetch(lastUpdatedDate, getAccountListLastUpdatedAt);
     needFetch && dispatch(getAccountList());
   };
 
-  useEffect(() => {
-    onLoadAccountList();
-  }, []);
-
   return (
     <>
-      <ToggleTab
-        tabs={tabs}
-        useOutline={false}
-        activeTab={activeTab}
-        onChangeTab={setActiveTab}
-      />
+      <ToggleTab tabs={tabs} useOutline={false} activeTab={activeTab} onChangeTab={setActiveTab} />
       <S.List>
-        {
-          accountList.loading
-            ? [...Array(10)].map((_, key) => <AccountListItemPlaceHolder key={key} />)
-            : accountList.data.map((account, index) => (
-              <AccountListItem key={index} account={account} />
-            ))
-        }
+        {accountList.loading
+          ? [...Array(10)].map((_, key) => <AccountListItemSkeleton key={key} />)
+          : accountList.data.map((account, index) => <AccountListItem key={index} account={account} />)}
       </S.List>
     </>
   );

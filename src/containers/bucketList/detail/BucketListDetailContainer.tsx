@@ -2,18 +2,18 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import BucketListDetailHeader from '../../components/bucketList/Detail/BucketListDetailHeader';
-import BucketListContentInfo from '../../components/bucketList/Detail/BucketListContentInfo';
-import ConfirmModal from '../../components/common/modal/ConfirmModal';
-import { useToggle } from '../../support/hooks/useToggle';
-import BottomMenuModal from '../../components/common/modal/BottomMenuModal';
-import { IBottomMenu } from '../../models/component/IBottomMenu';
-import { RootState } from '../../store';
-import { checkNeedReFetch } from '../../support/util/checkNeedReFetch';
-import BucketList, { getBucketList, getBucketListDetail } from '../../store/modules/BucketList';
-import { getBucketListDetailLastUpdatedAt, removeBucketList } from '../../support/api/bucketListApi';
-import useRequest from '../../support/hooks/useRequest';
-import { useNotification } from '../../support/hooks/useNotification';
+import BucketListDetailHeader from '../../../components/bucketList/Detail/BucketListDetailHeader';
+import BucketListContentInfo from '../../../components/bucketList/Detail/BucketListContentInfo';
+import ConfirmModal from '../../../components/common/modal/ConfirmModal';
+import { useToggle } from '../../../support/hooks/useToggle';
+import BottomMenuModal from '../../../components/common/modal/BottomMenuModal';
+import { IBottomMenu } from '../../../models/component/IBottomMenu';
+import { RootState } from '../../../store';
+import { checkNeedReFetch } from '../../../support/util/checkNeedReFetch';
+import BucketList, { getBucketList, getBucketListDetail } from '../../../store/modules/BucketList';
+import { getBucketListDetailLastUpdatedAt, removeBucketList } from '../../../support/api/bucketListApi';
+import useRequest from '../../../support/hooks/useRequest';
+import { useToast } from '../../../support/hooks/useToast';
 
 const bottomMenus: IBottomMenu[] = [
   {
@@ -34,12 +34,10 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
   const [showRemoveModal, onRemoveModal, offRemoveModal] = useToggle(false);
   const [showMenuModal, onMenuModal, offMenuModal] = useToggle(false);
 
-  const [onShowNotification] = useNotification();
-  const [onRemoveRequest, removeLoading, removeError] = useRequest(removeBucketList);
-
+  const onToast = useToast();
+  const [onRemoveRequest, removeLoading] = useRequest(removeBucketList);
   const bucketListDetail = useSelector((state: RootState) => state.BucketList.bucketListDetail);
   const bucketListDetailDetailCache = useSelector((state: RootState) => state.BucketList.bucketListDetailCache);
-
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -53,9 +51,8 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
   }, [bucketListId]);
 
   /**
-   * 버킷리스트 상세 정보 조회
+   * 버킷 리스트 상세 정보 조회
    */
-
   const onLoadBucketListDetail = async (id: number) => {
     // 1. 캐싱 정보 조회
     const bucketListDetail = bucketListDetailDetailCache.find((bucketList) => bucketList.id === id);
@@ -72,29 +69,39 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
     needFetch ? dispatch(getBucketListDetail(id)) : dispatch(BucketList.actions.setBucketListDetail(bucketListDetail));
   };
 
+  /**
+   * 버킷 리스트 삭제
+   **/
   const onRemoveBucketList = async () => {
     await onRemoveRequest({
       params: [bucketListId],
-      callbackFunc: () => {
+      onSuccess: () => {
         // 삭제 후 리스트 싱크를 위한 조회
         dispatch(getBucketList());
-        onShowNotification('삭제 되었습니다.')
+        // store 버킷리스트 정보 삭제
+        dispatch(BucketList.actions.removeBucketListDetail(bucketListId));
+        onToast('삭제 되었습니다.');
+        history.push('/bucket-list');
+      },
+      onError: () => {
+        onToast('다시 시도해 주세요.');
       }
     });
-
-    history.push('/bucket-list');
-    // store 버킷리스트 정보 삭제
-    dispatch(BucketList.actions.removeBucketListDetail(bucketListId));
   };
 
-  // 메뉴 클릭시 이벤트
+  /**
+   * 우측 옵션 버튼 클릭
+   **/
   const onMenuClick = (type: string) => {
-    if (type === 'remove') {
-      onRemoveModal();
-    }
-
-    if (type === 'edit') {
-      history.push(`/bucket-list/save?bucketListId=${bucketListId}`);
+    switch (type) {
+      case 'remove': {
+        onRemoveModal();
+        break;
+      }
+      case 'edit': {
+        history.push(`/bucket-list/save?bucketListId=${bucketListId}`);
+        break;
+      }
     }
 
     offMenuModal();

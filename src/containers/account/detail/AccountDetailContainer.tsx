@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import DepositList from '../../../components/account/DepositList';
 import AccountInfo from '../../../components/account/AccountInfo';
-import AccountInfoPlaceHolder from '../../../components/account/detail/AccountInfoplaceHolder';
+import AccountInfoSkeleton from '../../../components/account/detail/AccountInfoSkeleton';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import AccountDetail, { getAccount } from '../../../store/modules/AccountDetail';
 import { checkNeedReFetch } from '../../../support/util/checkNeedReFetch';
 import { getAccountLastUpdatedAt } from '../../../support/api/accountApi';
+import { useHistory } from 'react-router';
+import { useToast } from '../../../support/hooks/useToast';
 
 type AccountDetailContainerProps = {
   accountId: number;
@@ -15,8 +17,9 @@ type AccountDetailContainerProps = {
 function AccountDetailContainer({ accountId }: AccountDetailContainerProps) {
   const accountDetail = useSelector((state: RootState) => state.AccountDetail.accountDetail);
   const accountDetailCache = useSelector((state: RootState) => state.AccountDetail.accountDetailCache);
-
   const dispatch = useDispatch();
+  const history = useHistory();
+  const onToast = useToast();
 
   useEffect(() => {
     onLoadAccountDetail(accountId);
@@ -27,7 +30,9 @@ function AccountDetailContainer({ accountId }: AccountDetailContainerProps) {
     };
   }, [accountId]);
 
-  // 예적금 상세 정보 조회
+  /**
+   * 예적금 상세 정보 조회
+   **/
   const onLoadAccountDetail = async (id: number) => {
     // 1. 캐싱 정보 조회
     const accountDetail = accountDetailCache.find((account) => account.id === id);
@@ -44,17 +49,19 @@ function AccountDetailContainer({ accountId }: AccountDetailContainerProps) {
     needFetch ? dispatch(getAccount(id)) : dispatch(AccountDetail.actions.setAccountDetail(accountDetail));
   };
 
-  if (accountDetail.loading) {
+  if (accountDetail.error) {
+    onToast('예적금 조회에 실패하였습니다.');
+    history.goBack();
+    return null;
+  }
+
+  if (accountDetail.loading || !accountDetail.data) {
     return (
       <>
-        <AccountInfoPlaceHolder />
+        <AccountInfoSkeleton />
         <DepositList isLoading />
       </>
     );
-  }
-
-  if (!accountDetail.data) {
-    return null;
   }
 
   return (

@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type SplashProps = {
-};
-
-function Splash({}: SplashProps) {
+function Splash() {
   return (
     <S.Splash>
       <h2>스플래시 이미지에요</h2>

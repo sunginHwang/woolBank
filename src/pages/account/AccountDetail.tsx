@@ -10,17 +10,20 @@ import AddDepositContainer from '../../containers/account/detail/AddDepositConta
 import { useToggle } from '../../support/hooks/useToggle';
 
 function AccountDetail() {
-  const history = useHistory();
-  const { mode } = useQuery(['mode']);
-  let { accountId } = useParams();
-  accountId = Number(accountId);
   const [isOpenDetailModal, onDetailModal, offDetailModal] = useToggle(false);
 
+  const history = useHistory();
+  const { mode } = useQuery(['mode']);
+  const { accountId } = useParams();
+
+  /**
+   * 뒤로가기 버튼 클릭
+   **/
   const onBackClick = () => {
     history.goBack();
   };
 
-  const editButtonEl = (
+  const renderEditButtonIcon = (
     <div onClick={onDetailModal}>
       <IcoDowHorizontal fill={colors.colors.blackL1} />
     </div>
@@ -32,16 +35,16 @@ function AccountDetail() {
         title='계좌정보'
         useSidePadding={false}
         onBackClick={onBackClick}
-        rightHeader={editButtonEl}
+        rightHeader={renderEditButtonIcon}
       >
-        <AccountDetailContainer accountId={accountId} />
+        <AccountDetailContainer accountId={Number(accountId)} />
         <AddDepositContainer
-          accountId={accountId}
+          accountId={Number(accountId)}
           onBackClick={onBackClick}
           useDepositPhase={mode === 'deposit'}
         />
         <AccountDetailModalContainer
-          accountId={accountId}
+          accountId={Number(accountId)}
           isActiveModal={isOpenDetailModal}
           useEditPhase={mode === 'edit'}
           onCloseModal={offDetailModal}

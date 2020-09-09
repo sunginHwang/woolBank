@@ -27,21 +27,33 @@ function DepositDate({ isActive, isLoading, onBackClick, onDepositClick }: Depos
     }
   }, [isActive]);
 
+  /**
+   * 입력 초기화
+   **/
   const onClearInput = (e: React.MouseEvent<HTMLLIElement>) => {
     const type = e.currentTarget.dataset.type || '';
     type === 'amount' && setDepositAmount(0);
     type === 'date' && setDepositDate('');
   };
 
+  /**
+   * 예적금 금액 변경
+   **/
   const onDepositAmountChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setDepositAmount(Number(e.target.value));
   }, []);
 
+  /**
+   * 예적금 날짜 선택
+   **/
   const onDepositDateChange = useCallback((date: string) => {
     setDepositDate(date);
     onCloseDateModal();
   }, []);
 
+  /**
+   * 예금입력버튼 선택
+   **/
   const onDepositButtonClick = useCallback(() => {
     if (!isLoading) {
       onDepositClick(depositAmount, new Date(depositDate));

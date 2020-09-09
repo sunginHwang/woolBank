@@ -4,9 +4,9 @@ import PlaceHolderBar from '../../common/PlaceHolderBar';
 import Progress from '../../common/Progress';
 import colors from '../../../style/colors';
 
-function AccountInfoPlaceHolder() {
+function AccountInfoSkeleton() {
   return (
-    <S.AccountInfoPlaceHolder>
+    <S.AccountInfoSkeleton>
       <S.Title>
         <PlaceHolderBar width='17rem' height='2.2rem' />
       </S.Title>
@@ -18,17 +18,17 @@ function AccountInfoPlaceHolder() {
         <span>만기예상액 : </span>
         <PlaceHolderBar width='18rem' height='2.4rem' />
       </S.Amount>
-    </S.AccountInfoPlaceHolder>
+    </S.AccountInfoSkeleton>
   );
 }
 
 const S: {
-  AccountInfoPlaceHolder: any;
+  AccountInfoSkeleton: any;
   Title: any;
   CurrentAmount: any;
   Amount: any;
 } = {
-  AccountInfoPlaceHolder: styled.div`
+  AccountInfoSkeleton: styled.div`
     padding: 4rem 2rem;
     display: flex;
     background-color: ${(props) => props.theme.colors.white};
@@ -54,4 +54,4 @@ const S: {
   `
 };
 
-export default AccountInfoPlaceHolder;
+export default AccountInfoSkeleton;

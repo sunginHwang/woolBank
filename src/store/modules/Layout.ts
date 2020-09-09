@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { ILayoutLoading } from '../../models/layout/ILayoutLoading';
-import { INotification } from '../../models/layout/INotification';
+import { IToast } from '../../models/layout/IToast';
 
 const name = 'layout';
 
 export type LayoutState = {
   loading: ILayoutLoading;
-  notification: INotification;
+  toast: IToast;
 };
 
 const initialState: LayoutState = {
@@ -14,7 +14,7 @@ const initialState: LayoutState = {
     isLoading: false,
     message: ''
   },
-  notification: {
+  toast: {
     isShow: false,
     message: ''
   }
@@ -28,17 +28,17 @@ export default createSlice({
       state.loading.isLoading = true;
       state.loading.message = action.payload;
     },
-    showNotification: (state, action: PayloadAction<string>) => {
-      state.notification.isShow = true;
-      state.notification.message = action.payload;
-    },
-    hideNotification: (state) => {
-      state.notification.isShow = false;
-      state.notification.message = '';
-    },
     hideLoading: (state) => {
       state.loading.isLoading = false;
       state.loading.message = '';
+    },
+    showToast: (state, action: PayloadAction<string>) => {
+      state.toast.isShow = true;
+      state.toast.message = action.payload;
+    },
+    hideToast: (state) => {
+      state.toast.isShow = false;
+      state.toast.message = '';
     }
   }
 });

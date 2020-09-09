@@ -20,11 +20,19 @@ function AmountAddPhase({
 }: AmountAddPhaseProps) {
   const isActiveComplete = amount > 0;
 
+  /**
+   * 금액 변경
+   **/
   const onChangeAmount = (num: number) => {
     onChangeAccount('amount', num)
   };
 
-  const onCompleteClick = () => isActiveComplete && goNextPhase();
+  /**
+   * 예적금 입력 완료
+   **/
+  const onCompleteClick = () => {
+    isActiveComplete && goNextPhase();
+  };
 
   return (
     <PhaseTemplate

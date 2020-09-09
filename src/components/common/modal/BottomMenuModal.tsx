@@ -18,7 +18,7 @@ function BottomMenuModal({
   oncloseModal,
   onEditClick
 }: BottomMenuModalProps) {
-  const menusEl = menus.map(menu => {
+  const renderMenus = menus.map(menu => {
     const onMenuClick = () => onEditClick(menu.type);
     return <p key={menu.type} onClick={onMenuClick}>{menu.value}</p>
   })
@@ -29,7 +29,7 @@ function BottomMenuModal({
         <S.Title>
           <p>{title}</p>
         </S.Title>
-        {menusEl}
+        {renderMenus}
       </S.BottomMenuModal>
     </ModalDeem>
   );

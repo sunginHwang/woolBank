@@ -30,19 +30,22 @@ function BucketListTodoInfo({
     todoId: selectTodoId
   };
 
+  const renderSkeleton = (
+    <>
+      <PlaceHolderBar width='100%' height='5.4rem' />
+      <PlaceHolderBar width='100%' height='5.4rem' />
+      <PlaceHolderBar width='100%' height='5.4rem' />
+      <PlaceHolderBar width='100%' height='5.4rem' />
+    </>
+  );
+
   return (
     <>
       <S.BucketListTodoInfo>
         <S.TodoTitle>할일목록</S.TodoTitle>
-        {isLoading && (
-          <>
-            <PlaceHolderBar width='100%' height='5.4rem' />
-            <PlaceHolderBar width='100%' height='5.4rem' />
-            <PlaceHolderBar width='100%' height='5.4rem' />
-            <PlaceHolderBar width='100%' height='5.4rem' />
-          </>
-        )}
-        {!isLoading && (
+        {isLoading ? (
+          renderSkeleton
+        ) : (
           <TodoList
             addLoading={addLoading}
             todoItemLoading={todoItemLoading}

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import DepositListItem from './DepositListItem';
-import DepositRecordItemPlaceHolder from './detail/DepositRecordItemPlaceHolder';
+import DepositRecordItemSkeleton from './detail/DepositRecordItemSkeleton';
 import { IDeposit } from '../../models/IDeposit';
 
 type DepositRecordProps = {
@@ -16,7 +16,7 @@ function DepositList({ depositList, isLoading = false }: DepositRecordProps) {
     return (
       <S.DepositRecord>
         {
-          tenLoadingHolders.map((_, key) => <DepositRecordItemPlaceHolder key={key} />)
+          tenLoadingHolders.map((_, key) => <DepositRecordItemSkeleton key={key} />)
         }
       </S.DepositRecord>
     );

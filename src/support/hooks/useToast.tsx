@@ -2,20 +2,20 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import Layout from '../../store/modules/Layout';
 
-export const useNotification = () => {
+export const useToast = () => {
   const dispatch = useDispatch();
 
-  const onShowNotification = useCallback(
+  const onToast = useCallback(
     (message: string) => {
-      dispatch(Layout.actions.showNotification(message));
+      dispatch(Layout.actions.showToast(message));
 
       const hideAfter1Sec = setTimeout(() => {
-        dispatch(Layout.actions.hideNotification());
+        dispatch(Layout.actions.hideToast());
         clearTimeout(hideAfter1Sec);
       }, 1000);
     },
     [dispatch]
   );
 
-  return [onShowNotification];
+  return onToast;
 };

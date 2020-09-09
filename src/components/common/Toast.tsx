@@ -1,29 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type WalletDateModalProps = {
+type ToastProps = {
   visible: boolean;
   message: string;
 };
 
-function Notification({ visible, message }: WalletDateModalProps) {
+function Toast({ visible, message }: ToastProps) {
   if (!visible) {
     return null;
   }
 
   return (
-    <S.Notification>
+    <S.Toast>
       <div>
         <p>{message}</p>
       </div>
-    </S.Notification>
+    </S.Toast>
   );
 }
 
 const S: {
-  Notification: any;
+  Toast: any;
 } = {
-  Notification: styled.div`
+  Toast: styled.div`
     position: fixed;
     width: 100%;
     height: 100%;
@@ -49,4 +49,4 @@ const S: {
   `
 };
 
-export default Notification;
+export default Toast;

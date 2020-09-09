@@ -4,9 +4,10 @@ import MainCardArea from '../components/main/MainCardArea';
 import BucketListItem from '../components/bucketList/BucketList/BucketListItem';
 import AccountListItem from '../components/account/AccountListItem';
 import PageTemplate from '../components/common/PageTemplate';
+import MainPlaceHolder from '../components/main/MainPlaceHolder';
+
 import useFetch from '../support/hooks/useFetch';
 import { IMainInfo } from '../models/main/IMainInfo';
-import MainPlaceHolder from '../components/main/MainPlaceHolder';
 
 function Main() {
   const [mainInfo, mainInfoLoading, mainInfoError] = useFetch<IMainInfo>('main');

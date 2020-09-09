@@ -1,5 +1,5 @@
 import React from 'react';
-import BucketListAddContainer from '../../containers/bucketList/bucketListAddContainer';
+import BucketListAddContainer from '../../containers/bucketList/add/bucketListAddContainer';
 import { useQuery } from '../../support/hooks/UseQuery';
 
 function BucketListSave() {

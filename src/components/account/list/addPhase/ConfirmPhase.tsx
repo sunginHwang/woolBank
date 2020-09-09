@@ -43,6 +43,7 @@ function ConfirmPhase({
   const rateInterest = getRateInterestByWallet(accountForm);
   // 정기이체일 설정 여부
   const useRegularTransferDate = accountForm.regularTransferDate && accountForm.regularTransferDate > 0;
+
   return (
     <PhaseTemplate
       active={isActivePhase}

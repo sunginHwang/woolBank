@@ -1,10 +1,10 @@
 import React from 'react';
-import DepositRecordItemPlaceHolder from './DepositRecordItemPlaceHolder';
+import DepositRecordItemSkeleton from './DepositRecordItemSkeleton';
 import withThemeRender from '../../../support/test/withThemeRender';
 
-describe('<DepositRecordItemPlaceHolder />', () => {
+describe('<DepositRecordItemSkeleton />', () => {
   const setup = () => {
-    const utils = withThemeRender(<DepositRecordItemPlaceHolder />);
+    const utils = withThemeRender(<DepositRecordItemSkeleton />);
     return {
       ...utils
     };

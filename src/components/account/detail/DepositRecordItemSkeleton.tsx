@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import PlaceHolderBar from '../../common/PlaceHolderBar';
 
-function DepositRecordItemPlaceHolder() {
+function DepositRecordItemSkeleton() {
   return (
-    <S.DepositRecordItemPlaceHolder>
+    <S.DepositRecordItemSkeleton>
       <S.Info>
         <div>
           <PlaceHolderBar width='8rem' height='1.4rem' />
@@ -16,16 +16,16 @@ function DepositRecordItemPlaceHolder() {
       <S.Amount>
         <PlaceHolderBar width='14rem' height='2rem' />
       </S.Amount>
-    </S.DepositRecordItemPlaceHolder>
+    </S.DepositRecordItemSkeleton>
   );
 }
 
 const S: {
-  DepositRecordItemPlaceHolder: any;
+  DepositRecordItemSkeleton: any;
   Info : any;
   Amount: any;
 } = {
-  DepositRecordItemPlaceHolder: styled.div`
+  DepositRecordItemSkeleton: styled.div`
     display: flex;
     padding: 2rem 0;
     justify-content: space-between;
@@ -49,4 +49,4 @@ const S: {
   `
 };
 
-export default DepositRecordItemPlaceHolder;
+export default DepositRecordItemSkeleton;

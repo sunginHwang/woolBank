@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AddDepositButton from '../../../components/account/detail/AddDepositButton';
 import NumberInput from '../../../components/common/NumberInput';
 import styled from 'styled-components';
@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAccount } from '../../../store/modules/AccountDetail';
 import { addComma } from '../../../support/util/String';
 import { RootState } from '../../../store';
-import { useNotification } from '../../../support/hooks/useNotification';
+import { useToast } from '../../../support/hooks/useToast';
 
 type AddDepositContainerProps = {
   accountId: number;
@@ -20,14 +20,15 @@ type AddDepositContainerProps = {
 function AddDepositContainer({ accountId, useDepositPhase, onBackClick }: AddDepositContainerProps) {
   const [depositAmount, setDepositAmount] = useState(0);
 
+  const account = useSelector((state: RootState) => state.AccountDetail.accountDetail.data);
+  const [onAddDepositRequest, isAddDepositLoading] = useRequest(addDeposit);
   const dispatch = useDispatch();
   const history = useHistory();
+  const onToast = useToast();
 
-  const account = useSelector((state: RootState) => state.AccountDetail.accountDetail.data);
-
-  const [onAddDepositRequest, isAddDepositLoading, error] = useRequest(addDeposit);
-  const [onShowNotification] = useNotification();
-
+  /**
+   * 예금 입력
+   **/
   const onAddDeposit = async () => {
     if (!account) {
       return;
@@ -45,9 +46,12 @@ function AddDepositContainer({ accountId, useDepositPhase, onBackClick }: AddDep
         accountId,
         amount: depositAmount
       },
-      callbackFunc: () => {
+      onSuccess: () => {
         dispatch(getAccount(accountId));
-        onShowNotification('입금이 완료되었습니다.');
+        onToast('입금이 완료되었습니다.');
+      },
+      onError: () => {
+        onToast('입금 실패');
       }
     });
 
@@ -55,14 +59,16 @@ function AddDepositContainer({ accountId, useDepositPhase, onBackClick }: AddDep
     onBackClick();
   };
 
-  useEffect(() => {
-    error && alert(error);
-  }, [error]);
-
+  /**
+   * 예적금 입력 모듈 열기
+   **/
   const onOpenDepositKeyPad = () => {
     history.push(`/accounts/${accountId}?mode=deposit`);
   };
 
+  /**
+   * 예적금 입력 모듈 닫기
+   **/
   const onCloseDepositKeyPad = () => {
     history.goBack();
   };
