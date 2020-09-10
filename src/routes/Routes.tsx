@@ -14,6 +14,7 @@ const BucketList = loadable(() => import('../pages/bucketList/BucketList'));
 const BucketListDetail = loadable(() => import('../pages/bucketList/BucketListDetail'));
 const BucketListSave = loadable(() => import('../pages/bucketList/BucketListSave'));
 const Login = loadable(() => import('../pages/user/login'));
+const PageNotFound = loadable(() => import('../pages/error/PageNotFound'));
 
 function Routes() {
   const user = useSelector((state: RootState) => state.Auth.user);
@@ -29,6 +30,7 @@ function Routes() {
       <RouteWrapper path='/bucket-list' component={BucketList} exact isLogin={isLogin} />
       <RouteWrapper path='/bucket-list/save' component={BucketListSave} exact isLogin={isLogin} />
       <RouteWrapper path='/bucket-list/:bucketListId' component={BucketListDetail} useNavBar={false} isLogin={isLogin} />
+      <Route component={PageNotFound} />
     </Switch>
   );
 }

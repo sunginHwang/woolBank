@@ -69,9 +69,10 @@ export default createSlice({
       state.accountDetailCache = accountCacheList;
       state.accountDetail.loading = false;
     },
-    [getAccount.rejected.type]: (state) => {
+    [getAccount.rejected.type]: (state, action: PayloadAction<any, any, any, any>) => {
       state.accountDetail.loading = false;
       state.accountDetail.data = null;
+      state.accountDetail.error = action.error.message;
     }
   }
 });
