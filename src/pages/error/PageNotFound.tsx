@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import pageNotFound from '../../image/page_not_found.svg';
 
 function PageNotFound() {
   return (
     <S.Screen>
-      <img src='https://static-2.gumroad.com/res/gumroad/1211634803146/asset_previews/fd64c28b69a5614624577e2be9edab15/retina/error-404-colour-thumbnail.png' alt='404 에러' />
+      <img src={pageNotFound} alt='404 에러' />
       <p>
         해당 페이지는 존재하지 않는 페이지 입니다. <br /> 뒤로가기 혹은 홈 버튼을 눌러 뒤로 가주세요.
       </p>
@@ -30,7 +31,7 @@ const S: {
     img {
       width: 20rem;
       height: auto;
-      margin-bottom: 2rem;
+      margin-bottom: 4rem;
     }
 
     a {
