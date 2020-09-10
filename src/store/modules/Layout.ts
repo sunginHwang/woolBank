@@ -7,6 +7,7 @@ const name = 'layout';
 export type LayoutState = {
   loading: ILayoutLoading;
   toast: IToast;
+  alert: IToast;
 };
 
 const initialState: LayoutState = {
@@ -15,6 +16,10 @@ const initialState: LayoutState = {
     message: ''
   },
   toast: {
+    isShow: false,
+    message: ''
+  },
+  alert: {
     isShow: false,
     message: ''
   }
@@ -39,6 +44,14 @@ export default createSlice({
     hideToast: (state) => {
       state.toast.isShow = false;
       state.toast.message = '';
+    },
+    showAlert: (state, action: PayloadAction<string>) => {
+      state.alert.isShow = true;
+      state.alert.message = action.payload;
+    },
+    hideAlert: (state) => {
+      state.alert.isShow = false;
+      state.alert.message = '';
     }
   }
 });

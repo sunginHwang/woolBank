@@ -7,38 +7,36 @@ import BaseButton from './BaseButton';
 
 type NumberInputProps = {
   currentAmount: number;
+  maxAmount?: number;
   label: string;
   useClose?: boolean;
   loading?: boolean;
   isActiveComplete: boolean;
   onChangeAmount: (number: number) => void;
   onCompleteClick: () => void;
-  onCloseClick?: () => void;
+  onClose?: () => void;
 };
 
 const BILLION = 1000000000;
 
 function NumberInput({
   currentAmount,
+  maxAmount = BILLION,
   label,
   loading = false,
   useClose = false,
   isActiveComplete,
   onChangeAmount,
   onCompleteClick,
-  onCloseClick
+  onClose
 }: NumberInputProps) {
   const [isValidAmount, setIsValidAmount] = useState(true);
   const isNotInputValue = currentAmount === 0;
 
   const displayAmount = `${addComma(currentAmount)}원`;
 
-  const onAddNumberClick = (
-    e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>
-  ) => {
-    const addedNumber = Number(
-      currentAmount + String(e.currentTarget.innerText)
-    );
+  const onAddNumberClick = (e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>) => {
+    const addedNumber = Number(currentAmount + String(e.currentTarget.innerText));
     changeNumber(addedNumber);
   };
 
@@ -49,16 +47,25 @@ function NumberInput({
 
   // 금액 변경 이벤트
   const changeNumber = (num: number) => {
-    // 최대 입금 가능 금액 10억 세팅
-    const isOverTenBullion = num >= BILLION;
+    // 최대 입금 가능 금액 체크
+    const isOverMaxAmount = num >= maxAmount;
 
-    setIsValidAmount(!isOverTenBullion);
-    !isOverTenBullion && onChangeAmount(num);
+    setIsValidAmount(!isOverMaxAmount);
+    !isOverMaxAmount && onChangeAmount(num);
   };
 
   // 금액 초기화
   const onInitClick = () => {
     changeNumber(0);
+    setIsValidAmount(true);
+  };
+
+  /**
+   * 입력 창 닫기
+   **/
+  const onCloseClick = () => {
+    onInitClick();
+    onClose && onClose();
   };
 
   const getDisplayInputMessage = useCallback(() => {
@@ -69,11 +76,11 @@ function NumberInput({
     }
 
     if (!isValidAmount) {
-      result = '입금액은 최대 10억까지 입니다.';
+      result = `입금액은 최대 ${numberToKorean(maxAmount)}원 까지 입니다.`;
     }
 
     return result;
-  }, [isValidAmount, currentAmount]);
+  }, [isValidAmount, currentAmount, maxAmount]);
 
   const displayInputMessage = getDisplayInputMessage();
 
@@ -89,9 +96,7 @@ function NumberInput({
       <S.InputDisplay>
         <S.InputDisplayMessage>{label}</S.InputDisplayMessage>
         <p>{displayAmount}</p>
-        <S.InputDisplayMessage active={!isValidAmount}>
-          {displayInputMessage}
-        </S.InputDisplayMessage>
+        <S.InputDisplayMessage active={!isValidAmount}>{displayInputMessage}</S.InputDisplayMessage>
       </S.InputDisplay>
       <S.Input>
         <S.InputTable>
@@ -112,10 +117,7 @@ function NumberInput({
               <S.InputTd onClick={onAddNumberClick}>9</S.InputTd>
             </tr>
             <tr>
-              <S.InputTd
-                isHide={isNotInputValue}
-                onClick={onRemoveLastInputClick}
-              >
+              <S.InputTd isHide={isNotInputValue} onClick={onRemoveLastInputClick}>
                 {!isNotInputValue && '←'}
               </S.InputTd>
               <S.InputTd onClick={onAddNumberClick}>0</S.InputTd>
@@ -198,8 +200,7 @@ const S: {
 
     &:active {
       border-radius: 1.6rem;
-      background-color: ${(props: any) =>
-    props.isHide ? props.theme.colors.white : props.theme.colors.greyL3};
+      background-color: ${(props: any) => (props.isHide ? props.theme.colors.white : props.theme.colors.greyL3)};
     }
   `,
   Complete: styled.div`
@@ -213,8 +214,7 @@ const S: {
     font-size: 1.4rem;
     height: 2.1rem;
     margin-top: 1rem;
-    color: ${(props: any) =>
-    props.active ? props.theme.colors.redL1 : props.theme.colors.blackL1};
+    color: ${(props: any) => (props.active ? props.theme.colors.redL1 : props.theme.colors.blackL1)};
   `
 };
 

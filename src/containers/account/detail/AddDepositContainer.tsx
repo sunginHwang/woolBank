@@ -10,6 +10,7 @@ import { getAccount } from '../../../store/modules/AccountDetail';
 import { addComma } from '../../../support/util/String';
 import { RootState } from '../../../store';
 import { useToast } from '../../../support/hooks/useToast';
+import { useAlert } from '../../../support/hooks/useAlert';
 
 type AddDepositContainerProps = {
   accountId: number;
@@ -33,11 +34,10 @@ function AddDepositContainer({ accountId, useDepositPhase, onBackClick }: AddDep
     if (!account) {
       return;
     }
-
     const remainDepositAmount = account.amount - account.currentAmount;
 
+    // 입금액이 남은 잔금보다 많을 수 없음.
     if (depositAmount > remainDepositAmount) {
-      alert(`최대 입금 가능 금액은 ${addComma(remainDepositAmount)} 입니다.`);
       return;
     }
 
@@ -70,22 +70,28 @@ function AddDepositContainer({ accountId, useDepositPhase, onBackClick }: AddDep
    * 예적금 입력 모듈 닫기
    **/
   const onCloseDepositKeyPad = () => {
+    setDepositAmount(0);
     history.goBack();
   };
+
+  if (!account) {
+    return null;
+  }
 
   return (
     <>
       <AddDepositButton onClick={onOpenDepositKeyPad} />
       <S.Slide visible={useDepositPhase}>
         <NumberInput
+          useClose
+          maxAmount={account.amount - account.currentAmount}
           currentAmount={depositAmount}
           label='입금하실 금액을 입력해주세요.'
-          useClose
           loading={isAddDepositLoading}
           isActiveComplete={depositAmount > 0}
           onChangeAmount={setDepositAmount}
           onCompleteClick={onAddDeposit}
-          onCloseClick={onCloseDepositKeyPad}
+          onClose={onCloseDepositKeyPad}
         />
       </S.Slide>
     </>

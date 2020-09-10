@@ -16,6 +16,7 @@ import Layout from '../../store/modules/Layout';
 import { IUser } from '../../models/IUser';
 import keys from '../../keys';
 import { useHistory } from 'react-router';
+import { useAlert } from '../../support/hooks/useAlert';
 
 type SocialLoginContainerProps = {
 };
@@ -25,6 +26,7 @@ function SocialLoginContainer({}: SocialLoginContainerProps) {
   const user = useSelector((state: RootState) => state.Auth.user);
   const history = useHistory();
   const dispatch = useDispatch();
+  const [onAlert] = useAlert();
 
   /**
    * facebook 간편 로그인 성공 콜백
@@ -105,7 +107,7 @@ function SocialLoginContainer({}: SocialLoginContainerProps) {
   }
 
   const onLoginFailure = () => {
-    alert('다시 로그인 해 주세요.');
+    onAlert('다시 로그인 해 주세요.');
   }
 
   const isLogin = user.id > 0;

@@ -12,6 +12,7 @@ import accountDetailModule, { getAccount } from '../../../store/modules/AccountD
 import { RootState } from '../../../store';
 import { addComma } from '../../../support/util/String';
 import { useToast } from '../../../support/hooks/useToast';
+import { useAlert } from '../../../support/hooks/useAlert';
 
 type AccountDetailModalContainerProps = {
   accountId: number;
@@ -34,6 +35,7 @@ function AccountDetailModalContainer({
   const account = useSelector((state: RootState) => state.AccountDetail.accountDetail.data);
 
   const onToast = useToast();
+  const [onAlert] = useAlert();
   const [onRemoveRequest, isRemoveLoading] = useRequest(removeAccount);
   const [onAddDepositRequest, isAddDepositLoading] = useRequest(addDeposit);
   const [onExpirationRequest, isExpirationLoading] = useRequest(expirationAccount);
@@ -70,7 +72,7 @@ function AccountDetailModalContainer({
     const remainDepositAmount = account.amount - account.currentAmount;
 
     if (amount > remainDepositAmount) {
-      alert(`최대 입금 가능 금액은 ${addComma(remainDepositAmount)} 입니다.`);
+      onAlert(`최대 입금 가능 금액은 ${addComma(remainDepositAmount)} 입니다.`);
       return;
     }
 

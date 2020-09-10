@@ -12,6 +12,7 @@ import { saveBucketList, updateBucketList } from '../../../support/api/bucketLis
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { useToast } from '../../../support/hooks/useToast';
+import { useAlert } from '../../../support/hooks/useAlert';
 
 type BucketListAddContainerProps = {
   bucketListId?: number;
@@ -77,6 +78,7 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
   const [onSaveRequest, saveLoading] = useRequest(saveBucketList);
   const [onUpdateRequest, updateLoading] = useRequest(updateBucketList);
   const onToast = useToast();
+  const [onAlert] = useAlert();
   const bucketListDetailDetailCache = useSelector((state: RootState) => state.BucketList.bucketListDetailCache);
   /**
    * 버킷리스트 수정 정보 조회
@@ -159,7 +161,7 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
       const uploadImage = await saveImageAndGetImageUrl(formData.mainImgFile);
 
       if (!uploadImage) {
-        alert('이미지 업로드에 실패하였습니다. 다시 시도해 주세요.');
+        onAlert('이미지 업로드에 실패하였습니다. 다시 시도해 주세요.');
         return;
       }
 
@@ -204,7 +206,7 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
 
   // 업데이트 해야 하는데 업데이트 대상 ID가 다르면 이전페이지 이동
   if (bucketListId && bucketListId !== bucketListForm.id) {
-    alert('잘못된 접근 입니다.');
+    onAlert('잘못된 접근 입니다.');
     history.goBack();
     return null;
   }

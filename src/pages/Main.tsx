@@ -8,9 +8,11 @@ import MainPlaceHolder from '../components/main/MainPlaceHolder';
 
 import useFetch from '../support/hooks/useFetch';
 import { IMainInfo } from '../models/main/IMainInfo';
+import { useAlert } from '../support/hooks/useAlert';
 
 function Main() {
   const [mainInfo, mainInfoLoading, mainInfoError] = useFetch<IMainInfo>('main');
+  const [onAlert] = useAlert();
 
   if (mainInfoLoading) {
     return (
@@ -25,7 +27,7 @@ function Main() {
   }
 
   if (mainInfoError) {
-    alert('정보를 불러오지 못했습니다.');
+    onAlert('정보를 불러오지 못했습니다.');
     return null;
   }
 
