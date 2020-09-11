@@ -3,10 +3,11 @@ import MainCardArea from './MainCardArea';
 import TotalAssetsWallet from './TotalAssetsWallet';
 import AccountListItemPlaceHolder from '../account/list/AccountListItemSkeleton';
 import BucketListItemPlaceHolder from '../bucketList/BucketList/BucketListItemSkeleton';
+import PageTemplate from '../common/PageTemplate';
 
-function MainPlaceHolder() {
+function MainPageSkeleton() {
   return (
-    <>
+    <PageTemplate isMain>
       <TotalAssetsWallet totalPrice={0} lastMonthTotalPrice={0} />
       <MainCardArea title='자산현황'>
         {[...Array(3)].map((_, key) => (
@@ -18,8 +19,8 @@ function MainPlaceHolder() {
           <BucketListItemPlaceHolder key={key} />
         ))}
       </MainCardArea>
-    </>
+    </PageTemplate>
   );
 }
 
-export default MainPlaceHolder;
+export default MainPageSkeleton;

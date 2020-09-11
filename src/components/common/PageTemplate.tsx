@@ -11,7 +11,7 @@ type InputPhaseWrapperProps = {
   bgColor?: string;
   useHeader?: boolean;
   rightHeader?: React.ReactNode;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   onBackClick?: () => void;
 
 };

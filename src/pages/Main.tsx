@@ -4,7 +4,7 @@ import MainCardArea from '../components/main/MainCardArea';
 import BucketListItem from '../components/bucketList/BucketList/BucketListItem';
 import AccountListItem from '../components/account/AccountListItem';
 import PageTemplate from '../components/common/PageTemplate';
-import MainPlaceHolder from '../components/main/MainPlaceHolder';
+import MainPageSkeleton from '../components/main/MainPageSkeleton';
 
 import useFetch from '../support/hooks/useFetch';
 import { IMainInfo } from '../models/main/IMainInfo';
@@ -14,16 +14,8 @@ function Main() {
   const [mainInfo, mainInfoLoading, mainInfoError] = useFetch<IMainInfo>('main');
   const [onAlert] = useAlert();
 
-  if (mainInfoLoading) {
-    return (
-      <PageTemplate isMain>
-        <MainPlaceHolder />
-      </PageTemplate>
-    );
-  }
-
-  if (!mainInfo) {
-    return null;
+  if (!mainInfo || mainInfoLoading) {
+    return <MainPageSkeleton />;
   }
 
   if (mainInfoError) {

@@ -5,16 +5,20 @@ import { Redirect, Route, RouteComponentProps, RouteProps, Switch } from 'react-
 import { RootState } from '../store';
 
 import LayoutContainer from '../containers/LayoutContainer';
+import PageNotFound from '../pages/error/PageNotFound';
+import MainPageSkeleton from '../components/main/MainPageSkeleton';
+import PageTemplate from '../components/common/PageTemplate';
 
-const Main = loadable(() => import('../pages/Main'));
-const AccountList = loadable(() => import('../pages/account/AccountList'));
-const AccountDetail = loadable(() => import('../pages/account/AccountDetail'));
+const defaultFallback = { fallback: <PageTemplate /> };
+
+const Main = loadable(() => import('../pages/Main'), { fallback: <MainPageSkeleton /> });
+const AccountList = loadable(() => import('../pages/account/AccountList'), defaultFallback);
+const AccountDetail = loadable(() => import('../pages/account/AccountDetail'), defaultFallback);
 const AccountRegister = loadable(() => import('../pages/account/AccountRegister'));
-const BucketList = loadable(() => import('../pages/bucketList/BucketList'));
-const BucketListDetail = loadable(() => import('../pages/bucketList/BucketListDetail'));
+const BucketList = loadable(() => import('../pages/bucketList/BucketList'), defaultFallback);
+const BucketListDetail = loadable(() => import('../pages/bucketList/BucketListDetail'), defaultFallback);
 const BucketListSave = loadable(() => import('../pages/bucketList/BucketListSave'));
 const Login = loadable(() => import('../pages/user/login'));
-const PageNotFound = loadable(() => import('../pages/error/PageNotFound'));
 
 function Routes() {
   const user = useSelector((state: RootState) => state.Auth.user);
@@ -29,7 +33,12 @@ function Routes() {
       <RouteWrapper path='/accounts/:accountId' component={AccountDetail} useNavBar={false} isLogin={isLogin} />
       <RouteWrapper path='/bucket-list' component={BucketList} exact isLogin={isLogin} />
       <RouteWrapper path='/bucket-list/save' component={BucketListSave} exact isLogin={isLogin} />
-      <RouteWrapper path='/bucket-list/:bucketListId' component={BucketListDetail} useNavBar={false} isLogin={isLogin} />
+      <RouteWrapper
+        path='/bucket-list/:bucketListId'
+        component={BucketListDetail}
+        useNavBar={false}
+        isLogin={isLogin}
+      />
       <Route component={PageNotFound} />
     </Switch>
   );
@@ -42,11 +51,15 @@ export interface LayoutRouteProps extends RouteProps {
   checkAuth?: boolean;
 }
 
-function RouteWrapper({ component: Component, useNavBar, isLogin = false, checkAuth = true, ...rest }: LayoutRouteProps) {
+function RouteWrapper({
+  component: Component,
+  useNavBar,
+  isLogin = false,
+  checkAuth = true,
+  ...rest
+}: LayoutRouteProps) {
   const renderLayout = (props: any) => (
-    <LayoutContainer useNavBar={useNavBar}>
-      {Component && <Component {...props} {...rest} />}
-    </LayoutContainer>
+    <LayoutContainer useNavBar={useNavBar}>{Component && <Component {...props} {...rest} />}</LayoutContainer>
   );
 
   const isNotAuth = checkAuth && !isLogin;
@@ -54,9 +67,9 @@ function RouteWrapper({ component: Component, useNavBar, isLogin = false, checkA
   return (
     <Route
       {...rest}
-      render={props => {
+      render={(props) => {
         if (isNotAuth) {
-          return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+          return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />;
         }
 
         return renderLayout(props);
