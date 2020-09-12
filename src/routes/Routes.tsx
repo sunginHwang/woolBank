@@ -14,10 +14,10 @@ const defaultFallback = { fallback: <PageTemplate /> };
 const Main = loadable(() => import('../pages/Main'), { fallback: <MainPageSkeleton /> });
 const AccountList = loadable(() => import('../pages/account/AccountList'), defaultFallback);
 const AccountDetail = loadable(() => import('../pages/account/AccountDetail'), defaultFallback);
-const AccountRegister = loadable(() => import('../pages/account/AccountRegister'));
+const AccountRegister = loadable(() => import('../pages/account/AccountRegister'), defaultFallback);
 const BucketList = loadable(() => import('../pages/bucketList/BucketList'), defaultFallback);
 const BucketListDetail = loadable(() => import('../pages/bucketList/BucketListDetail'), defaultFallback);
-const BucketListSave = loadable(() => import('../pages/bucketList/BucketListSave'));
+const BucketListSave = loadable(() => import('../pages/bucketList/BucketListSave'), defaultFallback);
 const Login = loadable(() => import('../pages/user/login'));
 
 function Routes() {

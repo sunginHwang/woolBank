@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import theme from '../../style/colors';
 import IcoChevronLeft from '../icon/IcoChevronLeft';
@@ -6,7 +6,8 @@ import IcoChevronLeft from '../icon/IcoChevronLeft';
 type HeaderWithBackProps = {
   title: string;
   iconColor?: string;
-  onBackClick: () => void;
+  useBackButton?: boolean;
+  onBackClick?: () => void;
   right?: React.ReactNode | string;
   useSkeleton?: boolean;
 };
@@ -15,14 +16,19 @@ function HeaderWithBack({
   title,
   iconColor = theme.colors.navyD1,
   useSkeleton = false,
+  useBackButton = true,
   onBackClick,
   right
 }: HeaderWithBackProps) {
+  const onBackButtonClick = useCallback(() => {
+    useBackButton && onBackClick && onBackClick();
+  }, [useBackButton, onBackClick]);
+
   return (
     <S.HeaderWithBack useSkeleton={useSkeleton}>
       <div>
-        <div onClick={onBackClick}>
-          <IcoChevronLeft width={26} height={26} fill={iconColor} />
+        <div onClick={onBackButtonClick}>
+          {useBackButton && <IcoChevronLeft width={26} height={26} fill={iconColor} />}
         </div>
         <p>{title}</p>
         <S.rightHeader>{right}</S.rightHeader>

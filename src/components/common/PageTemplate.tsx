@@ -11,6 +11,7 @@ type InputPhaseWrapperProps = {
   bgColor?: string;
   useHeader?: boolean;
   rightHeader?: React.ReactNode;
+  useBackButton?: boolean;
   children?: React.ReactNode;
   onBackClick?: () => void;
 
@@ -22,6 +23,7 @@ function PageTemplate({
   bgColor = colors.colors.whiteL1,
   useSidePadding = true,
   useHeader = true,
+  useBackButton = true,
   onBackClick,
   rightHeader = null,
   children
@@ -39,7 +41,7 @@ function PageTemplate({
         </>
       ) : (
         <>
-          {useHeader && <HeaderWithBack title={title} onBackClick={onHeaderBackClick} right={rightHeader} />}
+          {useHeader && <HeaderWithBack title={title} useBackButton={useBackButton} onBackClick={onHeaderBackClick} right={rightHeader} />}
           <S.Content useHeader={useHeader} bgColor={bgColor} useSidePadding={useSidePadding}>
             {children}
           </S.Content>

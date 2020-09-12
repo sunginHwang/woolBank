@@ -9,6 +9,8 @@ import { RootState } from '../../../store';
 import { getAccountListLastUpdatedAt } from '../../../support/api/accountApi';
 import { getAccountList } from '../../../store/modules/AccountList';
 import { checkNeedReFetch } from '../../../support/util/checkNeedReFetch';
+import AddButton from '../../../components/common/AddButton';
+import { useHistory } from 'react-router';
 
 const tabs: IAssetType[] = [
   {
@@ -27,10 +29,18 @@ function AccountListContainer() {
   const accountList = useSelector((state: RootState) => state.AccountList.accountList);
   const lastUpdatedDate = useSelector((state: RootState) => state.AccountList.lastUpdatedDate);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     onLoadAccountList();
   }, []);
+
+  /**
+   * 예적금 등록 페이지 이동
+   **/
+  const goAccountRegisterPage = () => {
+    history.push('/accounts/register');
+  };
 
   /**
    * 예적금 리스트 조회
@@ -49,6 +59,7 @@ function AccountListContainer() {
           ? [...Array(10)].map((_, key) => <AccountListItemSkeleton key={key} />)
           : accountList.data.map((account, index) => <AccountListItem key={index} account={account} />)}
       </S.List>
+      <AddButton icon='+' onClick={goAccountRegisterPage} />
     </>
   );
 }

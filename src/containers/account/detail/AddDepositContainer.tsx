@@ -7,10 +7,8 @@ import useRequest from '../../../support/hooks/useRequest';
 import { addDeposit } from '../../../support/api/accountApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAccount } from '../../../store/modules/AccountDetail';
-import { addComma } from '../../../support/util/String';
 import { RootState } from '../../../store';
 import { useToast } from '../../../support/hooks/useToast';
-import { useAlert } from '../../../support/hooks/useAlert';
 
 type AddDepositContainerProps = {
   accountId: number;
