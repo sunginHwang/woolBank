@@ -19,7 +19,7 @@ const S: {
     display: flex;
     justify-content: center;
     align-items: center;
-    bottom: 10rem;
+    bottom: 8rem;
     right: 2rem;
     width: 5rem;
     height: 5rem;

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import IcoSplash from '../../components/icon/IcoSplash';
 import { useInterval } from '../../support/hooks/useInterval';
-import colors from '../../style/colors';
-
+import mainSrc from '../../image/main_ico.svg';
 function Splash() {
   const [dot, setDot] = useState('.');
 
@@ -13,7 +11,7 @@ function Splash() {
 
   return (
     <S.Splash>
-      <IcoSplash width={80} height={80} fill={colors.colors.navyD1} />
+      <img src={mainSrc} />
       <S.Text>
         <p>필요한 정보를 가져오고 있습니다.</p>
         <p>잠시만 기다려주세요.</p>
@@ -34,6 +32,11 @@ const S: {
     justify-content: center;
     flex-direction: column;
     background-color: ${(props) => props.theme.colors.white};
+    
+    img {
+    width: 120px;
+    height: 80px;
+    }
   `,
   Text: styled.div`
     width: 100%;
