@@ -40,7 +40,7 @@ const S: {
       font-weight: bold;
 
       > strong {
-        color: ${(props) => props.theme.colors.mainColor};
+        color: ${(props) => props.theme.colors.redL2};
       }
     }
   `

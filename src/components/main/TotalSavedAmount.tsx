@@ -25,13 +25,27 @@ const S: {
     padding: 2rem 0 2rem 0;    
     >p{
       color: ${props => props.theme.colors.blackL2};
-      font-size: 2.4rem;
-      line-height: 1.8;
+      font-size: 2.8rem;
+      line-height: 1.6;
       font-weight: bold;
       
       > strong {
-        color: ${props => props.theme.colors.mainColor};
+        color: ${props => props.theme.colors.redL3};
       }
+    }
+    
+    &:before {
+      position: absolute;
+      right: 0;
+      top: 7rem;
+      content: "";
+      display: block;
+      height: 36rem;
+      background: ${props => props.theme.colors.pinkL2};
+      width: 18rem;
+      border-bottom-left-radius: 36rem;
+      border-top-left-radius: 36rem;
+      z-index: -1;
     }
   `
 
