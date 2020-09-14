@@ -9,7 +9,7 @@ import PageNotFound from '../pages/error/PageNotFound';
 import MainPageSkeleton from '../components/main/MainPageSkeleton';
 import PageTemplate from '../components/common/PageTemplate';
 
-const defaultFallback = { fallback: <PageTemplate /> };
+const defaultFallback = { fallback: <PageTemplate useHeader={false} /> };
 
 const Main = loadable(() => import('../pages/Main'), { fallback: <MainPageSkeleton /> });
 const AccountList = loadable(() => import('../pages/account/AccountList'), defaultFallback);

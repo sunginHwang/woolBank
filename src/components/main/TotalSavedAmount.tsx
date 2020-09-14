@@ -7,7 +7,6 @@ export interface TotalSavedAmountProps {
 }
 
 function TotalSavedAmount({ totalPrice }: TotalSavedAmountProps) {
-
   return (
     <>
       <S.Amount>

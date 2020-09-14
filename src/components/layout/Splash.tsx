@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import IcoSplash from '../../components/icon/IcoSplash';
 import { useInterval } from '../../support/hooks/useInterval';
-import colors from '../../style/colors';
 import mainImage from '../../image/main_image.svg';
 
 function Splash() {
@@ -16,8 +14,7 @@ function Splash() {
     <S.Splash>
       <img src={mainImage} />
       <S.Text>
-        <p>필요한 정보를 가져오고 있습니다.</p>
-        <p>잠시만 기다려주세요.</p>
+        <p>잠시만 기다려주세요{dot}</p>
       </S.Text>
     </S.Splash>
   );
@@ -37,8 +34,8 @@ const S: {
     background-color: ${(props) => props.theme.colors.white};
     
     img {
-      width: 8rem;
-      height: 8rem;
+      width: 10rem;
+      height: 10rem;
     }
   `,
   Text: styled.div`
@@ -48,6 +45,7 @@ const S: {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    color: ${(props) => props.theme.colors.blackL2};
   `
 };
 
