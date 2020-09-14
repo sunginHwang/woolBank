@@ -26,7 +26,7 @@ function BaseButton({
     const result = { bgColor: '', color: '' };
 
     if (color === 'navy') {
-      result.bgColor = colors.colors.navyD1;
+      result.bgColor = colors.colors.mainColor;
       result.color = colors.colors.white;
     }
 

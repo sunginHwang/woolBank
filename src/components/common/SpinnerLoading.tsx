@@ -13,7 +13,7 @@ function SpinnerLoading({ loading, message }: SpinnerLoadingProps) {
   return (
     <ModalDeem visible={loading}>
       <S.SpinnerLoading>
-        <ClipLoader color={colors.colors.navyD1} size={40} />
+        <ClipLoader color={colors.colors.mainColor} size={40} />
         {message && <S.Message>{message}</S.Message>}
       </S.SpinnerLoading>
     </ModalDeem>

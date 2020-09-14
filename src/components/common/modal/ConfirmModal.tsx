@@ -24,7 +24,7 @@ function ConfirmModal({
   onCancelClick,
   onConfirmClick
 }: WalletDateModalProps) {
-  const LoadingEl = <S.Loading><ClipLoader size={20} color={colors.colors.navyD1} /></S.Loading>;
+  const LoadingEl = <S.Loading><ClipLoader size={20} color={colors.colors.mainColor} /></S.Loading>;
 
   return (
     <ModalDeem visible={visible}>
@@ -107,7 +107,7 @@ const S: {
     color: ${props => props.theme.colors.blackL1};
     
     :last-child {
-      color: ${props => props.theme.colors.navyD1};
+      color: ${props => props.theme.colors.mainColor};
     }
   `
 };

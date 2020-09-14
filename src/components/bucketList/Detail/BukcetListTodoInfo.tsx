@@ -71,7 +71,7 @@ const S: {
   TodoTitle: styled.p`
     color: ${(props) => props.theme.colors.blackL1};
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 2rem;
   `
 };

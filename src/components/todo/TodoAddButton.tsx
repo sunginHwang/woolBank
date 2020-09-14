@@ -22,7 +22,7 @@ function TodoAddButton({ loading = false, onClick }: AddTodoButtonProps) {
 
   return (
     <S.TodoAddButton onClick={onAddClick}>
-      {loading ? <ClipLoader color={colors.colors.navyD1} size={20} /> : <IcoPlus />}
+      {loading ? <ClipLoader color={colors.colors.mainColor} size={20} /> : <IcoPlus />}
     </S.TodoAddButton>
   );
 }
@@ -37,9 +37,9 @@ const S: {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 0.1rem solid ${(props) => props.theme.colors.navyD1};
+    border: 0.1rem solid ${(props) => props.theme.colors.mainColor};
     background-color: ${(props) => props.theme.colors.white};
-    color: ${(props) => props.theme.colors.navyD1};
+    color: ${(props) => props.theme.colors.mainColor};
   `
 };
 

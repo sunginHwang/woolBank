@@ -19,7 +19,7 @@ const S: {
   LabelText: styled.p`
     font-size: 2rem;
     font-weight: 500;
-    color: ${props => props.theme.colors.navyD1};
+    color: ${props => props.theme.colors.mainColor};
     text-align: left;
     margin-bottom: 2rem;
   `

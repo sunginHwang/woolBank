@@ -28,7 +28,7 @@ function BucketListItem({
             {
               bucketList.thumbImageUrl
                 ? <img src={bucketList.thumbImageUrl} alt='버킷리스트 썸네일 이미지' onError={onImageFallback} />
-                : <EmptyCircle size={40} />
+                : <EmptyCircle size={50} />
             }
             <S.Content>
               <p>{bucketList.title}</p>
@@ -38,7 +38,7 @@ function BucketListItem({
           <div>
             {
               remainDate === 0
-                ? <IcoCircleCheck fill={colors.colors.navyD1} width={24} height={24} />
+                ? <IcoCircleCheck fill={colors.colors.mainColor} width={24} height={24} />
                 : <S.RemainDate>D-{remainDate}</S.RemainDate>
             }
           </div>
@@ -65,9 +65,10 @@ const S: {
     }
 
     img {
-      width: 4rem;
-      height: 4rem;
+      width: 5rem;
+      height: 5rem;
       border-radius: 50%;
+      border: .1rem solid ${(props) => props.theme.colors.greyL2};
     }
   `,
   Content: styled.div`
@@ -75,20 +76,21 @@ const S: {
     flex-direction: column;
     margin-left: 1.4rem;
     p {
-      margin-top: 0.4rem;
       font-size: 1.6rem;
-      font-weight: 500;
-      color: ${(props) => props.theme.colors.blackL1};
+      font-weight: bold;
+      line-height: 1.9;
+      
+      color: ${(props) => props.theme.colors.blackL2};
     }
     span {
       font-size: 1.2rem;
-      color: ${(props) => props.theme.colors.greyL1};
+      color: ${(props) => props.theme.colors.greyL7};
     }
   `,
   RemainDate: styled.p`
-    font-size: 1.6rem;
-    font-weight: 500;
-    color: ${(props) => props.theme.colors.navyD1};
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: ${(props) => props.theme.colors.mainColor};
   `
 };
 

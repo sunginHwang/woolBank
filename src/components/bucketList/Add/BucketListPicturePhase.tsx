@@ -150,13 +150,13 @@ function BucketListPicturePhase({
         <S.ImgWrapper>
           <S.Img>
             <div onClick={onPictureClick}>
-              <IcoCamera width={40} height={40} fill={colors.colors.navyD1} />
+              <IcoCamera width={40} height={40} fill={colors.colors.mainColor} />
             </div>
             <input type='file' ref={inputCameraRef} onChange={onChangeImage} accept='image/*' capture='camera' />
           </S.Img>
           <S.Img>
             <div onClick={onAlbumClick}>
-              <IcoImage width={40} height={40} fill={colors.colors.navyD1} />
+              <IcoImage width={40} height={40} fill={colors.colors.mainColor} />
             </div>
             <input
               ref={inputAlbumRef}
@@ -204,7 +204,7 @@ const S: {
     background-color: ${(props) => props.theme.colors.white};
 
     > div {
-      border: 0.1rem solid ${(props) => props.theme.colors.navyD1};
+      border: 0.1rem solid ${(props) => props.theme.colors.mainColor};
       padding: 1rem 0.5rem;
       width: 7rem;
       display: flex;

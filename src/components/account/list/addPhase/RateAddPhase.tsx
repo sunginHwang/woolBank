@@ -149,7 +149,7 @@ const S: {
       color: ${(props) => props.theme.colors.blackL1};
 
       > span {
-        color: ${(props) => props.theme.colors.navyD1};
+        color: ${(props) => props.theme.colors.mainColor};
       }
     }
   `,

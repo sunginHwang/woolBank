@@ -45,7 +45,7 @@ const S: {
     top: -1.2rem;
     line-height: 3rem;;
     text-align: center;
-    background: ${(props) => props.theme.colors.navyD1};
+    background: ${(props) => props.theme.colors.mainColor};
     color: #fff;
     font-size: 1.4rem;;
     display: block;
@@ -58,7 +58,7 @@ const S: {
       position: absolute;
       width: 0;
       height: 0;
-      border-top: .5rem solid ${(props) => props.theme.colors.navyD1};
+      border-top: .5rem solid ${(props) => props.theme.colors.mainColor};
       border-left: .5rem solid transparent;
       border-right: .5rem solid transparent;
       top: 100%;

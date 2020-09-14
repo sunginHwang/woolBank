@@ -19,12 +19,12 @@ const S: {
     display: flex;
     justify-content: center;
     align-items: center;
-    bottom: 10rem;
+    bottom: 8rem;
     right: 2rem;
     width: 5rem;
     height: 5rem;
     color: ${(props) => props.theme.colors.white};
-    background-color: ${(props) => props.theme.colors.navyD1};
+    background-color: ${(props) => props.theme.colors.redL2};
     border-radius: 100%;
     box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem rgba(0, 0, 0, 0.16);
 

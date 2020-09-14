@@ -19,7 +19,6 @@ const S: {
     flex-direction: column;
     margin-bottom: 1.6rem;
     border-radius: 1.2rem;
-    color: ${(props) => props.theme.colors.blackL1};
     box-shadow: rgb(220, 220, 233) 0.1rem 0.7rem 1.3rem 0.6rem;
   `
 };

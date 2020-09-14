@@ -48,7 +48,7 @@ const S: {
   Label: styled.label`
     font-size: 1.2rem;
     font-weight: 500;
-    color: ${(props: any) => (props.focus ? props.theme.colors.navyD1 : props.theme.colors.navyD1)};
+    color: ${(props: any) => (props.focus ? props.theme.colors.mainColor : props.theme.colors.mainColor)};
     text-align: left;
     margin-bottom: 1.5rem;
   `

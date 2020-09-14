@@ -85,7 +85,7 @@ const S: {
     justify-content: center;
     position: relative;
     color: ${(props: any) =>
-      props.active ? props.theme.colors.navyD1 : props.theme.colors.blackL1};
+      props.active ? props.theme.colors.redL2 : props.theme.colors.blackL1};
 
     a {
       width: 100%;
@@ -99,13 +99,13 @@ const S: {
       justify-content: center;
       align-items: center;
       color: ${(props: any) =>
-        props.active ? props.theme.colors.navyD1 : props.theme.colors.greyD2};
+        props.active ? props.theme.colors.redL2 : props.theme.colors.greyD2};
 
       span {
         margin-top: 0.4rem;
         font-size: 1.2rem;
         color: ${(props: any) =>
-          props.active ? props.theme.colors.navyD1 : props.theme.colors.greyD2};
+          props.active ? props.theme.colors.redL2 : props.theme.colors.greyD2};
       }
     }
   `

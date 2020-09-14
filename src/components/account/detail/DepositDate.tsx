@@ -134,7 +134,7 @@ const S: {
     width: 100%;
     border-radius: 0.8rem;
     color: ${(props) => props.theme.colors.white};
-    background-color: ${(props) => props.theme.colors.navyD1};
+    background-color: ${(props) => props.theme.colors.mainColor};
   `
 };
 

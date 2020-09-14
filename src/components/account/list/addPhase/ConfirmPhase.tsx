@@ -141,12 +141,13 @@ const S: {
     margin-bottom: 1rem;
 
     > p {
-      font-size: 2rem;
-      color: ${(props) => props.theme.colors.blackL1};
+      font-size: 1.8rem;
+      color: ${(props) => props.theme.colors.blackL2};
+      font-weight: bold;
     }
   `,
   Card: styled.div`
-    background-color: ${(props) => props.theme.colors.navyD1};
+    background-color: ${(props) => props.theme.colors.mainColor};
     color: ${(props) => props.theme.colors.white};
     border-radius: 1.2rem;
 
@@ -173,7 +174,7 @@ const S: {
     justify-content: space-between;
     margin-bottom: 1.5rem;
     span {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       opacity: 0.5;
     }
   `,
@@ -182,12 +183,12 @@ const S: {
 
     p {
       color: ${(props) => props.theme.colors.blackL1};
-      font-size: 2rem;
+      font-size: 1.8rem;
       margin-bottom: 1rem;
     }
 
     span {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       margin-bottom: 0.5rem;
       display: block;
       color: ${(props) => props.theme.colors.greyL1};

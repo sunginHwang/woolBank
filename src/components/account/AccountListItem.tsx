@@ -5,7 +5,7 @@ import { addComma } from '../../support/util/String';
 import { IAccount } from '../../models/IAccount';
 import { getRemainDatePercentage, parseDate } from '../../support/util/date';
 import { Link } from 'react-router-dom';
-import AccountSavingTypeIcon from './list/AccountSavingTypeIcon';
+
 type WalletListItemProps = {
   account: IAccount;
 };
@@ -22,7 +22,6 @@ function AccountListItem({
           <p>{title}</p>
           <div>
             <span>{savingType.name}</span>
-            <AccountSavingTypeIcon savingType={savingType.type} />
           </div>
         </S.Top>
         <S.Content>
@@ -58,19 +57,21 @@ const S: {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+      color: ${(props) => props.theme.colors.blackL2};
+      font-size: 1.6rem;
     }
 
     span {
       font-size: 1.4rem;
-      margin: 0.2rem 0.5rem 0 0;
-      color: ${(props) => props.theme.colors.greyD2};
+      font-weight: bold;
+      color: ${(props) => props.theme.colors.greyL5};
     }
 
     > div {
       display: flex;
-      min-width: 7rem;
+      min-width: 7.5rem;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
     }
   `,
   Content: styled.div`
@@ -81,7 +82,7 @@ const S: {
     p {
       font-size: 2.4rem;
       font-weight: bold;
-      color: ${(props) => props.theme.colors.navyD1};
+      color: ${(props) => props.theme.colors.mainColor};
     }
 
     span {
@@ -93,15 +94,9 @@ const S: {
     font-size: 1.2rem;
     display: flex;
     justify-content: space-between;
-    p {
-      opacity: 0.7;
-      color: ${(props) => props.theme.colors.greyL1};
-    }
-
-    span {
-      opacity: 0.7;
-      color: ${(props) => props.theme.colors.navyD1};
-    }
+    color: ${(props) => props.theme.colors.greyL7};
+    font-weight: bold;
+    opacity: 0.7;
   `,
   Progress: styled.div`
     margin-top: 1.6rem;
@@ -112,7 +107,7 @@ const S: {
     div {
       width: ${(props:any) => props.percent}%;
       height: 100%;
-      background-color: ${(props) => props.theme.colors.navyD1};
+      background-color: ${(props) => props.theme.colors.mainColor};
     }
   `
 };

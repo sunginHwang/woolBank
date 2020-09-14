@@ -103,7 +103,7 @@ const S: any = {
     label {
       font-size: 1.2rem;
       font-weight: 500;
-      color: ${(props: any) => (props.focus ? props.theme.colors.navyD1 : props.theme.colors.navyD1)};
+      color: ${(props: any) => (props.focus ? props.theme.colors.mainColor : props.theme.colors.mainColor)};
       text-align: left;
       margin-bottom: 0.5rem;
     }
@@ -112,7 +112,7 @@ const S: any = {
       background: transparent;
       border: none;
       border-bottom: 0.1rem solid
-        ${(props: any) => (props.focus ? props.theme.colors.navyD1 : props.theme.colors.greyL1)};
+        ${(props: any) => (props.focus ? props.theme.colors.mainColor : props.theme.colors.greyL1)};
       padding-right: 3rem;
       border-radius: 0;
       height: 4rem;

@@ -50,7 +50,7 @@ const S: {
   `,
   Amount: styled.div`
     font-size: 2rem;
-    color: ${props => props.theme.colors.navyD1};
+    color: ${props => props.theme.colors.mainColor};
     font-weight: bold;
   `
 };

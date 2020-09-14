@@ -32,7 +32,7 @@ function ImageCrop({
     <S.ImageCrop>
       <HeaderWithBack
         title='이미지 편집'
-        right={<i onClick={onCompleteCrop}><IcoCircleCheck fill={colors.colors.navyD1} /></i>}
+        right={<i onClick={onCompleteCrop}><IcoCircleCheck fill={colors.colors.mainColor} /></i>}
         onBackClick={onBackClick}
       />
       <S.Content>

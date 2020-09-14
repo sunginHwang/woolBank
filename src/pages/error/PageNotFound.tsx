@@ -37,7 +37,7 @@ const S: {
     a {
       width: 10rem;
       margin-top: 2rem;
-      background-color: ${(props) => props.theme.colors.navyD1};
+      background-color: ${(props) => props.theme.colors.mainColor};
       color: ${(props) => props.theme.colors.white};
       border-radius: 0.8rem;
       padding: 1.5rem;

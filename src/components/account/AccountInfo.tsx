@@ -21,7 +21,7 @@ function AccountInfo({ account }: AccountInfoProps) {
       </S.CurrentAmount>
       <Progress
         percent={35}
-        color={colors.colors.navyD1}
+        color={colors.colors.mainColor}
         label='35'
         labelSuffix='%'
         startMessage={`개설일: ${parseDate(account.startDate)}`}
@@ -50,7 +50,7 @@ const S: {
     color: ${(props) => props.theme.colors.blackL1};
   `,
   Title: styled.p`
-    font-size: 2.2rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
     > span {
       font-size: 1.2rem;
@@ -58,13 +58,13 @@ const S: {
     }
   `,
   CurrentAmount: styled.p`
-    font-size: 4.4rem;
+    font-size: 4.2rem;
     font-weight: bold;
-    color: ${(props) => props.theme.colors.navyD1};
+    color: ${(props) => props.theme.colors.mainColor};
     margin-bottom: 3rem;
 
     > span {
-      font-size: 3.4rem;
+      font-size: 3rem;
       font-weight: normal;
     }
   `,
@@ -75,16 +75,14 @@ const S: {
     width: 100%;
     margin-top: 2rem;
     
-    >span {
-      font-size: 1.6rem;
-    }
-    
+   
     >p {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       font-weight: bold;
       
       >span {
-        font-size: 1.4rem;
+        margin-left: .5rem;
+        font-size: 1.2rem;
         font-weight: normal;
       }
     }

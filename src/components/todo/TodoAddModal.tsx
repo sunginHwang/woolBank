@@ -25,7 +25,7 @@ function TodoAddModal({
         <S.Send>
           <input type='text' placeholder='해야 할 일을 작성해 주세요.' value={title} onChange={onChange} />
           <button onClick={onSendClick}>
-            <IcoSend fill={colors.colors.navyD1} />
+            <IcoSend fill={colors.colors.mainColor} />
           </button>
         </S.Send>
       </S.AddModal>

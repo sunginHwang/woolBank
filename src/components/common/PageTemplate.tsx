@@ -20,7 +20,7 @@ type InputPhaseWrapperProps = {
 function PageTemplate({
   title = '',
   isMain = false,
-  bgColor = colors.colors.whiteL1,
+  bgColor = colors.colors.white,
   useSidePadding = true,
   useHeader = true,
   useBackButton = true,
@@ -37,7 +37,7 @@ function PageTemplate({
       {isMain ? (
         <>
           <Header />
-          <div>{children}</div>
+          <S.Content useHeader useSidePadding>{children}</S.Content>
         </>
       ) : (
         <>
@@ -66,6 +66,6 @@ const S: {
     background-color: ${(props: any) => props.bgColor};
     padding:
       ${(props: any) => (props.useHeader ? '5.5rem' : '0')} // 헤더 사용 유무에 따른 상단 패딩 조정 
-      ${(props: any) => (props.useSidePadding ? '2rem 0 2rem' : '0 0 0')};
+      ${(props: any) => (props.useSidePadding ? '2rem 10rem 2rem' : '0 10rem 0')};
   `
 };

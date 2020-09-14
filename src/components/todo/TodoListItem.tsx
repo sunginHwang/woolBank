@@ -33,16 +33,16 @@ function TodoListItem({ todo, isLoading = false, onToggleState, onRemove }: Todo
   }, [todo, onRemove]);
 
   const renderIsCompleteIcon = todo.isComplete ? (
-    <IcoCircleCheck fill={colors.colors.navyD1} />
+    <IcoCircleCheck fill={colors.colors.mainColor} />
   ) : (
-    <IcoBlackCircle fill={colors.colors.navyD1} />
+    <IcoBlackCircle fill={colors.colors.mainColor} />
   );
 
   return (
     <S.TodoListItem>
       <div>
         <i onClick={onToggleStateClick}>
-          {isLoading ? <ClipLoader color={colors.colors.navyD1} size={16} /> : renderIsCompleteIcon}
+          {isLoading ? <ClipLoader color={colors.colors.mainColor} size={16} /> : renderIsCompleteIcon}
         </i>
         <S.ListTitle isComplete={todo.isComplete}>{todo.title}</S.ListTitle>
       </div>

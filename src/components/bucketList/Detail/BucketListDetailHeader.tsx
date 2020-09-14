@@ -42,7 +42,7 @@ function BucketListDetailHeader({
   });
 
   const fixedHeaderMsg = isShowFixedHeader ? title : '';
-  const headerIconColor = isShowFixedHeader ? theme.colors.navyD1 : theme.colors.white;
+  const headerIconColor = isShowFixedHeader ? theme.colors.mainColor : theme.colors.white;
   // 목표 날짜 까지 남은 기간
   const remainDay = remainDays(now, completeDate);
   // 목표 날짜 까지 이룬 %
@@ -64,7 +64,7 @@ function BucketListDetailHeader({
             label={remainDay}
             labelPrefix='D-'
             percent={remainPercent}
-            color={theme.colors.navyD1}
+            color={theme.colors.mainColor}
           />
         </div>
       </S.ImageInfo>
@@ -90,7 +90,7 @@ const S :any = {
      justify-content: flex-end;
      
      > h2 {
-      font-size: 2.6rem;
+      font-size: 2.2rem;
       color: ${props => props.theme.colors.white};
       margin-bottom: 8vh;
       text-align: center;

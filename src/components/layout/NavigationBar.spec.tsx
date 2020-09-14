@@ -23,7 +23,7 @@ describe('<NavigationBar />', () => {
     const bucketListEl = getByText('버킷리스트');
     const meEl = getByText('내 정보');
     // 홈화면만 활성화
-    expect(homeEl).toHaveStyle(`color: ${theme.colors.navyD1}`);
+    expect(homeEl).toHaveStyle(`color: ${theme.colors.mainColor}`);
     expect(walletEl).toHaveStyle(`color: ${theme.colors.greyD2}`);
     expect(bucketListEl).toHaveStyle(`color: ${theme.colors.greyD2}`);
     expect(meEl).toHaveStyle(`color: ${theme.colors.greyD2}`);

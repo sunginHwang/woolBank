@@ -54,8 +54,8 @@ const S: {
     > p {
       margin-left: 1rem;
       padding: 1.4rem;
-      font-size: 1.8rem;
-      font-weight: 600;
+      font-size: 1.6rem;
+      font-weight: bold;
       color: ${(props) => props.theme.colors.blackL1};
       text-align: left;
     }
@@ -69,8 +69,7 @@ const S: {
     display: flex;
     justify-content: center;
     p {
-      font-size: 1.6rem;
-      font-weight: 600;
+      font-weight: bold;
 
       color: ${(props) => props.theme.colors.blackL1};
     }

@@ -1,5 +1,6 @@
 import { normalize } from 'styled-normalize';
 import { createGlobalStyle } from 'styled-components';
+import './style/css/font.css';
 import colors from './colors';
 const GlobalStyle = createGlobalStyle`
   ${normalize}
@@ -33,12 +34,12 @@ const GlobalStyle = createGlobalStyle`
   }
   
   body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.6rem;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 1.4rem;
     line-height: 1.5;
     display: flex;
     flex-direction: column;
-    background-color: ${colors.colors.whiteL1};
+    background-color: ${colors.colors.white};
      -ms-overflow-style: none;
   }
   

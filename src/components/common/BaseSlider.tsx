@@ -46,7 +46,7 @@ function BaseSlider({
     const rangePercent = getRangePercent(value);
     const displaySize = size === 'medium' ? 10 : 20;
     const displayPercent = size === 'medium' ? 0.2 : 0.4;
-    inputRef.current.style.background = `linear-gradient(90deg, ${colors.colors.navyD1} ${rangePercent}%, rgb(215, 220, 223) ${rangePercent}%)`;
+    inputRef.current.style.background = `linear-gradient(90deg, ${colors.colors.mainColor} ${rangePercent}%, rgb(215, 220, 223) ${rangePercent}%)`;
     displayRef.current.style.left = `calc(${rangePercent}%  + ${
       (displaySize - rangePercent * displayPercent) * 0.1
     }rem)`;
@@ -85,7 +85,7 @@ const S: any = {
       margin: 2rem 0;
       width: 100%;
       outline: none;
-      background: linear-gradient(90deg, ${(props) => props.theme.colors.navyD1} 0%, rgb(215, 220, 223) 0);
+      background: linear-gradient(90deg, ${(props) => props.theme.colors.mainColor} 0%, rgb(215, 220, 223) 0);
         
       &:focus{
         outline: none;
@@ -101,7 +101,7 @@ const S: any = {
       &::-webkit-slider-thumb {
           height: ${(props: any) => (props.size === 'medium' ? '2' : '4')}rem;
           width:  ${(props: any) => (props.size === 'medium' ? '2' : '4')}rem;
-          border: .3rem solid ${(props) => props.theme.colors.navyD1};
+          border: .3rem solid ${(props) => props.theme.colors.mainColor};
           border-radius: 50%;
           background: #fff;
           cursor: pointer;
@@ -120,9 +120,9 @@ const S: any = {
         height: ${(props: any) => (props.size === 'medium' ? '3' : '4')}rem;
         line-height: ${(props: any) => (props.size === 'medium' ? '3' : '4')}rem;;
         text-align: center;
-        background: ${(props) => props.theme.colors.navyD1};
+        background: ${(props) => props.theme.colors.mainColor};
         color: #fff;
-        font-size: ${(props: any) => (props.size === 'medium' ? '1.4' : '1.6')}rem;;
+        font-size: ${(props: any) => (props.size === 'medium' ? '1.2' : '1.4')}rem;;
         display: block;
         position: absolute;
         left: 50%;
@@ -135,7 +135,7 @@ const S: any = {
       position: absolute;
       width: 0;
       height: 0;
-      border-top: .5rem solid ${(props) => props.theme.colors.navyD1};
+      border-top: .5rem solid ${(props) => props.theme.colors.mainColor};
       border-left: .5rem solid transparent;
       border-right: .5rem solid transparent;
       top: 100%;

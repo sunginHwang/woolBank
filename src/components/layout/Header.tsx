@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import banketList from '../../image/banket_list.svg';
 function Header() {
   return (
     <S.Header>
-      <h2>W.MANK</h2>
+      <img src={banketList} alt='메인 로고' />
     </S.Header>
   );
 }
@@ -13,17 +13,21 @@ const S: {
   Header: any;
 } = {
   Header: styled.div`
-    height: 5.5rem;
+    height: 3.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${props => props.theme.colors.white};
-    background-color: ${props => props.theme.colors.navyD1};
+    background-color: ${(props) => props.theme.colors.white};
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: ${props => props.theme.zIndex.header};
+    z-index: ${(props) => props.theme.zIndex.header};
+    padding: 1rem 0 1rem 0;
+    border-bottom: .1rem solid ${(props) => props.theme.colors.greyL2};
+    img {
+      height: 100%;
+    }
   `
 };
 

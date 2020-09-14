@@ -14,7 +14,7 @@ type HeaderWithBackProps = {
 
 function HeaderWithBack({
   title,
-  iconColor = theme.colors.navyD1,
+  iconColor = theme.colors.mainColor,
   useSkeleton = false,
   useBackButton = true,
   onBackClick,
@@ -82,7 +82,7 @@ const S: any = {
       > p {
         flex: 2;
         text-align: center;
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         font-weight: bold;
         color: ${(props) => props.theme.colors.blackL1};
       }

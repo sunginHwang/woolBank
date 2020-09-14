@@ -38,7 +38,7 @@ function TodoInput({ onAdd, onClose, onFocusIn, onFocusOut }: TodoInputProps) {
     <S.TodoInput>
       <div>
         <i onClick={onClose}>
-          <IcoBlackCircle fill={colors.colors.navyD1} />
+          <IcoBlackCircle fill={colors.colors.mainColor} />
         </i>
         <input
           ref={todoInputRef}
@@ -80,7 +80,7 @@ const S: {
     }
     
     i {
-      height: 2.4rem;
+      height: 2.2rem;
       margin-right: 1rem;
     }
     
@@ -90,7 +90,7 @@ const S: {
       border-radius: .8rem;
       padding: 1rem 2rem;
       border: 0.1rem solid ${props => props.theme.colors.greyL2};
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       margin-right: .5rem;
       
       &::placeholder {

@@ -64,7 +64,7 @@ const S :any = {
     }
      
     span {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       line-height: 1.8rem;
       color: ${props => props.theme.colors.greyD2};
     }
@@ -77,12 +77,10 @@ const S :any = {
     }
   `,
   Message: styled.p`
-    font-size: 1.6rem;
     line-height: 2.4rem;
     color: ${props => props.theme.colors.blackL1};
   `,
   Title: styled.p`
-    font-size: 1.6rem;
     line-height: 2rem;
     color: ${props => props.theme.colors.blackL1};
     font-weight: bold;

@@ -11,7 +11,7 @@ function EmptyCircle({ size }: EmptyCircleProps) {
 
 const S: {EmptyCircle : any} = {
   EmptyCircle: styled.div`
-    background-color: ${props => props.theme.colors.greyL2};
+    background-color: ${props => props.theme.colors.pinkL1};
     border-radius: 50%;
   `
 };
