@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IAssetType } from '../../models/IAssetType';
+import { useWindowDimensions } from '../../support/hooks/useWindowDemensions';
 
 type ToggleTabProps = {
   tabs: IAssetType[];
@@ -11,13 +12,25 @@ type ToggleTabProps = {
 };
 
 function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, onChangeTab }: ToggleTabProps) {
+  const { width } = useWindowDimensions();
+  // 인디케이터 길이
+  const indicatorWidth = width / tabs.length;
+  const activeTabIndex = tabs.findIndex((tab) => tab.type === activeTab.type);
+
+  const [indicatorLeftPosition, setIndicatorLeftPosition] = useState(indicatorWidth * activeTabIndex);
   let renderTabs = null;
+
+  const onTabClick = (tab: IAssetType, index: number) => {
+    console.log(indicatorWidth * index);
+    setIndicatorLeftPosition(indicatorWidth * index);
+    onChangeTab(tab);
+  };
 
   // 리스트 타입 구조
   if (useListType) {
     renderTabs = tabs.map((tab, index) => {
       return (
-        <S.ListTab key={tab.type} active={tab.name === activeTab.name} onClick={() => onChangeTab(tab)}>
+        <S.ListTab key={tab.type} active={tab.name === activeTab.name} onClick={() => onTabClick(tab, index)}>
           {tab.name}
         </S.ListTab>
       );
@@ -28,9 +41,9 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
 
       renderTabs =
         useOutline &&
-        tabs.map((tab) => {
+        tabs.map((tab, index) => {
           return (
-            <S.TabOutLine key={tab.type} active={tab.name === activeTab.name} onClick={() => onChangeTab(tab)}>
+            <S.TabOutLine key={tab.type} active={tab.name === activeTab.name} onClick={() => onTabClick(tab, index)}>
               {tab.name}
             </S.TabOutLine>
           );
@@ -40,7 +53,11 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
 
       renderTabs = tabs.map((tab, index) => {
         return (
-          <S.Tab key={tab.type} active={tab.name === activeTab.name} onClick={() => onChangeTab(tab)}>
+          <S.Tab
+            key={tab.type}
+            active={tab.name === activeTab.name}
+            onClick={() => onTabClick(tab, index)}
+          >
             {tab.name}
           </S.Tab>
         );
@@ -51,6 +68,7 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
   return (
     <S.ToggleTab useOutline={useOutline} useListType={useListType}>
       {renderTabs}
+      <S.BottomLine width={indicatorWidth} left={indicatorLeftPosition} />
     </S.ToggleTab>
   );
 }
@@ -60,13 +78,20 @@ const S: {
   Tab: any;
   TabOutLine: any;
   ListTab: any;
+  BottomLine: any;
 } = {
   ToggleTab: styled.div`
-    width: 100%;
+    /*임시*/
+    width: calc(100% + 4rem);
+    margin-left: -2rem;
+    position: relative;
     height: ${(props: any) => (props.useOutline ? '4' : '5')}rem;
     display: flex;
     justify-content: ${(props: any) => (props.useListType ? 'flex-start' : 'space-around')};
     margin-bottom: 1rem;
+
+    box-shadow: 0 0.2rem 0.4rem -0.1rem rgba(0, 0, 0, 0.2), 0 0.4rem 0.5rem 0 rgba(0, 0, 0, 0.14),
+      0 0.1rem 1rem 0 rgba(0, 0, 0, 0.12);
 
     button {
       font-size: 1.6rem;
@@ -74,9 +99,10 @@ const S: {
   `,
   Tab: styled.button`
     width: 100%;
-    color: ${(props: any) => (props.active ? props.theme.colors.redL2 : props.theme.colors.blackL1)};
-    border-bottom: ${(props: any) => (props.active ? '.2rem' : '.1rem')} solid
-      ${(props: any) => (props.active ? props.theme.colors.redL2 : props.theme.colors.greyL1)};
+    font-weight: bold;
+    color: ${(props: any) => (props.active ? props.theme.colors.redL2 : props.theme.colors.greyL1)};
+    /*
+*/
   `,
   ListTab: styled.button`
     margin-right: 2.5rem;
@@ -87,7 +113,21 @@ const S: {
     width: 100%;
     border: 0.1rem solid ${(props: any) => (props.active ? props.theme.colors.redL2 : props.theme.colors.greyL6)};
     color: ${(props: any) => (props.active ? props.theme.colors.redL2 : props.theme.colors.greyL6)};
+  `,
+  BottomLine: styled.span`
+    bottom: 0;
+    width: ${(props: any) => props.width}px;
+    left: ${(props: any) => props.left}px;
+    height: 2px;
+    position: absolute;
+    transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    background-color: ${(props: any) => props.theme.colors.redL2};
   `
 };
 
 export default ToggleTab;
+
+/*
+
+${({ active, theme }: any) => active && `border-bottom: .2rem solid ${theme.colors.redL2}`};
+*/
