@@ -12,6 +12,7 @@ export interface IAccount {
   currentAmount: number; // 현재까지 모은 금액
   userId: number; // 작성자 Id
   savingTypeId: number; // 적금타입 ID
+  isExpiration: boolean; // 만기여부
   savingType: IAssetType; // 적금타입
   startDate: string | Date; // 시작일
   endDate: string | Date; // 만기일

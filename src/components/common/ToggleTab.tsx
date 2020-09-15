@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IAssetType } from '../../models/IAssetType';
 import { useWindowDimensions } from '../../support/hooks/useWindowDemensions';
@@ -19,6 +19,10 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
 
   const [indicatorLeftPosition, setIndicatorLeftPosition] = useState(indicatorWidth * activeTabIndex);
   let renderTabs = null;
+
+  useEffect(() => {
+    setIndicatorLeftPosition(indicatorWidth * activeTabIndex);
+  }, [activeTab]);
 
   const onTabClick = (tab: IAssetType, index: number) => {
     setIndicatorLeftPosition(indicatorWidth * index);
@@ -52,11 +56,7 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
 
       renderTabs = tabs.map((tab, index) => {
         return (
-          <S.Tab
-            key={tab.type}
-            active={tab.name === activeTab.name}
-            onClick={() => onTabClick(tab, index)}
-          >
+          <S.Tab key={tab.type} active={tab.name === activeTab.name} onClick={() => onTabClick(tab, index)}>
             {tab.name}
           </S.Tab>
         );
@@ -80,9 +80,7 @@ const S: {
   BottomLine: any;
 } = {
   ToggleTab: styled.div`
-    /*임시*/
-    width: calc(100% + 4rem);
-    margin-left: -2rem;
+    width: 100%;
     position: relative;
     height: ${(props: any) => (props.useOutline ? '4' : '5')}rem;
     display: flex;

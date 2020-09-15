@@ -46,9 +46,10 @@ export default {
   zIndex: {
     navigationBar: 100,
     header: 100,
+    phase: 300,
+    floatButton: 400,
     modalDeem: 500,
-    notification: 600,
-    phase: 300
+    notification: 600
   },
   animations: {
     loading: keyframes`

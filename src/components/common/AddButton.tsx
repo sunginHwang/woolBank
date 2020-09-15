@@ -27,7 +27,8 @@ const S: {
     background-color: ${(props) => props.theme.colors.redL2};
     border-radius: 100%;
     box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem rgba(0, 0, 0, 0.16);
-
+    z-index: ${(props) => props.theme.zIndex.floatButton};
+    
     > p {
       font-size: 2.4rem;
       font-weight: bold;
