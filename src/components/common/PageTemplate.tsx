@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import HeaderWithBack from './HeaderWithBack';
-import Header from '../layout/Header';
+import MainHeader from '../layout/MainHeader';
 import colors from '../../style/colors';
 
 type InputPhaseWrapperProps = {
@@ -36,7 +36,7 @@ function PageTemplate({
     <S.PageTemplate>
       {isMain ? (
         <>
-          <Header />
+          <MainHeader />
           <S.Content useHeader useSidePadding>{children}</S.Content>
         </>
       ) : (

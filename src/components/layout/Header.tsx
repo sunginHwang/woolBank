@@ -1,34 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
-import banketList from '../../image/banket_list.svg';
-function Header() {
+import { Helmet } from 'react-helmet';
+
+export interface HeaderProps {
+  title: string;
+  description: string;
+}
+function Header({ title, description }: HeaderProps) {
   return (
-    <S.Header>
-      <img src={banketList} alt='메인 로고' />
-    </S.Header>
+    <Helmet>
+      <meta charSet='utf-8' />
+      <title>{title}</title>
+      <meta name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no' />
+      <meta name='theme-color' content='#ffffff' />
+      <meta name='keywords' content='자산, 버킷리스트, 토이프로젝트' />
+      <meta property='og:site_name' content='BanketList' />
+      <meta property='og:title' content={title} />
+      <meta property='og:description' content={description} />
+      <meta name='description' content={description} />
+      <link rel='shortcut icon' href='null' type='image/x-icon' />
+      <link rel='icon' href='../static/favicon/ico-64x64.ico' sizes='64x64' />
+      <link rel='apple-touch-icon' href='../static/favicon/ico-64x64.ico' sizes='64x64' />
+    </Helmet>
   );
 }
-
-const S: {
-  Header: any;
-} = {
-  Header: styled.div`
-    height: 3.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: ${(props) => props.theme.colors.white};
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: ${(props) => props.theme.zIndex.header};
-    padding: 1rem 0 1rem 0;
-    border-bottom: .1rem solid ${(props) => props.theme.colors.greyL2};
-    img {
-      height: 100%;
-    }
-  `
-};
 
 export default Header;
