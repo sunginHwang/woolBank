@@ -21,7 +21,6 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
   let renderTabs = null;
 
   const onTabClick = (tab: IAssetType, index: number) => {
-    console.log(indicatorWidth * index);
     setIndicatorLeftPosition(indicatorWidth * index);
     onChangeTab(tab);
   };
@@ -30,7 +29,7 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
   if (useListType) {
     renderTabs = tabs.map((tab, index) => {
       return (
-        <S.ListTab key={tab.type} active={tab.name === activeTab.name} onClick={() => onTabClick(tab, index)}>
+        <S.ListTab key={tab.type} active={tab.name === activeTab.name} onClick={() => onChangeTab(tab)}>
           {tab.name}
         </S.ListTab>
       );
@@ -43,7 +42,7 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
         useOutline &&
         tabs.map((tab, index) => {
           return (
-            <S.TabOutLine key={tab.type} active={tab.name === activeTab.name} onClick={() => onTabClick(tab, index)}>
+            <S.TabOutLine key={tab.type} active={tab.name === activeTab.name} onClick={() => onChangeTab(tab)}>
               {tab.name}
             </S.TabOutLine>
           );
