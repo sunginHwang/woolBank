@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import BucketListItem from '../../../components/bucketList/BucketList/BucketListItem';
-import ToggleTab from '../../../components/common/ToggleTab';
-import { IAssetType } from '../../../models/IAssetType';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+
+import BucketListItem from '../../../components/bucketList/list/BucketListItem';
+import { IAssetType } from '../../../models/IAssetType';
 import { RootState } from '../../../store';
 import { checkNeedReFetch } from '../../../support/util/checkNeedReFetch';
 import { getBucketListLastUpdatedAt } from '../../../support/api/bucketListApi';
 import { getBucketList } from '../../../store/modules/BucketList';
-import BucketListItemPlaceHolder from '../../../components/bucketList/BucketList/BucketListItemSkeleton';
 import AddButton from '../../../components/common/AddButton';
-import { useHistory } from 'react-router';
+import TabSlideViewer from '../../../components/common/TabSlideViewer';
+import ListSkeleton from '../../../components/common/ListSkeleton';
+import BucketListItemSkeleton from '../../../components/bucketList/list/BucketListItemSkeleton';
 
 const tabs: IAssetType[] = [
   {
@@ -24,12 +25,14 @@ const tabs: IAssetType[] = [
 ];
 
 function BucketListContainer() {
-  const [activeTab, setActiveTab] = useState(tabs[0]);
-
   const bucketList = useSelector((state: RootState) => state.BucketList.bucketList);
   const lastUpdatedDate = useSelector((state: RootState) => state.BucketList.lastUpdatedDate);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useEffect(() => {
+    onLoadBucketList();
+  }, []);
 
   const onLoadBucketList = async () => {
     // 캐싱 날짜 없으면 바로 조회
@@ -44,31 +47,26 @@ function BucketListContainer() {
     history.push('/bucket-list/save');
   };
 
-  useEffect(() => {
-    onLoadBucketList();
-  }, []);
+  // 진행중 상태 버킷리스트
+  const renderProgressBucketList = bucketList.data.map((bucket, index) => (
+    <BucketListItem key={index} bucketList={bucket} useSideMargin />
+  ));
+
+  // 완료 상태 버킷리스트
+  const renderEndBucketList = bucketList.data.map((bucket, index) => (
+    <BucketListItem key={index} bucketList={bucket} useSideMargin />
+  ));
+
+  if (!bucketList.data || bucketList.loading) {
+    return <ListSkeleton item={<BucketListItemSkeleton />} />;
+  }
 
   return (
-    <S.Wrapper>
-      <ToggleTab tabs={tabs} useOutline={false} activeTab={activeTab} onChangeTab={setActiveTab} />
-      <S.List>
-        {bucketList.loading
-          ? [...Array(10)].map((_, key) => <BucketListItemPlaceHolder key={key} />)
-          : bucketList.data.map((bucket, index) => <BucketListItem key={index} bucketList={bucket} />)}
-      </S.List>
+    <>
+      <TabSlideViewer tabs={tabs} slideViewList={[renderProgressBucketList, renderEndBucketList]} />
       <AddButton icon='+' onClick={goSaveBucketListPage} />
-    </S.Wrapper>
+    </>
   );
 }
 
 export default React.memo(BucketListContainer);
-
-const S: {
-  Wrapper: any;
-  List: any;
-} = {
-  Wrapper: styled.div``,
-  List: styled.div`
-    margin-top: 2rem;
-  `
-};

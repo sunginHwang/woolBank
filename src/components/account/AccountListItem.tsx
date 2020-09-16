@@ -8,16 +8,18 @@ import { Link } from 'react-router-dom';
 
 type WalletListItemProps = {
   account: IAccount;
+  useSideMargin?: boolean;
 };
 
 function AccountListItem({
-  account: { id, title, startDate, savingType, endDate, amount, currentAmount }
+  account: { id, title, startDate, savingType, endDate, amount, currentAmount },
+  useSideMargin = false
 }: WalletListItemProps) {
   const remainPercent = getRemainDatePercentage(startDate, endDate);
 
   return (
     <Link to={`/accounts/${id}`}>
-      <CardItem>
+      <CardItem useSideMargin={useSideMargin}>
         <S.Top>
           <p>{title}</p>
           <div>
@@ -52,7 +54,7 @@ const S: {
     justify-content: space-between;
     font-size: 1.8rem;
     margin-bottom: 0.3rem;
-    
+
     p {
       text-overflow: ellipsis;
       overflow: hidden;
@@ -105,7 +107,7 @@ const S: {
     background-color: ${(props) => props.theme.colors.greyL2};
 
     div {
-      width: ${(props:any) => props.percent}%;
+      width: ${(props: any) => props.percent}%;
       height: 100%;
       background-color: ${(props) => props.theme.colors.mainColor};
     }

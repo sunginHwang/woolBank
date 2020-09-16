@@ -11,36 +11,36 @@ import { onImageFallback } from '../../../support/util/image';
 
 type BucketListItemProps = {
   bucketList: IBucketList;
+  useSideMargin?: boolean;
 };
 
-function BucketListItem({
-  bucketList
-}: BucketListItemProps) {
+function BucketListItem({ bucketList, useSideMargin = false }: BucketListItemProps) {
   const remainDate = remainDays(new Date(), bucketList.completeDate);
   const remainTodoCount = bucketList.todoCount - bucketList.completeTodoCount;
-  const remainTodoCountMsg = remainTodoCount === 0 ? '모든 할일을 마치셨습니다.' : `${remainTodoCount}개의 할 일이 남았어요.`;
+  const remainTodoCountMsg =
+    remainTodoCount === 0 ? '모든 할일을 마치셨습니다.' : `${remainTodoCount}개의 할 일이 남았어요.`;
 
   return (
     <Link to={`/bucket-list/${bucketList.id}`}>
-      <CardItem>
+      <CardItem useSideMargin={useSideMargin}>
         <S.BucketListItem>
           <div>
-            {
-              bucketList.thumbImageUrl
-                ? <img src={bucketList.thumbImageUrl} alt='버킷리스트 썸네일 이미지' onError={onImageFallback} />
-                : <EmptyCircle size={50} />
-            }
+            {bucketList.thumbImageUrl ? (
+              <img src={bucketList.thumbImageUrl} alt='버킷리스트 썸네일 이미지' onError={onImageFallback} />
+            ) : (
+              <EmptyCircle size={50} />
+            )}
             <S.Content>
               <p>{bucketList.title}</p>
               <span>{remainTodoCountMsg}</span>
             </S.Content>
           </div>
           <div>
-            {
-              remainDate === 0
-                ? <IcoCircleCheck fill={colors.colors.mainColor} width={24} height={24} />
-                : <S.RemainDate>D-{remainDate}</S.RemainDate>
-            }
+            {remainDate === 0 ? (
+              <IcoCircleCheck fill={colors.colors.mainColor} width={24} height={24} />
+            ) : (
+              <S.RemainDate>D-{remainDate}</S.RemainDate>
+            )}
           </div>
         </S.BucketListItem>
       </CardItem>
@@ -68,7 +68,7 @@ const S: {
       width: 5rem;
       height: 5rem;
       border-radius: 50%;
-      border: .1rem solid ${(props) => props.theme.colors.greyL2};
+      border: 0.1rem solid ${(props) => props.theme.colors.greyL2};
     }
   `,
   Content: styled.div`
@@ -79,7 +79,7 @@ const S: {
       font-size: 1.6rem;
       font-weight: bold;
       line-height: 1.9;
-      
+
       color: ${(props) => props.theme.colors.blackL2};
     }
     span {

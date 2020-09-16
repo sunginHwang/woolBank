@@ -2,7 +2,7 @@ import React from 'react';
 import MainCardArea from './MainCardArea';
 import TotalAssetsWallet from './TotalAssetsWallet';
 import AccountListItemPlaceHolder from '../account/list/AccountListItemSkeleton';
-import BucketListItemPlaceHolder from '../bucketList/BucketList/BucketListItemSkeleton';
+import BucketListItemPlaceHolder from '../bucketList/list/BucketListItemSkeleton';
 import PageTemplate from '../common/PageTemplate';
 
 function MainPageSkeleton() {

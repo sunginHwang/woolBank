@@ -8,7 +8,7 @@ type ToggleTabProps = {
   useOutline?: boolean;
   useListType?: boolean;
   activeTab: IAssetType;
-  onChangeTab: (tab: IAssetType) => void;
+  onChangeTab?: (tab: IAssetType) => void;
 };
 
 function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, onChangeTab }: ToggleTabProps) {
@@ -26,14 +26,14 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
 
   const onTabClick = (tab: IAssetType, index: number) => {
     setIndicatorLeftPosition(indicatorWidth * index);
-    onChangeTab(tab);
+    onChangeTab && onChangeTab(tab);
   };
 
   // 리스트 타입 구조
   if (useListType) {
     renderTabs = tabs.map((tab, index) => {
       return (
-        <S.ListTab key={tab.type} active={tab.name === activeTab.name} onClick={() => onChangeTab(tab)}>
+        <S.ListTab key={tab.type} active={tab.name === activeTab.name} onClick={() => onChangeTab && onChangeTab(tab)}>
           {tab.name}
         </S.ListTab>
       );
@@ -46,7 +46,7 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
         useOutline &&
         tabs.map((tab, index) => {
           return (
-            <S.TabOutLine key={tab.type} active={tab.name === activeTab.name} onClick={() => onChangeTab(tab)}>
+            <S.TabOutLine key={tab.type} active={tab.name === activeTab.name} onClick={() => onChangeTab && onChangeTab(tab)}>
               {tab.name}
             </S.TabOutLine>
           );
@@ -67,7 +67,7 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
   return (
     <S.ToggleTab useOutline={useOutline} useListType={useListType}>
       {renderTabs}
-      <S.BottomLine width={indicatorWidth} left={indicatorLeftPosition} />
+      {!useListType && !useOutline && <S.BottomLine width={indicatorWidth} left={indicatorLeftPosition} />}
     </S.ToggleTab>
   );
 }
@@ -86,10 +86,8 @@ const S: {
     display: flex;
     justify-content: ${(props: any) => (props.useListType ? 'flex-start' : 'space-around')};
     margin-bottom: 1rem;
-
-    box-shadow: 0 0.2rem 0.4rem -0.1rem rgba(0, 0, 0, 0.2), 0 0.4rem 0.5rem 0 rgba(0, 0, 0, 0.14),
-      0 0.1rem 1rem 0 rgba(0, 0, 0, 0.12);
-
+  ${(props: any) => (!props.useListType && !props.useOutline && 'box-shadow: 0 0.2rem 0.4rem -0.1rem rgba(0, 0, 0, 0.2), 0 0.4rem 0.5rem 0 rgba(0, 0, 0, 0.14),\n      0 0.1rem 1rem 0 rgba(0, 0, 0, 0.12);')};
+    
     button {
       font-size: 1.6rem;
     }

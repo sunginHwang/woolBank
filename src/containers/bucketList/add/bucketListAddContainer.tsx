@@ -1,9 +1,9 @@
 import React, { useReducer, useState } from 'react';
 import { useHistory } from 'react-router';
-import BucketListInfoPhase from '../../../components/bucketList/Add/BucketListInfoPhase';
-import BucketListCompleteDatePhase from '../../../components/bucketList/Add/BucketListCompleteDatePhase';
-import BucketListPicturePhase from '../../../components/bucketList/Add/BucketListPicturePhase';
-import TodoListPhase from '../../../components/bucketList/Add/TodoListPhase';
+import BucketListInfoPhase from '../../../components/bucketList/add/BucketListInfoPhase';
+import BucketListCompleteDatePhase from '../../../components/bucketList/add/BucketListCompleteDatePhase';
+import BucketListPicturePhase from '../../../components/bucketList/add/BucketListPicturePhase';
+import TodoListPhase from '../../../components/bucketList/add/TodoListPhase';
 import { ITodo } from '../../../models/ITodo';
 import useRequest from '../../../support/hooks/useRequest';
 import { IBucketListForm } from '../../../models/bucketList/IBucketListForm';

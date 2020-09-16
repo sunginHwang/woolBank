@@ -3,10 +3,11 @@ import styled from 'styled-components';
 
 type CardItemProps = {
   children: ReactNode;
+  useSideMargin?: boolean;
 };
 
-function CardItem({ children }: CardItemProps) {
-  return <S.CardItem>{children}</S.CardItem>;
+function CardItem({ children, useSideMargin = false }: CardItemProps) {
+  return <S.CardItem useSideMargin={useSideMargin}>{children}</S.CardItem>;
 }
 
 const S: {
@@ -14,6 +15,7 @@ const S: {
 } = {
   CardItem: styled.div`
     padding: 2rem;
+    ${(props: any) => props.useSideMargin && 'margin: 0 2rem'};
     background-color: ${(props) => props.theme.colors.white};
     display: flex;
     flex-direction: column;

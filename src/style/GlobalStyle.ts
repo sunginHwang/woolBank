@@ -123,6 +123,11 @@ const GlobalStyle = createGlobalStyle`
   #root{
     height: 100%;
   }
+  
+  /*슬라이드 뷰어 스타일 제어*/
+  .swiper-slide {
+    margin-top: 1rem;
+  }
 `;
 
 export default GlobalStyle;

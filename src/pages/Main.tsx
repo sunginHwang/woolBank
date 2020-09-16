@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import BucketListItem from '../components/bucketList/BucketList/BucketListItem';
+import BucketListItem from '../components/bucketList/list/BucketListItem';
 import AccountListItem from '../components/account/AccountListItem';
 import PageTemplate from '../components/common/PageTemplate';
 import MainPageSkeleton from '../components/main/MainPageSkeleton';

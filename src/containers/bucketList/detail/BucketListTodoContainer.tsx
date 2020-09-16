@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ITodo } from '../../../models/ITodo';
-import BucketListTodoInfo from '../../../components/bucketList/Detail/BukcetListTodoInfo';
+import BucketListTodoInfo from '../../../components/bucketList/detail/BukcetListTodoInfo';
 import { RootState } from '../../../store';
 import BucketList from '../../../store/modules/BucketList';
 import useRequest from '../../../support/hooks/useRequest';

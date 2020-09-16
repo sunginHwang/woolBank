@@ -4,7 +4,7 @@ import BucketListContainer from '../../containers/bucketList/list/bucketListCont
 
 function BucketList() {
   return (
-    <PageTemplate useHeader={false}>
+    <PageTemplate useHeader={false} useSidePadding={false}>
       <BucketListContainer />
     </PageTemplate>
   );

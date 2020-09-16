@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import ToggleTab from '../../../components/common/ToggleTab';
+import React, { useEffect } from 'react';
 import { IAssetType } from '../../../models/IAssetType';
 import AccountListItem from '../../../components/account/AccountListItem';
 import AccountListItemSkeleton from '../../../components/account/list/AccountListItemSkeleton';
@@ -10,9 +9,9 @@ import { getAccountList } from '../../../store/modules/AccountList';
 import { checkNeedReFetch } from '../../../support/util/checkNeedReFetch';
 import AddButton from '../../../components/common/AddButton';
 import { useHistory } from 'react-router';
-import Swiper from 'react-id-swiper';
 import 'swiper/swiper-bundle.min.css';
-import ListWrapper from '../../../components/common/ListWrapper';
+import TabSlideViewer from '../../../components/common/TabSlideViewer';
+import ListSkeleton from '../../../components/common/ListSkeleton';
 
 const tabs: IAssetType[] = [
   {
@@ -26,8 +25,6 @@ const tabs: IAssetType[] = [
 ];
 
 function AccountListContainer() {
-  const [activeTab, setActiveTab] = useState(tabs[0]);
-  const swiperRef = useRef(null);
   const accountList = useSelector((state: RootState) => state.AccountList.accountList);
   const lastUpdatedDate = useSelector((state: RootState) => state.AccountList.lastUpdatedDate);
   const dispatch = useDispatch();
@@ -53,61 +50,22 @@ function AccountListContainer() {
     needFetch && dispatch(getAccountList());
   };
 
-  /**
-   * 탭 변경 이벤트
-   **/
-  const onTabChange = (tab: IAssetType) => {
-    setActiveTab(tab);
-    onSlideTo(tabs.findIndex((t) => t.type === tab.type));
-  };
+  // 진행중 리스트
+  const renderProgressAccountList = accountList.data
+    .filter((account) => !account.isExpiration)
+    .map((account, index) => <AccountListItem key={index} account={account} useSideMargin />);
 
-  /**
-   * 리스트 뷰 스와이프
-   **/
-  const onSlideTo = (index: number) => {
-    if (swiperRef.current === null) {
-      return;
-    }
-    // @ts-ignore
-    swiperRef.current.swiper && swiperRef.current.swiper.slideTo(index);
-  };
+  const renderEndAccountList = accountList.data
+    .filter((account) => account.isExpiration)
+    .map((account, index) => <AccountListItem key={index} account={account} useSideMargin />);
 
-  /**
-   * 리스트 뷰 사용자 터치 슬라이드 액션 콜백 이벤트
-   **/
-  const onListSlideChange = (swiper: any) => {
-    setActiveTab(tabs[swiper.realIndex]);
-  };
-
-  // 스와이프 파라미터 정의
-  const SwiperParams = {
-    on: {
-      slideChange: onListSlideChange
-    }
-  };
+  if (!accountList.data || accountList.loading) {
+    return <ListSkeleton item={<AccountListItemSkeleton />} />;
+  }
 
   return (
     <>
-      <ToggleTab tabs={tabs} useOutline={false} activeTab={activeTab} onChangeTab={onTabChange} />
-      {accountList.loading && [...Array(10)].map((_, key) => <AccountListItemSkeleton key={key} />)}
-      {!accountList.loading && (
-        <Swiper ref={swiperRef} {...SwiperParams}>
-          <ListWrapper>
-            {accountList.data
-              .filter((account) => !account.isExpiration)
-              .map((account, index) => (
-                <AccountListItem key={index} account={account} />
-              ))}
-          </ListWrapper>
-          <ListWrapper>
-            {accountList.data
-              .filter((account) => account.isExpiration)
-              .map((account, index) => (
-                <AccountListItem key={index} account={account} />
-              ))}
-          </ListWrapper>
-        </Swiper>
-      )}
+      <TabSlideViewer tabs={tabs} slideViewList={[renderProgressAccountList, renderEndAccountList]} />
       <AddButton icon='+' onClick={goAccountRegisterPage} />
     </>
   );

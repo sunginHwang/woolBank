@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import BucketListDetailHeader from '../../../components/bucketList/Detail/BucketListDetailHeader';
-import BucketListContentInfo from '../../../components/bucketList/Detail/BucketListContentInfo';
+import BucketListDetailHeader from '../../../components/bucketList/detail/BucketListDetailHeader';
+import BucketListContentInfo from '../../../components/bucketList/detail/BucketListContentInfo';
 import ConfirmModal from '../../../components/common/modal/ConfirmModal';
 import { useToggle } from '../../../support/hooks/useToggle';
 import BottomMenuModal from '../../../components/common/modal/BottomMenuModal';
