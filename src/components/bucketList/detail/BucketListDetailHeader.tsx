@@ -17,7 +17,7 @@ type BucketListDetailHeaderProps = {
   createdDate: Date | string;
   completeDate: Date | string;
   onMenuClick: () => void;
-}
+};
 
 function BucketListDetailHeader({
   title,
@@ -53,19 +53,18 @@ function BucketListDetailHeader({
       <HeaderWithBack
         iconColor={headerIconColor}
         title={fixedHeaderMsg}
-        right={<i onClick={onMenuClick}><IcoDowHorizontal fill={headerIconColor} /></i>}
+        right={
+          <i onClick={onMenuClick}>
+            <IcoDowHorizontal fill={headerIconColor} />
+          </i>
+        }
         useSkeleton={!isShowFixedHeader}
         onBackClick={() => history.goBack()}
       />
       <S.ImageInfo ref={imgRef} imgUrl={imgUrl}>
         <div>
           {isLoading ? <PlaceHolderBar width='15rem' height='4.4rem' /> : <h2>{title}</h2>}
-          <Progress
-            label={remainDay}
-            labelPrefix='D-'
-            percent={remainPercent}
-            color={theme.colors.mainColor}
-          />
+          <Progress label={remainDay} labelPrefix='D-' percent={remainPercent} color={theme.colors.mainColor} />
         </div>
       </S.ImageInfo>
     </>
@@ -74,32 +73,38 @@ function BucketListDetailHeader({
 
 export default BucketListDetailHeader;
 
-const S :any = {
+const S: any = {
   ImageInfo: styled.div`
     background-size: cover;
-    background-image: url(${(props: any) => props.imgUrl});
-    background-color: ${props => props.theme.colors.greyD2};
+    background-color: ${(props) => props.theme.colors.greyD2};
+    background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.1)
+    ),
+    url(${(props: any) => props.imgUrl});
+
     width: 100%;
     height: 40vh;
     > div {
-     height: 100%;
-     padding: 0 3rem;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: flex-end;
-     
-     > h2 {
-      font-size: 2.2rem;
-      color: ${props => props.theme.colors.white};
-      margin-bottom: 8vh;
-      text-align: center;
-      width: 80%;
-     }
-     
-     > div {
-      margin-bottom: 5vh;
-     }
+      height: 100%;
+      padding: 0 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+
+      > h2 {
+        font-size: 2.2rem;
+        color: ${(props) => props.theme.colors.white};
+        margin-bottom: 8vh;
+        text-align: center;
+        width: 80%;
+      }
+
+      > div {
+        margin-bottom: 5vh;
+      }
     }
   `
-}
+};
