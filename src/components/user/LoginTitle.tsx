@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type LoginTitleProps = {
-};
-
-function LoginTitle({}: LoginTitleProps) {
+function LoginTitle() {
   return (
     <S.LoginTitle>
       <h2>로그인</h2>
@@ -16,11 +13,12 @@ const S: {
   LoginTitle: any;
 } = {
   LoginTitle: styled.div`
-    margin-top: 7rem;
-    margin-bottom: 15rem;
+    margin-top: 5rem;
+    margin-bottom: 4rem;
+
     > h2 {
       font-size: 2.4rem;
-      color: ${props => props.theme.colors.blackL1};
+      color: ${(props) => props.theme.colors.blackL1};
       font-weight: bold;
     }
   `

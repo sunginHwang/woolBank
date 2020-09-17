@@ -99,7 +99,7 @@ function RateAddPhase({ isActivePhase, accountForm, goPrevPhase, goNextPhase, on
             </S.Rate>
           )}
           <S.Complete>
-            <BaseButton message='다음단계' color='navy' size='full' active onClick={onCompleteClick} />
+            <BaseButton message='다음단계' color='red' size='full' active onClick={onCompleteClick} />
           </S.Complete>
         </div>
       </S.AddRatePhase>

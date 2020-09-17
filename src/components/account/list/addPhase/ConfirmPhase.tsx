@@ -105,7 +105,7 @@ function ConfirmPhase({
         <S.Complete>
           <BaseButton
             message='예/적금 만들기'
-            color='navy'
+            color='red'
             size='full'
             loading={loading}
             onClick={onComplete}

@@ -1,11 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import  { ReactFacebookLoginInfo, ReactFacebookFailureResponse } from 'react-facebook-login';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import KaKaoLogin from 'react-kakao-login';
 import SocialLoginButton from '../../components/user/SocialLoginButton';
-import SocialLogin from '../../components/user/SocialLogin';
+import LoginBox from '../../components/user/LoginBox';
 import { KakaoLoginResponseV2 } from 'react-kakao-login/dist/types';
 import { ISocialUser } from '../../models/ISocialUser';
 import { delay } from '../../support/util/delay';
@@ -113,9 +112,9 @@ function SocialLoginContainer({}: SocialLoginContainerProps) {
   const isLogin = user.id > 0;
 
   return (
-    <S.SocialLoginContainer>
+    <>
       {!isLogin && (
-        <SocialLogin>
+        <LoginBox title='소셜 로그인 하기' type='social'>
           <FacebookLogin
             appId={keys.social.facebook}
             fields='name,email,picture'
@@ -142,7 +141,7 @@ function SocialLoginContainer({}: SocialLoginContainerProps) {
             onSuccess={onKakaoTalkLogin}
             onFailure={onLoginFailure}
           />
-        </SocialLogin>
+        </LoginBox>
       )}
       {isLogin && (
         <div>
@@ -151,14 +150,9 @@ function SocialLoginContainer({}: SocialLoginContainerProps) {
           <img src={user.imageUrl} />
         </div>
       )}
-    </S.SocialLoginContainer>
+    </>
   );
 }
 
-const S: {
-  SocialLoginContainer: any;
-} = {
-  SocialLoginContainer: styled.div``
-};
 
 export default SocialLoginContainer;

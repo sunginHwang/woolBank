@@ -194,7 +194,7 @@ function AccountInfoPhase({
         <S.Complete>
           <BaseButton
             message='작성하기'
-            color='navy'
+            color='red'
             size='full'
             active={isAllowAccountAddValidation}
             onClick={onCompleteClick}

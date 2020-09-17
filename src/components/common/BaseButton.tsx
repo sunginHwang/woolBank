@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import colors from '../../style/colors';
 import { ClipLoader } from 'react-spinners';
@@ -6,7 +6,7 @@ import { ClipLoader } from 'react-spinners';
 type BaseButtonProps = {
   dataType?: string;
   message: string;
-  color : 'navy';
+  color: 'red';
   size: 'full';
   active?: boolean;
   loading?: boolean;
@@ -25,7 +25,7 @@ function BaseButton({
   const colorScheme = useMemo(() => {
     const result = { bgColor: '', color: '' };
 
-    if (color === 'navy') {
+    if (color === 'red') {
       result.bgColor = colors.colors.mainColor;
       result.color = colors.colors.white;
     }
@@ -39,7 +39,7 @@ function BaseButton({
     if (size === 'full') {
       result.width = '100%';
       result.height = '100%';
-      result.fontSize = ''
+      result.fontSize = '';
     }
 
     return result;
@@ -50,7 +50,7 @@ function BaseButton({
     if (!loading && active && onClick) {
       onClick(e);
     }
-  }
+  };
 
   return (
     <S.BaseButton
@@ -60,9 +60,7 @@ function BaseButton({
       colorScheme={colorScheme}
       sizeScheme={sizeScheme}
     >
-      {loading
-        ? <ClipLoader color={colors.colors.white} size={20} />
-        : message}
+      {loading ? <ClipLoader color={colors.colors.white} size={20} /> : message}
     </S.BaseButton>
   );
 }
@@ -71,12 +69,12 @@ const S: {
   BaseButton: any;
 } = {
   BaseButton: styled.button`
-  border-radius: 0.8rem;  
-  width: ${(props: any) => props.sizeScheme ? props.sizeScheme.width : '10rem'};
-  height: ${(props: any) => props.sizeScheme ? props.sizeScheme.height : '5rem'};
-  background-color: ${(props: any) => props.colorScheme.bgColor};
-  color: ${(props: any) => props.colorScheme.color};
-  opacity: ${(props: any) => (props.active ? 1 : 0.5)};
+    border-radius: 0.8rem;
+    width: ${(props: any) => (props.sizeScheme ? props.sizeScheme.width : '10rem')};
+    height: ${(props: any) => (props.sizeScheme ? props.sizeScheme.height : '5rem')};
+    background-color: ${(props: any) => props.colorScheme.bgColor};
+    color: ${(props: any) => props.colorScheme.color};
+    opacity: ${(props: any) => (props.active ? 1 : 0.5)};
   `
 };
 

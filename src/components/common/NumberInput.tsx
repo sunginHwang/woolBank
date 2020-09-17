@@ -131,7 +131,7 @@ function NumberInput({
       <S.Complete>
         <BaseButton
           message='완료'
-          color='navy'
+          color='red'
           size='full'
           loading={loading}
           active={isActiveComplete}
