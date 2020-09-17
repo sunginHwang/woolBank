@@ -48,7 +48,7 @@ function NumberInput({
   // 금액 변경 이벤트
   const changeNumber = (num: number) => {
     // 최대 입금 가능 금액 체크
-    const isOverMaxAmount = num >= maxAmount;
+    const isOverMaxAmount = num > maxAmount;
 
     setIsValidAmount(!isOverMaxAmount);
     !isOverMaxAmount && onChangeAmount(num);

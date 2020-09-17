@@ -76,6 +76,11 @@ function AddDepositContainer({ accountId, useDepositPhase, onBackClick }: AddDep
     return null;
   }
 
+  // 금액 다 채워진 경우 더이상 입금 불가
+  if (account.currentAmount >= account.amount) {
+    return null;
+  }
+
   return (
     <>
       <AddDepositButton onClick={onOpenDepositKeyPad} />

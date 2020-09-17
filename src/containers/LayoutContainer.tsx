@@ -18,7 +18,7 @@ function LayoutContainer({ children, useNavBar = true }: LayoutRouteProps) {
   const [, offAlert] = useAlert();
   return (
     <>
-      <Header title='버킷리스트' description='계좌 정보를 한곳에 모으고 도전하고 싶은 버킷리스트를 만들어봐요~' />
+      <Header title='뱅킷리스트' description='계좌 정보를 한곳에 모으고 도전하고 싶은 버킷리스트를 만들어봐요~' />
       {children}
       {useNavBar && <NavigationBar />}
       <SpinnerLoading loading={layoutLoading.isLoading} message={layoutLoading.message} />

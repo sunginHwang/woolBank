@@ -30,27 +30,25 @@ function AccountDetail() {
   );
 
   return (
-    <>
-      <PageTemplate
-        title='계좌정보'
-        useSidePadding={false}
+    <PageTemplate
+      title='계좌정보'
+      useSidePadding={false}
+      onBackClick={onBackClick}
+      rightHeader={renderEditButtonIcon}
+    >
+      <AccountDetailContainer accountId={Number(accountId)} />
+      <AddDepositContainer
+        accountId={Number(accountId)}
         onBackClick={onBackClick}
-        rightHeader={renderEditButtonIcon}
-      >
-        <AccountDetailContainer accountId={Number(accountId)} />
-        <AddDepositContainer
-          accountId={Number(accountId)}
-          onBackClick={onBackClick}
-          useDepositPhase={mode === 'deposit'}
-        />
-        <AccountDetailModalContainer
-          accountId={Number(accountId)}
-          isActiveModal={isOpenDetailModal}
-          useEditPhase={mode === 'edit'}
-          onCloseModal={offDetailModal}
-        />
-      </PageTemplate>
-    </>
+        useDepositPhase={mode === 'deposit'}
+      />
+      <AccountDetailModalContainer
+        accountId={Number(accountId)}
+        isActiveModal={isOpenDetailModal}
+        useEditPhase={mode === 'edit'}
+        onCloseModal={offDetailModal}
+      />
+    </PageTemplate>
   );
 }
 
