@@ -121,8 +121,3 @@ const S: {
 };
 
 export default ToggleTab;
-
-/*
-
-${({ active, theme }: any) => active && `border-bottom: .2rem solid ${theme.colors.redL2}`};
-*/

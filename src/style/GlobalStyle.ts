@@ -1,7 +1,8 @@
 import { normalize } from 'styled-normalize';
 import { createGlobalStyle } from 'styled-components';
-import './css/font.css';
 import colors from './colors';
+import './css/font.css';
+
 const GlobalStyle = createGlobalStyle`
   ${normalize}
   
@@ -124,10 +125,6 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
   
-  /*슬라이드 뷰어 스타일 제어*/
-  .swiper-slide {
-    margin-top: 1rem;
-  }
 `;
 
 export default GlobalStyle;

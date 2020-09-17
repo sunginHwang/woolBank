@@ -13,7 +13,7 @@ const S: {
   ListWrapper: any;
 } = {
   ListWrapper: styled.div`
-    margin: 2rem 0 15rem 0;
+    height: 100%;
   `
 };
 

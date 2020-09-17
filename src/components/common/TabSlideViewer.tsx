@@ -4,6 +4,7 @@ import 'swiper/swiper-bundle.min.css';
 import { IAssetType } from '../../models/IAssetType';
 import ToggleTab from '../common/ToggleTab';
 import ListWrapper from '../common/ListWrapper';
+import '../../style/css/tabSlideViewer.css';
 
 export interface ITabSlideViewerProps {
   tabs: IAssetType[];
@@ -44,7 +45,8 @@ function TabSlideViewer({ tabs, slideViewList }: ITabSlideViewerProps) {
   const SwiperParams = {
     on: {
       slideChange: onListSlideChange
-    }
+    },
+    containerClass: 'swiper-tab-slide-viewer'
   };
 
   return (

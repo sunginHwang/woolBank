@@ -1,0 +1,11 @@
+
+/*슬라이드 뷰어 스타일 제어*/
+.swiper-slide {
+    height: 100%;
+    padding: 2rem 0 15rem 0;
+    overflow-y: scroll;
+}
+
+.swiper-tab-slide-viewer {
+    height: 100%;
+}
