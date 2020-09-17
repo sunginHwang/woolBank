@@ -57,7 +57,8 @@ const S :any = {
     margin-bottom: 1rem;
     border-bottom: .1rem solid ${props => props.theme.colors.greyL2};
     padding: 2rem 0;
-   
+    white-space: pre-wrap;
+    
     > i {
      margin-right: 1rem;
      line-height: 0;
@@ -77,7 +78,7 @@ const S :any = {
     }
   `,
   Message: styled.p`
-    line-height: 2.4rem;
+    line-height: 1.4rem;
     color: ${props => props.theme.colors.blackL1};
   `,
   Title: styled.p`
