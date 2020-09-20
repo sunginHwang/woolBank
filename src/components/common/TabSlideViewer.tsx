@@ -2,9 +2,9 @@ import React, { ReactNode, useRef, useState } from 'react';
 import Swiper from 'react-id-swiper';
 import 'swiper/swiper-bundle.min.css';
 import { IAssetType } from '../../models/IAssetType';
-import ToggleTab from '../common/ToggleTab';
 import ListWrapper from '../common/ListWrapper';
 import '../../style/css/tabSlideViewer.css';
+import Tabs from '../common/Tabs';
 
 export interface ITabSlideViewerProps {
   tabs: IAssetType[];
@@ -51,7 +51,7 @@ function TabSlideViewer({ tabs, slideViewList }: ITabSlideViewerProps) {
 
   return (
     <>
-      <ToggleTab tabs={tabs} useOutline={false} activeTab={activeTab} onChangeTab={onTabChange} />
+      <Tabs tabs={tabs} activeTab={activeTab} onChangeTab={onTabChange} />
       <ListWrapper>
         <Swiper ref={swiperRef} {...SwiperParams}>
           {slideViewList.map((view, index) => (
