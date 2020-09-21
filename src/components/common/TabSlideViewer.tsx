@@ -1,5 +1,6 @@
 import React, { ReactNode, useRef, useState } from 'react';
 import Swiper from 'react-id-swiper';
+import styled from 'styled-components';
 import 'swiper/swiper-bundle.min.css';
 import { IAssetType } from '../../models/IAssetType';
 import ListWrapper from '../common/ListWrapper';
@@ -51,7 +52,9 @@ function TabSlideViewer({ tabs, slideViewList }: ITabSlideViewerProps) {
 
   return (
     <>
-      <Tabs tabs={tabs} activeTab={activeTab} onChangeTab={onTabChange} />
+      <S.FixedHeader>
+        <Tabs tabs={tabs} activeTab={activeTab} onChangeTab={onTabChange} />
+      </S.FixedHeader>
       <ListWrapper>
         <Swiper ref={swiperRef} {...SwiperParams}>
           {slideViewList.map((view, index) => (
@@ -64,3 +67,16 @@ function TabSlideViewer({ tabs, slideViewList }: ITabSlideViewerProps) {
 }
 
 export default TabSlideViewer;
+
+const S: {
+  FixedHeader: any;
+} = {
+  FixedHeader: styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: ${(props: any) => props.theme.zIndex.header};
+    background-color: ${(props: any) => props.theme.colors.white};
+  `
+};
