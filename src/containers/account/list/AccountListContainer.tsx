@@ -55,10 +55,12 @@ function AccountListContainer() {
     .filter((account) => !account.isExpiration)
     .map((account, index) => <AccountListItem key={index} account={account} useSideMargin />);
 
+  // 완료 상태 리스트
   const renderEndAccountList = accountList.data
     .filter((account) => account.isExpiration)
     .map((account, index) => <AccountListItem key={index} account={account} useSideMargin />);
 
+  // 로딩 skeleton
   if (!accountList.data || accountList.loading) {
     return <ListSkeleton item={<AccountListItemSkeleton />} />;
   }

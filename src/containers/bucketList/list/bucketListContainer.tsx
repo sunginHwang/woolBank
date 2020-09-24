@@ -12,6 +12,8 @@ import AddButton from '../../../components/common/AddButton';
 import TabSlideViewer from '../../../components/common/TabSlideViewer';
 import ListSkeleton from '../../../components/common/ListSkeleton';
 import BucketListItemSkeleton from '../../../components/bucketList/list/BucketListItemSkeleton';
+import { IBucketList } from '../../../models/IBucketList';
+import { isDateExpired } from '../../../support/util/date';
 
 const tabs: IAssetType[] = [
   {
@@ -47,13 +49,21 @@ function BucketListContainer() {
     history.push('/bucket-list/save');
   };
 
+  const isComplete = (bucket: IBucketList) => {
+    return isDateExpired(new Date(bucket.completeDate), new Date()) && bucket.completeTodoCount >= bucket.todoCount;
+  }
+
+  const isProgress = (bucket: IBucketList) => {
+    return !isComplete(bucket);
+  }
+
   // 진행중 상태 버킷리스트
-  const renderProgressBucketList = bucketList.data.map((bucket, index) => (
+  const renderProgressBucketList = bucketList.data.filter(isProgress).map((bucket, index) => (
     <BucketListItem key={index} bucketList={bucket} useSideMargin />
   ));
 
   // 완료 상태 버킷리스트
-  const renderEndBucketList = bucketList.data.map((bucket, index) => (
+  const renderEndBucketList = bucketList.data.filter(isComplete).map((bucket, index) => (
     <BucketListItem key={index} bucketList={bucket} useSideMargin />
   ));
 

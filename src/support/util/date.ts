@@ -46,7 +46,7 @@ export const remainDays = (startDay: Date | string, endDay: Date | string): numb
   const firstTime = new Date(startDay).getTime();
   const secondTime = new Date(endDay).getTime();
 
-  if (firstTime >= secondTime) {
+  if (secondTime >= firstTime) {
     return 0;
   }
 
@@ -72,9 +72,9 @@ export const getRemainDatePercentage = (
   return remainPercent > 100 ? 100 : remainPercent;
 };
 
-export const isDateExpired = (until: string, check: string): boolean => {
-  const untilDate = Date.parse(until);
-  const checkDate = Date.parse(check);
+export const isDateExpired = (until: Date, check: Date): boolean => {
+  const untilDate = until.getTime();
+  const checkDate = check.getTime();
 
   return checkDate <= untilDate;
 };
