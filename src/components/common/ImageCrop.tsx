@@ -1,12 +1,14 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import colors from '../../style/colors';
-import HeaderWithBack from './HeaderWithBack';
-import IcoCircleCheck from '../icon/IcoCircleCheck';
 import Cropper from 'react-cropper';
+
+import HeaderWithBack from '@components/common/HeaderWithBack';
+import IcoCircleCheck from '@components/icon/IcoCircleCheck';
+
+import colors from '@style/colors';
 import './cropper.css';
 
-type ImageCropProps = {
+export interface ImageCropProps {
   url: string;
   onBackClick: () => void;
   onCrop: (imageUrl: string) => void;

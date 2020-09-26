@@ -1,16 +1,18 @@
 import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
-import useEventListener from '../../../support/hooks/useEventListener';
-import { getScrollTop } from '../../../support/util/document';
-import theme from '../../../style/colors';
-import HeaderWithBack from '../../common/HeaderWithBack';
-import Progress from '../../common/Progress';
-import IcoDowHorizontal from '../../icon/IcoDotHorizontal';
-import { getRemainDatePercentage, remainDays } from '../../../support/util/date';
-import PlaceHolderBar from '../../common/PlaceHolderBar';
 import { useHistory } from 'react-router';
+import styled from 'styled-components';
 
-type BucketListDetailHeaderProps = {
+import HeaderWithBack from '@components/common/HeaderWithBack';
+import Progress from '@components/common/Progress';
+import IcoDowHorizontal from '@components/icon/IcoDotHorizontal';
+import PlaceHolderBar from '@components/common/PlaceHolderBar';
+
+import { getRemainDatePercentage, remainDays } from '@support/util/date';
+import useEventListener from '@support/hooks/useEventListener';
+import { getScrollTop } from '@support/util/document';
+import theme from '@style/colors';
+
+export interface BucketListDetailHeaderProps {
   title: string;
   imgUrl?: string;
   isLoading: boolean;

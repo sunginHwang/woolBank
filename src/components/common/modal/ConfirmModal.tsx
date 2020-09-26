@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import ClipLoader from 'react-spinners/ClipLoader';
-import ModalDeem from './ModalDeem';
-import '../../../style/css/customCalendar.css';
-import colors from '../../../style/colors';
 
-type WalletDateModalProps = {
+import ModalDeem from '@components/common/modal/ModalDeem';
+
+import '@style/css/customCalendar.css';
+import colors from '@style/colors';
+
+export interface WalletDateModalProps {
   visible: boolean;
   message: string;
   loading?: boolean;

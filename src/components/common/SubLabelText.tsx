@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-type SubLabelTextProps = {
+export interface SubLabelTextProps {
   children: ReactNode;
 }
 

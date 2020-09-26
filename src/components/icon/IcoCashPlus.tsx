@@ -1,5 +1,5 @@
 import React from 'react';
-import { IIcon } from '../../models/icon/IIcon';
+import { IIcon } from '@models/icon/IIcon';
 
 function IcoCashPlus({ width = 24, height = 24, fill = 'currentColor' }: IIcon) {
   return (

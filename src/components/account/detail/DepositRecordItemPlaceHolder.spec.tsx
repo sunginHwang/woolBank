@@ -1,6 +1,6 @@
 import React from 'react';
 import DepositRecordItemSkeleton from './DepositRecordItemSkeleton';
-import withThemeRender from '../../../support/test/withThemeRender';
+import withThemeRender from '@support/test/withThemeRender';
 
 describe('<DepositRecordItemSkeleton />', () => {
   const setup = () => {

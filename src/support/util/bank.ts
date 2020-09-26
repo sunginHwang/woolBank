@@ -1,6 +1,6 @@
-import { INSTALLMENT_SAVINGS_TAX, NORMAL_RATE_TAX, PREFERENTIAL_TAX, SAVING_TYPE, TAX_TYPE } from '../constants';
-import { diffMonth } from './date';
-import { IAccountForm } from '../../models/IAccountForm';
+import { INSTALLMENT_SAVINGS_TAX, NORMAL_RATE_TAX, PREFERENTIAL_TAX, SAVING_TYPE, TAX_TYPE } from '@support/constants';
+import { diffMonth } from '@support/util/date';
+import { IAccountForm } from '@models/IAccountForm';
 
 export const getAmountWithTax = (amount: number, taxType: string) => {
   let result = amount;

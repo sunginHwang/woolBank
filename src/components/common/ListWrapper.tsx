@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-type ListWrapperProps = {
+export interface ListWrapperProps {
   children: ReactNode;
 };
 

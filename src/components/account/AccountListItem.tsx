@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import CardItem from '../common/CardItem';
-import { addComma } from '../../support/util/String';
-import { IAccount } from '../../models/IAccount';
-import { getRemainDatePercentage, parseDate } from '../../support/util/date';
 import { Link } from 'react-router-dom';
 
-type WalletListItemProps = {
+import CardItem from '@components/common/CardItem';
+
+import { getRemainDatePercentage, parseDate } from '@support/util/date';
+import { addComma } from '@support/util/String';
+import { IAccount } from '@models/IAccount';
+
+export interface WalletListItemProps {
   account: IAccount;
   useSideMargin?: boolean;
 };

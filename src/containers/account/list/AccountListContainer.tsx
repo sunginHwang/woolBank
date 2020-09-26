@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
-import { IAssetType } from '../../../models/IAssetType';
-import AccountListItem from '../../../components/account/AccountListItem';
-import AccountListItemSkeleton from '../../../components/account/list/AccountListItemSkeleton';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../store';
-import { getAccountListLastUpdatedAt } from '../../../support/api/accountApi';
-import { getAccountList } from '../../../store/modules/AccountList';
-import { checkNeedReFetch } from '../../../support/util/checkNeedReFetch';
-import AddButton from '../../../components/common/AddButton';
 import { useHistory } from 'react-router';
-import 'swiper/swiper-bundle.min.css';
-import TabSlideViewer from '../../../components/common/TabSlideViewer';
-import ListSkeleton from '../../../components/common/ListSkeleton';
+import { useDispatch, useSelector } from 'react-redux';
+
+import AddButton from '@components/common/AddButton';
+import TabSlideViewer from '@components/common/TabSlideViewer';
+import ListSkeleton from '@components/common/ListSkeleton';
+import AccountListItem from '@components/account/AccountListItem';
+import AccountListItemSkeleton from '@components/account/list/AccountListItemSkeleton';
+
+import { RootState } from '@/store';
+import { getAccountList } from '@store/modules/AccountList';
+import { getAccountListLastUpdatedAt } from '@support/api/accountApi';
+import { checkNeedReFetch } from '@support/util/checkNeedReFetch';
+import { IAssetType } from '@models/IAssetType';
 
 const tabs: IAssetType[] = [
   {

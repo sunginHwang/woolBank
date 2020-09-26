@@ -1,11 +1,11 @@
 import reducer from './modules';
 import thunk from 'redux-thunk';
 import { configureStore } from '@reduxjs/toolkit';
-import { AuthState } from './modules/Auth';
-import { LayoutState } from './modules/Layout';
-import { AccountListState } from './modules/AccountList';
-import { AccountDetailState } from './modules/AccountDetail';
-import { BucketListState } from './modules/BucketList';
+import { AuthState } from '@store/modules/Auth';
+import { LayoutState } from '@store/modules/Layout';
+import { AccountListState } from '@store/modules/AccountList';
+import { AccountDetailState } from '@store/modules/AccountDetail';
+import { BucketListState } from '@store//modules/BucketList';
 
 const initStore = () => {
   return configureStore({

@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import colors from '../../style/colors';
 import { ClipLoader } from 'react-spinners';
 
-type BaseButtonProps = {
+import colors from '@style/colors';
+
+export interface BaseButtonProps {
   dataType?: string;
   message: string;
   color: 'red';

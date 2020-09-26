@@ -1,6 +1,8 @@
 import React from 'react';
-import BucketListAddContainer from '../../containers/bucketList/add/bucketListAddContainer';
-import { useQuery } from '../../support/hooks/UseQuery';
+
+import BucketListAddContainer from '@containers/bucketList/add/bucketListAddContainer';
+
+import { useQuery } from '@support/hooks/UseQuery';
 
 function BucketListSave() {
   const { bucketListId } = useQuery(['bucketListId']);

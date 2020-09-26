@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import CardItem from '../../common/CardItem';
-import colors from '../../../style/colors';
-import { IBucketList } from '../../../models/IBucketList';
-import { remainDays } from '../../../support/util/date';
-import IcoCircleCheck from '../../icon/IcoCircleCheck';
-import EmptyCircle from '../../common/EmptyCircle';
 import { Link } from 'react-router-dom';
-import { onImageFallback } from '../../../support/util/image';
 
-type BucketListItemProps = {
+import CardItem from '@components/common/CardItem';
+import IcoCircleCheck from '@components/icon/IcoCircleCheck';
+import EmptyCircle from '@components/common/EmptyCircle';
+
+import { onImageFallback } from '@support/util/image';
+import { remainDays } from '@support/util/date';
+import colors from '@/style/colors';
+import { IBucketList } from '@models/IBucketList';
+
+export interface BucketListItemProps {
   bucketList: IBucketList;
   useSideMargin?: boolean;
 };

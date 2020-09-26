@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type ToastProps = {
+export interface ToastProps {
   visible: boolean;
   message: string;
 };

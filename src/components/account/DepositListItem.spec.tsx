@@ -1,9 +1,11 @@
 import React from 'react';
-import DepositListItem from './DepositListItem';
-import withThemeRender from '../../support/test/withThemeRender';
-import { addComma } from '../../support/util/String';
-import { parseDate } from '../../support/util/date';
-import { IDeposit } from '../../models/IDeposit';
+
+import DepositListItem from '@components/account/DepositListItem';
+
+import withThemeRender from '@support/test/withThemeRender';
+import { addComma } from '@support/util/String';
+import { parseDate } from '@support/util/date';
+import { IDeposit } from '@models/IDeposit';
 
 describe('<DepositListItem />', () => {
   const deposit: IDeposit = {

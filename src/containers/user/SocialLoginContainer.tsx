@@ -1,26 +1,25 @@
 import React from 'react';
+import { useHistory } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import  { ReactFacebookLoginInfo, ReactFacebookFailureResponse } from 'react-facebook-login';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import KaKaoLogin from 'react-kakao-login';
-import SocialLoginButton from '../../components/user/SocialLoginButton';
-import LoginBox from '../../components/user/LoginBox';
 import { KakaoLoginResponseV2 } from 'react-kakao-login/dist/types';
-import { ISocialUser } from '../../models/ISocialUser';
-import { delay } from '../../support/util/delay';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import Auth from '../../store/modules/Auth';
-import Layout from '../../store/modules/Layout';
-import { IUser } from '../../models/IUser';
-import keys from '../../keys';
-import { useHistory } from 'react-router';
-import { useAlert } from '../../support/hooks/useAlert';
 
-type SocialLoginContainerProps = {
-};
+import SocialLoginButton from '@components/user/SocialLoginButton';
+import LoginBox from '@components/user/LoginBox';
 
-function SocialLoginContainer({}: SocialLoginContainerProps) {
+import { RootState } from '@/store';
+import Auth from '@store/modules/Auth';
+import Layout from '@store/modules/Layout';
+import { delay } from '@support/util/delay';
+import { useAlert } from '@support/hooks/useAlert';
+import { IUser } from '@models/IUser';
+import { ISocialUser } from '@models/ISocialUser';
+import keys from '@/keys';
+
+function SocialLoginContainer() {
 
   const user = useSelector((state: RootState) => state.Auth.user);
   const history = useHistory();

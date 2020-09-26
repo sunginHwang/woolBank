@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import DepositListItem from './DepositListItem';
-import DepositRecordItemSkeleton from './detail/DepositRecordItemSkeleton';
-import { IDeposit } from '../../models/IDeposit';
 
-type DepositRecordProps = {
+import DepositListItem from '@components/account/DepositListItem';
+import DepositRecordItemSkeleton from '@components/account/detail/DepositRecordItemSkeleton';
+
+import { IDeposit } from '@models/IDeposit';
+
+export interface DepositRecordProps {
   depositList?: IDeposit[];
   isLoading?: boolean;
 };

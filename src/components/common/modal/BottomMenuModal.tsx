@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import ModalDeem from '../../common/modal/ModalDeem';
-import { IBottomMenu } from '../../../models/component/IBottomMenu';
 
-type BottomMenuModalProps = {
+import ModalDeem from '@components/common/modal/ModalDeem';
+
+import { IBottomMenu } from '@models/component/IBottomMenu';
+
+export interface BottomMenuModalProps {
   menus: IBottomMenu[];
   title: string;
   visible: boolean;

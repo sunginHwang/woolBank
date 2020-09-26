@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-type LabelTextProps = {
+export interface LabelTextProps {
   children: ReactNode;
 }
 

@@ -1,7 +1,9 @@
 import React from 'react';
-import withThemeRender from '../../support/test/withThemeRender';
-import NavigationBar from './NavigationBar';
-import theme from '../../style/colors';
+
+import NavigationBar from '@components/layout/NavigationBar';
+
+import withThemeRender from '@support/test/withThemeRender';
+import theme from '@style/colors';
 
 describe('<NavigationBar />', () => {
   const setup = () => {

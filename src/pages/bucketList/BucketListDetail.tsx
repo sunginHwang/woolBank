@@ -1,16 +1,16 @@
 import React from 'react';
-import PageTemplate from '../../components/common/PageTemplate';
-import BucketListDetailContainer from '../../containers/bucketList/detail/BucketListDetailContainer';
 import { useParams } from 'react-router';
-import BucketListTodoContainer from '../../containers/bucketList/detail/BucketListTodoContainer';
+
+import BucketListDetailContainer from '@containers/bucketList/detail/BucketListDetailContainer';
+import BucketListTodoContainer from '@containers/bucketList/detail/BucketListTodoContainer';
+import PageTemplate from '@components/layout/PageTemplate';
 
 function BucketListDetail() {
-  let { bucketListId } = useParams();
-  bucketListId = Number(bucketListId);
+  const { bucketListId } = useParams();
   return (
     <PageTemplate useHeader={false} useSidePadding={false}>
-      <BucketListDetailContainer bucketListId={bucketListId} />
-      <BucketListTodoContainer bucketListId={bucketListId} />
+      <BucketListDetailContainer bucketListId={Number(bucketListId)} />
+      <BucketListTodoContainer bucketListId={Number(bucketListId)} />
     </PageTemplate>
   );
 }

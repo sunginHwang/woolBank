@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { IAssetType } from '../../models/IAssetType';
-import { useWindowDimensions } from '../../support/hooks/useWindowDemensions';
 
-type ToggleTabProps = {
+import { IAssetType } from '@models/IAssetType';
+import { useWindowDimensions } from '@support/hooks/useWindowDemensions';
+
+export interface ToggleTabProps {
   tabs: IAssetType[];
   useOutline?: boolean;
   useListType?: boolean;

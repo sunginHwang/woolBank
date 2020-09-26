@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
-import Routes from './routes/Routes';
-import { useToggle } from './support/hooks/useToggle';
 import { useDispatch } from 'react-redux';
-import Auth from './store/modules/Auth';
-import Splash from './components/layout/Splash';
-import apiCall, { setHeaderAuthToken } from './support/util/apiCall';
-import { IUser } from './models/IUser';
+
+import Splash from '@components/layout/Splash';
+
+import Auth from '@store/modules/Auth';
+import Routes from '@routes/Routes';
+import { useToggle } from '@support/hooks/useToggle';
+import apiCall, { setHeaderAuthToken } from '@support/util/apiCall';
+import { IUser } from '@models/IUser';
 
 function App() {
   const [isShowSplash, showInitLoading, hideInitLoading] = useToggle(true);

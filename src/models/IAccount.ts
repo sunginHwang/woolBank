@@ -1,6 +1,6 @@
-import { IAssetType } from './IAssetType';
-import { TAX_TYPE } from '../support/constants';
-import { IDeposit } from './IDeposit';
+import { IAssetType } from '@models/IAssetType';
+import { TAX_TYPE } from '@support/constants';
+import { IDeposit } from '@models/IDeposit';
 
 export interface IAccount {
   id?: number;

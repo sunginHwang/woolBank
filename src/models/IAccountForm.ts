@@ -1,4 +1,4 @@
-import { IAssetType } from './IAssetType';
+import { IAssetType } from '@models/IAssetType';
 
 export type IAccountForm = {
   title: string;

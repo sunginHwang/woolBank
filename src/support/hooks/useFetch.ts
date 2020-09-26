@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import apiCall from '../util/apiCall';
+import apiCall from '@support/util/apiCall';
 
 type useFetchReturnType<T> = [
   T | null,

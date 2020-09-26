@@ -1,14 +1,16 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import PhaseTemplate from '../../common/PhaseTemplate';
-import BaseInput from '../../common/BaseInput';
-import DateModal from '../../common/modal/DateModal';
-import { DATE_FORMAT, parseDate } from '../../../support/util/date';
-import { useToggle } from '../../../support/hooks/useToggle';
-import colors from '../../../style/colors';
 import { ClipLoader } from 'react-spinners';
 
-type DepositDateProps = {
+import PhaseTemplate from '@components/common/PhaseTemplate';
+import BaseInput from '@components/common/BaseInput';
+import DateModal from '@components/common/modal/DateModal';
+
+import { DATE_FORMAT, parseDate } from '@support/util/date';
+import { useToggle } from '@support/hooks/useToggle';
+import colors from '@style/colors';
+
+export interface DepositDateProps {
   isActive: boolean;
   isLoading: boolean;
   onBackClick: () => void;

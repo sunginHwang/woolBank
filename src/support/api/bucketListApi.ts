@@ -1,8 +1,8 @@
-import apiCall from '../util/apiCall';
-import { ApiResType } from '../../models/api/ApiResType';
-import { IBucketList } from '../../models/IBucketList';
-import { IBucketListDetail } from '../../models/bucketList/IBucketListDetail';
-import { IBucketListForm } from '../../models/bucketList/IBucketListForm';
+import apiCall from '@support/util/apiCall';
+import { ApiResType } from '@models/api/ApiResType';
+import { IBucketList } from '@models/IBucketList';
+import { IBucketListDetail } from '@models/bucketList/IBucketListDetail';
+import { IBucketListForm } from '@models/bucketList/IBucketListForm';
 
 export const fetchBucketList = async () => {
   return await apiCall.get<ApiResType<IBucketList>>('bucket-list');

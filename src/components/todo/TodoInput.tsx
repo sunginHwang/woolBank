@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import colors from '../../style/colors';
-import IcoBlackCircle from '../icon/IcoBlackCircle';
-import IcoClose from '../icon/IcoClose';
-import useInput from '../../support/hooks/UseInput';
 
-type TodoInputProps = {
+import IcoBlackCircle from '@components/icon/IcoBlackCircle';
+import IcoClose from '@components/icon/IcoClose';
+
+import colors from '@style/colors';
+import useInput from '@support/hooks/UseInput';
+
+export interface TodoInputProps {
   onAdd: (title: string) => void;
   onClose: () => void;
   onFocusIn: () => void;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useInterval } from '../../support/hooks/useInterval';
-import mainImage from '../../image/main_image.svg';
+
+import { useInterval } from '@support/hooks/useInterval';
+import mainImage from '@/image/main_image.svg';
 
 function Splash() {
   const [dot, setDot] = useState('.');

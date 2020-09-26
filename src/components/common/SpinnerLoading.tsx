@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import ModalDeem from './modal/ModalDeem';
-import colors from '../../style/colors';
 import { ClipLoader } from 'react-spinners';
 
-type SpinnerLoadingProps = {
+import ModalDeem from '@components/common/modal/ModalDeem';
+
+import colors from '@style/colors';
+
+export interface SpinnerLoadingProps {
   loading: boolean;
   message?: string;
 };

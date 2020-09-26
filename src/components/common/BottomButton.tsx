@@ -1,8 +1,9 @@
 import React from 'react';
-import BaseButton from './BaseButton';
 import styled from 'styled-components';
 
-type BottomButtonProps = {
+import BaseButton from '@components/common/BaseButton';
+
+export interface BottomButtonProps {
   message: string;
   loading?: boolean;
   // 버튼 활성화 여부

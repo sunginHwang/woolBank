@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
-import DepositList from '../../../components/account/DepositList';
-import AccountInfo from '../../../components/account/AccountInfo';
-import AccountInfoSkeleton from '../../../components/account/detail/AccountInfoSkeleton';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../store';
-import AccountDetail, { getAccount } from '../../../store/modules/AccountDetail';
-import { checkNeedReFetch } from '../../../support/util/checkNeedReFetch';
-import { getAccountLastUpdatedAt } from '../../../support/api/accountApi';
 import { useHistory } from 'react-router';
-import { useToast } from '../../../support/hooks/useToast';
 
-type AccountDetailContainerProps = {
+import DepositList from '@components/account/DepositList';
+import AccountInfo from '@components/account/AccountInfo';
+import AccountInfoSkeleton from '@components/account/detail/AccountInfoSkeleton';
+
+import { RootState } from '@/store';
+import AccountDetail, { getAccount } from '@store/modules/AccountDetail';
+import { checkNeedReFetch } from '@support/util/checkNeedReFetch';
+import { getAccountLastUpdatedAt } from '@support/api/accountApi';
+import { useToast } from '@support/hooks/useToast';
+
+export interface AccountDetailContainerProps {
   accountId: number;
 };
 

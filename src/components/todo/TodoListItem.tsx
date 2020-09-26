@@ -1,13 +1,15 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { ITodo } from '../../models/ITodo';
-import IcoCircleCheck from '../icon/IcoCircleCheck';
-import colors from '../../style/colors';
-import IcoTrashCan from '../icon/IcoTrashCan';
-import IcoBlackCircle from '../icon/IcoBlackCircle';
 import { ClipLoader } from 'react-spinners';
 
-interface TodoListItemProps {
+import IcoCircleCheck from '@components/icon/IcoCircleCheck';
+import IcoTrashCan from '@components/icon/IcoTrashCan';
+import IcoBlackCircle from '@components/icon/IcoBlackCircle';
+
+import colors from '@style/colors';
+import { ITodo } from '@models/ITodo';
+
+export interface TodoListItemProps {
   todo: ITodo;
   isLoading?: boolean;
   onToggleState: (id: ITodo) => void;

@@ -1,6 +1,6 @@
-import apiCall from '../util/apiCall';
-import { ApiResType } from '../../models/api/ApiResType';
-import { IImage } from '../../models/IImage';
+import apiCall from '@support/util/apiCall';
+import { ApiResType } from '@models/api/ApiResType';
+import { IImage } from '@models/IImage';
 
 export const saveImageAndGetImageUrl = async (imageFile: File): Promise<null | IImage> => {
   const data = await new FormData();

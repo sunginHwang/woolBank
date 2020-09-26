@@ -1,7 +1,8 @@
 import { createAsyncThunk, PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AsyncState } from '../../models/redux';
-import { fetchAccountList } from '../../support/api/accountApi';
-import { IAccount } from '../../models/IAccount';
+
+import { IAccount } from '@models/IAccount';
+import { AsyncState } from '@models/redux';
+import { fetchAccountList } from '@support/api/accountApi';
 
 const name = 'accounts';
 

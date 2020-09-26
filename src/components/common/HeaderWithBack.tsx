@@ -1,9 +1,11 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import theme from '../../style/colors';
-import IcoChevronLeft from '../icon/IcoChevronLeft';
 
-type HeaderWithBackProps = {
+import IcoChevronLeft from '@components/icon/IcoChevronLeft';
+
+import theme from '@style/colors';
+
+export interface HeaderWithBackProps {
   title: string;
   iconColor?: string;
   useBackButton?: boolean;

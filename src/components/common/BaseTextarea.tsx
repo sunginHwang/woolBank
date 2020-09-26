@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
-type BaseTextAreaProps = {
+export interface BaseTextAreaProps {
   label?: string;
   value: string;
   placeHolder: string;

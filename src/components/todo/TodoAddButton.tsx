@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import colors from '../../style/colors';
 import { ClipLoader } from 'react-spinners';
-import IcoPlus from '../icon/IcoPlus';
 
-type AddTodoButtonProps = {
+import IcoPlus from '@components/icon/IcoPlus';
+
+import colors from '@style/colors';
+
+export interface AddTodoButtonProps {
   loading?: boolean;
   onClick?: (e: React.ChangeEvent<HTMLButtonElement>) => void;
 };

@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import TodoList from '../../todo/TodoList';
-import { ITodo } from '../../../models/ITodo';
-import PlaceHolderBar from '../../common/PlaceHolderBar';
 
-type TodoListProps = {
+import PlaceHolderBar from '@components/common/PlaceHolderBar';
+import TodoList from '@components/todo/TodoList';
+
+import { ITodo } from '@models/ITodo';
+
+export interface TodoListProps {
   todoList: ITodo[];
   selectTodoId: number;
   isLoading: boolean;

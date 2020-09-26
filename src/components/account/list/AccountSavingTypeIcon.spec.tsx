@@ -1,7 +1,7 @@
 import React from 'react';
-import AccountSavingTypeIcon from './AccountSavingTypeIcon';
-import withThemeRender from '../../../support/test/withThemeRender';
-import { SAVING_TYPE } from '../../../support/constants';
+import AccountSavingTypeIcon from '@components/account/list/AccountSavingTypeIcon';
+import withThemeRender from '@support/test/withThemeRender';
+import { SAVING_TYPE } from '@support/constants';
 
 describe('<AccountSavingTypeIcon />', () => {
   const setup = (savingType: string) => {

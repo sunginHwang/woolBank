@@ -1,11 +1,13 @@
 import React, { useCallback, useState } from 'react';
-import styled from 'styled-components/';
-import { addComma, numberToKorean } from '../../support/util/String';
-import IcoClose from '../icon/IcoClose';
-import colors from '../../style/colors';
-import BaseButton from './BaseButton';
+import styled from 'styled-components';
 
-type NumberInputProps = {
+import IcoClose from '@components//icon/IcoClose';
+import BaseButton from '@components/common/BaseButton';
+
+import colors from '@style/colors';
+import { addComma, numberToKorean } from '@support/util/String';
+
+export interface NumberInputProps {
   currentAmount: number;
   maxAmount?: number;
   label: string;

@@ -1,6 +1,6 @@
 import React from 'react';
 import AddDepositButton from './AddDepositButton';
-import withThemeRender from '../../../support/test/withThemeRender';
+import withThemeRender from '@support/test/withThemeRender';
 import { fireEvent } from '@testing-library/react';
 
 describe('<AddDepositButton />', () => {

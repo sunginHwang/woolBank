@@ -1,14 +1,13 @@
 export default {
-  /*common layout*/
+  /* common layout */
   mainHeaderHeight: '6rem',
   mainFooterHeight: '8rem',
   mainContentHeight: '100%',
   mainRightWidth: '24rem',
   contentMaxWidth: '1200px',
-  /*modal*/
+  /* modal */
   sideBarZIndex: 50,
   mobileWidth: '1024px',
-  phoneWidth: '450px',
+  phoneWidth: '450px'
 
 };
-

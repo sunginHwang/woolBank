@@ -1,6 +1,6 @@
 import React from 'react';
 import AccountEditModal from './AccountEditModal';
-import withThemeRender from '../../../support/test/withThemeRender';
+import withThemeRender from '@support/test/withThemeRender';
 import { fireEvent } from '@testing-library/react';
 
 describe('<AccountEditModal />', () => {

@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
-import IcoDownCircle from '../icon/IcoDownCircle';
-import colors from '../../style/colors';
-import IcoUpCircle from '../icon/IcoUpCircle';
-import { useToggle } from '../../support/hooks/useToggle';
 
-type DownSlideProps = {
+import IcoDownCircle from '@components/icon/IcoDownCircle';
+import IcoUpCircle from '@components/icon/IcoUpCircle';
+
+import { useToggle } from '@support/hooks/useToggle';
+import colors from '@style/colors';
+
+export interface DownSlideProps {
   children: ReactNode;
 };
 

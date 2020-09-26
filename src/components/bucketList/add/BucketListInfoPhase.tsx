@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import PhaseTemplate from '../../common/PhaseTemplate';
-import BaseInput from '../../common/BaseInput';
-import BaseTextArea from '../../common/BaseTextarea';
-import { useToggle } from '../../../support/hooks/useToggle';
-import BottomButton from '../../common/BottomButton';
-import { IPhase } from '../../../models/phase/IPhase';
-import LabelText from '../../common/LabelText';
-import SubLabelText from '../../common/SubLabelText';
-import useInput from '../../../support/hooks/UseInput';
+
+import PhaseTemplate from '@components/common/PhaseTemplate';
+import BaseInput from '@components/common/BaseInput';
+import BaseTextArea from '@components/common/BaseTextarea';
+import BottomButton from '@components/common/BottomButton';
+import LabelText from '@components/common/LabelText';
+import SubLabelText from '@components/common/SubLabelText';
+
+import { useToggle } from '@support/hooks/useToggle';
+import useInput from '@support/hooks/UseInput';
+import { IPhase } from '@models/phase/IPhase';
 
 interface BucketListInfoPhaseProps extends IPhase{
   title: string;
@@ -25,7 +27,6 @@ function BucketListInfoPhase({
   goPrevPhase,
   goNextPhase
 }: BucketListInfoPhaseProps) {
-
   const [bucketListTitle, onBucketListTitleChange, onResetBucketListTitle] = useInput(title);
   const [detail, setDetail] = useState(description);
   const [showDetailLayer, onDetailLayer, offDetailLayer] = useToggle(title !== '' && description !== '');

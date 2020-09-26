@@ -1,7 +1,8 @@
 import React from 'react';
-import BaseInput from '../../components/common/BaseInput';
-import BaseButton from '../../components/common/BaseButton';
-import LoginBox from '../../components/user/LoginBox';
+
+import BaseInput from '@components/common/BaseInput';
+import BaseButton from '@components/common/BaseButton';
+import LoginBox from '@components/user/LoginBox';
 
 function LoginContainer() {
   return (

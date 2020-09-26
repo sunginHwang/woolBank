@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import ToggleTab from './ToggleTab';
-import { IAssetType } from '../../models/IAssetType';
-import ListWrapper from './ListWrapper';
+
+import ListWrapper from '@components/common/ListWrapper';
+import ToggleTab from '@components/common/ToggleTab';
+
+import { IAssetType } from '@models/IAssetType';
 
 const tabs: IAssetType[] = [
   {

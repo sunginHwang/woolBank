@@ -1,17 +1,19 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import PhaseTemplate from '../../common/PhaseTemplate';
-import IcoCamera from '../../icon/IcoCamera';
-import colors from '../../../style/colors';
-import IcoImage from '../../icon/IcoImage';
-import BottomButton from '../../common/BottomButton';
-import { IPhase } from '../../../models/phase/IPhase';
-import LabelText from '../../common/LabelText';
-import BucketListPrevImage from './BucketListPrevImage';
-import ImageCrop from '../../common/ImageCrop';
-import { dataURLtoFile, getExtensionByDataURL, resizeImage } from '../../../support/util/file';
-import { useToggle } from '../../../support/hooks/useToggle';
-import { parseDate } from '../../../support/util/date';
+
+import LabelText from '@components/common/LabelText';
+import BucketListPrevImage from '@components/bucketList/add/BucketListPrevImage';
+import ImageCrop from '@components/common/ImageCrop';
+import PhaseTemplate from '@components/common/PhaseTemplate';
+import IcoCamera from '@components/icon/IcoCamera';
+import IcoImage from '@components/icon/IcoImage';
+import BottomButton from '@components/common/BottomButton';
+
+import { dataURLtoFile, getExtensionByDataURL, resizeImage } from '@support/util/file';
+import { useToggle } from '@support/hooks/useToggle';
+import { parseDate } from '@support/util/date';
+import colors from '@style/colors';
+import { IPhase } from '@models/phase/IPhase';
 
 interface BucketListPicturePhaseProps extends IPhase {
   mainImage?: string;

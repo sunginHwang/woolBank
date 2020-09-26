@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import Calendar from 'react-calendar';
-import ModalDeem from './ModalDeem';
-import '../../../style/css/customCalendar.css';
 
-type WalletDateModalProps = {
+import ModalDeem from '@components/common/modal/ModalDeem';
+
+import '@style/css/customCalendar.css';
+
+export interface WalletDateModalProps {
   visible: boolean;
   oncloseModal: any;
   onChangeDate: (date: string) => void;

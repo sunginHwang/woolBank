@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import CardItem from '../../common/CardItem';
-import EmptyCircle from '../../common/EmptyCircle';
-import PlaceHolderBar from '../../common/PlaceHolderBar';
+
+import CardItem from '@components/common/CardItem';
+import EmptyCircle from '@components/common/EmptyCircle';
+import PlaceHolderBar from '@components/common/PlaceHolderBar';
 
 function BucketListItemSkeleton() {
   return (

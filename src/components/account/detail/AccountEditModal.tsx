@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import ModalDeem from '../../common/modal/ModalDeem';
+import ModalDeem from '@components/common/modal/ModalDeem';
 
-type AccountEditModalProps = {
+export interface AccountEditModalProps {
   visible: boolean;
   oncloseModal: () => void;
   onEditClick: (edit: 'migration' | 'end' | 'remove') => void;

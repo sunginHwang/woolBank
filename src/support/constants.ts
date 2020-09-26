@@ -1,4 +1,4 @@
-import { IAssetType } from '../models/IAssetType';
+import { IAssetType } from '@models/IAssetType';
 
 export const NORMAL_RATE_TAX = 0.154;
 export const PREFERENTIAL_TAX = 0.095;

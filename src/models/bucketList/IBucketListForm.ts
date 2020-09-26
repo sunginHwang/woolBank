@@ -1,4 +1,4 @@
-import { ITodo } from '../ITodo';
+import { ITodo } from '@models/ITodo';
 
 export interface IBucketListForm {
   id?: number;

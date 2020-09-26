@@ -1,8 +1,10 @@
 import React from 'react';
-import withThemeRender from '../../support/test/withThemeRender';
-import { IAccount } from '../../models/IAccount';
-import { INSTALLMENT_SAVINGS, TAX_TYPE } from '../../support/constants';
-import AccountListItem from './AccountListItem';
+
+import AccountListItem from '@components/account/AccountListItem';
+
+import { INSTALLMENT_SAVINGS, TAX_TYPE } from '@support/constants';
+import withThemeRender from '@support/test/withThemeRender';
+import { IAccount } from '@models/IAccount';
 
 describe('<AccountListItem />', () => {
   const setup = () => {

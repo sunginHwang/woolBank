@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type TotalAssetsWalletProps = {
+export interface TotalAssetsWalletProps {
   totalPrice: number;
   lastMonthTotalPrice: number;
 }

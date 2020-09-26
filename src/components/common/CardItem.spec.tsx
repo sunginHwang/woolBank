@@ -1,6 +1,6 @@
 import React from 'react';
-import CardItem from './CardItem';
-import withThemeRender from '../../support/test/withThemeRender';
+import CardItem from '@components/common/CardItem';
+import withThemeRender from '@support/test/withThemeRender';
 
 describe('<CardItem />', () => {
   const setup = () => {

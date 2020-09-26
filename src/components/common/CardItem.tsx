@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-type CardItemProps = {
+export interface CardItemProps {
   children: ReactNode;
   useSideMargin?: boolean;
 };

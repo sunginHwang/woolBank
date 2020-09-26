@@ -1,6 +1,6 @@
 import React from 'react';
-import PhaseTemplate from './PhaseTemplate';
-import withThemeRender from '../../support/test/withThemeRender';
+import PhaseTemplate from 'src/components/common/PhaseTemplate';
+import withThemeRender from '@support/test/withThemeRender';
 
 describe('<PhaseTemplate />', () => {
   const setup = ({

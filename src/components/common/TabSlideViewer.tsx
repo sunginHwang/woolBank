@@ -1,11 +1,13 @@
 import React, { ReactNode, useRef, useState } from 'react';
 import Swiper from 'react-id-swiper';
 import styled from 'styled-components';
+
+import ListWrapper from '@components/common/ListWrapper';
+import Tabs from '@components/common/Tabs';
+
+import { IAssetType } from '@models/IAssetType';
 import 'swiper/swiper-bundle.min.css';
-import { IAssetType } from '../../models/IAssetType';
-import ListWrapper from '../common/ListWrapper';
-import '../../style/css/tabSlideViewer.css';
-import Tabs from '../common/Tabs';
+import '@style/css/tabSlideViewer.css';
 
 export interface ITabSlideViewerProps {
   tabs: IAssetType[];

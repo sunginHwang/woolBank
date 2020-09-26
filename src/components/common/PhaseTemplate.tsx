@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import HeaderWithBack from './HeaderWithBack';
+import HeaderWithBack from '@components/common/HeaderWithBack';
 
-type InputPhaseWrapperProps = {
+export interface PhaseTemplateProps {
   // 헤더 사용 유무
   active: boolean;
   title: string;
@@ -21,7 +21,7 @@ function PhaseTemplate({
   useScroll = false,
   children,
   onBackClick
-}: InputPhaseWrapperProps) {
+}: PhaseTemplateProps) {
   return (
     <S.PhaseTemplate active={active}>
       {

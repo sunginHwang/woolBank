@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import colors from '../../style/colors';
+
+import colors from '@style/colors';
 
 type SliderSize = 'medium' | 'large';
 
-type BaseSliderProps = {
+export interface BaseSliderProps {
   min: number;
   max: number;
   step: number;

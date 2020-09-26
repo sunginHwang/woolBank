@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import ModalDeem from '../../../components/common/modal/ModalDeem';
+
+import ModalDeem from '@components/common/modal/ModalDeem';
 
 export interface AlertModalProps {
   isShow: boolean;

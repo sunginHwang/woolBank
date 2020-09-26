@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import HeaderWithBack from './HeaderWithBack';
-import MainHeader from '../layout/MainHeader';
-import colors from '../../style/colors';
 
-type InputPhaseWrapperProps = {
+import HeaderWithBack from '@components/common/HeaderWithBack';
+import MainHeader from '@components/layout/MainHeader';
+
+import colors from '@style/colors';
+
+export interface PageTemplateProps {
   title?: string;
   isMain?: boolean;
   useSidePadding?: boolean;
@@ -27,7 +29,8 @@ function PageTemplate({
   onBackClick,
   rightHeader = null,
   children
-}: InputPhaseWrapperProps) {
+}: PageTemplateProps) {
+
   const onHeaderBackClick = () => {
     onBackClick && onBackClick();
   };

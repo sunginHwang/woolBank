@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import AccountInfoPhase from '../../../components/account/list/addPhase/AccountInfoPhase';
-import AmountAddPhase from '../../../components/account/list/addPhase/AmountAddPhase';
-import ConfirmPhase from '../../../components/account/list/addPhase/ConfirmPhase';
-import RateAddPhase from '../../../components/account/list/addPhase/RateAddPhase';
-import { IAssetType } from '../../../models/IAssetType';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import useRequest from '../../../support/hooks/useRequest';
-import { saveAccount } from '../../../support/api/accountApi';
-import { INSTALLMENT_SAVINGS_TAX } from '../../../support/constants';
-import { IAccountForm } from '../../../models/IAccountForm';
-import { useToast } from '../../../support/hooks/useToast';
+
+import AccountInfoPhase from '@components/account/list/addPhase/AccountInfoPhase';
+import AmountAddPhase from '@components/account/list/addPhase/AmountAddPhase';
+import ConfirmPhase from '@components/account/list/addPhase/ConfirmPhase';
+import RateAddPhase from '@components/account/list/addPhase/RateAddPhase';
+
+import useRequest from '@support/hooks/useRequest';
+import { saveAccount } from '@support/api/accountApi';
+import { INSTALLMENT_SAVINGS_TAX } from '@support/constants';
+import { useToast } from '@support/hooks/useToast';
+import { IAccountForm } from '@models/IAccountForm';
+import { IAssetType } from '@models/IAssetType';
 
 const INIT_ACCOUNT_FORM: IAccountForm = {
   title: '',

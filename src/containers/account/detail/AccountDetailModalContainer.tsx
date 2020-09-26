@@ -1,20 +1,22 @@
 import React from 'react';
-import AccountEditModal from '../../../components/account/detail/AccountEditModal';
-import DepositDate from '../../../components/account/detail/DepositDate';
-import { useHistory } from 'react-router-dom';
-import ConfirmModal from '../../../components/common/modal/ConfirmModal';
-import { useToggle } from '../../../support/hooks/useToggle';
-import useRequest from '../../../support/hooks/useRequest';
-import { addDeposit, expirationAccount, removeAccount } from '../../../support/api/accountApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAccountList } from '../../../store/modules/AccountList';
-import accountDetailModule, { getAccount } from '../../../store/modules/AccountDetail';
-import { RootState } from '../../../store';
-import { addComma } from '../../../support/util/String';
-import { useToast } from '../../../support/hooks/useToast';
-import { useAlert } from '../../../support/hooks/useAlert';
+import { useHistory } from 'react-router-dom';
 
-type AccountDetailModalContainerProps = {
+import AccountEditModal from '@components/account/detail/AccountEditModal';
+import DepositDate from '@components/account/detail/DepositDate';
+import ConfirmModal from '@components/common/modal/ConfirmModal';
+
+import { RootState } from '@/store';
+import { getAccountList } from '@store/modules/AccountList';
+import accountDetailModule, { getAccount } from '@store/modules/AccountDetail';
+import { useToggle } from '@support/hooks/useToggle';
+import useRequest from '@support/hooks/useRequest';
+import { addComma } from '@support/util/String';
+import { useToast } from '@support/hooks/useToast';
+import { useAlert } from '@support/hooks/useAlert';
+import { addDeposit, expirationAccount, removeAccount } from '@support/api/accountApi';
+
+export interface AccountDetailModalContainerProps {
   accountId: number;
   isActiveModal: boolean;
   useEditPhase: boolean;

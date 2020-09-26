@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 import styled from 'styled-components';
 
-type ModalDeemProps = {
+export interface ModalDeemProps {
   visible: boolean;
   children?: React.ReactNode;
   onDeemClick?: () => void;

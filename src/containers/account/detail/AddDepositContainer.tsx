@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import AddDepositButton from '../../../components/account/detail/AddDepositButton';
-import NumberInput from '../../../components/common/NumberInput';
 import styled from 'styled-components';
 import { useHistory } from 'react-router';
-import useRequest from '../../../support/hooks/useRequest';
-import { addDeposit } from '../../../support/api/accountApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAccount } from '../../../store/modules/AccountDetail';
-import { RootState } from '../../../store';
-import { useToast } from '../../../support/hooks/useToast';
+
+import AddDepositButton from '@components/account/detail/AddDepositButton';
+import NumberInput from '@components/common/NumberInput';
+
+import { RootState } from '@/store';
+import { getAccount } from '@store/modules/AccountDetail';
+import useRequest from '@support/hooks/useRequest';
+import { addDeposit } from '@support/api/accountApi';
+import { useToast } from '@support/hooks/useToast';
 
 type AddDepositContainerProps = {
   accountId: number;

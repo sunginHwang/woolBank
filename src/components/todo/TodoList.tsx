@@ -1,12 +1,14 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { ITodo } from '../../models/ITodo';
-import { useToggle } from '../../support/hooks/useToggle';
-import TodoInput from './TodoInput';
-import TodoAddButton from './TodoAddButton';
-import TodoListItem from './TodoListItem';
 
-type TodoListProps = {
+import TodoInput from '@components/todo/TodoInput';
+import TodoAddButton from '@components/todo/TodoAddButton';
+import TodoListItem from '@components/todo/TodoListItem';
+
+import { ITodo } from '@models/ITodo';
+import { useToggle } from '@support/hooks/useToggle';
+
+export interface TodoListProps {
   todoList: ITodo[];
   addLoading?: boolean;
   todoItemLoading?: {

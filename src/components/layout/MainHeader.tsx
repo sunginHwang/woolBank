@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import banketList from '../../image/banket_list.svg';
+
+import banketList from '@/image/banket_list.svg';
+
 function MainHeader() {
   return (
     <S.MainHeader>

@@ -1,7 +1,8 @@
 import { createAsyncThunk, PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AsyncState } from '../../models/redux';
-import { fetchAccount } from '../../support/api/accountApi';
-import { IAccount } from '../../models/IAccount';
+
+import { AsyncState } from '@models/redux';
+import { IAccount } from '@models/IAccount';
+import { fetchAccount } from '@support/api/accountApi';
 
 const name = 'accountDetail';
 // 캐싱 최대 10개까지만

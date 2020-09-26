@@ -1,10 +1,10 @@
 import { createAsyncThunk, PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { AsyncState } from '../../models/redux';
-import { IBucketList } from '../../models/IBucketList';
-import { fetchBucketList, fetchBucketListDetail } from '../../support/api/bucketListApi';
-import { IBucketListDetail } from '../../models/bucketList/IBucketListDetail';
-import { getAccount } from './AccountDetail';
-import { ITodo } from '../../models/ITodo';
+
+import { AsyncState } from '@models/redux';
+import { IBucketList } from '@models/IBucketList';
+import { IBucketListDetail } from '@models/bucketList/IBucketListDetail';
+import { ITodo } from '@models/ITodo';
+import { fetchBucketList, fetchBucketListDetail } from '@support/api/bucketListApi';
 
 const DETAIL_CACHE_COUNT = 10;
 
@@ -15,7 +15,7 @@ export const getBucketList = createAsyncThunk(`${name}/getBucketList`, async () 
   return bucketList.data.data;
 });
 
-export const getBucketListDetail = createAsyncThunk(`${name}/getAccount`, async (bucketListId: number) => {
+export const getBucketListDetail = createAsyncThunk(`${name}/getBucketListDetail`, async (bucketListId: number) => {
   const bucketListDetail = await fetchBucketListDetail(bucketListId);
   return bucketListDetail.data.data;
 });
@@ -126,7 +126,7 @@ export default createSlice({
       state.bucketListDetailCache = bucketListDetailCacheList;
       state.bucketListDetail.loading = false;
     },
-    [getAccount.rejected.type]: (state) => {
+    [getBucketListDetail.rejected.type]: (state) => {
       state.bucketListDetail.loading = false;
       state.bucketListDetail.data = null;
     }

@@ -1,6 +1,6 @@
 import React from 'react';
-import withThemeRender from '../../support/test/withThemeRender';
-import TotalAssetsWallet from './TotalAssetsWallet';
+import withThemeRender from '@support/test/withThemeRender';
+import TotalAssetsWallet from '@components/main//TotalAssetsWallet';
 
 describe('<TotalAssetsWallet />', () => {
   const setup = (totalPrice: number, lastMonthTotalPrice: number) => {

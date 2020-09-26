@@ -1,6 +1,6 @@
 import React from 'react';
 import AccountInfoplaceHolder from './AccountInfoSkeleton';
-import withThemeRender from '../../../support/test/withThemeRender';
+import withThemeRender from '@support/test/withThemeRender';
 
 describe('<AccountInfoplaceHolder />', () => {
   const setup = () => {

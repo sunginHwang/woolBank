@@ -1,7 +1,7 @@
 import React from 'react';
-import PhaseTemplate from '../../../common/PhaseTemplate';
-import NumberInput from '../../../common/NumberInput';
-import { IPhase } from '../../../../models/phase/IPhase';
+import PhaseTemplate from '@components/common/PhaseTemplate';
+import NumberInput from '@components/common/NumberInput';
+import { IPhase } from '@models/phase/IPhase';
 
 interface AmountAddPhaseProps extends IPhase{
   isActivePhase: boolean;

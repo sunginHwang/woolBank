@@ -1,8 +1,9 @@
 import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
-import IcoCloseCircle from '../icon/IcoCloseCircle';
 
-type BaseInputProps = {
+import IcoCloseCircle from '@components/icon/IcoCloseCircle';
+
+export interface BaseInputProps {
   label?: string;
   placeHolder?: string;
   value: string | number;

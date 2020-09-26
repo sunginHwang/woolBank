@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import PlaceHolderBar from '../../common/PlaceHolderBar';
-import Progress from '../../common/Progress';
-import colors from '../../../style/colors';
+import PlaceHolderBar from '@components/common/PlaceHolderBar';
+import Progress from '@components/common/Progress';
+import colors from '@style/colors';
 
 function AccountInfoSkeleton() {
   return (

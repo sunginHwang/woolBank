@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IAccount } from '../../models/IAccount';
-import { addComma } from '../../support/util/String';
-import Progress from '../common/Progress';
-import colors from '../../style/colors';
-import { parseDate } from '../../support/util/date';
 
-type AccountInfoProps = {
+import Progress from '@components/common/Progress';
+
+import { IAccount } from '@models/IAccount';
+import { parseDate } from '@support/util/date';
+import { addComma } from '@support/util/String';
+import colors from '@style/colors';
+
+export interface AccountInfoProps {
   account: IAccount;
 };
 

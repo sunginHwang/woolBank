@@ -1,13 +1,15 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router';
-import PageTemplate from '../../components/common/PageTemplate';
-import AccountDetailContainer from '../../containers/account/detail/AccountDetailContainer';
-import AccountDetailModalContainer from '../../containers/account/detail/AccountDetailModalContainer';
-import IcoDowHorizontal from '../../components/icon/IcoDotHorizontal';
-import colors from '../../style/colors';
-import { useQuery } from '../../support/hooks/UseQuery';
-import AddDepositContainer from '../../containers/account/detail/AddDepositContainer';
-import { useToggle } from '../../support/hooks/useToggle';
+
+import PageTemplate from '@components/layout/PageTemplate';
+import AddDepositContainer from '@containers/account/detail/AddDepositContainer';
+import AccountDetailContainer from '@containers/account/detail/AccountDetailContainer';
+import AccountDetailModalContainer from '@containers/account/detail/AccountDetailModalContainer';
+import IcoDowHorizontal from '@components/icon/IcoDotHorizontal';
+
+import colors from '@style/colors';
+import { useQuery } from '@support/hooks/UseQuery';
+import { useToggle } from '@support/hooks/useToggle';
 
 function AccountDetail() {
   const [isOpenDetailModal, onDetailModal, offDetailModal] = useToggle(false);

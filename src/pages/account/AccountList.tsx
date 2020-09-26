@@ -1,6 +1,6 @@
 import React from 'react';
-import AccountListContainer from '../../containers/account/list/AccountListContainer';
-import PageTemplate from '../../components/common/PageTemplate';
+import AccountListContainer from '@containers/account/list/AccountListContainer';
+import PageTemplate from '@components/layout/PageTemplate';
 
 function AccountList() {
   return (

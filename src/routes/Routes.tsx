@@ -2,23 +2,23 @@ import React from 'react';
 import loadable from '@loadable/component';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, RouteComponentProps, RouteProps, Switch } from 'react-router';
-import { RootState } from '../store';
+import { RootState } from '@/store';
 
-import LayoutContainer from '../containers/LayoutContainer';
-import PageNotFound from '../pages/error/PageNotFound';
-import MainPageSkeleton from '../components/main/MainPageSkeleton';
-import PageTemplate from '../components/common/PageTemplate';
+import PageNotFound from '@pages/error/PageNotFound';
+import LayoutContainer from '@containers/LayoutContainer';
+import MainPageSkeleton from '@components/main/MainPageSkeleton';
+import PageTemplate from '@components/layout/PageTemplate';
 
 const defaultFallback = { fallback: <PageTemplate useHeader={false} /> };
 
-const Main = loadable(() => import('../pages/Main'), { fallback: <MainPageSkeleton /> });
-const AccountList = loadable(() => import('../pages/account/AccountList'), defaultFallback);
-const AccountDetail = loadable(() => import('../pages/account/AccountDetail'), defaultFallback);
-const AccountRegister = loadable(() => import('../pages/account/AccountRegister'), defaultFallback);
-const BucketList = loadable(() => import('../pages/bucketList/BucketList'), defaultFallback);
-const BucketListDetail = loadable(() => import('../pages/bucketList/BucketListDetail'), defaultFallback);
-const BucketListSave = loadable(() => import('../pages/bucketList/BucketListSave'), defaultFallback);
-const Login = loadable(() => import('../pages/user/login'));
+const Main = loadable(() => import('@pages/Main'), { fallback: <MainPageSkeleton /> });
+const AccountList = loadable(() => import('@pages/account/AccountList'), defaultFallback);
+const AccountDetail = loadable(() => import('@pages/account/AccountDetail'), defaultFallback);
+const AccountRegister = loadable(() => import('@pages/account/AccountRegister'), defaultFallback);
+const BucketList = loadable(() => import('@pages/bucketList/BucketList'), defaultFallback);
+const BucketListDetail = loadable(() => import('@pages/bucketList/BucketListDetail'), defaultFallback);
+const BucketListSave = loadable(() => import('@pages/bucketList/BucketListSave'), defaultFallback);
+const Login = loadable(() => import('@pages/user/login'));
 
 function Routes() {
   const user = useSelector((state: RootState) => state.Auth.user);

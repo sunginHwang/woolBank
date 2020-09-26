@@ -1,16 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import PhaseTemplate from '../../../common/PhaseTemplate';
-import { addComma } from '../../../../support/util/String';
-import { DATE_FORMAT, parseDate } from '../../../../support/util/date';
+
+import DownSlide from '@components/common/DownSlide';
+import BaseButton from '@components/common/BaseButton';
+import PhaseTemplate from '@components/common/PhaseTemplate';
+
+import { addComma } from '@support/util/String';
+import { DATE_FORMAT, parseDate } from '@support/util/date';
 import {
   getRateInterestByWallet,
   getTaxTypeKo
-} from '../../../../support/util/bank';
-import DownSlide from '../../../common/DownSlide';
-import BaseButton from '../../../common/BaseButton';
-import { IPhase } from '../../../../models/phase/IPhase';
-import { IAccountForm } from '../../../../models/IAccountForm';
+} from '@support/util/bank';
+import { IPhase } from '@models/phase/IPhase';
+import { IAccountForm } from '@models/IAccountForm';
 
 interface WalletConfirmPhaseProps extends IPhase{
   accountForm: IAccountForm;

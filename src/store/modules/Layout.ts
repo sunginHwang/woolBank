@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ILayoutLoading } from '../../models/layout/ILayoutLoading';
-import { IToast } from '../../models/layout/IToast';
+
+import { ILayoutLoading } from '@models/layout/ILayoutLoading';
+import { IToast } from '@models/layout/IToast';
 
 const name = 'layout';
 

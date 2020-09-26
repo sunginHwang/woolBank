@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type PlaceHolderBarProps = {
+export interface PlaceHolderBarProps {
   width: string;
   height: string;
 }

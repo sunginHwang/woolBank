@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import theme from '../../../style/colors';
-import IcoCalendarMonthOutline from '../../icon/IcoCalendarMonthOutline';
-import PlaceHolderBar from '../../common/PlaceHolderBar';
-import { parseDate } from '../../../support/util/date';
-type BucketListContentInfoProps = {
+
+import IcoCalendarMonthOutline from '@components/icon/IcoCalendarMonthOutline';
+import PlaceHolderBar from '@components/common/PlaceHolderBar';
+
+import theme from '@style/colors';
+import { parseDate } from '@support/util/date';
+
+export interface BucketListContentInfoProps {
   isLoading: boolean;
   description: string;
   completeDate: string | Date;

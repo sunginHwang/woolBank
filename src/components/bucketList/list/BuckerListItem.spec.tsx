@@ -1,8 +1,8 @@
 import React from 'react';
-import BucketListItem from './BucketListItem';
-import withThemeRender from '../../../support/test/withThemeRender';
-import { IBucketList } from '../../../models/IBucketList';
-import { remainDays } from '../../../support/util/date';
+import BucketListItem from '@components/bucketList/list/BucketListItem';
+import withThemeRender from '@support/test/withThemeRender';
+import { IBucketList } from '@models/IBucketList';
+import { remainDays } from '@support/util/date';
 
 const initState: IBucketList = {
   title: '제목',

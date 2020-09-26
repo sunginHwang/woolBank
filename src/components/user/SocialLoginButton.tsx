@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import IcoFacebook from '../icon/IcoFacebook';
 import {
   ReactFacebookFailureResponse,
   ReactFacebookLoginInfo
 } from 'react-facebook-login';
-import IcoGoogle from '../icon/IcoGoogle';
-import IcoKakaoTalk from '../icon/IcoKakaoTalk';
+
+import IcoGoogle from '@components/icon/IcoGoogle';
+import IcoKakaoTalk from '@components/icon/IcoKakaoTalk';
+import IcoFacebook from '@components/icon/IcoFacebook';
 
 const providerMap = {
   kakaoTalk: {
@@ -23,7 +24,7 @@ const providerMap = {
   }
 };
 
-type SocialLoginButtonProps = {
+export interface SocialLoginButtonProps {
   provider: 'facebook' | 'google' | 'kakaoTalk';
   handleLoginClick: (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => void;
 };

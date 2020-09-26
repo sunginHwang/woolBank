@@ -1,20 +1,22 @@
 import React, { useReducer, useState } from 'react';
 import { useHistory } from 'react-router';
-import BucketListInfoPhase from '../../../components/bucketList/add/BucketListInfoPhase';
-import BucketListCompleteDatePhase from '../../../components/bucketList/add/BucketListCompleteDatePhase';
-import BucketListPicturePhase from '../../../components/bucketList/add/BucketListPicturePhase';
-import TodoListPhase from '../../../components/bucketList/add/TodoListPhase';
-import { ITodo } from '../../../models/ITodo';
-import useRequest from '../../../support/hooks/useRequest';
-import { IBucketListForm } from '../../../models/bucketList/IBucketListForm';
-import { saveImageAndGetImageUrl } from '../../../support/api/imageApi';
-import { saveBucketList, updateBucketList } from '../../../support/api/bucketListApi';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
-import { useToast } from '../../../support/hooks/useToast';
-import { useAlert } from '../../../support/hooks/useAlert';
 
-type BucketListAddContainerProps = {
+import BucketListInfoPhase from '@components/bucketList/add/BucketListInfoPhase';
+import BucketListCompleteDatePhase from '@components/bucketList/add/BucketListCompleteDatePhase';
+import BucketListPicturePhase from '@components/bucketList/add/BucketListPicturePhase';
+import TodoListPhase from '@components/bucketList/add/TodoListPhase';
+
+import { RootState } from '@/store';
+import { useToast } from '@support/hooks/useToast';
+import { useAlert } from '@support/hooks/useAlert';
+import useRequest from '@support/hooks/useRequest';
+import { saveImageAndGetImageUrl } from '@support/api/imageApi';
+import { saveBucketList, updateBucketList } from '@support/api/bucketListApi';
+import { ITodo } from '@models/ITodo';
+import { IBucketListForm } from '@models/bucketList/IBucketListForm';
+
+export interface BucketListAddContainerProps {
   bucketListId?: number;
 };
 

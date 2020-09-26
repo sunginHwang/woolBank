@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import PhaseTemplate from '../../common/PhaseTemplate';
-import BaseInput from '../../common/BaseInput';
-import { useToggle } from '../../../support/hooks/useToggle';
-import { parseDate } from '../../../support/util/date';
-import DateModal from '../../common/modal/DateModal';
-import BottomButton from '../../common/BottomButton';
-import { IPhase } from '../../../models/phase/IPhase';
-import LabelText from '../../common/LabelText';
+
+import LabelText from '@components/common/LabelText';
+import PhaseTemplate from '@components/common/PhaseTemplate';
+import BaseInput from '@components/common/BaseInput';
+import DateModal from '@components/common/modal/DateModal';
+import BottomButton from '@components/common/BottomButton';
+
+import { useToggle } from '@support/hooks/useToggle';
+import { parseDate } from '@support/util/date';
+import { IPhase } from '@models/phase/IPhase';
 
 interface BucketListCompleteDatePhaseProps extends IPhase{
   completeDate: string;

@@ -1,9 +1,10 @@
 import React from 'react';
-import MainCardArea from './MainCardArea';
-import TotalAssetsWallet from './TotalAssetsWallet';
-import AccountListItemPlaceHolder from '../account/list/AccountListItemSkeleton';
-import BucketListItemPlaceHolder from '../bucketList/list/BucketListItemSkeleton';
-import PageTemplate from '../common/PageTemplate';
+
+import MainCardArea from '@components/main/MainCardArea';
+import TotalAssetsWallet from '@components/main/TotalAssetsWallet';
+import AccountListItemPlaceHolder from '@components/account/list/AccountListItemSkeleton';
+import BucketListItemPlaceHolder from '@components/bucketList/list/BucketListItemSkeleton';
+import PageTemplate from '@components/layout/PageTemplate';
 
 function MainPageSkeleton() {
   return (

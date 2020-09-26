@@ -1,5 +1,5 @@
 import React from 'react';
-import { IIcon } from '../../models/icon/IIcon';
+import { IIcon } from '@models/icon/IIcon';
 
 function IcoAccountOutline({
   width = 24,

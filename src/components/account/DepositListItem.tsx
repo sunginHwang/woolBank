@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { parseDate } from '../../support/util/date';
-import { addComma } from '../../support/util/String';
-import { IDeposit } from '../../models/IDeposit';
 
-type DepositRecordItemProps = {
+import { parseDate } from '@support/util/date';
+import { addComma } from '@support/util/String';
+import { IDeposit } from '@models/IDeposit';
+
+export interface DepositRecordItemProps {
   deposit: IDeposit;
 };
 

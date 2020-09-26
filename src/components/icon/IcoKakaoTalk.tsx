@@ -1,5 +1,5 @@
 import React from 'react';
-import { IIcon } from '../../models/icon/IIcon';
+import { IIcon } from '@models/icon/IIcon';
 
 function IcoKakaoTalk({
   width = 24,

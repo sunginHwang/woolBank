@@ -1,6 +1,6 @@
 import React from 'react';
 import DepositDate from './DepositDate';
-import withThemeRender from '../../../support/test/withThemeRender';
+import withThemeRender from '@support/test/withThemeRender';
 
 describe('<DepositDate />', () => {
   const setup = (isActive: boolean, onBackClick: () => void) => {

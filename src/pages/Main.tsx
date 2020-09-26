@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import BucketListItem from '../components/bucketList/list/BucketListItem';
-import AccountListItem from '../components/account/AccountListItem';
-import PageTemplate from '../components/common/PageTemplate';
-import MainPageSkeleton from '../components/main/MainPageSkeleton';
 
-import useFetch from '../support/hooks/useFetch';
-import { IMainInfo } from '../models/main/IMainInfo';
-import { useAlert } from '../support/hooks/useAlert';
-import TotalSavedAmount from '../components/main/TotalSavedAmount';
-import AmountChart from '../components/main/AmountChart';
-import ToggleTab from '../components/common/ToggleTab';
-import { IAssetType } from '../models/IAssetType';
+import BucketListItem from '@components/bucketList/list/BucketListItem';
+import AccountListItem from '@components/account/AccountListItem';
+import PageTemplate from '@components/layout/PageTemplate';
+import MainPageSkeleton from '@components/main/MainPageSkeleton';
+import TotalSavedAmount from '@components/main/TotalSavedAmount';
+import AmountChart from '@components/main/AmountChart';
+import ToggleTab from '@components/common/ToggleTab';
+
+import { useAlert } from '@support/hooks/useAlert';
+import useFetch from '@support/hooks/useFetch';
+import { IMainInfo } from '@models/main/IMainInfo';
+import { IAssetType } from '@models/IAssetType';
 
 const MAIN_LIST_TAB: IAssetType[] = [
   {

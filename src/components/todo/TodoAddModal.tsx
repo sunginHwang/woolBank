@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import ModalDeem from '../common/modal/ModalDeem';
-import IcoSend from '../icon/IcoSend';
-import colors from '../../style/colors';
 
-type TodoAddModalProps = {
+import ModalDeem from '@components/common/modal/ModalDeem';
+import IcoSend from '@components/icon/IcoSend';
+
+import colors from '@style/colors';
+
+export interface TodoAddModalProps {
   title: string;
   visible: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;

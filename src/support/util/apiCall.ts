@@ -1,6 +1,7 @@
 import axios from 'axios';
-import config from '../../config';
-import { ITokenInfo } from '../../models/ITokenInfo';
+
+import config from '@/config';
+import { ITokenInfo } from '@models/ITokenInfo';
 
 const { WBANK_URL } = config.api;
 const { ACCESS_HEADER_TOKEN, ACCESS_TOKEN, REFRESH_TOKEN } = config.auth;

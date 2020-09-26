@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import colors from '../../../style/colors';
-import IcoCloseCircle from '../../icon/IcoCloseCircle';
 
-type BucketListPrevImageProps = {
+import IcoCloseCircle from '@components/icon/IcoCloseCircle';
+
+import colors from '@style/colors';
+
+export interface BucketListPrevImageProps {
   previewUrl: string;
   onInitClick: () => void;
 }

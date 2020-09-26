@@ -1,16 +1,18 @@
 import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
-import BaseInput from '../../../common/BaseInput';
-import AccountSavingTypeModal from './AccountSavingTypeModal';
-import DateModal from '../../../common/modal/DateModal';
-import { getKoMonth, parseDate } from '../../../../support/util/date';
-import PhaseTemplate from '../../../common/PhaseTemplate';
-import BaseSlider from '../../../common/BaseSlider';
-import { IAssetType } from '../../../../models/IAssetType';
-import { SAVING_TYPE } from '../../../../support/constants';
-import BaseButton from '../../../common/BaseButton';
-import { IPhase } from '../../../../models/phase/IPhase';
-import { IAccountForm } from '../../../../models/IAccountForm';
+
+import { IPhase } from '@models/phase/IPhase';
+import { IAccountForm } from '@models/IAccountForm';
+import { IAssetType } from '@models/IAssetType';
+import { SAVING_TYPE } from '@support/constants';
+import { getKoMonth, parseDate } from '@support/util/date';
+
+import AccountSavingTypeModal from '@components/account/list/addPhase/AccountSavingTypeModal';
+import BaseInput from '@components/common/BaseInput';
+import DateModal from '@components/common/modal/DateModal';
+import PhaseTemplate from '@components/common/PhaseTemplate';
+import BaseSlider from '@components/common/BaseSlider';
+import BaseButton from '@components/common/BaseButton';
 
 type modalType = 'savingType' | 'startDate' | '';
 

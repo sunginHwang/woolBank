@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import PhaseTemplate from '../../../common/PhaseTemplate';
-import BaseSlider from '../../../common/BaseSlider';
-import { INSTALLMENT_SAVINGS_TAX } from '../../../../support/constants';
-import ToggleTab from '../../../common/ToggleTab';
-import { addComma } from '../../../../support/util/String';
-import { IAssetType } from '../../../../models/IAssetType';
-import { findSavingTax, getAmountWithTax, getInterest } from '../../../../support/util/bank';
-import { getRate } from '../../../../support/util/number';
-import { diffMonth } from '../../../../support/util/date';
-import BaseButton from '../../../common/BaseButton';
-import { IPhase } from '../../../../models/phase/IPhase';
-import { IAccountForm } from '../../../../models/IAccountForm';
+import PhaseTemplate from '@components/common/PhaseTemplate';
+import BaseSlider from '@components/common/BaseSlider';
+import BaseButton from '@components/common/BaseButton';
+import ToggleTab from '@components/common/ToggleTab';
+
+import { INSTALLMENT_SAVINGS_TAX } from '@support/constants';
+import { addComma } from '@support/util/String';
+import { findSavingTax, getAmountWithTax, getInterest } from '@support/util/bank';
+import { getRate } from '@support/util/number';
+import { diffMonth } from '@support/util/date';
+import { IPhase } from '@models/phase/IPhase';
+import { IAccountForm } from '@models/IAccountForm';
+import { IAssetType } from '@models/IAssetType';
 
 interface AddRatePhaseProps extends IPhase {
   accountForm: IAccountForm;

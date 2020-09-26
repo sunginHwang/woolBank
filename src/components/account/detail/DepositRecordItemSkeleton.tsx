@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PlaceHolderBar from '../../common/PlaceHolderBar';
+import PlaceHolderBar from '@components/common/PlaceHolderBar';
 
 function DepositRecordItemSkeleton() {
   return (

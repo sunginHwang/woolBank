@@ -1,15 +1,17 @@
 import React from 'react';
-import NavigationBar from '../components/layout/NavigationBar';
-import { LayoutRouteProps } from '../routes/Routes';
-import SpinnerLoading from '../components/common/SpinnerLoading';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
-import { ILayoutLoading } from '../models/layout/ILayoutLoading';
-import { IToast } from '../models/layout/IToast';
-import AlertModal from '../components/common/modal/AlertModal';
-import { useAlert } from '../support/hooks/useAlert';
-import Toast from '../components/common/Toast';
-import Header from '../components/layout/Header';
+
+import NavigationBar from '@components/layout/NavigationBar';
+import SpinnerLoading from '@components/common/SpinnerLoading';
+import Toast from '@components/common/Toast';
+import Header from '@components/layout/Header';
+import AlertModal from '@components/common/modal/AlertModal';
+
+import { RootState } from '@/store';
+import { LayoutRouteProps } from '@routes/Routes';
+import { useAlert } from '@support/hooks/useAlert';
+import { IToast } from '@models/layout/IToast';
+import { ILayoutLoading } from '@models/layout/ILayoutLoading';
 
 function LayoutContainer({ children, useNavBar = true }: LayoutRouteProps) {
   const layoutLoading: ILayoutLoading = useSelector((state: RootState) => state.Layout.loading);

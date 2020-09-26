@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import ModalDeem from '../../../common/modal/ModalDeem';
-import { IAssetType } from '../../../../models/IAssetType';
-import { INSTALLMENT_SAVINGS } from '../../../../support/constants';
+import ModalDeem from '@components/common/modal/ModalDeem';
+import { IAssetType } from '@models/IAssetType';
+import { INSTALLMENT_SAVINGS } from '@support/constants';
 
-type AccountSavingTypeModalProps = {
+export interface AccountSavingTypeModalProps {
   visible: boolean;
   oncloseModal: any;
   onChangeAssetType: (assetType: IAssetType) => void;

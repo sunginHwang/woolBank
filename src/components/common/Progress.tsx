@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import colors from '../../style/colors';
 
-type ProgressProps = {
+import colors from '@style/colors';
+
+export interface ProgressProps {
   percent: number;
   color: string;
   label: string | number;
