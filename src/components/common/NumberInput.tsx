@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import IcoClose from '@components//icon/IcoClose';
 import BaseButton from '@components/common/BaseButton';
 
-import colors from '@style/colors';
+import palette from '@style/palette';
 import { addComma, numberToKorean } from '@support/util/String';
 
 export interface NumberInputProps {
@@ -17,7 +17,7 @@ export interface NumberInputProps {
   onChangeAmount: (number: number) => void;
   onCompleteClick: () => void;
   onClose?: () => void;
-};
+}
 
 const BILLION = 1000000000;
 
@@ -91,7 +91,7 @@ function NumberInput({
       {useClose && (
         <S.Header>
           <i onClick={onCloseClick}>
-            <IcoClose width={30} height={30} fill={colors.colors.blackL1} />
+            <IcoClose width={30} height={30} fill={palette.blackL1} />
           </i>
         </S.Header>
       )}
@@ -159,7 +159,7 @@ const S: {
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
   `,
   Header: styled.div`
     height: 5.5rem;
@@ -186,23 +186,25 @@ const S: {
     > p {
       font-size: 4.5rem;
       font-weight: bold;
-      color: ${(props) => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
     }
   `,
   InputTable: styled.table`
     width: 100%;
     text-align: center;
     flex: 1;
-    color: ${(props) => props.theme.colors.blackL1};
+    color: ${({ theme }) => theme.colors.blackL1};
     height: 83%;
   `,
-  InputTd: styled.td`
+  InputTd: styled.td<{
+    isHide: boolean;
+  }>`
     font-size: 2.8rem;
     width: 33.33333%;
 
     &:active {
       border-radius: 1.6rem;
-      background-color: ${(props: any) => (props.isHide ? props.theme.colors.white : props.theme.colors.greyL3)};
+      background-color: ${({ isHide, theme }) => (isHide ? theme.colors.white : theme.colors.greyL3)};
     }
   `,
   Complete: styled.div`
@@ -212,11 +214,13 @@ const S: {
     height: 5.5rem;
     min-height: 5.5rem;
   `,
-  InputDisplayMessage: styled.span`
+  InputDisplayMessage: styled.span<{
+    active: boolean;
+  }>`
     font-size: 1.4rem;
     height: 2.1rem;
     margin-top: 1rem;
-    color: ${(props: any) => (props.active ? props.theme.colors.redL1 : props.theme.colors.blackL1)};
+    color: ${({ active, theme }) => (active ? theme.colors.redL1 : theme.colors.blackL1)};
   `
 };
 

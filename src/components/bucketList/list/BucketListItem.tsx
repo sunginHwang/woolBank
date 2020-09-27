@@ -8,13 +8,13 @@ import EmptyCircle from '@components/common/EmptyCircle';
 
 import { onImageFallback } from '@support/util/image';
 import { remainDays } from '@support/util/date';
-import colors from '@/style/colors';
+import palette from '@style/palette';
 import { IBucketList } from '@models/IBucketList';
 
 export interface BucketListItemProps {
   bucketList: IBucketList;
   useSideMargin?: boolean;
-};
+}
 
 function BucketListItem({ bucketList, useSideMargin = false }: BucketListItemProps) {
   const remainDate = remainDays(new Date(), bucketList.completeDate);
@@ -39,7 +39,7 @@ function BucketListItem({ bucketList, useSideMargin = false }: BucketListItemPro
           </div>
           <div>
             {remainDate === 0 ? (
-              <IcoCircleCheck fill={colors.colors.mainColor} width={24} height={24} />
+              <IcoCircleCheck fill={palette.mainColor} width={24} height={24} />
             ) : (
               <S.RemainDate>D-{remainDate}</S.RemainDate>
             )}
@@ -70,7 +70,7 @@ const S: {
       width: 5rem;
       height: 5rem;
       border-radius: 50%;
-      border: 0.1rem solid ${(props) => props.theme.colors.greyL2};
+      border: 0.1rem solid ${({ theme }) => theme.colors.greyL2};
     }
   `,
   Content: styled.div`
@@ -82,17 +82,17 @@ const S: {
       font-weight: bold;
       line-height: 1.9;
 
-      color: ${(props) => props.theme.colors.blackL2};
+      color: ${({ theme }) => theme.colors.blackL2};
     }
     span {
       font-size: 1.2rem;
-      color: ${(props) => props.theme.colors.greyL7};
+      color: ${({ theme }) => theme.colors.greyL7};
     }
   `,
   RemainDate: styled.p`
     font-size: 1.8rem;
     font-weight: bold;
-    color: ${(props) => props.theme.colors.mainColor};
+    color: ${({ theme }) => theme.colors.mainColor};
   `
 };
 

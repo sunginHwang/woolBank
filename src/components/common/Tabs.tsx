@@ -8,7 +8,7 @@ export interface TabsProps {
   tabs: IAssetType[];
   activeTab: IAssetType;
   onChangeTab?: (tab: IAssetType) => void;
-};
+}
 
 function Tabs({ tabs, activeTab, onChangeTab }: TabsProps) {
   const { width } = useWindowDimensions();
@@ -60,19 +60,24 @@ const S: {
       font-size: 1.6rem;
     }
   `,
-  Tab: styled.button`
+  Tab: styled.button<{
+    active: boolean;
+  }>`
     width: 100%;
     font-weight: bold;
-    color: ${(props: any) => (props.active ? props.theme.colors.redL2 : props.theme.colors.greyL1)};
+    color: ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.greyL1)};
   `,
-  BottomLine: styled.span`
+  BottomLine: styled.span<{
+    width: number;
+    left: number;
+  }>`
     bottom: 0;
-    width: ${(props: any) => props.width}px;
-    left: ${(props: any) => props.left}px;
+    width: ${({ width }) => width}px;
+    left: ${({ left }) => left}px;
     height: 2px;
     position: absolute;
     transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    background-color: ${(props: any) => props.theme.colors.redL2};
+    background-color: ${({ theme }) => theme.colors.redL2};
   `
 };
 

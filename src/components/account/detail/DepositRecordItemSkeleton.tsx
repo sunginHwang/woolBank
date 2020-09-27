@@ -13,39 +13,35 @@ function DepositRecordItemSkeleton() {
           <PlaceHolderBar width='12rem' height='1.2rem' />
         </div>
       </S.Info>
-      <S.Amount>
+      <div>
         <PlaceHolderBar width='14rem' height='2rem' />
-      </S.Amount>
+      </div>
     </S.DepositRecordItemSkeleton>
   );
 }
 
 const S: {
   DepositRecordItemSkeleton: any;
-  Info : any;
-  Amount: any;
+  Info: any;
 } = {
   DepositRecordItemSkeleton: styled.div`
     display: flex;
     padding: 2rem 0;
     justify-content: space-between;
     align-items: center;
-    
   `,
   Info: styled.div`
     display: flex;
     flex-direction: column;
-    
-    >div:last-child{
-      padding: .05rem 0;
+
+    > div:last-child {
+      padding: 0.05rem 0;
     }
-    
-    >div:first-child{
-      padding: .1rem 0;
-      margin-bottom: .4rem;
+
+    > div:first-child {
+      padding: 0.1rem 0;
+      margin-bottom: 0.4rem;
     }
-  `,
-  Amount: styled.div`
   `
 };
 

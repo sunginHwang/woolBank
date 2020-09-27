@@ -8,7 +8,7 @@ import DateModal from '@components/common/modal/DateModal';
 
 import { DATE_FORMAT, parseDate } from '@support/util/date';
 import { useToggle } from '@support/hooks/useToggle';
-import colors from '@style/colors';
+import palette from '@style/palette';
 
 export interface DepositDateProps {
   isActive: boolean;
@@ -85,7 +85,7 @@ function DepositDate({ isActive, isLoading, onBackClick, onDepositClick }: Depos
         </S.Form>
         <S.Info>이전에 입금하신 날짜와 금액을 입력해주세요.</S.Info>
         <S.CompleteButton onClick={onDepositButtonClick}>
-          {isLoading ? <ClipLoader color={colors.colors.white} size={20} /> : '입금하기'}
+          {isLoading ? <ClipLoader color={palette.white} size={20} /> : '입금하기'}
         </S.CompleteButton>
       </S.DepositRecord>
       <>
@@ -112,7 +112,7 @@ const S: {
     flex-direction: column;
     > p {
       font-size: 2.2rem;
-      color: ${(props) => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
       font-weight: bold;
     }
   `,
@@ -126,7 +126,7 @@ const S: {
   Info: styled.span`
     margin-top: 3rem;
     font-size: 1.4rem;
-    color: ${(props) => props.theme.colors.greyL1};
+    color: ${({ theme }) => theme.colors.greyL1};
   `,
   CompleteButton: styled.button`
     margin-top: auto;
@@ -135,8 +135,8 @@ const S: {
     min-height: 5.5rem;
     width: 100%;
     border-radius: 0.8rem;
-    color: ${(props) => props.theme.colors.white};
-    background-color: ${(props) => props.theme.colors.mainColor};
+    color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.mainColor};
   `
 };
 

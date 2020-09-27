@@ -12,7 +12,7 @@ import { useToggle } from '@support/hooks/useToggle';
 import useInput from '@support/hooks/UseInput';
 import { IPhase } from '@models/phase/IPhase';
 
-interface BucketListInfoPhaseProps extends IPhase{
+interface BucketListInfoPhaseProps extends IPhase {
   title: string;
   description: string;
   onCompletePhaseOne: (title: string, description: string) => void;
@@ -34,9 +34,9 @@ function BucketListInfoPhase({
   /**
    * 상세 정보 변경
    */
-  const onChangeDetail = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeDetail = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDetail(e.target.value);
-  }
+  };
 
   /**
    * 다음 단계(2/4) 이동
@@ -44,7 +44,7 @@ function BucketListInfoPhase({
   const onCompletePhaseClick = () => {
     onCompletePhaseOne(bucketListTitle, detail);
     goNextPhase && goNextPhase();
-  }
+  };
 
   // 상세보기 보여주기 (인풋 작성 이후 노출)
   const isShowDetail = (bucketListTitle.length > 0 && showDetailLayer) || detail.length > 0;
@@ -75,13 +75,17 @@ function BucketListInfoPhase({
             onChange={onBucketListTitleChange}
           />
           <S.AddInfo show={isShowDetail}>
-            <LabelText>어떻게 목표를 달성할지<br />자세히 적어볼까요?</LabelText>
-            <SubLabelText>목표 달성을 구체적으로 작성하면<br />목표를 달성할 가능성이 좀더 높아집니다.</SubLabelText>
-            <BaseTextArea
-              value={detail}
-              placeHolder='내용을 입력하세요.'
-              onChange={onChangeDetail}
-            />
+            <LabelText>
+              어떻게 목표를 달성할지
+              <br />
+              자세히 적어볼까요?
+            </LabelText>
+            <SubLabelText>
+              목표 달성을 구체적으로 작성하면
+              <br />
+              목표를 달성할 가능성이 좀더 높아집니다.
+            </SubLabelText>
+            <BaseTextArea value={detail} placeHolder='내용을 입력하세요.' onChange={onChangeDetail} />
           </S.AddInfo>
         </S.Content>
         <BottomButton
@@ -105,7 +109,7 @@ const S: {
     padding: 0 2rem;
     display: flex;
     flex-direction: column;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
   `,
   Content: styled.div`
     padding-top: 2rem;
@@ -114,11 +118,13 @@ const S: {
       margin-top: 4rem;
     }
   `,
-  AddInfo: styled.div`
-    top: ${(props:any) => props.show ? 0 : '100%'};
+  AddInfo: styled.div<{
+    show: boolean;
+  }>`
+    top: ${({ show }) => (show ? 0 : '100%')};
     margin-top: 3rem;
     position: relative;
-    transition: all .3s ease-out;
+    transition: all 0.3s ease-out;
     height: 100%;
   `
 };

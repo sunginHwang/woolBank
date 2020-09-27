@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import colors from './colors';
+import colors from 'src/style/theme';
 import layouts from './layouts';
 
 const mainButton = css`

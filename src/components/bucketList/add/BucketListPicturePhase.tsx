@@ -12,7 +12,7 @@ import BottomButton from '@components/common/BottomButton';
 import { dataURLtoFile, getExtensionByDataURL, resizeImage } from '@support/util/file';
 import { useToggle } from '@support/hooks/useToggle';
 import { parseDate } from '@support/util/date';
-import colors from '@style/colors';
+import palette from '@style/palette';
 import { IPhase } from '@models/phase/IPhase';
 
 interface BucketListPicturePhaseProps extends IPhase {
@@ -152,13 +152,13 @@ function BucketListPicturePhase({
         <S.ImgWrapper>
           <S.Img>
             <div onClick={onPictureClick}>
-              <IcoCamera width={40} height={40} fill={colors.colors.mainColor} />
+              <IcoCamera width={40} height={40} fill={palette.mainColor} />
             </div>
             <input type='file' ref={inputCameraRef} onChange={onChangeImage} accept='image/*' capture='camera' />
           </S.Img>
           <S.Img>
             <div onClick={onAlbumClick}>
-              <IcoImage width={40} height={40} fill={colors.colors.mainColor} />
+              <IcoImage width={40} height={40} fill={palette.mainColor} />
             </div>
             <input
               ref={inputAlbumRef}
@@ -198,15 +198,15 @@ const S: {
   SubLabel: styled.p`
     font-size: 1.2rem;
     margin: -1rem 0 2.5rem 0;
-    color: ${(props) => props.theme.colors.greyD2};
+    color: ${({ theme }) => theme.colors.greyD2};
   `,
   Img: styled.div`
     display: flex;
     flex-direction: column;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
 
     > div {
-      border: 0.1rem solid ${(props) => props.theme.colors.mainColor};
+      border: 0.1rem solid ${({ theme }) => theme.colors.mainColor};
       padding: 1rem 0.5rem;
       width: 7rem;
       display: flex;

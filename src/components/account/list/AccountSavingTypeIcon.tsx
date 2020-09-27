@@ -1,7 +1,7 @@
 import React from 'react';
 import { SAVING_TYPE } from '@support/constants';
 import IcoPiggyBank from '@components/icon/IcoPiggyBank';
-import colors from '@style/colors';
+import colors from '@style/theme';
 import IcoCashUsd from '@components/icon/IcoCashUsd';
 import IcoCurrencyUsdCircle from '@components/icon/IcoCurrencyUsdCircle';
 

@@ -8,11 +8,11 @@ import App from '@/App';
 import store from '@/store';
 import * as serviceWorker from '@/serviceWorker';
 import GlobalStyle from '@style/GlobalStyle';
-import themeColors from '@style/colors';
+import theme from '@style/theme';
 
 ReactDOM.render(
   <Provider store={store()}>
-    <ThemeProvider theme={themeColors}>
+    <ThemeProvider theme={theme}>
       <BrowserRouter>
         <GlobalStyle />
         <App />

@@ -133,7 +133,7 @@ const S: {
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
   `,
   CardTitle: styled.div`
     display: flex;
@@ -144,13 +144,13 @@ const S: {
 
     > p {
       font-size: 1.8rem;
-      color: ${(props) => props.theme.colors.blackL2};
+      color: ${({ theme }) => theme.colors.blackL2};
       font-weight: bold;
     }
   `,
   Card: styled.div`
-    background-color: ${(props) => props.theme.colors.mainColor};
-    color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.mainColor};
+    color: ${({ theme }) => theme.colors.white};
     border-radius: 1.2rem;
 
     > div {
@@ -184,7 +184,7 @@ const S: {
     margin-top: 4rem;
 
     p {
-      color: ${(props) => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
       font-size: 1.8rem;
       margin-bottom: 1rem;
     }
@@ -193,7 +193,7 @@ const S: {
       font-size: 1.2rem;
       margin-bottom: 0.5rem;
       display: block;
-      color: ${(props) => props.theme.colors.greyL1};
+      color: ${({ theme }) => theme.colors.greyL1};
     }
   `,
   Complete: styled.div`

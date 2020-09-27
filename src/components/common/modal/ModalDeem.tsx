@@ -30,15 +30,17 @@ function ModalDeem({ visible, children, onDeemClick }: ModalDeemProps) {
 const S: {
   ModalDeem: any;
 } = {
-  ModalDeem: styled.div`
+  ModalDeem: styled.div<{
+    visible: boolean;
+  }>`
     position: fixed;
-    visibility: ${(props: any) => (props.visible ? 'visible' : 'hidden')};
+    visibility: ${({ visible }) => visible ? 'visible' : 'hidden'};
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    z-index: ${(props) => props.theme.zIndex.modalDeem};
-    background-color: ${(props) => props.theme.colors.deem};
+    z-index: ${({ theme }) => theme.zIndex.modalDeem};
+    background-color: ${({ theme }) => theme.colors.deem};
   `
 };
 

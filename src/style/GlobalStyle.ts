@@ -1,6 +1,6 @@
 import { normalize } from 'styled-normalize';
 import { createGlobalStyle } from 'styled-components';
-import colors from '@style//colors';
+import theme from '@style/theme';
 import '@style/css/font.css';
 
 const GlobalStyle = createGlobalStyle`
@@ -40,7 +40,7 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5;
     display: flex;
     flex-direction: column;
-    background-color: ${colors.colors.white};
+    background-color: ${theme.colors.white};
      -ms-overflow-style: none;
   }
   

@@ -6,11 +6,7 @@ export interface SubLabelTextProps {
 }
 
 function SubLabelText({ children }: SubLabelTextProps) {
-  return (
-    <S.SubLabelText>
-      {children}
-    </S.SubLabelText>
-  );
+  return <S.SubLabelText>{children}</S.SubLabelText>;
 }
 
 const S: {
@@ -19,7 +15,7 @@ const S: {
   SubLabelText: styled.p`
     font-size: 1.2rem;
     margin: -1rem 0 2.5rem 0;
-    color: ${props => props.theme.colors.greyD2};
+    color: ${({ theme }) => theme.colors.greyD2};
   `
 };
 

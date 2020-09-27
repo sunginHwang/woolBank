@@ -19,7 +19,7 @@ export interface BaseInputProps {
   onFocusOut?: () => void;
   onKeyPressEnter?: () => void;
   onClick?: (e: React.ChangeEvent<HTMLDivElement>) => void;
-};
+}
 
 function BaseInput({
   label,
@@ -90,13 +90,22 @@ function BaseInput({
           </i>
         )}
       </S.BaseInput>
-      {useLengthInfo && <S.ValueLength>{valueLength}/{max}자</S.ValueLength>}
+      {useLengthInfo && (
+        <S.ValueLength>
+          {valueLength}/{max}자
+        </S.ValueLength>
+      )}
     </>
   );
 }
 
-const S: any = {
-  BaseInput: styled.div`
+const S: {
+  BaseInput: any;
+  ValueLength: any;
+} = {
+  BaseInput: styled.div<{
+    focus: boolean;
+  }>`
     display: flex;
     flex-direction: column;
     position: relative;
@@ -104,7 +113,7 @@ const S: any = {
     label {
       font-size: 1.2rem;
       font-weight: 500;
-      color: ${(props: any) => (props.focus ? props.theme.colors.mainColor : props.theme.colors.mainColor)};
+      color: ${({ focus, theme }) => (focus ? theme.colors.mainColor : theme.colors.mainColor)};
       text-align: left;
       margin-bottom: 0.5rem;
     }
@@ -112,8 +121,7 @@ const S: any = {
     input {
       background: transparent;
       border: none;
-      border-bottom: 0.1rem solid
-        ${(props: any) => (props.focus ? props.theme.colors.mainColor : props.theme.colors.greyL1)};
+      border-bottom: 0.1rem solid ${({ focus, theme }) => (focus ? theme.colors.mainColor : theme.colors.greyL1)};
       padding-right: 3rem;
       border-radius: 0;
       height: 4rem;
@@ -132,7 +140,7 @@ const S: any = {
   `,
   ValueLength: styled.p`
     font-size: 1.2rem;
-    color: ${(props) => props.theme.colors.greyL1};
+    color: ${({ theme }) => theme.colors.greyL1};
   `
 };
 

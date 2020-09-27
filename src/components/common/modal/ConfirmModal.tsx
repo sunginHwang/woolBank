@@ -4,8 +4,8 @@ import ClipLoader from 'react-spinners/ClipLoader';
 
 import ModalDeem from '@components/common/modal/ModalDeem';
 
+import palette from '@style/palette';
 import '@style/css/customCalendar.css';
-import colors from '@style/colors';
 
 export interface WalletDateModalProps {
   visible: boolean;
@@ -15,7 +15,7 @@ export interface WalletDateModalProps {
   cancelMsg?: string;
   onConfirmClick: () => void;
   onCancelClick: () => void;
-};
+}
 
 function ConfirmModal({
   visible,
@@ -26,7 +26,11 @@ function ConfirmModal({
   onCancelClick,
   onConfirmClick
 }: WalletDateModalProps) {
-  const LoadingEl = <S.Loading><ClipLoader size={20} color={colors.colors.mainColor} /></S.Loading>;
+  const LoadingEl = (
+    <S.Loading>
+      <ClipLoader size={20} color={palette.mainColor} />
+    </S.Loading>
+  );
 
   return (
     <ModalDeem visible={visible}>
@@ -36,15 +40,14 @@ function ConfirmModal({
             <p>{message}</p>
           </S.Content>
           <S.Footer>
-            {
-              loading ? LoadingEl
-                : (
-                  <>
-                    <S.Button onClick={onCancelClick}>{cancelMsg}</S.Button>
-                    <S.Button onClick={onConfirmClick}>{confirmMsg}</S.Button>
-                  </>
-                )
-            }
+            {loading ? (
+              LoadingEl
+            ) : (
+              <>
+                <S.Button onClick={onCancelClick}>{cancelMsg}</S.Button>
+                <S.Button onClick={onConfirmClick}>{confirmMsg}</S.Button>
+              </>
+            )}
           </S.Footer>
         </S.ConfirmModal>
       </S.ModalWrapper>
@@ -63,10 +66,10 @@ const S: {
   ConfirmModal: styled.div`
     width: 80%;
     max-width: 68rem;
-    border-radius: .8rem;
+    border-radius: 0.8rem;
     text-align: center;
-    background-color: ${(props) => props.theme.colors.white};
-    z-index: ${(props) => props.theme.zIndex.modalDeem + 1};
+    background-color: ${({ theme }) => theme.colors.white};
+    z-index: ${({ theme }) => theme.zIndex.modalDeem + 1};
     box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.35);
   `,
   ModalWrapper: styled.div`
@@ -81,18 +84,18 @@ const S: {
     justify-content: center;
     align-items: center;
     padding: 4rem 0;
-    
-    p{
+
+    p {
       font-size: 1.4rem;
       padding: 0 2rem;
-      color: ${props => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
     }
   `,
   Footer: styled.div`
     display: flex;
     justify-content: space-between;
     height: 5.5rem;
-    border-top: .1rem solid ${props => props.theme.colors.greyL2};
+    border-top: 0.1rem solid ${({ theme }) => theme.colors.greyL2};
   `,
   Loading: styled.div`
     display: flex;
@@ -106,10 +109,10 @@ const S: {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${props => props.theme.colors.blackL1};
-    
+    color: ${({ theme }) => theme.colors.blackL1};
+
     :last-child {
-      color: ${props => props.theme.colors.mainColor};
+      color: ${({ theme }) => theme.colors.mainColor};
     }
   `
 };

@@ -18,7 +18,7 @@ const S: {
 
     > h2 {
       font-size: 2.4rem;
-      color: ${(props) => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
       font-weight: bold;
     }
   `

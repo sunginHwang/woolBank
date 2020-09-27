@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import IcoChevronLeft from '@components/icon/IcoChevronLeft';
 
-import theme from '@style/colors';
+import theme from '@style/theme';
 
 export interface HeaderWithBackProps {
   title: string;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export interface ListWrapperProps {
   children: ReactNode;
-};
+}
 
 function ListWrapper({ children }: ListWrapperProps) {
   return <S.ListWrapper>{children}</S.ListWrapper>;

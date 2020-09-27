@@ -68,10 +68,10 @@ const S: {
 } = {
   BucketListTodoInfo: styled.div`
     padding: 2rem;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
   `,
   TodoTitle: styled.p`
-    color: ${(props) => props.theme.colors.blackL1};
+    color: ${({ theme }) => theme.colors.blackL1};
     font-weight: bold;
     font-size: 1.8rem;
     margin-bottom: 2rem;

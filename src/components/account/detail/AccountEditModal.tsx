@@ -6,9 +6,10 @@ export interface AccountEditModalProps {
   visible: boolean;
   oncloseModal: () => void;
   onEditClick: (edit: 'migration' | 'end' | 'remove') => void;
-};
+}
 
 function AccountEditModal({ visible, oncloseModal, onEditClick }: AccountEditModalProps) {
+
   return (
     <ModalDeem visible={visible} onDeemClick={oncloseModal}>
       <S.AccountEditModal visible={visible}>
@@ -27,16 +28,18 @@ const S: {
   AccountEditModal: any;
   Title: any;
 } = {
-  AccountEditModal: styled.div`
+  AccountEditModal: styled.div <{
+    visible: boolean;
+  }>`
     position: fixed;
-    bottom: ${(props: any) => (props.visible ? '0' : '-30rem')};
+    bottom: ${({ visible }) => (visible ? '0' : '-30rem')};
     width: 100%;
     transition: all 0.3s ease;
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
     text-align: center;
-    background-color: ${(props) => props.theme.colors.white};
-    z-index: ${(props) => props.theme.zIndex.modalDeem + 1};
+    background-color: ${({ theme }) => theme.colors.white};
+    z-index: ${({ theme }) => theme.zIndex.modalDeem + 1};
     box-shadow: 0.1rem 0.3rem 1rem 0.2rem rgba(0, 0, 0, 0.2);
 
     > p {
@@ -44,7 +47,7 @@ const S: {
       padding: 1.4rem;
       font-size: 1.8rem;
       font-weight: 600;
-      color: ${(props) => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
       text-align: left;
     }
 
@@ -60,7 +63,7 @@ const S: {
       font-size: 1.6rem;
       font-weight: 600;
 
-      color: ${(props) => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
     }
   `
 };

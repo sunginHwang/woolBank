@@ -6,7 +6,7 @@ import Progress from '@components/common/Progress';
 import { IAccount } from '@models/IAccount';
 import { parseDate } from '@support/util/date';
 import { addComma } from '@support/util/String';
-import colors from '@style/colors';
+import palette from '@style/palette';
 
 export interface AccountInfoProps {
   account: IAccount;
@@ -23,7 +23,7 @@ function AccountInfo({ account }: AccountInfoProps) {
       </S.CurrentAmount>
       <Progress
         percent={35}
-        color={colors.colors.mainColor}
+        color={palette.mainColor}
         label='35'
         labelSuffix='%'
         startMessage={`개설일: ${parseDate(account.startDate)}`}
@@ -46,23 +46,23 @@ const S: {
   AccountInfo: styled.div`
     padding: 4rem 2rem;
     display: flex;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
     flex-direction: column;
     align-items: center;
-    color: ${(props) => props.theme.colors.blackL1};
+    color: ${({ theme }) => theme.colors.blackL1};
   `,
   Title: styled.p`
     font-size: 2rem;
     margin-bottom: 1rem;
     > span {
       font-size: 1.2rem;
-      color: ${(props) => props.theme.colors.greyL1};
+      color: ${({ theme }) => theme.colors.greyL1};
     }
   `,
   CurrentAmount: styled.p`
     font-size: 4.2rem;
     font-weight: bold;
-    color: ${(props) => props.theme.colors.mainColor};
+    color: ${({ theme }) => theme.colors.mainColor};
     margin-bottom: 3rem;
 
     > span {

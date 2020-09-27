@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export interface MainCardAreaProps {
   title: string;
-  children: ReactNode
+  children: ReactNode;
 }
 
 function MainCardArea({ title, children }: MainCardAreaProps) {
@@ -20,9 +20,10 @@ const S: {
 } = {
   MainCardArea: styled.div`
     margin: 0 2rem 3rem 2rem;
-    >p{
+    
+    > p {
       font-size: 2rem;
-      color: ${props => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
       font-weight: bold;
       margin-bottom: 1.4rem;
     }

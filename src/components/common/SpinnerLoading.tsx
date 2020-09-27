@@ -4,18 +4,18 @@ import { ClipLoader } from 'react-spinners';
 
 import ModalDeem from '@components/common/modal/ModalDeem';
 
-import colors from '@style/colors';
+import palette from '@style/palette';
 
 export interface SpinnerLoadingProps {
   loading: boolean;
   message?: string;
-};
+}
 
 function SpinnerLoading({ loading, message }: SpinnerLoadingProps) {
   return (
     <ModalDeem visible={loading}>
       <S.SpinnerLoading>
-        <ClipLoader color={colors.colors.mainColor} size={40} />
+        <ClipLoader color={palette.mainColor} size={40} />
         {message && <S.Message>{message}</S.Message>}
       </S.SpinnerLoading>
     </ModalDeem>
@@ -36,8 +36,8 @@ const S: {
   `,
   Message: styled.p`
     margin-top: 2rem;
-    color: ${props => props.theme.colors.white};
-    opacity: .7;
+    color: ${({ theme }) => theme.colors.white};
+    opacity: 0.7;
   `
 };
 

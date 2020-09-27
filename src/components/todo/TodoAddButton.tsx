@@ -4,12 +4,12 @@ import { ClipLoader } from 'react-spinners';
 
 import IcoPlus from '@components/icon/IcoPlus';
 
-import colors from '@style/colors';
+import palette from '@style/palette';
 
 export interface AddTodoButtonProps {
   loading?: boolean;
   onClick?: (e: React.ChangeEvent<HTMLButtonElement>) => void;
-};
+}
 
 function TodoAddButton({ loading = false, onClick }: AddTodoButtonProps) {
   /**
@@ -24,7 +24,7 @@ function TodoAddButton({ loading = false, onClick }: AddTodoButtonProps) {
 
   return (
     <S.TodoAddButton onClick={onAddClick}>
-      {loading ? <ClipLoader color={colors.colors.mainColor} size={20} /> : <IcoPlus />}
+      {loading ? <ClipLoader color={palette.mainColor} size={20} /> : <IcoPlus />}
     </S.TodoAddButton>
   );
 }
@@ -39,9 +39,9 @@ const S: {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 0.1rem solid ${(props) => props.theme.colors.mainColor};
-    background-color: ${(props) => props.theme.colors.white};
-    color: ${(props) => props.theme.colors.mainColor};
+    border: 0.1rem solid ${({ theme }) => theme.colors.mainColor};
+    background-color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.mainColor};
   `
 };
 

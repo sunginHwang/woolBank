@@ -19,14 +19,15 @@ const S: {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: ${(props) => props.theme.zIndex.header};
+    z-index: ${({ theme }) => theme.zIndex.header};
     padding: 1rem 0 1rem 0;
-    border-bottom: .1rem solid ${(props) => props.theme.colors.greyL2};
+    border-bottom: 0.1rem solid ${({ theme }) => theme.colors.greyL2};
+
     img {
       height: 100%;
     }

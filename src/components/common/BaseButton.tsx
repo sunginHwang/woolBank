@@ -2,7 +2,17 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { ClipLoader } from 'react-spinners';
 
-import colors from '@style/colors';
+import palette from '@style/palette';
+
+type colorSchemeType = {
+  bgColor: string;
+  color: string;
+};
+
+type sizeSchemeType = {
+  width: string;
+  height: string;
+};
 
 export interface BaseButtonProps {
   dataType?: string;
@@ -12,29 +22,21 @@ export interface BaseButtonProps {
   active?: boolean;
   loading?: boolean;
   onClick?: (e: React.ChangeEvent<HTMLButtonElement>) => void;
-};
+}
 
-function BaseButton({
-  dataType,
-  message,
-  color,
-  size,
-  loading = false,
-  active = true,
-  onClick
-}: BaseButtonProps) {
-  const colorScheme = useMemo(() => {
+function BaseButton({ dataType, message, color, size, loading = false, active = true, onClick }: BaseButtonProps) {
+  const colorScheme: colorSchemeType = useMemo(() => {
     const result = { bgColor: '', color: '' };
 
     if (color === 'red') {
-      result.bgColor = colors.colors.mainColor;
-      result.color = colors.colors.white;
+      result.bgColor = palette.mainColor;
+      result.color = palette.white;
     }
 
     return result;
   }, [color]);
 
-  const sizeScheme = useMemo(() => {
+  const sizeScheme: sizeSchemeType = useMemo(() => {
     const result = { width: '100%', height: '100%', fontSize: '1.2rem' };
 
     if (size === 'full') {
@@ -61,7 +63,7 @@ function BaseButton({
       colorScheme={colorScheme}
       sizeScheme={sizeScheme}
     >
-      {loading ? <ClipLoader color={colors.colors.white} size={20} /> : message}
+      {loading ? <ClipLoader color={palette.white} size={20} /> : message}
     </S.BaseButton>
   );
 }
@@ -69,13 +71,17 @@ function BaseButton({
 const S: {
   BaseButton: any;
 } = {
-  BaseButton: styled.button`
+  BaseButton: styled.button<{
+    sizeScheme: sizeSchemeType;
+    colorScheme: colorSchemeType;
+    active: boolean;
+  }>`
     border-radius: 0.8rem;
-    width: ${(props: any) => (props.sizeScheme ? props.sizeScheme.width : '10rem')};
-    height: ${(props: any) => (props.sizeScheme ? props.sizeScheme.height : '5rem')};
-    background-color: ${(props: any) => props.colorScheme.bgColor};
-    color: ${(props: any) => props.colorScheme.color};
-    opacity: ${(props: any) => (props.active ? 1 : 0.5)};
+    width: ${({ sizeScheme }) => (sizeScheme ? sizeScheme.width : '10rem')};
+    height: ${({ sizeScheme }) => (sizeScheme ? sizeScheme.height : '5rem')};
+    background-color: ${({ colorScheme }) => colorScheme.bgColor};
+    color: ${({ colorScheme }) => colorScheme.color};
+    opacity: ${({ active }) => (active ? 1 : 0.5)};
   `
 };
 

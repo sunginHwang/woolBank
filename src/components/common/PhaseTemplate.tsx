@@ -11,7 +11,7 @@ export interface PhaseTemplateProps {
   useScroll?: boolean;
   children: React.ReactNode;
   onBackClick: () => void;
-};
+}
 
 function PhaseTemplate({
   active,
@@ -24,13 +24,8 @@ function PhaseTemplate({
 }: PhaseTemplateProps) {
   return (
     <S.PhaseTemplate active={active}>
-      {
-        active && <HeaderWithBack title={title} right={rightMessage} onBackClick={onBackClick} />
-      }
-      <S.Content
-        useScroll={useScroll}
-        usePadding={usePadding}
-      >
+      {active && <HeaderWithBack title={title} right={rightMessage} onBackClick={onBackClick} />}
+      <S.Content useScroll={useScroll} usePadding={usePadding}>
         {children}
       </S.Content>
     </S.PhaseTemplate>
@@ -43,20 +38,24 @@ const S: {
   PhaseTemplate: any;
   Content: any;
 } = {
-  PhaseTemplate: styled.div`
+  PhaseTemplate: styled.div<{
+    active: boolean;
+  }>`
     width: 100%;
     height: calc(100% - 5.5rem);
     position: fixed;
     top: 0;
-    right: ${(props: any) => (props.active ? 0 : '-100%')};
-    z-index: ${(props) => props.theme.zIndex.phase};
+    right: ${({ active }) => (active ? 0 : '-100%')};
+    z-index: ${({ theme }) => theme.zIndex.phase};
     transition: all 0.3s ease 0s;
   `,
-  Content: styled.div`
-    padding: ${(props: any) =>
-    props.usePadding ? '5.5rem 2rem 0 2rem' : '5.5rem 0 0 0'};
-    overflow-y: ${(props: any) => props.useScroll ? 'scroll' : 'hidden'};
+  Content: styled.div<{
+    usePadding: boolean;
+    useScroll: boolean;
+  }>`
+    padding: ${({ usePadding }) => (usePadding ? '5.5rem 2rem 0 2rem' : '5.5rem 0 0 0')};
+    overflow-y: ${({ useScroll }) => (useScroll ? 'scroll' : 'hidden')};
     height: 100%;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
   `
 };

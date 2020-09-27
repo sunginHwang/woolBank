@@ -7,23 +7,14 @@ export interface BaseTextAreaProps {
   placeHolder: string;
   onFocusIn?: () => void;
   onFocusOut?: () => void;
-  onChange: (e:ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-function BaseTextArea({
-  label, value, placeHolder, onChange, onFocusIn,
-  onFocusOut
-}: BaseTextAreaProps) {
+function BaseTextArea({ label, value, placeHolder, onChange, onFocusIn, onFocusOut }: BaseTextAreaProps) {
   return (
     <S.BaseTextArea>
       {label && <S.Label>{label}</S.Label>}
-      <textarea
-        value={value}
-        placeholder={placeHolder}
-        onFocus={onFocusIn}
-        onBlur={onFocusOut}
-        onChange={onChange}
-      />
+      <textarea value={value} placeholder={placeHolder} onFocus={onFocusIn} onBlur={onFocusOut} onChange={onChange} />
     </S.BaseTextArea>
   );
 }
@@ -37,18 +28,20 @@ const S: {
     margin: 1rem 0;
     height: 100%;
     flex-direction: column;
-    background-color: ${props => props.theme.colors.white};
-    
+    background-color: ${({ theme }) => theme.colors.white};
+
     textarea {
       border: none;
       resize: none;
       height: 100%;
     }
   `,
-  Label: styled.label`
+  Label: styled.label<{
+    focus: boolean;
+  }>`
     font-size: 1.2rem;
     font-weight: 500;
-    color: ${(props: any) => (props.focus ? props.theme.colors.mainColor : props.theme.colors.mainColor)};
+    color: ${({ focus, theme }) => (focus ? theme.colors.mainColor : theme.colors.mainColor)};
     text-align: left;
     margin-bottom: 1.5rem;
   `

@@ -5,20 +5,16 @@ import Cropper from 'react-cropper';
 import HeaderWithBack from '@components/common/HeaderWithBack';
 import IcoCircleCheck from '@components/icon/IcoCircleCheck';
 
-import colors from '@style/colors';
+import colors from '@style/theme';
 import './cropper.css';
 
 export interface ImageCropProps {
   url: string;
   onBackClick: () => void;
   onCrop: (imageUrl: string) => void;
-};
+}
 
-function ImageCrop({
-  url,
-  onBackClick,
-  onCrop
-}: ImageCropProps) {
+function ImageCrop({ url, onBackClick, onCrop }: ImageCropProps) {
   const cropper = useRef<Cropper>(null);
 
   /**
@@ -28,13 +24,17 @@ function ImageCrop({
     if (cropper.current) {
       onCrop(cropper.current.getCroppedCanvas().toDataURL());
     }
-  }
+  };
 
   return (
     <S.ImageCrop>
       <HeaderWithBack
         title='이미지 편집'
-        right={<i onClick={onCompleteCrop}><IcoCircleCheck fill={colors.colors.mainColor} /></i>}
+        right={
+          <i onClick={onCompleteCrop}>
+            <IcoCircleCheck fill={colors.colors.mainColor} />
+          </i>
+        }
         onBackClick={onBackClick}
       />
       <S.Content>

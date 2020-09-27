@@ -3,7 +3,7 @@ import React from 'react';
 import NavigationBar from '@components/layout/NavigationBar';
 
 import withThemeRender from '@support/test/withThemeRender';
-import theme from '@style/colors';
+import theme from '@style/theme';
 
 describe('<NavigationBar />', () => {
   const setup = () => {

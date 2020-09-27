@@ -7,7 +7,7 @@ import { IDeposit } from '@models/IDeposit';
 
 export interface DepositRecordItemProps {
   deposit: IDeposit;
-};
+}
 
 function DepositListItem({ deposit }: DepositRecordItemProps) {
   return (
@@ -23,7 +23,7 @@ function DepositListItem({ deposit }: DepositRecordItemProps) {
 
 const S: {
   DepositRecordItem: any;
-  Info : any;
+  Info: any;
   Amount: any;
 } = {
   DepositRecordItem: styled.div`
@@ -31,27 +31,26 @@ const S: {
     padding: 2rem 0;
     justify-content: space-between;
     align-items: center;
-    
   `,
   Info: styled.div`
     display: flex;
     flex-direction: column;
-    
+
     > p {
       font-size: 1.4rem;
-      color: ${props => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
       font-weight: bold;
-      margin-bottom: .4rem;
+      margin-bottom: 0.4rem;
     }
-    
+
     > span {
       font-size: 1.2rem;
-      color: ${props => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
     }
   `,
   Amount: styled.div`
     font-size: 2rem;
-    color: ${props => props.theme.colors.mainColor};
+    color: ${({ theme }) => theme.colors.mainColor};
     font-weight: bold;
   `
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import colors from '@style/colors';
+import palette from '@style/palette';
 
 export interface ProgressProps {
   percent: number;
@@ -12,12 +12,25 @@ export interface ProgressProps {
   startMessage?: string;
   endMessage?: string;
   messageColor?: string;
-};
+}
 
-function Progress({ percent, color, label, labelPrefix = '', labelSuffix = '', startMessage = '', endMessage = '', messageColor = colors.colors.greyL1 }: ProgressProps) {
+function Progress({
+  percent,
+  color,
+  label,
+  labelPrefix = '',
+  labelSuffix = '',
+  startMessage = '',
+  endMessage = '',
+  messageColor = palette.greyL1
+}: ProgressProps) {
   return (
     <S.ProgressWrapper>
-      <S.Label percent={percent}>{labelPrefix}{label}{labelSuffix}</S.Label>
+      <S.Label percent={percent}>
+        {labelPrefix}
+        {label}
+        {labelSuffix}
+      </S.Label>
       <S.Progress>
         <S.Bar percent={percent} color={color} />
       </S.Progress>
@@ -39,48 +52,55 @@ const S: {
   ProgressWrapper: styled.div`
     width: 100%;
   `,
-  Label: styled.span`
-    width:  4rem;
+  Label: styled.span<{
+    percent: number;
+  }>`
+    width: 4rem;
     height: 3rem;
-    left: ${(props: any) => props.percent}%;
+    left: ${({ percent }) => percent}%;
     top: -1.2rem;
-    line-height: 3rem;;
+    line-height: 3rem;
     text-align: center;
-    background: ${(props) => props.theme.colors.mainColor};
-    color: #fff;
-    font-size: 1.4rem;;
+    background: ${({ theme }) => theme.colors.mainColor};
+    color: ${({ theme }) => theme.colors.white};
+    font-size: 1.4rem;
     display: block;
     position: relative;
     transform: translate(-50%, 0);
     border-radius: 2.3rem;
-     
-     &:before{
-      content: "";
+
+    &:before {
+      content: '';
       position: absolute;
       width: 0;
       height: 0;
-      border-top: .5rem solid ${(props) => props.theme.colors.mainColor};
-      border-left: .5rem solid transparent;
-      border-right: .5rem solid transparent;
+      border-top: 0.5rem solid ${({ theme }) => theme.colors.mainColor};
+      border-left: 0.5rem solid transparent;
+      border-right: 0.5rem solid transparent;
       top: 100%;
       left: 50%;
-      margin-left: -.5rem;
-      margin-top: -.1rem;
+      margin-left: -0.5rem;
+      margin-top: -0.1rem;
     }
   `,
   Progress: styled.div`
     height: 0.5rem;
     width: 100%;
-    background-color: ${(props) => props.theme.colors.greyL2};
+    background-color: ${({ theme }) => theme.colors.greyL2};
     border-radius: 1.2rem;
   `,
-  Bar: styled.div`
+  Bar: styled.div<{
+    percent: number;
+    color: string;
+  }>`
     height: 0.5rem;
     border-radius: 1.2rem;
-    width: ${(props: any) => props.percent}%;
-    background-color: ${(props) => props.color};
+    width: ${({ percent }) => percent}%;
+    background-color: ${({ color }) => color};
   `,
-  Info: styled.div`
+  Info: styled.div<{
+    color: string;
+  }>`
     display: flex;
     width: 100%;
     margin-top: 0.5rem;
@@ -88,7 +108,7 @@ const S: {
 
     > span {
       font-size: 1.2rem;
-      color: ${(props:any) => props.color};
+      color: ${({ color }) => color};
     }
   `
 };

@@ -119,7 +119,7 @@ const S: {
   AddRatePhase: styled.div`
     justify-content: space-between;
     overflow-y: scroll;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
     font-size: 1.8rem;
     height: 100%;
     padding: 0 2rem;
@@ -137,7 +137,7 @@ const S: {
       font-size: 2.4rem;
       font-weight: bold;
       margin-bottom: 5rem;
-      color: ${(props) => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
     }
   `,
   Amount: styled.div`
@@ -147,10 +147,10 @@ const S: {
       font-size: 1.6rem;
       font-weight: bold;
       margin-bottom: 5rem;
-      color: ${(props) => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
 
       > span {
-        color: ${(props) => props.theme.colors.mainColor};
+        color: ${({ theme }) => theme.colors.mainColor};
       }
     }
   `,
@@ -167,25 +167,28 @@ const S: {
       margin-top: 2rem;
     }
   `,
-  RateItem: styled.div`
+  RateItem: styled.div<{
+    isTotal: boolean;
+    isTax: boolean;
+  }>`
     display: flex;
     justify-content: space-between;
-    margin-top: ${(props: any) => (props.isTotal ? '1' : '0')}rem;
+    margin-top: ${({ isTotal }) => (isTotal ? '1' : '0')}rem;
     align-items: center;
-    border-top: ${(props: any) => (props.isTotal ? `.1rem dashed ${props.theme.colors.greyL1}` : '')};
+    border-top: ${({ isTotal, theme }) => (isTotal ? `.1rem dashed ${theme.colors.greyL1}` : '')};
     padding-top: 1rem;
 
     label {
-      color: ${(props) => props.theme.colors.redL1};
+      color: ${({ theme }) => theme.colors.redL1};
     }
     span:first-child {
       font-size: 1.4rem;
-      color: ${(props) => props.theme.colors.greyD1};
+      color: ${({ theme }) => theme.colors.greyD1};
     }
 
     span:last-child {
-      font-size: ${(props: any) => (props.isTotal ? '2' : '1.4')}rem;
-      color: ${(props: any) => (props.isTax ? props.theme.colors.redL1 : props.theme.colors.blackL1)};
+      font-size: ${({ isTotal }) => (isTotal ? '2' : '1.4')}rem;
+      color: ${({ isTax, theme }) => (isTax ? theme.colors.redL1 : theme.colors.blackL1)};
       font-weight: bold;
     }
   `

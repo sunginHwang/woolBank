@@ -78,7 +78,7 @@ const S: {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: ${(props: any) => props.theme.zIndex.header};
-    background-color: ${(props: any) => props.theme.colors.white};
+    z-index: ${({ theme }) => theme.zIndex.header};
+    background-color: ${({ theme }) => theme.colors.white};
   `
 };

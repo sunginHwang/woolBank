@@ -32,8 +32,8 @@ const S: {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: ${(props) => props.theme.colors.white};
-    
+    background-color: ${({ theme }) => theme.colors.white};
+
     img {
       width: 10rem;
       height: 10rem;
@@ -46,7 +46,7 @@ const S: {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: ${(props) => props.theme.colors.blackL2};
+    color: ${({ theme }) => theme.colors.blackL2};
   `
 };
 

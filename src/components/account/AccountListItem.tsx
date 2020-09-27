@@ -61,14 +61,14 @@ const S: {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-      color: ${(props) => props.theme.colors.blackL2};
+      color: ${({ theme }) => theme.colors.blackL2};
       font-size: 1.6rem;
     }
 
     span {
       font-size: 1.4rem;
       font-weight: bold;
-      color: ${(props) => props.theme.colors.greyL5};
+      color: ${({ theme }) => theme.colors.greyL5};
     }
 
     > div {
@@ -86,7 +86,7 @@ const S: {
     p {
       font-size: 2.4rem;
       font-weight: bold;
-      color: ${(props) => props.theme.colors.mainColor};
+      color: ${({ theme }) => theme.colors.mainColor};
     }
 
     span {
@@ -98,20 +98,22 @@ const S: {
     font-size: 1.2rem;
     display: flex;
     justify-content: space-between;
-    color: ${(props) => props.theme.colors.greyL7};
+    color: ${({ theme }) => theme.colors.greyL7};
     font-weight: bold;
     opacity: 0.7;
   `,
-  Progress: styled.div`
+  Progress: styled.div<{
+    percent: number;
+  }>`
     margin-top: 1.6rem;
     height: 0.1rem;
     border-radius: 0.3rem;
-    background-color: ${(props) => props.theme.colors.greyL2};
+    background-color: ${({ theme }) => theme.colors.greyL2};
 
     div {
-      width: ${(props: any) => props.percent}%;
+      width: ${({ percent }) => percent}%;
       height: 100%;
-      background-color: ${(props) => props.theme.colors.mainColor};
+      background-color: ${({ theme }) => theme.colors.mainColor};
     }
   `
 };

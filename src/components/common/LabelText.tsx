@@ -6,11 +6,7 @@ export interface LabelTextProps {
 }
 
 function LabelText({ children }: LabelTextProps) {
-  return (
-    <S.LabelText>
-      {children}
-    </S.LabelText>
-  );
+  return <S.LabelText>{children}</S.LabelText>;
 }
 
 const S: {
@@ -19,7 +15,7 @@ const S: {
   LabelText: styled.p`
     font-size: 2rem;
     font-weight: 500;
-    color: ${props => props.theme.colors.mainColor};
+    color: ${({ theme }) => theme.colors.mainColor};
     text-align: left;
     margin-bottom: 2rem;
   `

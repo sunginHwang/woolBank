@@ -10,7 +10,7 @@ import PlaceHolderBar from '@components/common/PlaceHolderBar';
 import { getRemainDatePercentage, remainDays } from '@support/util/date';
 import useEventListener from '@support/hooks/useEventListener';
 import { getScrollTop } from '@support/util/document';
-import theme from '@style/colors';
+import palette from '@style/palette';
 
 export interface BucketListDetailHeaderProps {
   title: string;
@@ -44,7 +44,7 @@ function BucketListDetailHeader({
   });
 
   const fixedHeaderMsg = isShowFixedHeader ? title : '';
-  const headerIconColor = isShowFixedHeader ? theme.colors.mainColor : theme.colors.white;
+  const headerIconColor = isShowFixedHeader ? palette.mainColor : palette.white;
   // 목표 날짜 까지 남은 기간
   const remainDay = remainDays(now, completeDate);
   // 목표 날짜 까지 이룬 %
@@ -66,7 +66,7 @@ function BucketListDetailHeader({
       <S.ImageInfo ref={imgRef} imgUrl={imgUrl}>
         <div>
           {isLoading ? <PlaceHolderBar width='15rem' height='4.4rem' /> : <h2>{title}</h2>}
-          <Progress label={remainDay} labelPrefix='D-' percent={remainPercent} color={theme.colors.mainColor} />
+          <Progress label={remainDay} labelPrefix='D-' percent={remainPercent} color={palette.mainColor} />
         </div>
       </S.ImageInfo>
     </>
@@ -76,15 +76,17 @@ function BucketListDetailHeader({
 export default BucketListDetailHeader;
 
 const S: any = {
-  ImageInfo: styled.div`
+  ImageInfo: styled.div<{
+    imgUrl: string;
+  }>`
     background-size: cover;
-    background-color: ${(props) => props.theme.colors.greyD2};
+    background-color: ${({ theme }) => theme.colors.greyD2};
     background: 
     linear-gradient(
       rgba(0, 0, 0, 0.3),
       rgba(0, 0, 0, 0.1)
     ),
-    url(${(props: any) => props.imgUrl});
+    url(${({imgUrl}) => imgUrl});
 
     width: 100%;
     height: 40vh;
@@ -98,7 +100,7 @@ const S: any = {
 
       > h2 {
         font-size: 2.2rem;
-        color: ${(props) => props.theme.colors.white};
+        color: ${({ theme }) => theme.colors.white};
         margin-bottom: 8vh;
         text-align: center;
         width: 80%;

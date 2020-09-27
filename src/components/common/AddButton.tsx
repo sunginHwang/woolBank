@@ -23,12 +23,12 @@ const S: {
     right: 2rem;
     width: 5rem;
     height: 5rem;
-    color: ${(props) => props.theme.colors.white};
-    background-color: ${(props) => props.theme.colors.redL2};
+    color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.redL2};
     border-radius: 100%;
     box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem rgba(0, 0, 0, 0.16);
-    z-index: ${(props) => props.theme.zIndex.floatButton};
-    
+    z-index: ${({ theme }) => theme.zIndex.floatButton};
+
     > p {
       font-size: 2.4rem;
       font-weight: bold;

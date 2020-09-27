@@ -152,7 +152,7 @@ const S: {
     padding: 0 2rem;
     display: flex;
     flex-direction: column;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
   `,
   Content: styled.div`
     padding-top: 2rem;
@@ -161,8 +161,10 @@ const S: {
       margin-top: 4rem;
     }
   `,
-  AddInfo: styled.div`
-    top: ${(props: any) => (props.show ? 0 : '100%')};
+  AddInfo: styled.div<{
+    show: boolean;
+  }>`
+    top: ${({ show }) => (show ? 0 : '100%')};
     margin-top: 3rem;
     position: relative;
     transition: all 0.3s ease-out;

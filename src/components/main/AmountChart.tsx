@@ -34,14 +34,15 @@ const S: {
 } = {
   AmountChart: styled.div`
     padding: 2rem 0 2rem 0;
+    
     > p {
-      color: ${(props) => props.theme.colors.blackL2};
+      color: ${({ theme }) => theme.colors.blackL2};
       font-size: 1.6rem;
       line-height: 1.8;
       font-weight: bold;
 
       > strong {
-        color: ${(props) => props.theme.colors.redL2};
+        color: ${({ theme }) => theme.colors.redL2};
       }
     }
   `

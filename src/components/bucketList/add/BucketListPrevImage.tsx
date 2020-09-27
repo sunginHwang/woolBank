@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import IcoCloseCircle from '@components/icon/IcoCloseCircle';
 
-import colors from '@style/colors';
+import colors from '@style/theme';
 
 export interface BucketListPrevImageProps {
   previewUrl: string;

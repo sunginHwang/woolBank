@@ -20,7 +20,7 @@ export interface TodoListProps {
   onToggleState: (todo: ITodo) => void;
   onTodoItemFocusIn?: () => void;
   onTodoItemFocusOut?: () => void;
-};
+}
 
 function TodoList({
   todoList,
@@ -96,8 +96,10 @@ const S: {
     justify-content: center;
     margin-bottom: 20rem;
   `,
-  AddInfo: styled.div`
-    top: ${(props: any) => (props.show ? 0 : '100%')};
+  AddInfo: styled.div<{
+    show: boolean;
+  }>`
+    top: ${({ show }) => (show ? 0 : '100%')};
     margin-top: 3rem;
     position: relative;
     transition: all 0.3s ease-out;

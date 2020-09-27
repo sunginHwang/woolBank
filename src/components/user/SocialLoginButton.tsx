@@ -42,16 +42,18 @@ function SocialLoginButton({ provider, handleLoginClick }: SocialLoginButtonProp
 const S: {
   SocialLoginButton: any;
 } = {
-  SocialLoginButton: styled.button`
+  SocialLoginButton: styled.button<{
+    color: string;
+  }>`
     width: 4.8rem;
     height: 4.8rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${(props: any) => props.color};
+    background-color: ${({ color }) => color};
     border-radius: 2.4rem;
     outline: none;
-    border: .1rem solid rgb(222, 226, 230);
+    border: 0.1rem solid rgb(222, 226, 230);
   `
 };
 

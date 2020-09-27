@@ -230,7 +230,7 @@ const S: {
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
   `,
   Content: styled.div`
     margin-top: 2rem;
@@ -250,7 +250,7 @@ const S: {
       margin-bottom: 4rem;
       font-size: 1.2rem;
       font-weight: 500;
-      color: ${(props) => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
       text-align: left;
     }
   `

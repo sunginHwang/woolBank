@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import IcoCalendarMonthOutline from '@components/icon/IcoCalendarMonthOutline';
 import PlaceHolderBar from '@components/common/PlaceHolderBar';
 
-import theme from '@style/colors';
+import palette from '@style/palette';
 import { parseDate } from '@support/util/date';
 
 export interface BucketListContentInfoProps {
@@ -34,7 +34,7 @@ function BucketListContentInfo({
       )}
       <S.ContentItem>
         <i>
-          <IcoCalendarMonthOutline width={24} height={24} fill={theme.colors.blackL1} />
+          <IcoCalendarMonthOutline width={24} height={24} fill={palette.blackL1} />
         </i>
         <div>
           <S.Title>목표 달성일</S.Title>
@@ -49,7 +49,7 @@ export default BucketListContentInfo;
 
 const S :any = {
   BucketListContentInfo: styled.div`
-    background-color: ${props => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
     padding: 2rem 2rem 0 2rem;
   `,
   ContentItem: styled.div`
@@ -58,7 +58,7 @@ const S :any = {
     justify-content: flex-start;
     align-items: flex-start;
     margin-bottom: 1rem;
-    border-bottom: .1rem solid ${props => props.theme.colors.greyL2};
+    border-bottom: .1rem solid ${({ theme }) => theme.colors.greyL2};
     padding: 2rem 0;
     white-space: pre-wrap;
     
@@ -70,7 +70,7 @@ const S :any = {
     span {
       font-size: 1.2rem;
       line-height: 1.8rem;
-      color: ${props => props.theme.colors.greyD2};
+      color: ${({ theme }) => theme.colors.greyD2};
     }
     
     &:first-child {
@@ -82,11 +82,11 @@ const S :any = {
   `,
   Message: styled.p`
     line-height: 1.4rem;
-    color: ${props => props.theme.colors.blackL1};
+    color: ${({ theme }) => theme.colors.blackL1};
   `,
   Title: styled.p`
     line-height: 2rem;
-    color: ${props => props.theme.colors.blackL1};
+    color: ${({ theme }) => theme.colors.blackL1};
     font-weight: bold;
   `
 }

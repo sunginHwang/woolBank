@@ -10,7 +10,7 @@ export interface ToggleTabProps {
   useListType?: boolean;
   activeTab: IAssetType;
   onChangeTab?: (tab: IAssetType) => void;
-};
+}
 
 function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, onChangeTab }: ToggleTabProps) {
   const { width } = useWindowDimensions();
@@ -47,7 +47,11 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
         useOutline &&
         tabs.map((tab, index) => {
           return (
-            <S.TabOutLine key={tab.type} active={tab.name === activeTab.name} onClick={() => onChangeTab && onChangeTab(tab)}>
+            <S.TabOutLine
+              key={tab.type}
+              active={tab.name === activeTab.name}
+              onClick={() => onChangeTab && onChangeTab(tab)}
+            >
               {tab.name}
             </S.TabOutLine>
           );
@@ -80,44 +84,57 @@ const S: {
   ListTab: any;
   BottomLine: any;
 } = {
-  ToggleTab: styled.div`
+  ToggleTab: styled.div<{
+    useOutline: boolean;
+    useListType: boolean;
+  }>`
     width: 100%;
     position: relative;
-    height: ${(props: any) => (props.useOutline ? '4' : '5')}rem;
+    height: ${({ useOutline }) => (useOutline ? '4' : '5')}rem;
     display: flex;
-    justify-content: ${(props: any) => (props.useListType ? 'flex-start' : 'space-around')};
+    justify-content: ${({ useListType }) => (useListType ? 'flex-start' : 'space-around')};
     margin-bottom: 1rem;
-  ${(props: any) => (!props.useListType && !props.useOutline && 'box-shadow: 0 0.2rem 0.4rem -0.1rem rgba(0, 0, 0, 0.2), 0 0.4rem 0.5rem 0 rgba(0, 0, 0, 0.14),\n      0 0.1rem 1rem 0 rgba(0, 0, 0, 0.12);')};
-    
+    ${({ useListType, useOutline }) =>
+      !useListType &&
+      !useOutline &&
+      'box-shadow: 0 0.2rem 0.4rem -0.1rem rgba(0, 0, 0, 0.2), 0 0.4rem 0.5rem 0 rgba(0, 0, 0, 0.14),\n      0 0.1rem 1rem 0 rgba(0, 0, 0, 0.12);'};
+
     button {
       font-size: 1.6rem;
     }
   `,
-  Tab: styled.button`
+  Tab: styled.button<{
+    active: boolean;
+  }>`
     width: 100%;
     font-weight: bold;
-    color: ${(props: any) => (props.active ? props.theme.colors.redL2 : props.theme.colors.greyL1)};
-    /*
-*/
+    color: ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.greyL1)};
   `,
-  ListTab: styled.button`
+  ListTab: styled.button<{
+    active: boolean;
+  }>`
     margin-right: 2.5rem;
     font-weight: 800;
-    color: ${(props: any) => (props.active ? props.theme.colors.blackL2 : props.theme.colors.greyL5)};
+    color: ${({ active, theme }) => (active ? theme.colors.blackL2 : theme.colors.greyL5)};
   `,
-  TabOutLine: styled.button`
+  TabOutLine: styled.button<{
+    active: boolean;
+  }>`
     width: 100%;
-    border: 0.1rem solid ${(props: any) => (props.active ? props.theme.colors.redL2 : props.theme.colors.greyL6)};
-    color: ${(props: any) => (props.active ? props.theme.colors.redL2 : props.theme.colors.greyL6)};
+    border: 0.1rem solid ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.greyL6)};
+    color: ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.greyL6)};
   `,
-  BottomLine: styled.span`
+  BottomLine: styled.span<{
+    width: number;
+    left: number;
+  }>`
     bottom: 0;
-    width: ${(props: any) => props.width}px;
-    left: ${(props: any) => props.left}px;
+    width: ${({ width }) => width}px;
+    left: ${({ left }) => left}px;
     height: 2px;
     position: absolute;
     transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    background-color: ${(props: any) => props.theme.colors.redL2};
+    background-color: ${({ theme }) => theme.colors.redL2};
   `
 };
 

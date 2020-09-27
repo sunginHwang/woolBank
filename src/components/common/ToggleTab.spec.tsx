@@ -4,7 +4,7 @@ import { fireEvent } from '@testing-library/react';
 import ToggleTab from '@components/common/ToggleTab';
 
 import withThemeRender from '@support/test/withThemeRender';
-import colors from '@style/colors';
+import colors from '@style/theme';
 
 describe('<ToggleTab />', () => {
   it('두개의 토글버튼이 존재하고 첫번째 버튼이 활성화 되어있는 정상케이스', () => {

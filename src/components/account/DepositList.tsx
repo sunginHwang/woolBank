@@ -47,10 +47,10 @@ const S: {
   DepositRecord: styled.div`
     margin-top: .5rem;
     padding: 2rem 2rem 10rem 2rem;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
     >p {
       font-size: 2.2rem;
-      color: ${props => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
       font-weight: bold;
     }
   `,
@@ -59,7 +59,7 @@ const S: {
     margin-top: 5rem;
     justify-content: center;
     
-    color: ${props => props.theme.colors.blackL1}
+    color: ${({ theme }) => theme.colors.blackL1}
   `
 };
 

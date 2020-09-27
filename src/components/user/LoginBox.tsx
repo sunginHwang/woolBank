@@ -24,11 +24,11 @@ const S: {
 } = {
   LoginBox: styled.div`
     margin-bottom: 4rem;
-    
+
     > h3 {
       font-size: 1.6rem;
       margin: 2rem 0 1.5rem 0;
-      color: ${(props) => props.theme.colors.greyD2};
+      color: ${({ theme }) => theme.colors.greyD2};
     }
   `,
   ButtonArea: styled.div`

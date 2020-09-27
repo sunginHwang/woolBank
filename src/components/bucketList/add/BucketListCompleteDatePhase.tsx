@@ -101,7 +101,7 @@ const S: {
     padding: 0 2rem;
     display: flex;
     flex-direction: column;
-    background-color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.white};
   `,
   Content: styled.div`
     padding-top: 2rem;

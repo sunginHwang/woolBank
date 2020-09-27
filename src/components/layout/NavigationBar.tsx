@@ -41,10 +41,7 @@ function NavigationBar() {
     <S.NavigationBar>
       {navigations.map((navigation) => {
         return (
-          <S.NavigationBarTag
-            key={navigation.name}
-            active={navigation.link === history.location.pathname}
-          >
+          <S.NavigationBarTag key={navigation.name} active={navigation.link === history.location.pathname}>
             <Link to={navigation.link}>
               {navigation.icon}
               <span>{navigation.name}</span>
@@ -70,11 +67,13 @@ const S: {
     right: 0;
     width: 100%;
     height: 5.5rem;
-    border-top: 0.1rem solid ${(props) => props.theme.colors.greyL6};
-    background-color: ${(props) => props.theme.colors.white};
-    z-index: ${(props) => props.theme.zIndex.navigationBar};
+    border-top: 0.1rem solid ${({ theme }) => theme.colors.greyL6};
+    background-color: ${({ theme }) => theme.colors.white};
+    z-index: ${({ theme }) => theme.zIndex.navigationBar};
   `,
-  NavigationBarTag: styled.div`
+  NavigationBarTag: styled.div<{
+    active: boolean;
+  }>`
     letter-spacing: 0;
     text-align: center;
     width: 100%;
@@ -84,8 +83,7 @@ const S: {
     align-items: center;
     justify-content: center;
     position: relative;
-    color: ${(props: any) =>
-      props.active ? props.theme.colors.redL2 : props.theme.colors.blackL1};
+    color: ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.blackL1)};
 
     a {
       width: 100%;
@@ -98,14 +96,12 @@ const S: {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      color: ${(props: any) =>
-        props.active ? props.theme.colors.redL2 : props.theme.colors.greyD2};
+      color: ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.greyD2)};
 
       span {
         margin-top: 0.4rem;
         font-size: 1.2rem;
-        color: ${(props: any) =>
-          props.active ? props.theme.colors.redL2 : props.theme.colors.greyD2};
+        color: ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.greyD2)};
       }
     }
   `

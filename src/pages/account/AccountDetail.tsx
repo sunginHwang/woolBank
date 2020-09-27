@@ -7,7 +7,7 @@ import AccountDetailContainer from '@containers/account/detail/AccountDetailCont
 import AccountDetailModalContainer from '@containers/account/detail/AccountDetailModalContainer';
 import IcoDowHorizontal from '@components/icon/IcoDotHorizontal';
 
-import colors from '@style/colors';
+import colors from '@style/theme';
 import { useQuery } from '@support/hooks/UseQuery';
 import { useToggle } from '@support/hooks/useToggle';
 

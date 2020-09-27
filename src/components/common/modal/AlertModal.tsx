@@ -9,11 +9,7 @@ export interface AlertModalProps {
   onClick: () => void;
 }
 
-function AlertModal({
-  isShow,
-  message,
-  onClick
-}: AlertModalProps) {
+function AlertModal({ isShow, message, onClick }: AlertModalProps) {
   return (
     <ModalDeem visible={isShow}>
       <S.ModalWrapper>
@@ -40,10 +36,10 @@ const S: {
   ConfirmModal: styled.div`
     width: 80%;
     max-width: 68rem;
-    border-radius: .8rem;
+    border-radius: 0.8rem;
     text-align: center;
-    background-color: ${(props) => props.theme.colors.white};
-    z-index: ${(props) => props.theme.zIndex.modalDeem + 1};
+    background-color: ${({ theme }) => theme.colors.white};
+    z-index: ${({ theme }) => theme.zIndex.modalDeem + 1};
     box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.35);
   `,
   ModalWrapper: styled.div`
@@ -58,11 +54,11 @@ const S: {
     justify-content: center;
     align-items: center;
     padding: 4rem 0;
-    
-    p{
+
+    p {
       font-size: 1.4rem;
       padding: 0 2rem;
-      color: ${props => props.theme.colors.blackL1};
+      color: ${({ theme }) => theme.colors.blackL1};
     }
   `,
   Footer: styled.div`
@@ -76,9 +72,9 @@ const S: {
     width: 100%;
     font-size: 1.6rem;
     height: 100%;
-    border-radius: .8rem;
-    color: ${props => props.theme.colors.white};
-    background-color: ${props => props.theme.colors.mainColor};
+    border-radius: 0.8rem;
+    color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.mainColor};
   `
 };
 
