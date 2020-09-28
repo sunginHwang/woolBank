@@ -1,27 +1,28 @@
 import React from 'react';
+import styled from 'styled-components';
 
-import MainCardArea from '@components/main/MainCardArea';
-import TotalAssetsWallet from '@components/main/TotalAssetsWallet';
-import AccountListItemPlaceHolder from '@components/account/list/AccountListItemSkeleton';
-import BucketListItemPlaceHolder from '@components/bucketList/list/BucketListItemSkeleton';
+import AccountListItemSkeleton from '@components/account/list/AccountListItemSkeleton';
 import PageTemplate from '@components/layout/PageTemplate';
+import TotalSavedAmount from '@components/main/TotalSavedAmount';
 
 function MainPageSkeleton() {
   return (
     <PageTemplate isMain>
-      <TotalAssetsWallet totalPrice={0} lastMonthTotalPrice={0} />
-      <MainCardArea title='자산현황'>
-        {[...Array(3)].map((_, key) => (
-          <AccountListItemPlaceHolder key={key} />
-        ))}
-      </MainCardArea>
-      <MainCardArea title='버킷리스트'>
-        {[...Array(3)].map((_, key) => (
-          <BucketListItemPlaceHolder key={key} />
-        ))}
-      </MainCardArea>
+      <TotalSavedAmount useSkeleton />
+      <S.EmptyArea />
+      {[...Array(3)].map((_, key) => (
+        <AccountListItemSkeleton key={key} />
+      ))}
     </PageTemplate>
   );
 }
+
+const S: {
+  EmptyArea: any;
+} = {
+  EmptyArea: styled.div`
+    padding-top: 15rem;
+  `
+};
 
 export default MainPageSkeleton;

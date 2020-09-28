@@ -1,20 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
 import { addComma } from '@support/util/String';
+import PlaceHolderBar from '@components/common/PlaceHolderBar';
 
 export interface TotalSavedAmountProps {
-  totalPrice: number;
+  totalPrice?: number;
+  useSkeleton?: boolean;
 }
 
-function TotalSavedAmount({ totalPrice }: TotalSavedAmountProps) {
+function TotalSavedAmount({ totalPrice = 0, useSkeleton = false }: TotalSavedAmountProps) {
+  const renderSkeleton = (
+    <>
+      <p>
+        <PlaceHolderBar width='17rem' height='4rem' />
+      </p>
+      <p>
+        <PlaceHolderBar width='24rem' height='4rem' />
+      </p>
+      <p>
+        <PlaceHolderBar width='13rem' height='4rem' />
+      </p>
+    </>
+  );
   return (
     <>
       <S.Amount>
-        <p>오늘까지의</p>
-        <p>총 저축 금액은</p>
-        <p>
-          <strong>{addComma(totalPrice)} 원</strong> 입니다.
-        </p>
+        {useSkeleton ? (
+          renderSkeleton
+        ) : (
+          <>
+            <p>오늘까지의</p>
+            <p>총 저축 금액은</p>
+            <p>
+              <strong>{addComma(totalPrice)} 원</strong> 입니다.
+            </p>
+          </>
+        )}
       </S.Amount>
     </>
   );
