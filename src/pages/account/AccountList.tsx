@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router';
 
 import AccountListContainer from '@containers/account/list/AccountListContainer';
 import PageTemplate from '@components/layout/PageTemplate';
 
+import { useErrorStatus } from '@support/context/ErrorHandler';
 function AccountList() {
-  const history = useHistory();
+  const { setErrorStatusCode } = useErrorStatus();
 
-/*  useEffect(() => {
+  useEffect(() => {
     setTimeout(() => {
-      history.replace(history.location.pathname, { errorStatusCode: 404 });
+      setErrorStatusCode(404);
     }, 2000);
-  }, []);*/
+  }, []);
 
   return (
     <PageTemplate useHeader={false} useSidePadding={false}>
