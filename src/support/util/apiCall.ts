@@ -51,7 +51,7 @@ apiCall.interceptors.response.use(
       .post('/auth/refresh-token-check', {
         refreshToken
       })
-      .then(response => {
+      .then((response) => {
         const tokenInfo: ITokenInfo = response.data.data.authTokens;
         setHeaderAuthToken(tokenInfo);
         // 이전요청에서의 헤더정보도 변경해서 호출해야 함.

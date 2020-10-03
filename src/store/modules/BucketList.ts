@@ -5,6 +5,7 @@ import { IBucketList } from '@models/IBucketList';
 import { IBucketListDetail } from '@models/bucketList/IBucketListDetail';
 import { ITodo } from '@models/ITodo';
 import { fetchBucketList, fetchBucketListDetail } from '@support/api/bucketListApi';
+import Layout from '@store/modules/Layout';
 
 const DETAIL_CACHE_COUNT = 10;
 
@@ -15,10 +16,18 @@ export const getBucketList = createAsyncThunk(`${name}/getBucketList`, async () 
   return bucketList.data.data;
 });
 
-export const getBucketListDetail = createAsyncThunk(`${name}/getBucketListDetail`, async (bucketListId: number) => {
-  const bucketListDetail = await fetchBucketListDetail(bucketListId);
-  return bucketListDetail.data.data;
-});
+export const getBucketListDetail = createAsyncThunk(
+  `${name}/getBucketListDetail`,
+  async (bucketListId: number, { rejectWithValue, dispatch }) => {
+    try {
+      const bucketListDetail = await fetchBucketListDetail(bucketListId);
+      return bucketListDetail.data.data;
+    } catch (e) {
+      dispatch(Layout.actions.setErrorStatusCode(e.response.data.status));
+      return rejectWithValue(e.response.data);
+    }
+  }
+);
 
 export type BucketListState = {
   bucketList: AsyncState<IBucketList[]>;

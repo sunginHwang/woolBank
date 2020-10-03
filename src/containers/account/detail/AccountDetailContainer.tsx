@@ -10,18 +10,15 @@ import { RootState } from '@/store';
 import AccountDetail, { getAccount } from '@store/modules/AccountDetail';
 import { checkNeedReFetch } from '@support/util/checkNeedReFetch';
 import { getAccountLastUpdatedAt } from '@support/api/accountApi';
-import { useToast } from '@support/hooks/useToast';
 
 export interface AccountDetailContainerProps {
   accountId: number;
-};
+}
 
 function AccountDetailContainer({ accountId }: AccountDetailContainerProps) {
   const accountDetail = useSelector((state: RootState) => state.AccountDetail.accountDetail);
   const accountDetailCache = useSelector((state: RootState) => state.AccountDetail.accountDetailCache);
   const dispatch = useDispatch();
-  const history = useHistory();
-  const onToast = useToast();
 
   useEffect(() => {
     onLoadAccountDetail(accountId);
@@ -50,12 +47,6 @@ function AccountDetailContainer({ accountId }: AccountDetailContainerProps) {
     // 실제로 정보가 변경될 경우 request 요청 아닌 경우 캐시 사용
     needFetch ? dispatch(getAccount(id)) : dispatch(AccountDetail.actions.setAccountDetail(accountDetail));
   };
-
-  if (accountDetail.error) {
-    onToast('예적금 조회에 실패하였습니다.');
-    history.goBack();
-    return null;
-  }
 
   if (accountDetail.loading || !accountDetail.data) {
     return (

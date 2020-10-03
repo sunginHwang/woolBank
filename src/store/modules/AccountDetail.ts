@@ -3,15 +3,24 @@ import { createAsyncThunk, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AsyncState } from '@models/redux';
 import { IAccount } from '@models/IAccount';
 import { fetchAccount } from '@support/api/accountApi';
+import Layout from '@store/modules/Layout';
 
 const name = 'accountDetail';
 // 캐싱 최대 10개까지만
 const DETAIL_CACHE_COUNT = 10;
 
-export const getAccount = createAsyncThunk(`${name}/getAccount`, async (accountId: number) => {
-  const accountRes = await fetchAccount(accountId);
-  return accountRes.data.data;
-});
+export const getAccount = createAsyncThunk(
+  `${name}/getAccount`,
+  async (accountId: number, { rejectWithValue, dispatch }) => {
+    try {
+      const accountRes = await fetchAccount(accountId);
+      return accountRes.data.data;
+    } catch (e) {
+      dispatch(Layout.actions.setErrorStatusCode(e.response.data.status));
+      return rejectWithValue(e.response.data);
+    }
+  }
+);
 
 export type AccountDetailState = {
   accountDetail: AsyncState<null | IAccount>;

@@ -9,14 +9,14 @@ import store from '@/store';
 import * as serviceWorker from '@/serviceWorker';
 import GlobalStyle from '@style/GlobalStyle';
 import theme from '@style/theme';
-import ErrorHandler from '@support/context/ErrorHandler';
+import ErrorHandler from '@pages/error/ErrorHandler';
 
 ReactDOM.render(
   <Provider store={store()}>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+        <GlobalStyle />
         <ErrorHandler>
-          <GlobalStyle />
           <App />
         </ErrorHandler>
       </BrowserRouter>

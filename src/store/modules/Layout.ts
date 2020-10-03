@@ -9,6 +9,7 @@ export type LayoutState = {
   loading: ILayoutLoading;
   toast: IToast;
   alert: IToast;
+  pageErrorStatusCode: number;
 };
 
 const initialState: LayoutState = {
@@ -23,13 +24,17 @@ const initialState: LayoutState = {
   alert: {
     isShow: false,
     message: ''
-  }
+  },
+  pageErrorStatusCode: 200
 };
 
 export default createSlice({
   name,
   initialState,
   reducers: {
+    setErrorStatusCode: (state, action: PayloadAction<number>) => {
+      state.pageErrorStatusCode = action.payload;
+    },
     showLoading: (state, action: PayloadAction<string>) => {
       state.loading.isLoading = true;
       state.loading.message = action.payload;
