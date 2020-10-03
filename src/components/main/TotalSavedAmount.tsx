@@ -11,17 +11,12 @@ export interface TotalSavedAmountProps {
 function TotalSavedAmount({ totalPrice = 0, useSkeleton = false }: TotalSavedAmountProps) {
   const renderSkeleton = (
     <>
-      <p>
-        <PlaceHolderBar width='17rem' height='4rem' />
-      </p>
-      <p>
-        <PlaceHolderBar width='24rem' height='4rem' />
-      </p>
-      <p>
-        <PlaceHolderBar width='13rem' height='4rem' />
-      </p>
+      <PlaceHolderBar width='17rem' height='4rem' />
+      <PlaceHolderBar width='24rem' height='4rem' />
+      <PlaceHolderBar width='13rem' height='4rem' />
     </>
   );
+
   return (
     <>
       <S.Amount>
