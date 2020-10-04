@@ -121,7 +121,7 @@ const S: {
   AddInfo: styled.div<{
     show: boolean;
   }>`
-    top: ${({ show }) => (show ? 0 : '100%')};
+    top: ${({ show }) => (show ? 0 : '100vh' )};
     margin-top: 3rem;
     position: relative;
     transition: all 0.3s ease-out;
