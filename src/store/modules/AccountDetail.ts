@@ -1,4 +1,5 @@
 import { createAsyncThunk, PayloadAction, createSlice } from '@reduxjs/toolkit';
+import _ from 'lodash';
 
 import { AsyncState } from '@models/redux';
 import { IAccount } from '@models/IAccount';
@@ -60,9 +61,25 @@ export default createSlice({
       state.accountDetail.loading = true;
     },
     [getAccount.fulfilled.type]: (state, action: PayloadAction<IAccount>) => {
-      const account = action.payload;
       const accountCacheList = state.accountDetailCache;
 
+      const account = _.merge(action.payload, {
+        startDate: new Date(action.payload.startDate),
+        endDate: new Date(action.payload.endDate),
+        createdAt: new Date(action.payload.createdAt),
+        updatedAt: new Date(action.payload.updatedAt)
+      });
+
+      if (account.deposits) {
+        account.deposits = account.deposits.map((deposit) => {
+          return _.merge(deposit, {
+            depositDate: new Date(deposit.depositDate),
+            createdAt: new Date(deposit.createdAt),
+            updatedAt: new Date(deposit.updatedAt)
+          });
+        });
+      }
+      //todo 캐싱 처리 duplicate 나오는 부분 리팩토링 필요.
       const accountCacheIndex = accountCacheList.findIndex((a) => a.id === account.id);
 
       if (accountCacheIndex > -1) {
