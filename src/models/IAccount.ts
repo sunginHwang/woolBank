@@ -14,8 +14,8 @@ export interface IAccount {
   savingTypeId: number; // 적금타입 ID
   isExpiration: boolean; // 만기여부
   savingType: IAssetType; // 적금타입
-  startDate: string | Date; // 시작일
-  endDate: string | Date; // 만기일
+  startDate: Date; // 시작일
+  endDate: Date; // 만기일
   deposits?: IDeposit[];
   createdAt: Date; // 생성 시각
   updatedAt: Date; // 마지막 수정 시각

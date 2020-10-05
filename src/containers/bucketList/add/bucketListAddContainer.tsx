@@ -15,6 +15,7 @@ import { saveImageAndGetImageUrl } from '@support/api/imageApi';
 import { saveBucketList, updateBucketList } from '@support/api/bucketListApi';
 import { ITodo } from '@models/ITodo';
 import { IBucketListForm } from '@models/bucketList/IBucketListForm';
+import { parseDate } from '@support/util/date';
 
 export interface BucketListAddContainerProps {
   bucketListId?: number;
@@ -94,7 +95,7 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
         id: bucketListDetail.id,
         title: bucketListDetail.title,
         description: bucketListDetail.description,
-        completeDate: bucketListDetail.completeDate,
+        completeDate: parseDate(bucketListDetail.completeDate),
         thumbImageUrl: bucketListDetail.thumbImageUrl,
         imageUrl: bucketListDetail.imageUrl,
         mainImgFile: null,

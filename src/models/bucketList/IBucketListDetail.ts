@@ -4,7 +4,7 @@ export interface IBucketListDetail {
   id: number;
   title: string;
   description: string;
-  completeDate: string;
+  completeDate: Date;
   imageUrl?: string;
   thumbImageUrl?: string;
   userId: number;

@@ -50,7 +50,7 @@ function BucketListContainer() {
   };
 
   const isComplete = (bucket: IBucketList) => {
-    return isDateExpired(new Date(bucket.completeDate), new Date()) && bucket.completeTodoCount >= bucket.todoCount;
+    return isDateExpired(bucket.completeDate, new Date()) && bucket.completeTodoCount >= bucket.todoCount;
   }
 
   const isProgress = (bucket: IBucketList) => {

@@ -79,7 +79,7 @@ export default createSlice({
           });
         });
       }
-      //todo 캐싱 처리 duplicate 나오는 부분 리팩토링 필요.
+      // todo 캐싱 처리 duplicate 나오는 부분 리팩토링 필요.
       const accountCacheIndex = accountCacheList.findIndex((a) => a.id === account.id);
 
       if (accountCacheIndex > -1) {
@@ -93,8 +93,8 @@ export default createSlice({
       }
 
       state.accountDetail.data = account;
-      state.accountDetailCache = accountCacheList;
       state.accountDetail.loading = false;
+      state.accountDetailCache = accountCacheList;
     },
     [getAccount.rejected.type]: (state, action: PayloadAction<any, any, any, any>) => {
       state.accountDetail.loading = false;

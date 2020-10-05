@@ -1,4 +1,5 @@
 import { createAsyncThunk, PayloadAction, createSlice } from '@reduxjs/toolkit';
+import _ from 'lodash';
 
 import { AsyncState } from '@models/redux';
 import { IBucketList } from '@models/IBucketList';
@@ -96,17 +97,22 @@ export default createSlice({
       state.bucketList.loading = true;
     },
     [getBucketList.fulfilled.type]: (state, action: PayloadAction<IBucketList[]>) => {
-      const bucketList = action.payload;
+      const bucketList = action.payload.map((bucket) => {
+        return _.merge(bucket, {
+          updatedAt: new Date(bucket.updatedAt),
+          completeDate: new Date(bucket.completeDate)
+        });
+      });
       state.bucketList.loading = false;
       state.bucketList.data = bucketList;
 
       // 리스트 존재시 가장 최신 업데이트된 시간 설정 (다시 조회시 캐시 체크 용)
       if (bucketList.length > 0) {
         const lastUpdatedAccount = bucketList.sort((a, b) => {
-          return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+          return b.updatedAt.getTime() - a.updatedAt.getTime();
         })[0];
 
-        state.lastUpdatedDate = new Date(lastUpdatedAccount.updatedAt);
+        state.lastUpdatedDate = lastUpdatedAccount.updatedAt;
       }
     },
     [getBucketList.rejected.type]: (state) => {
@@ -116,7 +122,12 @@ export default createSlice({
       state.bucketListDetail.loading = true;
     },
     [getBucketListDetail.fulfilled.type]: (state, action: PayloadAction<IBucketListDetail>) => {
-      const bucketListDetail = action.payload;
+      const bucketListDetail = _.merge(action.payload, {
+        completeDate: new Date(action.payload.completeDate),
+        createdAt: new Date(action.payload.createdAt),
+        updatedAt: new Date(action.payload.updatedAt)
+      });
+
       const bucketListDetailCacheList = state.bucketListDetailCache;
 
       const bucketListCacheIndex = bucketListDetailCacheList.findIndex((a) => a.id === bucketListDetail.id);
