@@ -4,7 +4,7 @@ export default function useEventListener(eventType: string, callback: () => void
   useEffect(() => {
     window.addEventListener(eventType, callback);
     return () => {
-      window.removeEventListener('scroll', callback);
+      window.removeEventListener(eventType, callback);
     };
   }, [eventType, callback]);
 
