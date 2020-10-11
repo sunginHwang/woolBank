@@ -25,7 +25,7 @@ function BucketListItem({ bucketList, useSideMargin = false }: BucketListItemPro
   return (
     <Link to={`/bucket-list/${bucketList.id}`}>
       <CardItem useSideMargin={useSideMargin}>
-        <S.BucketListItem>
+        <S.BucketListItem data-cy='bucketItem'>
           <div>
             {bucketList.thumbImageUrl ? (
               <img src={bucketList.thumbImageUrl} alt='버킷리스트 썸네일 이미지' onError={onImageFallback} />

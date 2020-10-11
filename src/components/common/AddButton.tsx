@@ -4,17 +4,21 @@ import styled from 'styled-components';
 export interface AddButtonProps {
   icon: string | React.ReactNode;
   onClick: () => void;
-};
+}
 
 function AddButton({ icon, onClick }: AddButtonProps) {
   const isStringIcon = typeof icon === 'string';
-  return <S.AddDepositButton onClick={onClick}>{isStringIcon ? <p>{icon}</p> : icon}</S.AddDepositButton>;
+  return (
+    <S.AddButton data-cy='addButton' onClick={onClick}>
+      {isStringIcon ? <p>{icon}</p> : icon}
+    </S.AddButton>
+  );
 }
 
 const S: {
-  AddDepositButton: any;
+  AddButton: any;
 } = {
-  AddDepositButton: styled.div`
+  AddButton: styled.div`
     position: fixed;
     display: flex;
     justify-content: center;

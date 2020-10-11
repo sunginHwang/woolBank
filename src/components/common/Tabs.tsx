@@ -29,10 +29,14 @@ function Tabs({ tabs, activeTab, onChangeTab }: TabsProps) {
   };
 
   return (
-    <S.Tabs>
+    <S.Tabs data-cy='tabs'>
       {tabs.map((tab, index) => {
         return (
-          <S.Tab key={tab.type} active={tab.name === activeTab.name} onClick={() => onTabClick(tab, index)}>
+          <S.Tab
+            key={tab.type}
+            active={tab.name === activeTab.name}
+            data-cy={tab.name}
+            onClick={() => onTabClick(tab, index)}>
             {tab.name}
           </S.Tab>
         );

@@ -8,7 +8,7 @@ import PlaceHolderBar from '@components/common/PlaceHolderBar';
 function BucketListItemSkeleton() {
   return (
     <CardItem>
-      <S.BucketListItem>
+      <S.BucketListItem data-cy='bucketListSkeleton'>
         <div>
           <EmptyCircle size={40} />
           <S.Content>

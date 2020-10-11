@@ -38,10 +38,14 @@ function NavigationBar() {
   const history = useHistory();
 
   return (
-    <S.NavigationBar>
+    <S.NavigationBar data-cy='navigationBar'>
       {navigations.map((navigation) => {
         return (
-          <S.NavigationBarTag key={navigation.name} active={navigation.link === history.location.pathname}>
+          <S.NavigationBarTag
+            key={navigation.name}
+            data-cy={navigation.name}
+            active={navigation.link === history.location.pathname}
+          >
             <Link to={navigation.link}>
               {navigation.icon}
               <span>{navigation.name}</span>
