@@ -18,25 +18,25 @@ export const isSuccessRenderFistRendering = {
   action() {
     // 탭영역 진행중 영역 활성화 체크
     cy
-      .get(`[data-cy=${CY_SELECTOR.tabs}]`)
+      .getByCy(CY_SELECTOR.tabs)
       .find(`[data-cy=${CY_SELECTOR.progressTab}]`)
       .should('have.css', 'color', haxToRGB('#f25e5e'));
 
     // 하단 네이게이션 영역 진입 체크
     cy
-      .get(`[data-cy=${CY_SELECTOR.navigationBar}]`)
+      .getByCy(CY_SELECTOR.navigationBar)
       .find(`[data-cy=${CY_SELECTOR.activeNavigationBar}]`)
       .should('have.css', 'color', haxToRGB('#f25e5e'));
 
     // 추가 버튼 렌더링 체크
     cy
-      .get(`[data-cy=${CY_SELECTOR.addButton}]`)
+      .getByCy(CY_SELECTOR.addButton)
       .its('length')
       .should('be.gt', 0);
 
     // 리스트 존재여부 체크 (1 개 이상 있어야 한다.)
     cy
-      .get(`[data-cy=${CY_SELECTOR.bucketItem}]`)
+      .getByCy(CY_SELECTOR.bucketItem)
       .its('length')
       .should('be.gt', 0);
   },
@@ -48,7 +48,7 @@ export const isSuccessRenderFistRendering = {
 export const isActiveCompleteTab = {
   action() {
     const completeTab = cy
-      .get(`[data-cy=${CY_SELECTOR.tabs}]`)
+      .getByCy(CY_SELECTOR.tabs)
       .find(`[data-cy=${CY_SELECTOR.completeTab}]`);
 
     completeTab.click();
@@ -64,7 +64,7 @@ export const isMoveAddPage = {
   action() {
     // 추가 버튼 렌더링 체크
     cy
-      .get(`[data-cy=${CY_SELECTOR.addButton}]`)
+      .getByCy(CY_SELECTOR.addButton)
       .click();
 
     cy.location().should((location) => {
@@ -80,12 +80,12 @@ export const isMoveDetailPage = {
   action() {
     // 추가 버튼 렌더링 체크
     cy
-      .get(`[data-cy=${CY_SELECTOR.bucketItem}]`)
+      .getByCy(CY_SELECTOR.bucketItem)
       .first()
       .then(bucket => {
         // 버킷리스트 아이템 클릭
         cy
-          .get(`[data-cy=${CY_SELECTOR.bucketItem}]`)
+          .getByCy(CY_SELECTOR.bucketItem)
           .first()
           .click();
         // todo 해당 no 를 파싱 하는것 찾기

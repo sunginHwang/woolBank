@@ -21,26 +21,28 @@ function AccountListItem({
 
   return (
     <Link to={`/accounts/${id}`}>
-      <CardItem useSideMargin={useSideMargin}>
-        <S.Top>
-          <p>{title}</p>
-          <div>
-            <span>{savingType.name}</span>
-          </div>
-        </S.Top>
-        <S.Content>
-          <p>
-            {addComma(currentAmount || 0)} <span>원</span>
-          </p>
-        </S.Content>
-        <S.Bottom>
-          <p>만기일 : {parseDate(endDate)}</p>
-          <span>만기금액 : {addComma(amount)}원</span>
-        </S.Bottom>
-        <S.Progress percent={remainPercent}>
-          <div />
-        </S.Progress>
-      </CardItem>
+      <div data-cy='accountItem'>
+        <CardItem useSideMargin={useSideMargin}>
+          <S.Top>
+            <p>{title}</p>
+            <div>
+              <span>{savingType.name}</span>
+            </div>
+          </S.Top>
+          <S.Content>
+            <p>
+              {addComma(currentAmount || 0)} <span>원</span>
+            </p>
+          </S.Content>
+          <S.Bottom>
+            <p>만기일 : {parseDate(endDate)}</p>
+            <span>만기금액 : {addComma(amount)}원</span>
+          </S.Bottom>
+          <S.Progress percent={remainPercent}>
+            <div />
+          </S.Progress>
+        </CardItem>
+      </div>
     </Link>
   );
 }

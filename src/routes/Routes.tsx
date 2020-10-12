@@ -29,7 +29,7 @@ function Routes() {
       <RouteWrapper path='/' component={Main} exact isLogin={isLogin} />
       <RouteWrapper path='/login' component={Login} exact useNavBar={false} checkAuth={false} />
       <RouteWrapper path='/accounts' component={AccountList} exact isLogin={isLogin} />
-      <RouteWrapper path='/accounts/register' component={AccountRegister} exact isLogin={isLogin} />
+      <RouteWrapper path='/accounts/save' component={AccountRegister} exact isLogin={isLogin} />
       <RouteWrapper path='/accounts/:accountId' component={AccountDetail} useNavBar={false} isLogin={isLogin} />
       <RouteWrapper path='/bucket-list' component={BucketList} exact isLogin={isLogin} />
       <RouteWrapper path='/bucket-list/save' component={BucketListSave} exact isLogin={isLogin} />

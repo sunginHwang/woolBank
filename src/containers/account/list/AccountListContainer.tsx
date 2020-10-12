@@ -39,7 +39,7 @@ function AccountListContainer() {
    * 예적금 등록 페이지 이동
    **/
   const goAccountRegisterPage = () => {
-    history.push('/accounts/register');
+    history.push('/accounts/save');
   };
 
   /**
