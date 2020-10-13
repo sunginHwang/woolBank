@@ -4,17 +4,18 @@ import styled from 'styled-components';
 export interface BaseTextAreaProps {
   label?: string;
   value: string;
+  name?: string;
   placeHolder: string;
   onFocusIn?: () => void;
   onFocusOut?: () => void;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-function BaseTextArea({ label, value, placeHolder, onChange, onFocusIn, onFocusOut }: BaseTextAreaProps) {
+function BaseTextArea({ label, value, name = '', placeHolder, onChange, onFocusIn, onFocusOut }: BaseTextAreaProps) {
   return (
     <S.BaseTextArea>
       {label && <S.Label>{label}</S.Label>}
-      <textarea value={value} placeholder={placeHolder} onFocus={onFocusIn} onBlur={onFocusOut} onChange={onChange} />
+      <textarea data-cy={name} name={name} value={value} placeholder={placeHolder} onFocus={onFocusIn} onBlur={onFocusOut} onChange={onChange} />
     </S.BaseTextArea>
   );
 }

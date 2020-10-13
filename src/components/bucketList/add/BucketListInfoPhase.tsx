@@ -68,6 +68,7 @@ function BucketListInfoPhase({
             dataType='text'
             max={30}
             useLengthInfo
+            name='title'
             value={bucketListTitle}
             onFocusIn={offDetailLayer}
             onFocusOut={onDetailLayer}
@@ -85,7 +86,7 @@ function BucketListInfoPhase({
               <br />
               목표를 달성할 가능성이 좀더 높아집니다.
             </SubLabelText>
-            <BaseTextArea value={detail} placeHolder='내용을 입력하세요.' onChange={onChangeDetail} />
+            <BaseTextArea name='detail' value={detail} placeHolder='내용을 입력하세요.' onChange={onChangeDetail} />
           </S.AddInfo>
         </S.Content>
         <BottomButton

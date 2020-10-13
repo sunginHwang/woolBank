@@ -27,6 +27,7 @@ function BottomButton({
   return (
     <S.Bottom>
       <BaseButton
+        name='bottomButton'
         color='red'
         size='full'
         message={message}

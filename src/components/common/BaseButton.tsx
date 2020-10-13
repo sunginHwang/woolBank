@@ -19,12 +19,13 @@ export interface BaseButtonProps {
   message: string;
   color: 'red';
   size: 'full';
+  name?: string,
   active?: boolean;
   loading?: boolean;
   onClick?: (e: React.ChangeEvent<HTMLButtonElement>) => void;
 }
 
-function BaseButton({ dataType, message, color, size, loading = false, active = true, onClick }: BaseButtonProps) {
+function BaseButton({ dataType, message, color, size, name, loading = false, active = true, onClick }: BaseButtonProps) {
   const colorScheme: colorSchemeType = useMemo(() => {
     const result = { bgColor: '', color: '' };
 
@@ -58,6 +59,8 @@ function BaseButton({ dataType, message, color, size, loading = false, active = 
   return (
     <S.BaseButton
       onClick={onButtonClick}
+      data-cy={name}
+      name={name}
       data-type={dataType}
       active={active}
       colorScheme={colorScheme}

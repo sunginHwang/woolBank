@@ -70,6 +70,7 @@ function BucketListCompleteDatePhase({
             disable
             placeHolder='클릭하여 날짜를 선택해 주세요.'
             dataType='startDate'
+            name='completeDate'
             value={parseDate(date)}
             onClick={onDateModal}
             onClear={onResetCompleteDate}

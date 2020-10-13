@@ -43,6 +43,7 @@ function TodoInput({ onAdd, onClose, onFocusIn, onFocusOut }: TodoInputProps) {
           <IcoBlackCircle fill={palette.mainColor} />
         </i>
         <input
+          data-cy='todoInput'
           ref={todoInputRef}
           value={title}
           onFocus={onFocusIn}

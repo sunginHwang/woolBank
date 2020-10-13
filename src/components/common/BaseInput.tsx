@@ -72,6 +72,7 @@ function BaseInput({
       <S.BaseInput focus={focus} onClick={onClick} data-type={dataType}>
         {label && <label>{label}</label>}
         <input
+          data-cy={name}
           ref={inputRef}
           type={type}
           placeholder={placeHolder}
