@@ -104,26 +104,26 @@ function NumberInput({
         <S.InputTable>
           <tbody>
             <tr>
-              <S.InputTd onClick={onAddNumberClick}>1</S.InputTd>
-              <S.InputTd onClick={onAddNumberClick}>2</S.InputTd>
-              <S.InputTd onClick={onAddNumberClick}>3</S.InputTd>
+              <S.InputTd data-cy='number_1' onClick={onAddNumberClick}>1</S.InputTd>
+              <S.InputTd data-cy='number_2' onClick={onAddNumberClick}>2</S.InputTd>
+              <S.InputTd data-cy='number_3' onClick={onAddNumberClick}>3</S.InputTd>
             </tr>
             <tr>
-              <S.InputTd onClick={onAddNumberClick}>4</S.InputTd>
-              <S.InputTd onClick={onAddNumberClick}>5</S.InputTd>
-              <S.InputTd onClick={onAddNumberClick}>6</S.InputTd>
+              <S.InputTd data-cy='number_4' onClick={onAddNumberClick}>4</S.InputTd>
+              <S.InputTd data-cy='number_5' onClick={onAddNumberClick}>5</S.InputTd>
+              <S.InputTd data-cy='number_6' onClick={onAddNumberClick}>6</S.InputTd>
             </tr>
             <tr>
-              <S.InputTd onClick={onAddNumberClick}>7</S.InputTd>
-              <S.InputTd onClick={onAddNumberClick}>8</S.InputTd>
-              <S.InputTd onClick={onAddNumberClick}>9</S.InputTd>
+              <S.InputTd data-cy='number_7' onClick={onAddNumberClick}>7</S.InputTd>
+              <S.InputTd data-cy='number_8' onClick={onAddNumberClick}>8</S.InputTd>
+              <S.InputTd data-cy='number_9' onClick={onAddNumberClick}>9</S.InputTd>
             </tr>
             <tr>
-              <S.InputTd isHide={isNotInputValue} onClick={onRemoveLastInputClick}>
+              <S.InputTd data-cy='numberBack' isHide={isNotInputValue} onClick={onRemoveLastInputClick}>
                 {!isNotInputValue && '←'}
               </S.InputTd>
-              <S.InputTd onClick={onAddNumberClick}>0</S.InputTd>
-              <S.InputTd isHide={isNotInputValue} onClick={onInitClick}>
+              <S.InputTd data-cy='number_0' onClick={onAddNumberClick}>0</S.InputTd>
+              <S.InputTd isHide={isNotInputValue} onClick={onInitClick} data-cy='numberX'>
                 {!isNotInputValue && 'x'}
               </S.InputTd>
             </tr>
@@ -135,6 +135,7 @@ function NumberInput({
           message='완료'
           color='red'
           size='full'
+          name='completeNumber'
           loading={loading}
           active={isActiveComplete}
           onClick={onCompleteClick}

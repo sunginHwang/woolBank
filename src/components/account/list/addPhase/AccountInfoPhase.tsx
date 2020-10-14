@@ -145,6 +145,7 @@ function AccountInfoPhase({
           <BaseInput
             disable
             label='예/적금 종류'
+            name='kind'
             placeHolder='예/적금 종류를 선택해 주세요.'
             dataType='savingType'
             value={accountForm.savingType.name}
@@ -169,6 +170,7 @@ function AccountInfoPhase({
           <BaseInput
             disable
             label='시작일'
+            name='startDate'
             placeHolder='시작일을 선택해 주세요.'
             dataType='startDate'
             value={parseDate(accountForm.startDate)}
@@ -196,6 +198,7 @@ function AccountInfoPhase({
         <S.Complete>
           <BaseButton
             message='작성하기'
+            name='accountInfoCompleteButton'
             color='red'
             size='full'
             active={isAllowAccountAddValidation}

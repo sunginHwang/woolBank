@@ -19,7 +19,7 @@ function AccountSavingTypeModal({ visible, oncloseModal, onChangeAssetType }: Ac
         </S.Title>
         {INSTALLMENT_SAVINGS.map((installmentSaving, index) => {
           return (
-            <p key={index} onClick={() => onChangeAssetType(installmentSaving)}>
+            <p key={index} data-cy={installmentSaving.type} onClick={() => onChangeAssetType(installmentSaving)}>
               {installmentSaving.name}
             </p>
           );

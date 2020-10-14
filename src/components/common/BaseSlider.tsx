@@ -61,6 +61,7 @@ function BaseSlider({
       <input
         ref={inputRef}
         type='range'
+        data-cy={dataType}
         data-type={dataType}
         onChange={onSliderChange}
         height={height}

@@ -68,6 +68,7 @@ function RateAddPhase({ isActivePhase, accountForm, goPrevPhase, goNextPhase, on
             <BaseSlider
               min={0}
               max={1000}
+              dataType='rate'
               value={rate * 10000}
               hoverMessage={sliderHoverMessage}
               step={1}
@@ -100,7 +101,7 @@ function RateAddPhase({ isActivePhase, accountForm, goPrevPhase, goNextPhase, on
             </S.Rate>
           )}
           <S.Complete>
-            <BaseButton message='다음단계' color='red' size='full' active onClick={onCompleteClick} />
+            <BaseButton message='다음단계' name='rateComplete' color='red' size='full' active onClick={onCompleteClick} />
           </S.Complete>
         </div>
       </S.AddRatePhase>

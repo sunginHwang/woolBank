@@ -109,6 +109,7 @@ function ConfirmPhase({
             message='예/적금 만들기'
             color='red'
             size='full'
+            name='saveAccountButton'
             loading={loading}
             onClick={onComplete}
             active
