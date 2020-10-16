@@ -1,8 +1,4 @@
-import Color from 'color';
-
-const haxToRGB = (haxColor) => {
-  return Color(haxColor).toString();
-};
+import { haxToRGB } from '../../support/utils';
 
 const CY_SELECTOR = {
   tabs: 'tabs',

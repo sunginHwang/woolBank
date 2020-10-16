@@ -1,4 +1,4 @@
-import Color from 'color';
+import { haxToRGB } from '../../support/utils';
 
 const CY_SELECTOR = {
   title: '[data-cy=title]',
@@ -19,10 +19,6 @@ const CY_SELECTOR = {
 const INPUT_VALUE = {
   title: '예적금 제목'
 }
-
-const haxToRGB = (haxColor) => {
-  return Color(haxColor).toString();
-};
 
 const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
   window.HTMLInputElement.prototype,
