@@ -32,7 +32,7 @@ function HeaderWithBack({
         <div onClick={onBackButtonClick}>
           {useBackButton && <IcoChevronLeft width={26} height={26} fill={iconColor} />}
         </div>
-        <p>{title}</p>
+        <p data-cy='title'>{title}</p>
         <S.rightHeader>{right}</S.rightHeader>
       </div>
     </S.HeaderWithBack>

@@ -29,7 +29,7 @@ function BucketListContentInfo({
       )}
       {!isLoading && (
         <S.ContentItem>
-          <S.Message>{description}</S.Message>
+          <S.Message data-cy='description'>{description}</S.Message>
         </S.ContentItem>
       )}
       <S.ContentItem>

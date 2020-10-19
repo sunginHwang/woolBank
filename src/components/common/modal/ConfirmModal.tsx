@@ -33,7 +33,7 @@ function ConfirmModal({
   );
 
   return (
-    <ModalDeem visible={visible}>
+    <ModalDeem data-cy='confirmModal' visible={visible}>
       <S.ModalWrapper>
         <S.ConfirmModal>
           <S.Content>
@@ -44,8 +44,8 @@ function ConfirmModal({
               LoadingEl
             ) : (
               <>
-                <S.Button onClick={onCancelClick}>{cancelMsg}</S.Button>
-                <S.Button onClick={onConfirmClick}>{confirmMsg}</S.Button>
+                <S.Button data-cy='icoCancel' onClick={onCancelClick}>{cancelMsg}</S.Button>
+                <S.Button data-cy='icoConfirm' onClick={onConfirmClick}>{confirmMsg}</S.Button>
               </>
             )}
           </S.Footer>
