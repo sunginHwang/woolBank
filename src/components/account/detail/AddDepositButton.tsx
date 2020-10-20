@@ -7,7 +7,7 @@ export interface AddDepositButtonProps {
 
 function AddDepositButton({ onClick }: AddDepositButtonProps) {
   return (
-    <S.AddDepositButton onClick={onClick}>
+    <S.AddDepositButton data-cy='addDepositButton' onClick={onClick}>
       <p>+</p>
     </S.AddDepositButton>
   );

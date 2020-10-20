@@ -15,7 +15,7 @@ export interface AccountInfoProps {
 function AccountInfo({ account }: AccountInfoProps) {
   return (
     <S.AccountInfo>
-      <S.Title>
+      <S.Title data-cy='title'>
         {account.title} <span>({account.savingType.name})</span>
       </S.Title>
       <S.CurrentAmount>
