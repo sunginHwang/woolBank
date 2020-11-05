@@ -17,7 +17,8 @@ function App() {
    * 첫 진입시 로그인 인증
    */
   useEffect(() => {
-    initLogin();
+    // initLogin();
+    hideInitLoading();
   }, []);
 
   const initLogin = async () => {

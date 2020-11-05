@@ -19,3 +19,4 @@ context('자산관리 리스트 페이지', () => {
   // 상세페이지 이동 체크
   isMoveDetailPage.actionTest();
 });
+
