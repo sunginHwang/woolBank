@@ -20,25 +20,31 @@ export const getBucketListDetailLastUpdatedAt = (bucketListId: number) => {
   return apiCall.get<ApiResType<Date>>(`/bucket-list/${bucketListId}/last-update-date`);
 };
 
-export const saveBucketList = (bucketListForm: IBucketListForm) => {
-  return apiCall.post('/bucket-list', {
-    title: bucketListForm.title,
-    description: bucketListForm.description,
-    completeDate: bucketListForm.completeDate,
-    thumbImageUrl: bucketListForm.thumbImageUrl,
-    imageUrl: bucketListForm.imageUrl,
-    todoList: bucketListForm.todoList
-  });
+export const saveBucketList = async (bucketListForm: IBucketListForm) => {
+  const data = await new FormData();
+  data.append('title', bucketListForm.title);
+  data.append('description', bucketListForm.description);
+  data.append('completeDate', bucketListForm.completeDate);
+  data.append('todoList', JSON.stringify(bucketListForm.todoList));
+
+  if (bucketListForm.mainImgFile) {
+    await data.append('image', bucketListForm.mainImgFile);
+  }
+
+  return apiCall.post('/bucket-list', data);
 };
 
-export const updateBucketList = (bucketListForm: IBucketListForm) => {
-  return apiCall.put(`/bucket-list/${bucketListForm.id}`, {
-    title: bucketListForm.title,
-    description: bucketListForm.description,
-    completeDate: bucketListForm.completeDate,
-    thumbImageUrl: bucketListForm.thumbImageUrl,
-    imageUrl: bucketListForm.imageUrl
-  });
+export const updateBucketList = async (bucketListForm: IBucketListForm) => {
+  const data = await new FormData();
+  data.append('title', bucketListForm.title);
+  data.append('description', bucketListForm.description);
+  data.append('completeDate', bucketListForm.completeDate);
+
+  if (bucketListForm.mainImgFile) {
+    await data.append('image', bucketListForm.mainImgFile);
+  }
+
+  return apiCall.put(`/bucket-list/${bucketListForm.id}`, data);
 };
 
 export const removeBucketList = (bucketListId: number) => {

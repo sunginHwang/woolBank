@@ -1,6 +1,6 @@
 const config = {
   api: {
-    WBANK_URL: 'http://localhost:4000'
+    WBANK_URL: process.env.NODE_ENV === 'production' ? 'https://banketlist-api.woolta.com' : 'http://localhost:4000'
   },
   auth: {
     ACCESS_TOKEN: 'accessToken',

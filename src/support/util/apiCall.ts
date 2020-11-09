@@ -62,9 +62,12 @@ apiCall.interceptors.response.use(
 );
 
 export const setHeaderAuthToken = (tokenInfo: ITokenInfo) => {
-  localStorage.setItem(ACCESS_TOKEN, tokenInfo.accessToken);
-  localStorage.setItem(REFRESH_TOKEN, tokenInfo.refreshToken);
   apiCall.defaults.headers.common.bearer_auth = tokenInfo.accessToken;
 };
+
+export const saveToken = (tokenInfo: ITokenInfo) => {
+  localStorage.setItem(ACCESS_TOKEN, tokenInfo.accessToken);
+  localStorage.setItem(REFRESH_TOKEN, tokenInfo.refreshToken);
+}
 
 export default apiCall;

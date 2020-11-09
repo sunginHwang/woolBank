@@ -11,7 +11,6 @@ import { RootState } from '@/store';
 import { useToast } from '@support/hooks/useToast';
 import { useAlert } from '@support/hooks/useAlert';
 import useRequest from '@support/hooks/useRequest';
-import { saveImageAndGetImageUrl } from '@support/api/imageApi';
 import { saveBucketList, updateBucketList } from '@support/api/bucketListApi';
 import { ITodo } from '@models/ITodo';
 import { IBucketListForm } from '@models/bucketList/IBucketListForm';
@@ -162,18 +161,6 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
    */
   const onUpsertBucketList = async () => {
     const formData = Object.assign({}, bucketListForm);
-
-    if (formData.mainImgFile) {
-      const uploadImage = await saveImageAndGetImageUrl(formData.mainImgFile);
-
-      if (!uploadImage) {
-        onAlert('이미지 업로드에 실패하였습니다. 다시 시도해 주세요.');
-        return;
-      }
-
-      formData.thumbImageUrl = uploadImage.thumbImageUrl;
-      formData.imageUrl = uploadImage.imageUrl;
-    }
 
     let upsertBucketListId = 0;
 

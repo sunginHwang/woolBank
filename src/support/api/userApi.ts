@@ -7,3 +7,7 @@ export const createSocialUser = async (userInfo: any) => {
 export const getMainInfo = async () => {
   return await apiCall.get('main');
 };
+
+export const getInitUserInfo = async () => {
+  return await apiCall.get('auth/check');
+};
