@@ -62,8 +62,16 @@ const S: {
 
     > div {
       display: flex;
-      justify-content: flex-start;
       align-items: center;
+      
+      &:first-child {
+        justify-content: flex-start;
+      }
+      
+      &:last-child {
+        justify-content: flex-end;
+        min-width: 5rem;
+      }
     }
 
     img {
@@ -80,7 +88,7 @@ const S: {
     p {
       font-size: 1.6rem;
       font-weight: bold;
-      line-height: 1.9;
+      line-height: 1.5;
 
       color: ${({ theme }) => theme.colors.blackL2};
     }
@@ -93,7 +101,7 @@ const S: {
     font-size: 1.8rem;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.mainColor};
-  `
+  `,
 };
 
 export default React.memo(BucketListItem);

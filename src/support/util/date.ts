@@ -46,7 +46,7 @@ export const remainDays = (startDay: Date | string, endDay: Date | string): numb
   const firstTime = new Date(startDay).getTime();
   const secondTime = new Date(endDay).getTime();
 
-  if (secondTime >= firstTime) {
+  if (firstTime >= secondTime) {
     return 0;
   }
 

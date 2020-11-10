@@ -13,6 +13,7 @@ import { getAccountList } from '@store/modules/AccountList';
 import { getAccountListLastUpdatedAt } from '@support/api/accountApi';
 import { checkNeedReFetch } from '@support/util/checkNeedReFetch';
 import { IAssetType } from '@models/IAssetType';
+import EmptyList from '@components/common/EmptyList';
 
 const tabs: IAssetType[] = [
   {
@@ -51,15 +52,24 @@ function AccountListContainer() {
     needFetch && dispatch(getAccountList());
   };
 
+  const progressAccountList = accountList.data.filter((account) => !account.isExpiration);
+  const endAccountList = accountList.data.filter((account) => account.isExpiration);
+
   // 진행중 리스트
-  const renderProgressAccountList = accountList.data
-    .filter((account) => !account.isExpiration)
-    .map((account, index) => <AccountListItem key={index} account={account} useSideMargin />);
+  const renderProgressAccountList =
+    progressAccountList.length === 0 ? (
+      <EmptyList message='진행중인 예/적금 내역이 없습니다. :(' />
+    ) : (
+      progressAccountList.map((account, index) => <AccountListItem key={index} account={account} useSideMargin />)
+    );
 
   // 완료 상태 리스트
-  const renderEndAccountList = accountList.data
-    .filter((account) => account.isExpiration)
-    .map((account, index) => <AccountListItem key={index} account={account} useSideMargin />);
+  const renderEndAccountList =
+    endAccountList.length === 0 ? (
+      <EmptyList message='완료된 예/적금 내역이 없습니다. :(' />
+    ) : (
+      endAccountList.map((account, index) => <AccountListItem key={index} account={account} useSideMargin />)
+    );
 
   // 로딩 skeleton
   if (!accountList.data || accountList.loading) {
