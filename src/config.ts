@@ -5,7 +5,7 @@ const config = {
   auth: {
     ACCESS_TOKEN: 'accessToken',
     REFRESH_TOKEN: 'refreshToken',
-    ACCESS_HEADER_TOKEN: 'bearer_auth'
+    ACCESS_HEADER_TOKEN: 'bearer-auth'
   },
   message: {
     ACCESS_TOKEN_EXPIRED: 'jwt expired'

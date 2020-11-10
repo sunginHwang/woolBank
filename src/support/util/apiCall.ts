@@ -55,14 +55,14 @@ apiCall.interceptors.response.use(
         const tokenInfo: ITokenInfo = response.data.data.authTokens;
         setHeaderAuthToken(tokenInfo);
         // 이전요청에서의 헤더정보도 변경해서 호출해야 함.
-        originalRequest.headers.bearer_auth = response.data.data.authTokens.accessToken;
+        originalRequest.headers.bearerauth = response.data.data.authTokens.accessToken;
         return apiCall.request(originalRequest);
       });
   }
 );
 
 export const setHeaderAuthToken = (tokenInfo: ITokenInfo) => {
-  apiCall.defaults.headers.common.bearer_auth = tokenInfo.accessToken;
+  apiCall.defaults.headers.common.bearerauth = tokenInfo.accessToken;
 };
 
 export const saveToken = (tokenInfo: ITokenInfo) => {

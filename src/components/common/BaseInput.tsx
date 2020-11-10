@@ -82,6 +82,7 @@ function BaseInput({
           onFocus={onFocus}
           onBlur={onBlur}
           onKeyPress={onKeyPress}
+          autoComplete='off'
           onChange={onChange}
           disabled={disable}
         />
