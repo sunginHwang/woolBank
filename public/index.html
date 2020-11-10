@@ -3,8 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/ico-64x64.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>    <meta name="theme-color" content="#ffffff" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/ico-64x64.ico" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -21,6 +20,12 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>뱅킷리스트</title>
+    <!-- 안드로이드 홈화면추가시 상단 주소창 제거 -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- ios홈화면추가시 상단 주소창 제거 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- ios 노치-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="white"/>
     <!-- not use translate -->
     <meta name="google" value="notranslate">
     <meta property="description" content="계좌 정보를 한곳에 모으고 도전하고 싶은 버킷리스트를 만들어봐요~">
