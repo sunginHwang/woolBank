@@ -46,7 +46,7 @@ function AccountAddContainer() {
         savedAccountId = res.data.accountId;
       },
       onError: () => {
-        onToast('생성에 실패하였습니다.');
+        onToast('다시 시도해 주세요.');
       }
     });
 

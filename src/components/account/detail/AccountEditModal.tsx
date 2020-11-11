@@ -4,20 +4,28 @@ import ModalDeem from '@components/common/modal/ModalDeem';
 
 export interface AccountEditModalProps {
   visible: boolean;
+  isAccountExpiration: boolean;
+  isRegularDeposit: boolean;
   oncloseModal: () => void;
   onEditClick: (edit: 'migration' | 'end' | 'remove') => void;
 }
 
-function AccountEditModal({ visible, oncloseModal, onEditClick }: AccountEditModalProps) {
-
+function AccountEditModal({
+  visible,
+  isAccountExpiration,
+  isRegularDeposit,
+  oncloseModal,
+  onEditClick
+}: AccountEditModalProps) {
+  const isShowMigration = !isAccountExpiration && !isRegularDeposit;
   return (
     <ModalDeem visible={visible} onDeemClick={oncloseModal}>
       <S.AccountEditModal visible={visible}>
         <S.Title>
-          <p>작성하실 예/적금 종류를 선택해주세요.</p>
+          <p>메뉴를 선택해 주세요.</p>
         </S.Title>
-        <p onClick={() => onEditClick('migration')}>이전 입금내역 추가</p>
-        <p onClick={() => onEditClick('end')}>만기</p>
+        {!isAccountExpiration && <p onClick={() => onEditClick('end')}>만기</p>}
+        {isShowMigration && <p onClick={() => onEditClick('migration')}>이전 입금내역 추가</p>}
         <p onClick={() => onEditClick('remove')}>삭제</p>
       </S.AccountEditModal>
     </ModalDeem>
@@ -28,7 +36,7 @@ const S: {
   AccountEditModal: any;
   Title: any;
 } = {
-  AccountEditModal: styled.div <{
+  AccountEditModal: styled.div<{
     visible: boolean;
   }>`
     position: fixed;

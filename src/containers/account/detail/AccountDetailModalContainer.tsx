@@ -142,9 +142,18 @@ function AccountDetailModalContainer({
     history.goBack();
   };
 
+  const isAccountExpiration = account ? account.isExpiration : false;
+  const isRegularDeposit = account ? account.savingType.type === 'regularDeposit' : false;
+
   return (
     <>
-      <AccountEditModal visible={isActiveModal} oncloseModal={onCloseModal} onEditClick={onEditModalClick} />
+      <AccountEditModal
+        visible={isActiveModal}
+        isAccountExpiration={isAccountExpiration}
+        isRegularDeposit={isRegularDeposit}
+        oncloseModal={onCloseModal}
+        onEditClick={onEditModalClick}
+      />
       <DepositDate
         isActive={useEditPhase}
         isLoading={isAddDepositLoading}
