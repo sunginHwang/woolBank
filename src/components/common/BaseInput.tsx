@@ -59,7 +59,7 @@ function BaseInput({
   };
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.keyCode === 13) {
+    if (e.key === 'Enter') {
       onBlur();
       onKeyPressEnter && onKeyPressEnter();
     }

@@ -114,7 +114,7 @@ const S: {
   `,
   AddInfo: styled.div`
     margin-top: 3rem;
-    height: 100%;
+    height: 22rem;
   `
 };
 

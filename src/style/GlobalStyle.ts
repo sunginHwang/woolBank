@@ -58,6 +58,8 @@ const GlobalStyle = createGlobalStyle`
   input:focus {
     outline: none;
     -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
   }
   textarea:focus {
     outline: none;

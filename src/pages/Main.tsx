@@ -44,8 +44,8 @@ function Main() {
 
   return (
     <PageTemplate isMain>
-      <TotalSavedAmount totalPrice={mainInfo.amount} />
-      <AmountChart totalPrice={mainInfo.amount} lastMonthTotalPrice={30000} />
+      <TotalSavedAmount totalPrice={mainInfo.totalSavedAmount} />
+      <AmountChart totalPrice={mainInfo.totalSavedAmount} lastMonthTotalPrice={mainInfo.totalSavedAmountExceptCurrentMonth} />
       <ToggleTab useListType tabs={MAIN_LIST_TAB} activeTab={activeTab} onChangeTab={setActiveTab} useOutline={false} />
       {activeTab.type === 'account' &&
         mainInfo.accounts.map((account, index) => <AccountListItem key={index} account={account} />)}
