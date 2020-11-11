@@ -22,7 +22,7 @@ function AccountDetail() {
    * 뒤로가기 버튼 클릭
    **/
   const onBackClick = () => {
-    history.goBack();
+    history.push('/accounts');
   };
 
   const renderEditButtonIcon = (

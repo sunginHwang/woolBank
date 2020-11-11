@@ -50,6 +50,14 @@ function BucketListDetailHeader({
   // 목표 날짜 까지 이룬 %
   const remainPercent = getRemainDatePercentage(createdDate, completeDate, now);
 
+  /**
+   * 뒤로가기 버튼 클릭
+   **/
+  const onBackClick = () => {
+    history.push('/bucket-list');
+  };
+
+
   return (
     <>
       <HeaderWithBack
@@ -61,7 +69,7 @@ function BucketListDetailHeader({
           </i>
         }
         useSkeleton={!isShowFixedHeader}
-        onBackClick={() => history.goBack()}
+        onBackClick={onBackClick}
       />
       <S.ImageInfo ref={imgRef} imgUrl={imgUrl}>
         <div>

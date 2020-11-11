@@ -6,6 +6,7 @@ import IcoWalletOutline from '../icon/IcoWallet';
 import IcoHomeOutline from '../icon/IcoHomeOutline';
 import { INavigationBar } from '../../models/layout/INavigationBar';
 import { Link, useHistory } from 'react-router-dom';
+import { isIOS } from '@support/util/device';
 
 const navigations: INavigationBar[] = [
   {
@@ -34,11 +35,13 @@ const navigations: INavigationBar[] = [
   }
 ];
 
+
+
 function NavigationBar() {
   const history = useHistory();
 
   return (
-    <S.NavigationBar data-cy='navigationBar'>
+    <S.NavigationBar isExtend={isIOS} data-cy='navigationBar'>
       {navigations.map((navigation) => {
         return (
           <S.NavigationBarTag
@@ -61,16 +64,18 @@ const S: {
   NavigationBar: any;
   NavigationBarTag: any;
 } = {
-  NavigationBar: styled.div`
+  NavigationBar: styled.div<{
+    isExtend: boolean;
+  }>`
     display: flex;
-    align-items: center;
+    align-items: ${({ isExtend }) => (isExtend ? 'flex-start' : 'center')};
     justify-content: center;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     width: 100%;
-    height: 5.5rem;
+    height: ${({ isExtend }) => (isExtend ? '7.5rem' : '5.5rem')};
     border-top: 0.1rem solid ${({ theme }) => theme.colors.greyL6};
     background-color: ${({ theme }) => theme.colors.white};
     z-index: ${({ theme }) => theme.zIndex.navigationBar};

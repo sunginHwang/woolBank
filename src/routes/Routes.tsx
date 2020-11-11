@@ -8,6 +8,7 @@ import PageNotFound from '@pages/error/PageNotFound';
 import LayoutContainer from '@containers/LayoutContainer';
 import MainPageSkeleton from '@components/main/MainPageSkeleton';
 import PageTemplate from '@components/layout/PageTemplate';
+import ScrollToTop from '@routes/ScrollToTop';
 
 const defaultFallback = { fallback: <PageTemplate useHeader={false} /> };
 
@@ -25,22 +26,24 @@ function Routes() {
   const isLogin = user.id > 0;
 
   return (
-    <Switch>
-      <RouteWrapper path='/' component={Main} exact isLogin={isLogin} />
-      <RouteWrapper path='/login' component={Login} exact useNavBar={false} checkAuth={false} />
-      <RouteWrapper path='/accounts' component={AccountList} exact isLogin={isLogin} />
-      <RouteWrapper path='/accounts/save' component={AccountRegister} exact isLogin={isLogin} />
-      <RouteWrapper path='/accounts/:accountId' component={AccountDetail} useNavBar={false} isLogin={isLogin} />
-      <RouteWrapper path='/bucket-list' component={BucketList} exact isLogin={isLogin} />
-      <RouteWrapper path='/bucket-list/save' component={BucketListSave} exact isLogin={isLogin} />
-      <RouteWrapper
-        path='/bucket-list/:bucketListId'
-        component={BucketListDetail}
-        useNavBar={false}
-        isLogin={isLogin}
-      />
-      <Route component={PageNotFound} />
-    </Switch>
+    <ScrollToTop>
+      <Switch>
+        <RouteWrapper path='/' component={Main} exact isLogin={isLogin} />
+        <RouteWrapper path='/login' component={Login} exact useNavBar={false} checkAuth={false} />
+        <RouteWrapper path='/accounts' component={AccountList} exact isLogin={isLogin} />
+        <RouteWrapper path='/accounts/save' component={AccountRegister} exact isLogin={isLogin} />
+        <RouteWrapper path='/accounts/:accountId' component={AccountDetail} useNavBar={false} isLogin={isLogin} />
+        <RouteWrapper path='/bucket-list' component={BucketList} exact isLogin={isLogin} />
+        <RouteWrapper path='/bucket-list/save' component={BucketListSave} exact isLogin={isLogin} />
+        <RouteWrapper
+          path='/bucket-list/:bucketListId'
+          component={BucketListDetail}
+          useNavBar={false}
+          isLogin={isLogin}
+        />
+        <Route component={PageNotFound} />
+      </Switch>
+    </ScrollToTop>
   );
 }
 
