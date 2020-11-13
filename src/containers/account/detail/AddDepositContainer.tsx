@@ -47,7 +47,7 @@ function AddDepositContainer({ accountId, useDepositPhase, onBackClick }: AddDep
         amount: depositAmount
       },
       onSuccess: () => {
-        dispatch(getAccount(accountId));
+        dispatch(getAccount({ accountId, useDelay: false }));
         onToast('입금이 완료되었습니다.');
       },
       onError: () => {

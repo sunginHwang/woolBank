@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react';
 import apiCall from '@support/util/apiCall';
+import { delay } from '@support/util/delay';
 
-type useFetchReturnType<T> = [
-  T | null,
-  boolean,
-  Error | null,
-  (url: string) => void,
-  () => void
-];
+type useFetchReturnType<T> = [T | null, boolean, Error | null, (url: string) => void, () => void];
 
-export default function useFetch<T>(fetchUrl: string): useFetchReturnType<T> {
+export default function useFetch<T>(fetchUrl: string, useDelay: boolean = false): useFetchReturnType<T> {
   // 최초 로드를 자동으로 할경우 로딩 부터 시작되도록한다.
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<T | null>(null);
@@ -20,6 +15,11 @@ export default function useFetch<T>(fetchUrl: string): useFetchReturnType<T> {
   const onFetch = async () => {
     try {
       const result = await apiCall.get(url);
+
+      if (useDelay) {
+        await delay(400);
+      }
+
       setData(result.data.data);
       setLoading(false);
     } catch (error) {
@@ -40,4 +40,4 @@ export default function useFetch<T>(fetchUrl: string): useFetchReturnType<T> {
   };
 
   return [data, isLoading, error, setUrl, onReset];
-};
+}

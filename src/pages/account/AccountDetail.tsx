@@ -22,6 +22,13 @@ function AccountDetail() {
    * 뒤로가기 버튼 클릭
    **/
   const onBackClick = () => {
+    history.goBack();
+  };
+
+  /**
+   * 리스트 페이지 이동
+   **/
+  const onAccountList = () => {
     history.push('/accounts');
   };
 
@@ -35,7 +42,7 @@ function AccountDetail() {
     <PageTemplate
       title='계좌정보'
       useSidePadding={false}
-      onBackClick={onBackClick}
+      onBackClick={onAccountList}
       rightHeader={renderEditButtonIcon}
     >
       <AccountDetailContainer accountId={Number(accountId)} />

@@ -85,7 +85,7 @@ function AccountDetailModalContainer({
         depositDate
       },
       onSuccess: () => {
-        dispatch(getAccount(accountId));
+        dispatch(getAccount({ accountId, useDelay: false }));
         onToast('입금이 완료되었습니다.');
       },
       onError: () => {
@@ -103,7 +103,7 @@ function AccountDetailModalContainer({
     await onExpirationRequest({
       params: [accountId],
       onSuccess: () => {
-        dispatch(getAccount(accountId));
+        dispatch(getAccount({ accountId, useDelay: false }));
         onToast('만기처리가 완료되었습니다.');
       },
       onError: () => {

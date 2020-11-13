@@ -30,7 +30,7 @@ function Main() {
     name: '저축'
   });
 
-  const [mainInfo, mainInfoLoading, mainInfoError] = useFetch<IMainInfo>('main');
+  const [mainInfo, mainInfoLoading, mainInfoError] = useFetch<IMainInfo>('main', true);
   const [onAlert] = useAlert();
 
   if (!mainInfo || mainInfoLoading) {
