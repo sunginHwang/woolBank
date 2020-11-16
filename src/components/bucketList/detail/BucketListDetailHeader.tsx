@@ -87,15 +87,14 @@ const S: any = {
   ImageInfo: styled.div<{
     imgUrl: string;
   }>`
-    background-size: cover;
     background-color: ${({ theme }) => theme.colors.greyD2};
     background: 
     linear-gradient(
       rgba(0, 0, 0, 0.3),
       rgba(0, 0, 0, 0.1)
     ),
-    url(${({imgUrl}) => imgUrl});
-
+    url(${({imgUrl}) => imgUrl}), no-repeat;
+    background-size: cover;
     width: 100%;
     height: 40vh;
     > div {

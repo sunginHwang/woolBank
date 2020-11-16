@@ -123,8 +123,8 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
     if (phase > 1) {
       setPhase((phase) => phase - 1);
     } else {
-      // 맨처음 단계에서 뒤로가기는 전페이지 이동
-      history.goBack();
+      // 맨처음 단계에서 뒤로가기는 버킷리스트 페이지 이동
+      history.push('/bucket-list');
     }
   };
 

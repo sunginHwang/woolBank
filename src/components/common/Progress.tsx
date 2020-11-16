@@ -55,7 +55,8 @@ const S: {
   Label: styled.span<{
     percent: number;
   }>`
-    width: 4rem;
+    width: 5rem;
+    max-width: 6rem;
     height: 3rem;
     left: ${({ percent }) => percent}%;
     top: -1.2rem;

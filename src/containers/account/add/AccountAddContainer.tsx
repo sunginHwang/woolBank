@@ -89,11 +89,10 @@ function AccountAddContainer() {
   };
 
   /**
-   * 뒤로가기 버튼
-   * todo 사용자 브라우저 뒤로가기 클릭시 초기화 안되는 부분 수정 필요
+   * 뒤로가기 버튼 ( 자산 리스트 이동 )
    **/
   const onCloseClick = () => {
-    history.goBack();
+    history.push('/accounts');
   };
 
   return (

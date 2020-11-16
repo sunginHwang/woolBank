@@ -81,7 +81,7 @@ const S :any = {
     }
   `,
   Message: styled.p`
-    line-height: 1.4rem;
+    line-height: 2rem;
     color: ${({ theme }) => theme.colors.blackL1};
   `,
   Title: styled.p`
