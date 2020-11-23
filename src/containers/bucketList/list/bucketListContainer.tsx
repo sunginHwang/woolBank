@@ -28,6 +28,8 @@ const tabs: IAssetType[] = [
   }
 ];
 
+const title = '버킷리스트';
+
 function BucketListContainer() {
   const bucketList = useSelector((state: RootState) => state.BucketList.bucketList);
   const lastUpdatedDate = useSelector((state: RootState) => state.BucketList.lastUpdatedDate);
@@ -79,12 +81,12 @@ function BucketListContainer() {
     );
 
   if (!bucketList.data || bucketList.loading) {
-    return <ListSkeleton item={<BucketListItemSkeleton />} />;
+    return <ListSkeleton title={title} item={<BucketListItemSkeleton />} />;
   }
 
   return (
     <>
-      <TabSlideViewer tabs={tabs} slideViewList={[renderProgressBucketList, renderEndBucketList]} />
+      <TabSlideViewer tabs={tabs} slideViewList={[renderProgressBucketList, renderEndBucketList]} title={title} />
       <AddButton icon='+' onClick={goSaveBucketListPage} />
     </>
   );

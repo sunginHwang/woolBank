@@ -26,6 +26,8 @@ const tabs: IAssetType[] = [
   }
 ];
 
+const title = '자산관리';
+
 function AccountListContainer() {
   const accountList = useSelector((state: RootState) => state.AccountList.accountList);
   const lastUpdatedDate = useSelector((state: RootState) => state.AccountList.lastUpdatedDate);
@@ -73,12 +75,12 @@ function AccountListContainer() {
 
   // 로딩 skeleton
   if (!accountList.data || accountList.loading) {
-    return <ListSkeleton item={<AccountListItemSkeleton />} />;
+    return <ListSkeleton title={title} item={<AccountListItemSkeleton />} />;
   }
 
   return (
     <>
-      <TabSlideViewer tabs={tabs} slideViewList={[renderProgressAccountList, renderEndAccountList]} />
+      <TabSlideViewer tabs={tabs} slideViewList={[renderProgressAccountList, renderEndAccountList]} title={title} />
       <AddButton icon='+' onClick={goAccountRegisterPage} />
     </>
   );

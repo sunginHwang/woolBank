@@ -12,9 +12,10 @@ import '@style/css/tabSlideViewer.css';
 export interface ITabSlideViewerProps {
   tabs: IAssetType[];
   slideViewList: ReactNode[];
+  title: string;
 }
 
-function TabSlideViewer({ tabs, slideViewList }: ITabSlideViewerProps) {
+function TabSlideViewer({ tabs, slideViewList, title }: ITabSlideViewerProps) {
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const swiperRef = useRef(null);
 
@@ -55,6 +56,9 @@ function TabSlideViewer({ tabs, slideViewList }: ITabSlideViewerProps) {
   return (
     <>
       <S.FixedHeader>
+        <S.ListTitle>
+          <p>{title}</p>
+        </S.ListTitle>
         <Tabs tabs={tabs} activeTab={activeTab} onChangeTab={onTabChange} />
       </S.FixedHeader>
       <ListWrapper>
@@ -72,6 +76,7 @@ export default TabSlideViewer;
 
 const S: {
   FixedHeader: any;
+  ListTitle: any;
 } = {
   FixedHeader: styled.div`
     position: fixed;
@@ -80,5 +85,18 @@ const S: {
     width: 100%;
     z-index: ${({ theme }) => theme.zIndex.header};
     background-color: ${({ theme }) => theme.colors.white};
+  `,
+  ListTitle: styled.div`
+    height: 4.8rem;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 2rem;
+    align-items: center;
+    
+    p {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: ${({ theme }) => theme.colors.blackL1};
+    }
   `
 };
