@@ -18,7 +18,7 @@ import { parseDate } from '@support/util/date';
 
 export interface BucketListAddContainerProps {
   bucketListId?: number;
-};
+}
 
 type Action =
   | { type: 'SET_PHASE_ONE'; payload: { title: string; description: string } }

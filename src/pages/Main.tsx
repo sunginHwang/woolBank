@@ -12,6 +12,7 @@ import { useAlert } from '@support/hooks/useAlert';
 import useFetch from '@support/hooks/useFetch';
 import { IMainInfo } from '@models/main/IMainInfo';
 import { IAssetType } from '@models/IAssetType';
+import PullToRefresh from '@components/common/PullToRefresh';
 
 const MAIN_LIST_TAB: IAssetType[] = [
   {
@@ -44,13 +45,15 @@ function Main() {
 
   return (
     <PageTemplate isMain>
-      <TotalSavedAmount totalPrice={mainInfo.totalSavedAmount} />
-      <AmountChart totalPrice={mainInfo.totalSavedAmount} lastMonthTotalPrice={mainInfo.totalSavedAmountExceptCurrentMonth} />
-      <ToggleTab useListType tabs={MAIN_LIST_TAB} activeTab={activeTab} onChangeTab={setActiveTab} useOutline={false} />
-      {activeTab.type === 'account' &&
+      <PullToRefresh>
+        <TotalSavedAmount totalPrice={mainInfo.totalSavedAmount} />
+        <AmountChart totalPrice={mainInfo.totalSavedAmount} lastMonthTotalPrice={mainInfo.totalSavedAmountExceptCurrentMonth} />
+        <ToggleTab useListType tabs={MAIN_LIST_TAB} activeTab={activeTab} onChangeTab={setActiveTab} useOutline={false} />
+        {activeTab.type === 'account' &&
         mainInfo.accounts.map((account, index) => <AccountListItem key={index} account={account} />)}
-      {activeTab.type === 'bucketList' &&
+        {activeTab.type === 'bucketList' &&
         mainInfo.bucketList.map((bucket, index) => <BucketListItem key={index} bucketList={bucket} />)}
+      </PullToRefresh>
     </PageTemplate>
   );
 }
