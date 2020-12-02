@@ -12,6 +12,8 @@ const easings = {
   }
 };
 
+const $arrow = '<svg viewBox="0 0 30 72" style="color: rgb(107, 125, 140); transition-duration: 250ms; fill: currentcolor; height: 3.2rem; max-width: 100%" aria-label="Pull to refresh" ><g><path d="M28.414 38.586c-.78-.78-2.046-.78-2.828 0L17 47.172V22c0-1.106-.894-2-2-2s-2 .894-2 2v25.172l-8.586-8.586c-.78-.78-2.046-.78-2.828 0s-.78 2.046 0 2.828l12 12c.39.39.9.586 1.414.586s1.024-.196 1.414-.586l12-12c.78-.78.78-2.046 0-2.828z"></path></g></svg>';
+
 const ptrState = {
   pending: 'pending', // 호출 전
   pulling: 'pulling', // 당기는 중
@@ -23,22 +25,36 @@ function screenY(e: any) {
   return e.targetTouches[0].screenY || 0;
 }
 
-export default (props: { $target: any; $refresh: any; onRefresh: any }) => {
+export default (props: { $target: any; $header: any; onRefresh: any }) => {
   const app = {
     props: {
       $target: document.getElementsByTagName('body')[0],
-      $refresh: document.getElementsByTagName('p'),
+      $header: document.getElementsByTagName('p')[0],
       startY: -100, // 시작 y 축 값
-      maxPullHeight: 16 * 10, // pullRequest 영역 최대치 설정
+      maxPullHeight: 100, // pullRequest 영역 최대치 설정
       moveHeight: 0,
       state: ptrState.pending,
       animate: false,
       curStep: 0,
       onRefresh: (cb: any) => cb()
     },
-    changeRefreshName: function (name: string) {
-      // @ts-ignore
-      app.props.$refresh.innerText = name;
+    changeRefreshName: function (state: string) {
+      const { $header } = app.props;
+      if (state === ptrState.refreshing) {
+        // @ts-ignore
+        $header.removeChild($header.firstChild);
+        $header.innerHTML = $arrow;
+      }
+
+      if (state === ptrState.pulling) {
+        // @ts-ignore
+        $header.firstElementChild && ($header.firstElementChild.style.transform = '');
+      }
+
+      if (state === ptrState.releasing) {
+        // @ts-ignore
+        $header.firstElementChild && ($header.firstElementChild.style.transform = 'rotate(180deg)');
+      }
     },
     changeTargetHeight: function (height: number | null) {
       if (typeof height === 'number') {
@@ -82,10 +98,10 @@ export default (props: { $target: any; $refresh: any; onRefresh: any }) => {
 
       // 드래그를 70% 이상 하면 새로고침 시키기 아니면 당기기 모드로 변경
       if (moveHeight > maxPullHeight * 0.7) {
-        app.changeRefreshName('새로고침 하시겠습니까?');
+        app.changeRefreshName(ptrState.releasing);
         app.props.state = ptrState.releasing;
       } else {
-        app.changeRefreshName('새로고침을 원하면 아래로 드래그 하세요.');
+        app.changeRefreshName(ptrState.pulling);
         app.props.state = ptrState.pulling;
       }
     },
@@ -107,7 +123,7 @@ export default (props: { $target: any; $refresh: any; onRefresh: any }) => {
       if (app.props.state === ptrState.releasing) {
         // 새로고침 중 mode 로 변경 refreshing  후 refreshing 아이콘까지 스크롤업 애니메이션
         app.props.state = ptrState.refreshing;
-        app.changeRefreshName('새로고침중');
+        app.changeRefreshName(ptrState.refreshing);
 
         app.props.onRefresh(() => {
           // 새로고침 완료 콜백 초기화 작업
@@ -151,13 +167,15 @@ export default (props: { $target: any; $refresh: any; onRefresh: any }) => {
       app.props.$target.style.transform = null;
       app.props.startY = 0;
       app.props.moveHeight = 0;
-      app.changeRefreshName('당기기');
+      app.props.$header.innerHTML = $arrow;
+      app.changeRefreshName(ptrState.pulling);
     },
     init: function () {
-      const { $target } = app.props;
+      const { $target, $header } = app.props;
       $target.addEventListener('touchend', app._onTouchEnd, { passive: false });
       $target.addEventListener('touchstart', app._onTouchStart, { passive: false });
       $target.addEventListener('touchmove', app._onTouchMove, { passive: false });
+      $header.innerHTML = $arrow;
     },
     destroy: function () {
       const { $target } = app.props;

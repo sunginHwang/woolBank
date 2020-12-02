@@ -14,7 +14,7 @@ function PullToRefresh({ children }: PullToRefreshProps) {
   useEffect(() => {
     const ptrInstance = ptr({
       $target: rootRef.current,
-      $refresh: refreshNameRef.current,
+      $header: refreshNameRef.current,
       onRefresh: a
     });
 
@@ -35,9 +35,7 @@ function PullToRefresh({ children }: PullToRefreshProps) {
 
   return (
     <div ref={rootRef}>
-      <S.PtrHeader>
-        <p ref={refreshNameRef}>''</p>
-      </S.PtrHeader>
+      <S.PtrHeader ref={refreshNameRef} />
       <S.PtrList>{children}</S.PtrList>
     </div>
   );
@@ -55,8 +53,6 @@ const S: {
     right: 0;
     top: -10rem;
     height: 10rem;
-    background-color: #5c5cd6;
-    color: white;
     display: flex;
     justify-content: center;
     align-items: flex-end;
