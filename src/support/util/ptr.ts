@@ -12,7 +12,61 @@ const easings = {
   }
 };
 
-const $arrow = '<svg viewBox="0 0 30 72" style="color: rgb(107, 125, 140); transition-duration: 250ms; fill: currentcolor; height: 3.2rem; max-width: 100%" aria-label="Pull to refresh" ><g><path d="M28.414 38.586c-.78-.78-2.046-.78-2.828 0L17 47.172V22c0-1.106-.894-2-2-2s-2 .894-2 2v25.172l-8.586-8.586c-.78-.78-2.046-.78-2.828 0s-.78 2.046 0 2.828l12 12c.39.39.9.586 1.414.586s1.024-.196 1.414-.586l12-12c.78-.78.78-2.046 0-2.828z"></path></g></svg>';
+const $loading =
+  '<svg style="height: 3.2rem; max-width: 100%; display: block; shape-rendering: auto;" width="32px" height="32px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">\n' +
+  '<g transform="rotate(0 50 50)">\n' +
+  '  <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#383838">\n' +
+  '    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.9166666666666666s" repeatCount="indefinite"></animate>\n' +
+  '  </rect>\n' +
+  '</g><g transform="rotate(30 50 50)">\n' +
+  '  <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#383838">\n' +
+  '    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.8333333333333334s" repeatCount="indefinite"></animate>\n' +
+  '  </rect>\n' +
+  '</g><g transform="rotate(60 50 50)">\n' +
+  '  <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#383838">\n' +
+  '    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.75s" repeatCount="indefinite"></animate>\n' +
+  '  </rect>\n' +
+  '</g><g transform="rotate(90 50 50)">\n' +
+  '  <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#383838">\n' +
+  '    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.6666666666666666s" repeatCount="indefinite"></animate>\n' +
+  '  </rect>\n' +
+  '</g><g transform="rotate(120 50 50)">\n' +
+  '  <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#383838">\n' +
+  '    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.5833333333333334s" repeatCount="indefinite"></animate>\n' +
+  '  </rect>\n' +
+  '</g><g transform="rotate(150 50 50)">\n' +
+  '  <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#383838">\n' +
+  '    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.5s" repeatCount="indefinite"></animate>\n' +
+  '  </rect>\n' +
+  '</g><g transform="rotate(180 50 50)">\n' +
+  '  <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#383838">\n' +
+  '    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.4166666666666667s" repeatCount="indefinite"></animate>\n' +
+  '  </rect>\n' +
+  '</g><g transform="rotate(210 50 50)">\n' +
+  '  <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#383838">\n' +
+  '    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.3333333333333333s" repeatCount="indefinite"></animate>\n' +
+  '  </rect>\n' +
+  '</g><g transform="rotate(240 50 50)">\n' +
+  '  <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#383838">\n' +
+  '    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.25s" repeatCount="indefinite"></animate>\n' +
+  '  </rect>\n' +
+  '</g><g transform="rotate(270 50 50)">\n' +
+  '  <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#383838">\n' +
+  '    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.16666666666666666s" repeatCount="indefinite"></animate>\n' +
+  '  </rect>\n' +
+  '</g><g transform="rotate(300 50 50)">\n' +
+  '  <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#383838">\n' +
+  '    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="-0.08333333333333333s" repeatCount="indefinite"></animate>\n' +
+  '  </rect>\n' +
+  '</g><g transform="rotate(330 50 50)">\n' +
+  '  <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#383838">\n' +
+  '    <animate attributeName="opacity" values="1;0" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animate>\n' +
+  '  </rect>\n' +
+  '</g>\n' +
+  '</svg>';
+
+const $arrow =
+  '<svg viewBox="0 0 30 72" style="color: rgb(107, 125, 140); transition-duration: 250ms; fill: currentcolor; height: 3.2rem; max-width: 100%" aria-label="Pull to refresh" ><g><path d="M28.414 38.586c-.78-.78-2.046-.78-2.828 0L17 47.172V22c0-1.106-.894-2-2-2s-2 .894-2 2v25.172l-8.586-8.586c-.78-.78-2.046-.78-2.828 0s-.78 2.046 0 2.828l12 12c.39.39.9.586 1.414.586s1.024-.196 1.414-.586l12-12c.78-.78.78-2.046 0-2.828z"></path></g></svg>';
 
 const ptrState = {
   pending: 'pending', // 호출 전
@@ -43,7 +97,7 @@ export default (props: { $target: any; $header: any; onRefresh: any }) => {
       if (state === ptrState.refreshing) {
         // @ts-ignore
         $header.removeChild($header.firstChild);
-        $header.innerHTML = $arrow;
+        $header.innerHTML = $loading;
       }
 
       if (state === ptrState.pulling) {
@@ -98,11 +152,15 @@ export default (props: { $target: any; $header: any; onRefresh: any }) => {
 
       // 드래그를 70% 이상 하면 새로고침 시키기 아니면 당기기 모드로 변경
       if (moveHeight > maxPullHeight * 0.7) {
-        app.changeRefreshName(ptrState.releasing);
-        app.props.state = ptrState.releasing;
+        if (app.props.state !== ptrState.releasing) {
+          app.changeRefreshName(ptrState.releasing);
+          app.props.state = ptrState.releasing;
+        }
       } else {
-        app.changeRefreshName(ptrState.pulling);
-        app.props.state = ptrState.pulling;
+        if (app.props.state !== ptrState.pulling) {
+          app.changeRefreshName(ptrState.pulling);
+          app.props.state = ptrState.pulling;
+        }
       }
     },
     _onTouchEnd: function (e: any) {
@@ -133,6 +191,7 @@ export default (props: { $target: any; $header: any; onRefresh: any }) => {
       }
     },
     _onAnimate: function () {
+      console.log('_onAnimate');
       const frame = 1000 / 60;
       const releaseTime = app.props.state === ptrState.refreshing ? 250 : 900;
       const steps = Math.floor(releaseTime / frame);

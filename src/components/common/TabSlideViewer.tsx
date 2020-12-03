@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import ListWrapper from '@components/common/ListWrapper';
 import Tabs from '@components/common/Tabs';
+import PullToRefresh from '@components/common/PullToRefresh';
 
 import { IAssetType } from '@models/IAssetType';
 import 'swiper/swiper-bundle.min.css';
@@ -61,13 +62,15 @@ function TabSlideViewer({ tabs, slideViewList, title }: ITabSlideViewerProps) {
         </S.ListTitle>
         <Tabs tabs={tabs} activeTab={activeTab} onChangeTab={onTabChange} />
       </S.FixedHeader>
-      <ListWrapper>
-        <Swiper ref={swiperRef} {...SwiperParams}>
-          {slideViewList.map((view, index) => (
-            <div key={index}>{view}</div>
-          ))}
-        </Swiper>
-      </ListWrapper>
+      <PullToRefresh>
+        <ListWrapper>
+          <Swiper ref={swiperRef} {...SwiperParams}>
+            {slideViewList.map((view, index) => (
+              <div key={index}>{view}</div>
+            ))}
+          </Swiper>
+        </ListWrapper>
+      </PullToRefresh>
     </>
   );
 }
