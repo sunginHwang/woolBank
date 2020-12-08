@@ -2,18 +2,20 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import BucketListItem from '../../../components/bucketList/list/BucketListItem';
-import { IAssetType } from '../../../models/IAssetType';
-import { RootState } from '../../../store';
-import { checkNeedReFetch } from '../../../support/util/checkNeedReFetch';
-import { getBucketListLastUpdatedAt } from '../../../support/api/bucketListApi';
-import { getBucketList } from '../../../store/modules/BucketList';
-import AddButton from '../../../components/common/AddButton';
-import TabSlideViewer from '../../../components/common/TabSlideViewer';
-import ListSkeleton from '../../../components/common/ListSkeleton';
-import BucketListItemSkeleton from '../../../components/bucketList/list/BucketListItemSkeleton';
-import { IBucketList } from '../../../models/IBucketList';
-import { isDateExpired } from '../../../support/util/date';
+import { IBucketList } from '@models/IBucketList';
+import { IAssetType } from '@models/IAssetType';
+import { RootState } from '@/store';
+import { getBucketList } from '@/store/modules/BucketList';
+import { checkNeedReFetch } from '@support/util/checkNeedReFetch';
+import { isDateExpired } from '@support/util/date';
+import { getBucketListLastUpdatedAt } from '@support/api/bucketListApi';
+
+import AddButton from '@components/common/AddButton';
+import TabSlideViewer from '@components/common/TabSlideViewer';
+import ListSkeleton from '@components/common/ListSkeleton';
+import BucketListItemSkeleton from '@components/bucketList/list/BucketListItemSkeleton';
+import EmptyList from '@components/common/EmptyList';
+import BucketListItem from '@components/bucketList/list/BucketListItem';
 
 const tabs: IAssetType[] = [
   {
@@ -25,6 +27,8 @@ const tabs: IAssetType[] = [
     name: '완료'
   }
 ];
+
+const title = '버킷리스트';
 
 function BucketListContainer() {
   const bucketList = useSelector((state: RootState) => state.BucketList.bucketList);
@@ -51,29 +55,38 @@ function BucketListContainer() {
 
   const isComplete = (bucket: IBucketList) => {
     return isDateExpired(bucket.completeDate, new Date()) && bucket.completeTodoCount >= bucket.todoCount;
-  }
+  };
 
   const isProgress = (bucket: IBucketList) => {
     return !isComplete(bucket);
-  }
+  };
+
+  const progressBucketList = bucketList.data.filter(isProgress);
+  const endBucketList = bucketList.data.filter(isComplete);
 
   // 진행중 상태 버킷리스트
-  const renderProgressBucketList = bucketList.data.filter(isProgress).map((bucket, index) => (
-    <BucketListItem key={index} bucketList={bucket} useSideMargin />
-  ));
+  const renderProgressBucketList =
+    progressBucketList.length === 0 ? (
+      <EmptyList message='진행중인 버킷리스트가 없습니다. :(' />
+    ) : (
+      progressBucketList.map((bucket, index) => <BucketListItem key={index} bucketList={bucket} useSideMargin />)
+    );
 
   // 완료 상태 버킷리스트
-  const renderEndBucketList = bucketList.data.filter(isComplete).map((bucket, index) => (
-    <BucketListItem key={index} bucketList={bucket} useSideMargin />
-  ));
+  const renderEndBucketList =
+    endBucketList.length === 0 ? (
+      <EmptyList message='완료중인 버킷리스트가 없습니다. :(' />
+    ) : (
+      endBucketList.map((bucket, index) => <BucketListItem key={index} bucketList={bucket} useSideMargin />)
+    );
 
   if (!bucketList.data || bucketList.loading) {
-    return <ListSkeleton item={<BucketListItemSkeleton />} />;
+    return <ListSkeleton title={title} item={<BucketListItemSkeleton />} />;
   }
 
   return (
     <>
-      <TabSlideViewer tabs={tabs} slideViewList={[renderProgressBucketList, renderEndBucketList]} />
+      <TabSlideViewer tabs={tabs} slideViewList={[renderProgressBucketList, renderEndBucketList]} title={title} />
       <AddButton icon='+' onClick={goSaveBucketListPage} />
     </>
   );

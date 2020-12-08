@@ -15,9 +15,11 @@ import Auth from '@store/modules/Auth';
 import Layout from '@store/modules/Layout';
 import { delay } from '@support/util/delay';
 import { useAlert } from '@support/hooks/useAlert';
-import { IUser } from '@models/IUser';
 import { ISocialUser } from '@models/ISocialUser';
 import keys from '@/keys';
+import { createSocialUser } from '@support/api/userApi';
+import { saveToken, setHeaderAuthToken } from '@support/util/apiCall';
+import { ITokenInfo } from '@models/ITokenInfo';
 
 function SocialLoginContainer() {
 
@@ -92,16 +94,22 @@ function SocialLoginContainer() {
     dispatch(Layout.actions.showLoading('로그인중입니다. 잠시만 기다려주세요.'));
     await delay(1000);
 
-    const user: IUser = {
-      id: 1,
-      name: socialUser.name,
-      email: socialUser.email,
-      imageUrl: socialUser.imageUrl,
+    try {
+      const res = await createSocialUser(socialUser);
+      const { user, accessToken, refreshToken } = res.data.data;
+      const tokenInfo: ITokenInfo = { accessToken, refreshToken};
+      // token 로컬 스토리지 저장
+      saveToken(tokenInfo)
+      // api header 토큰 세팅
+      setHeaderAuthToken(tokenInfo);
+      dispatch(Auth.actions.setUser(user));
+      history.push('/');
+    } catch (e) {
+      onLoginFailure();
+    } finally {
+      dispatch(Layout.actions.hideLoading());
     }
 
-    dispatch(Auth.actions.setUser(user));
-    dispatch(Layout.actions.hideLoading());
-    history.push('/');
   }
 
   const onLoginFailure = () => {

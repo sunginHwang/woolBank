@@ -41,7 +41,7 @@ function TodoListItem({ todo, isLoading = false, onToggleState, onRemove }: Todo
   );
 
   return (
-    <S.TodoListItem>
+    <S.TodoListItem data-cy='todoListItem'>
       <div>
         <i onClick={onToggleStateClick}>
           {isLoading ? <ClipLoader color={palette.mainColor} size={16} /> : renderIsCompleteIcon}

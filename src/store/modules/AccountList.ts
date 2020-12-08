@@ -4,11 +4,14 @@ import _ from 'lodash';
 import { IAccount } from '@models/IAccount';
 import { AsyncState } from '@models/redux';
 import { fetchAccountList } from '@support/api/accountApi';
+import { delay } from '@support/util/delay';
 
 const name = 'accounts';
 
 export const getAccountList = createAsyncThunk(`${name}/getAccounts`, async () => {
   const accountList = await fetchAccountList();
+  // ux 로딩용 딜레이
+  await delay(400);
   return accountList.data.data;
 });
 

@@ -7,6 +7,7 @@ import { IBucketListDetail } from '@models/bucketList/IBucketListDetail';
 import { ITodo } from '@models/ITodo';
 import { fetchBucketList, fetchBucketListDetail } from '@support/api/bucketListApi';
 import Layout from '@store/modules/Layout';
+import { delay } from '@support/util/delay';
 
 const DETAIL_CACHE_COUNT = 10;
 
@@ -14,6 +15,8 @@ const name = 'bucketList';
 
 export const getBucketList = createAsyncThunk(`${name}/getBucketList`, async () => {
   const bucketList = await fetchBucketList();
+  // ux 로딩용 딜레이
+  await delay(400);
   return bucketList.data.data;
 });
 
@@ -22,6 +25,8 @@ export const getBucketListDetail = createAsyncThunk(
   async (bucketListId: number, { rejectWithValue, dispatch }) => {
     try {
       const bucketListDetail = await fetchBucketListDetail(bucketListId);
+      // ux 로딩용 딜레이
+      await delay(400);
       return bucketListDetail.data.data;
     } catch (e) {
       dispatch(Layout.actions.setErrorStatusCode(e.response.data.status));

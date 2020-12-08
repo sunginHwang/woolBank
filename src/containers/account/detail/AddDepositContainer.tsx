@@ -47,7 +47,7 @@ function AddDepositContainer({ accountId, useDepositPhase, onBackClick }: AddDep
         amount: depositAmount
       },
       onSuccess: () => {
-        dispatch(getAccount(accountId));
+        dispatch(getAccount({ accountId, useDelay: false }));
         onToast('입금이 완료되었습니다.');
       },
       onError: () => {
@@ -77,9 +77,10 @@ function AddDepositContainer({ accountId, useDepositPhase, onBackClick }: AddDep
   if (!account) {
     return null;
   }
+  // 버튼 숨겨야 하는경우 (돈 다 모았을시, 만기처리 하였을 시, 자유적금 타입이 아닐시)
+  const isHideDepositButton = account.currentAmount >= account.amount || account.isExpiration || account.savingType.type !== 'freeInstallmentSavings';
 
-  // 금액 다 채워진 경우 더이상 입금 불가
-  if (account.currentAmount >= account.amount) {
+  if (isHideDepositButton) {
     return null;
   }
 

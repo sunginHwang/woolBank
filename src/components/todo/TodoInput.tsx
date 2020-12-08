@@ -29,7 +29,11 @@ function TodoInput({ onAdd, onClose, onFocusIn, onFocusOut }: TodoInputProps) {
    * 인풋 버튼 키보드 입력
    */
   const onTitleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key !== 'Enter') {
+      return null;
+    }
+
+    if (title !== '') {
       onAdd(title);
       // 바로 focus 아웃 시키면 키보드 에 버튼이 보이고 내려가는 ux 상 안이쁘게 보여서 딜레이 처리
       setTimeout(() => onFocusOut(), 150);
@@ -52,7 +56,7 @@ function TodoInput({ onAdd, onClose, onFocusIn, onFocusOut }: TodoInputProps) {
           onKeyPress={onTitleKeyPress}
         />
       </div>
-      <div>
+      <div onClick={onClose}>
         <IcoClose fill={palette.greyD2} />
       </div>
     </S.TodoInput>

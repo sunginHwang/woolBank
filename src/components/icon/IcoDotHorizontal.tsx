@@ -8,7 +8,7 @@ function IcoDowHorizontal({
 }: IIcon) {
   return (
     <svg
-      version='1.1' width={width} height={height}
+      version='1.1' width={width} height={height} data-cy='icoDotHorizontal'
       viewBox='0 0 24 24'
     >
       <path

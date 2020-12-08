@@ -4,34 +4,50 @@ import styled from 'styled-components';
 import Progress from '@components/common/Progress';
 
 import { IAccount } from '@models/IAccount';
-import { parseDate } from '@support/util/date';
+import { getRemainDatePercentage, parseDate } from '@support/util/date';
 import { addComma } from '@support/util/String';
 import palette from '@style/palette';
+import { getRateInterestByWallet } from '@support/util/bank';
 
 export interface AccountInfoProps {
   account: IAccount;
-};
+}
 
 function AccountInfo({ account }: AccountInfoProps) {
+  const rateInterest = getRateInterestByWallet(account);
+  const { rate, startDate, endDate, title, savingType, currentAmount, amount } = account;
+
+  const remainPercent = getRemainDatePercentage(startDate, endDate);
+
   return (
     <S.AccountInfo>
-      <S.Title>
-        {account.title} <span>({account.savingType.name})</span>
+      <S.Title data-cy='title'>
+        {title} <span>({savingType.name})</span>
       </S.Title>
       <S.CurrentAmount>
-        {addComma(account.currentAmount || 0)} <span>원</span>
+        {addComma(currentAmount || 0)} <span>원</span>
       </S.CurrentAmount>
       <Progress
-        percent={35}
+        percent={remainPercent}
         color={palette.mainColor}
-        label='35'
+        label={remainPercent}
         labelSuffix='%'
-        startMessage={`개설일: ${parseDate(account.startDate)}`}
-        endMessage={`만기일: ${parseDate(account.endDate)}`}
+        startMessage={`개설일: ${parseDate(startDate)}`}
+        endMessage={`만기일: ${parseDate(endDate)}`}
       />
       <S.Amount>
         <span>만기예상액 : </span>
-        <p>{addComma(account.amount)}<span>원</span></p>
+        <p>
+          {addComma(amount)}
+          <span>원</span>
+        </p>
+      </S.Amount>
+      <S.Amount>
+        <span>예상 이자 <S.Info>({rate * 100}%)</S.Info></span>
+        <S.Interest>
+          {addComma(rateInterest)}
+          <span>원</span>
+        </S.Interest>
       </S.Amount>
     </S.AccountInfo>
   );
@@ -42,6 +58,8 @@ const S: {
   Title: any;
   CurrentAmount: any;
   Amount: any;
+  Interest: any;
+  Info: any;
 } = {
   AccountInfo: styled.div`
     padding: 4rem 2rem;
@@ -75,19 +93,32 @@ const S: {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-top: 2rem;
-    
-   
-    >p {
+    margin-top: 3rem;
+
+    &:last-child {
+      margin-top: 1rem;
+    }
+
+    > p {
       font-size: 2.2rem;
       font-weight: bold;
-      
-      >span {
-        margin-left: .5rem;
-        font-size: 1.2rem;
+
+      > span {
+        margin-left: 0.5rem;
+        font-size: 1.4rem;
         font-weight: normal;
       }
     }
+  `,
+  Interest: styled.p`
+    font-size: 1.8rem !important;
+    font-weight: bold;
+    color: ${({ theme }) => theme.colors.greyD2};
+  `,
+  Info: styled.strong`
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: ${({ theme }) => theme.colors.greyD2};
   `
 };
 

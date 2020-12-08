@@ -25,6 +25,13 @@ function AccountDetail() {
     history.goBack();
   };
 
+  /**
+   * 리스트 페이지 이동
+   **/
+  const onAccountList = () => {
+    history.push('/accounts');
+  };
+
   const renderEditButtonIcon = (
     <div onClick={onDetailModal}>
       <IcoDowHorizontal fill={colors.colors.blackL1} />
@@ -35,7 +42,7 @@ function AccountDetail() {
     <PageTemplate
       title='계좌정보'
       useSidePadding={false}
-      onBackClick={onBackClick}
+      onBackClick={onAccountList}
       rightHeader={renderEditButtonIcon}
     >
       <AccountDetailContainer accountId={Number(accountId)} />

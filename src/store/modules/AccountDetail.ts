@@ -5,6 +5,7 @@ import { AsyncState } from '@models/redux';
 import { IAccount } from '@models/IAccount';
 import { fetchAccount } from '@support/api/accountApi';
 import Layout from '@store/modules/Layout';
+import { delay } from '@support/util/delay';
 
 const name = 'accountDetail';
 // 캐싱 최대 10개까지만
@@ -12,9 +13,15 @@ const DETAIL_CACHE_COUNT = 10;
 
 export const getAccount = createAsyncThunk(
   `${name}/getAccount`,
-  async (accountId: number, { rejectWithValue, dispatch }) => {
+  async ({ accountId, useDelay }: { accountId: number; useDelay: boolean }, { rejectWithValue, dispatch }) => {
     try {
       const accountRes = await fetchAccount(accountId);
+
+      if (useDelay) {
+        // ux 로딩용 딜레이
+        await delay(400);
+      }
+
       return accountRes.data.data;
     } catch (e) {
       dispatch(Layout.actions.setErrorStatusCode(e.response.data.status));

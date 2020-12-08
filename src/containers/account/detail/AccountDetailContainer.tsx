@@ -32,20 +32,20 @@ function AccountDetailContainer({ accountId }: AccountDetailContainerProps) {
   /**
    * 예적금 상세 정보 조회
    **/
-  const onLoadAccountDetail = async (id: number) => {
+  const onLoadAccountDetail = async (accountId: number) => {
     // 1. 캐싱 정보 조회
-    const accountDetail = accountDetailCache.find((account) => account.id === id);
+    const accountDetail = accountDetailCache.find((account) => account.id === accountId);
 
     // 2. 캐시 없을경우 fetch
     if (!accountDetail) {
-      dispatch(getAccount(id));
+      dispatch(getAccount({ accountId, useDelay: true }));
       return;
     }
 
     const currentUpdatedAt = new Date(accountDetail.updatedAt);
-    const needFetch = await checkNeedReFetch(currentUpdatedAt, getAccountLastUpdatedAt, [id]);
+    const needFetch = await checkNeedReFetch(currentUpdatedAt, getAccountLastUpdatedAt, [accountId]);
     // 실제로 정보가 변경될 경우 request 요청 아닌 경우 캐시 사용
-    needFetch ? dispatch(getAccount(id)) : dispatch(AccountDetail.actions.setAccountDetail(accountDetail));
+    needFetch ? dispatch(getAccount({ accountId, useDelay: true })) : dispatch(AccountDetail.actions.setAccountDetail(accountDetail));
   };
 
   if (accountDetail.loading || !accountDetail.data) {

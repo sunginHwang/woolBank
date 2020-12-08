@@ -45,9 +45,10 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "PORT=5000 craco start",
+    "start": "PORT=4001 craco start",
     "build": "craco build",
     "test": "craco test",
+    "production": "serve -s build -p 4001",
     "eject": "react-scripts eject",
     "test:e2e": "npx cypress open"
   },

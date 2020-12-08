@@ -6,52 +6,56 @@ import Splash from '@components/layout/Splash';
 import Auth from '@store/modules/Auth';
 import Routes from '@routes/Routes';
 import { useToggle } from '@support/hooks/useToggle';
-import apiCall, { setHeaderAuthToken } from '@support/util/apiCall';
-import { IUser } from '@models/IUser';
+import { saveToken, setHeaderAuthToken } from '@support/util/apiCall';
+import { getInitUserInfo } from '@support/api/userApi';
+import config from '@/config';
+
+const { ACCESS_TOKEN } = config.auth;
 
 function App() {
-  const [isShowSplash, showInitLoading, hideInitLoading] = useToggle(true);
+  const [isShowSplash, , hideInitLoading] = useToggle(true);
   const dispatch = useDispatch();
 
   /**
    * 첫 진입시 로그인 인증
    */
   useEffect(() => {
-    initLogin();
+    if (localStorage.getItem(ACCESS_TOKEN) === null) {
+      hideInitLoading();
+    } else {
+      initLogin();
+    }
   }, []);
 
   const initLogin = async () => {
-    showInitLoading();
-    const userInfo = await userLogin();
-    setHeaderAuthToken(userInfo.data.data);
-    const user: IUser = userInfo.data.data.user;
-    await dispatch(Auth.actions.setUser({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      imageUrl: userInfo.data.data.user.profileImg
-    }));
-    hideInitLoading();
-  }
+    try {
+      const res = await getInitUserInfo();
+      const { authTokens, userInfo } = res.data.data;
 
-  const userLogin = async () => {
-    const saveInfo = {
-      email: 'xariby123@nate.com',
-      imageUrl: 'http://k.kakaocdn.net/dn/ufixE/btqBTym5cx2/KMlit4NyCYQM6GI3dwEiW0/img_110x110.jpg',
-      loginType: 'facebook',
-      socialId: '121413'
-    };
-    return await apiCall.post('/user/login/social', saveInfo);
+      saveToken(authTokens);
+      setHeaderAuthToken(authTokens);
+
+      await dispatch(
+        Auth.actions.setUser({
+          id: userInfo.id,
+          name: userInfo.name,
+          email: userInfo.email,
+          imageUrl: userInfo.profileImg
+        })
+      );
+    } catch (e) {
+      console.log(e);
+    } finally {
+      hideInitLoading();
+    }
   };
 
   // 최초 진입 로그인 체크 지연에 따른 splash 페이징
   if (isShowSplash) {
-    return <Splash />
+    return <Splash />;
   }
 
-  return (
-    <Routes />
-  );
+  return <Routes />;
 }
 
 export default App;

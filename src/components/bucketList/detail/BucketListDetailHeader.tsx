@@ -50,6 +50,14 @@ function BucketListDetailHeader({
   // 목표 날짜 까지 이룬 %
   const remainPercent = getRemainDatePercentage(createdDate, completeDate, now);
 
+  /**
+   * 뒤로가기 버튼 클릭
+   **/
+  const onBackClick = () => {
+    history.push('/bucket-list');
+  };
+
+
   return (
     <>
       <HeaderWithBack
@@ -61,7 +69,7 @@ function BucketListDetailHeader({
           </i>
         }
         useSkeleton={!isShowFixedHeader}
-        onBackClick={() => history.goBack()}
+        onBackClick={onBackClick}
       />
       <S.ImageInfo ref={imgRef} imgUrl={imgUrl}>
         <div>
@@ -79,15 +87,14 @@ const S: any = {
   ImageInfo: styled.div<{
     imgUrl: string;
   }>`
-    background-size: cover;
     background-color: ${({ theme }) => theme.colors.greyD2};
     background: 
     linear-gradient(
       rgba(0, 0, 0, 0.3),
       rgba(0, 0, 0, 0.1)
     ),
-    url(${({imgUrl}) => imgUrl});
-
+    url(${({imgUrl}) => imgUrl}), no-repeat;
+    background-size: cover;
     width: 100%;
     height: 40vh;
     > div {

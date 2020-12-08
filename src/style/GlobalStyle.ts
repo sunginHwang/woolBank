@@ -55,9 +55,18 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+  
+  a:focus {
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+  }
   input:focus {
     outline: none;
     -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
   }
   textarea:focus {
     outline: none;

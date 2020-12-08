@@ -8,7 +8,6 @@ import BottomButton from '@components/common/BottomButton';
 import LabelText from '@components/common/LabelText';
 import SubLabelText from '@components/common/SubLabelText';
 
-import { useToggle } from '@support/hooks/useToggle';
 import useInput from '@support/hooks/UseInput';
 import { IPhase } from '@models/phase/IPhase';
 
@@ -29,7 +28,6 @@ function BucketListInfoPhase({
 }: BucketListInfoPhaseProps) {
   const [bucketListTitle, onBucketListTitleChange, onResetBucketListTitle] = useInput(title);
   const [detail, setDetail] = useState(description);
-  const [showDetailLayer, onDetailLayer, offDetailLayer] = useToggle(title !== '' && description !== '');
 
   /**
    * 상세 정보 변경
@@ -46,12 +44,9 @@ function BucketListInfoPhase({
     goNextPhase && goNextPhase();
   };
 
-  // 상세보기 보여주기 (인풋 작성 이후 노출)
-  const isShowDetail = (bucketListTitle.length > 0 && showDetailLayer) || detail.length > 0;
-  // 다음단계 이동 버튼 보여주는 조건
-  const isShowCompleteButton = isActivePhase && bucketListTitle.length > 0 && showDetailLayer;
-  // 다음단계로 이동 활성화 조건
+  // 다음단계 이동 활성화 조건
   const isActiveComplete = bucketListTitle.length > 0 && detail.length > 0;
+
   return (
     <PhaseTemplate
       title='기본 정보 작성'
@@ -70,12 +65,10 @@ function BucketListInfoPhase({
             useLengthInfo
             name='title'
             value={bucketListTitle}
-            onFocusIn={offDetailLayer}
-            onFocusOut={onDetailLayer}
             onClear={onResetBucketListTitle}
             onChange={onBucketListTitleChange}
           />
-          <S.AddInfo show={isShowDetail}>
+          <S.AddInfo>
             <LabelText>
               어떻게 목표를 달성할지
               <br />
@@ -90,8 +83,8 @@ function BucketListInfoPhase({
           </S.AddInfo>
         </S.Content>
         <BottomButton
+          isShow
           message='다음단계'
-          isShow={isShowCompleteButton}
           active={isActiveComplete}
           onClick={onCompletePhaseClick}
         />
@@ -119,14 +112,9 @@ const S: {
       margin-top: 4rem;
     }
   `,
-  AddInfo: styled.div<{
-    show: boolean;
-  }>`
-    top: ${({ show }) => (show ? 0 : '100vh' )};
+  AddInfo: styled.div`
     margin-top: 3rem;
-    position: relative;
-    transition: all 0.3s ease-out;
-    height: 100%;
+    height: 22rem;
   `
 };
 

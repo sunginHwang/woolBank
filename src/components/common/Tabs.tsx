@@ -53,15 +53,15 @@ const S: {
 } = {
   Tabs: styled.div`
     width: 100%;
-    height: 5rem;
+    height: 3.8rem;
     position: relative;
     display: flex;
     justify-content: space-around;
-    box-shadow: 0 0.2rem 0.4rem -0.1rem rgba(0, 0, 0, 0.2), 0 0.4rem 0.5rem 0 rgba(0, 0, 0, 0.14),
-      0 0.1rem 1rem 0 rgba(0, 0, 0, 0.12);
-
+    /*box-shadow: 0 0.2rem 0.4rem -0.1rem rgba(0, 0, 0, 0.2), 0 0.4rem 0.5rem 0 rgba(0, 0, 0, 0.14),
+      0 0.1rem 1rem 0 rgba(0, 0, 0, 0.12); 그림자 효과*/
+    border-bottom: .2rem solid ${({ theme }) => theme.colors.greyL2};
     button {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
     }
   `,
   Tab: styled.button<{
@@ -75,10 +75,10 @@ const S: {
     width: number;
     left: number;
   }>`
-    bottom: 0;
+    bottom: .5px;
     width: ${({ width }) => width}px;
     left: ${({ left }) => left}px;
-    height: 2px;
+    height: .2rem;
     position: absolute;
     transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     background-color: ${({ theme }) => theme.colors.redL2};

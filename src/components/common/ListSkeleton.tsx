@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ListWrapper from '@components/common/ListWrapper';
-import ToggleTab from '@components/common/ToggleTab';
+import Tabs from '@components/common/Tabs';
 
 import { IAssetType } from '@models/IAssetType';
 
@@ -19,13 +19,17 @@ const tabs: IAssetType[] = [
 
 export interface ListSkeletonProps {
   item: React.ReactNode;
+  title: string;
   itemCount?: number;
 }
 
-function ListSkeleton({ item, itemCount = 10 }: ListSkeletonProps) {
+function ListSkeleton({ item, title, itemCount = 10 }: ListSkeletonProps) {
   return (
     <>
-      <ToggleTab tabs={tabs} useOutline={false} activeTab={tabs[0]} />
+      <S.ListTitle>
+        <p>{title}</p>
+      </S.ListTitle>
+      <Tabs tabs={tabs} activeTab={tabs[0]} />
       <ListWrapper>
         <S.ListSkeleton>
           {[...Array(itemCount)].map((_, key) => (
@@ -41,8 +45,23 @@ export default React.memo(ListSkeleton);
 
 const S: {
   ListSkeleton: any;
+  ListTitle: any;
 } = {
   ListSkeleton: styled.div`
     margin: 0 2rem;
+  `,
+
+  ListTitle: styled.div`
+    height: 4.8rem;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 2rem;
+    align-items: center;
+    
+    p {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: ${({ theme }) => theme.colors.blackL1};
+    }
   `
 };

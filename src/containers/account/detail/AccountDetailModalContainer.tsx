@@ -85,7 +85,7 @@ function AccountDetailModalContainer({
         depositDate
       },
       onSuccess: () => {
-        dispatch(getAccount(accountId));
+        dispatch(getAccount({ accountId, useDelay: false }));
         onToast('입금이 완료되었습니다.');
       },
       onError: () => {
@@ -103,7 +103,7 @@ function AccountDetailModalContainer({
     await onExpirationRequest({
       params: [accountId],
       onSuccess: () => {
-        dispatch(getAccount(accountId));
+        dispatch(getAccount({ accountId, useDelay: false }));
         onToast('만기처리가 완료되었습니다.');
       },
       onError: () => {
@@ -142,9 +142,18 @@ function AccountDetailModalContainer({
     history.goBack();
   };
 
+  const isAccountExpiration = account ? account.isExpiration : false;
+  const isRegularDeposit = account ? account.savingType.type === 'regularDeposit' : false;
+
   return (
     <>
-      <AccountEditModal visible={isActiveModal} oncloseModal={onCloseModal} onEditClick={onEditModalClick} />
+      <AccountEditModal
+        visible={isActiveModal}
+        isAccountExpiration={isAccountExpiration}
+        isRegularDeposit={isRegularDeposit}
+        oncloseModal={onCloseModal}
+        onEditClick={onEditModalClick}
+      />
       <DepositDate
         isActive={useEditPhase}
         isLoading={isAddDepositLoading}
