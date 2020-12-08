@@ -35,7 +35,7 @@ function AccountInfo({ account }: AccountInfoProps) {
         startMessage={`개설일: ${parseDate(startDate)}`}
         endMessage={`만기일: ${parseDate(endDate)}`}
       />
-      <S.Amount>
+      <S.Amount isRoot={true}>
         <span>만기예상액 : </span>
         <p>
           {addComma(amount)}
@@ -43,12 +43,23 @@ function AccountInfo({ account }: AccountInfoProps) {
         </p>
       </S.Amount>
       <S.Amount>
-        <span>예상 이자 <S.Info>({rate * 100}%)</S.Info></span>
+        <span>
+          예상 이자 <S.Info>({rate * 100}%)</S.Info>
+        </span>
         <S.Interest>
           {addComma(rateInterest)}
           <span>원</span>
         </S.Interest>
       </S.Amount>
+      {account.savingType.type === 'regularInstallmentSavings' && (
+        <S.Amount>
+          <span>정기 입금일</span>
+          <S.Interest>
+            {account.regularTransferDate}
+            <span>일</span>
+          </S.Interest>
+        </S.Amount>
+      )}
     </S.AccountInfo>
   );
 }
@@ -88,17 +99,15 @@ const S: {
       font-weight: normal;
     }
   `,
-  Amount: styled.div`
+  Amount: styled.div<{
+    isRoot: boolean;
+  }>`
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-top: 3rem;
-
-    &:last-child {
-      margin-top: 1rem;
-    }
-
+    margin-top: ${({ isRoot }) => isRoot ? '3rem' : '1rem'};
+    
     > p {
       font-size: 2.2rem;
       font-weight: bold;
