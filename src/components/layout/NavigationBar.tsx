@@ -75,7 +75,9 @@ const S: {
     left: 0;
     right: 0;
     width: 100%;
-    height: ${({ isExtend }) => (isExtend ? '7.5rem' : '5.5rem')};
+    height: 5.5rem;
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
     border-top: 0.1rem solid ${({ theme }) => theme.colors.greyL6};
     background-color: ${({ theme }) => theme.colors.white};
     z-index: ${({ theme }) => theme.zIndex.navigationBar};
