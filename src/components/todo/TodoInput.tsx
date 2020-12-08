@@ -40,6 +40,11 @@ function TodoInput({ onAdd, onClose, onFocusIn, onFocusOut }: TodoInputProps) {
     }
   };
 
+  const onblur = () => {
+    onAdd(title);
+    onFocusOut();
+  };
+
   return (
     <S.TodoInput>
       <div>
@@ -51,7 +56,7 @@ function TodoInput({ onAdd, onClose, onFocusIn, onFocusOut }: TodoInputProps) {
           ref={todoInputRef}
           value={title}
           onFocus={onFocusIn}
-          onBlur={onFocusOut}
+          onBlur={onblur}
           onChange={onChangeTitle}
           onKeyPress={onTitleKeyPress}
         />

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ListWrapper from '@components/common/ListWrapper';
 import Tabs from '@components/common/Tabs';
 
 import { IAssetType } from '@models/IAssetType';
@@ -30,13 +29,13 @@ function ListSkeleton({ item, title, itemCount = 10 }: ListSkeletonProps) {
         <p>{title}</p>
       </S.ListTitle>
       <Tabs tabs={tabs} activeTab={tabs[0]} />
-      <ListWrapper>
+      <S.ListWrapper>
         <S.ListSkeleton>
           {[...Array(itemCount)].map((_, key) => (
             <div key={key}>{item}</div>
           ))}
         </S.ListSkeleton>
-      </ListWrapper>
+      </S.ListWrapper>
     </>
   );
 }
@@ -46,11 +45,15 @@ export default React.memo(ListSkeleton);
 const S: {
   ListSkeleton: any;
   ListTitle: any;
+  ListWrapper: any;
 } = {
   ListSkeleton: styled.div`
     margin: 0 2rem;
   `,
-
+  ListWrapper: styled.div`
+    margin-top: 3.8rem;
+    height: 100%;
+  `,
   ListTitle: styled.div`
     height: 4.8rem;
     display: flex;

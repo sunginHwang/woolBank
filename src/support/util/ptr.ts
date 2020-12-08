@@ -191,7 +191,6 @@ export default (props: { $target: any; $header: any; onRefresh: any }) => {
       }
     },
     _onAnimate: function () {
-      console.log('_onAnimate');
       const frame = 1000 / 60;
       const releaseTime = app.props.state === ptrState.refreshing ? 250 : 900;
       const steps = Math.floor(releaseTime / frame);
@@ -220,7 +219,6 @@ export default (props: { $target: any; $header: any; onRefresh: any }) => {
       requestAnimationFrame(app._onAnimate);
     },
     _onReset: function () {
-      console.log('onReset');
       enableScroll();
       // @ts-ignore
       app.props.$target.style.transform = null;
