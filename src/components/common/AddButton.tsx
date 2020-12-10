@@ -32,7 +32,10 @@ const S: {
     border-radius: 100%;
     box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem rgba(0, 0, 0, 0.16);
     z-index: ${({ theme }) => theme.zIndex.floatButton};
-
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
+    
+    
     > p {
       font-size: 2.4rem;
       font-weight: bold;
