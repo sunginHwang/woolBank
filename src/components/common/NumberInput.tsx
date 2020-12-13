@@ -82,7 +82,7 @@ function NumberInput({
     }
 
     return result;
-  }, [isValidAmount, currentAmount, maxAmount]);
+  }, [isValidAmount, isNotInputValue, currentAmount, maxAmount]);
 
   const displayInputMessage = getDisplayInputMessage();
 

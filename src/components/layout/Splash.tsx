@@ -13,7 +13,7 @@ function Splash() {
 
   return (
     <S.Splash>
-      <img src={mainImage} />
+      <img src={mainImage} alt='스플래시이미지' />
       <S.Text>
         <p>잠시만 기다려주세요{dot}</p>
       </S.Text>

@@ -45,13 +45,13 @@ function BaseInput({
   const onFocus = useCallback(() => {
     setFocus(true);
     onFocusIn && onFocusIn();
-  }, []);
+  }, [onFocusIn]);
 
   const onBlur = useCallback(() => {
     setFocus(false);
     inputRef.current && inputRef.current.blur();
     onFocusOut && onFocusOut();
-  }, []);
+  }, [onFocusOut]);
 
   const onInputClear = (e: React.MouseEvent<HTMLLIElement>) => {
     onClear && onClear(e);

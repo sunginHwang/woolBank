@@ -4,7 +4,6 @@ import SwipeableViews from 'react-swipeable-views';
 
 import ListWrapper from '@components/common/ListWrapper';
 import Tabs from '@components/common/Tabs';
-import PullToRefresh from '@components/common/PullToRefresh';
 
 import { IAssetType } from '@models/IAssetType';
 import 'swiper/swiper-bundle.min.css';
@@ -17,8 +16,8 @@ export interface ITabSlideViewerProps {
 }
 
 function TabSlideViewer({ tabs, slideViewList, title }: ITabSlideViewerProps) {
-  const [ activeTab, setActiveTab ] = useState(tabs[0]);
-  const [ tabIndex, setTavIndex ] = useState(0);
+  const [activeTab, setActiveTab] = useState(tabs[0]);
+  const [tabIndex, setTavIndex] = useState(0);
 
   /**
    * 탭 변경 이벤트

@@ -21,7 +21,7 @@ function BucketListPrevImage({
 
   return (
     <S.PrevPicture>
-      <img src={previewUrl} />
+      <img src={previewUrl} alt={previewUrl} />
       <S.PrevPictureDeemed>
         <i onClick={onInitClick}>
           <IcoCloseCircle width={30} height={30} fill={colors.colors.mainColor} />

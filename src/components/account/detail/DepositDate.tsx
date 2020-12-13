@@ -51,7 +51,7 @@ function DepositDate({ isActive, isLoading, onBackClick, onDepositClick }: Depos
   const onDepositDateChange = useCallback((date: string) => {
     setDepositDate(date);
     onCloseDateModal();
-  }, []);
+  }, [onCloseDateModal]);
 
   /**
    * 예금입력버튼 선택

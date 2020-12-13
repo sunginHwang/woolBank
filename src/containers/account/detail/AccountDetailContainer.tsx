@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 
 import DepositList from '@components/account/DepositList';
 import AccountInfo from '@components/account/AccountInfo';

@@ -154,7 +154,7 @@ function SocialLoginContainer() {
         <div>
           <p>{user.name}</p>
           <p>{user.email}</p>
-          <img src={user.imageUrl} />
+          <img src={user.imageUrl} alt='유저 이미지' />
         </div>
       )}
     </>

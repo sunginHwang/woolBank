@@ -48,7 +48,7 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
       // 리스트 -> 상세 재 진입시 이전 상세 데이터가 잠시 보이는 부분이 있어 삭제 처리
       dispatch(BucketList.actions.clearBucketListDetail());
     };
-  }, [bucketListId]);
+  }, [bucketListId, dispatch]);
 
   /**
    * 버킷 리스트 상세 정보 조회
