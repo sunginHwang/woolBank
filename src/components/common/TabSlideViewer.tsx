@@ -39,7 +39,7 @@ function TabSlideViewer({ tabs, slideViewList, title }: ITabSlideViewerProps) {
     <>
       <S.FixedHeader>
         <S.ListTitle>
-          <p>{title}11</p>
+          <p>{title}</p>
         </S.ListTitle>
         <Tabs tabs={tabs} activeTab={activeTab} onChangeTab={onTabChange} />
       </S.FixedHeader>
