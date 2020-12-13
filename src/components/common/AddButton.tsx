@@ -24,6 +24,8 @@ const S: {
     justify-content: center;
     align-items: center;
     bottom: 8rem;
+    bottom: calc(constant(safe-area-inset-bottom) + 8rem);
+    bottom: calc(env(safe-area-inset-bottom) + 8rem);
     right: 2rem;
     width: 5rem;
     height: 5rem;
@@ -32,8 +34,6 @@ const S: {
     border-radius: 100%;
     box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem rgba(0, 0, 0, 0.16);
     z-index: ${({ theme }) => theme.zIndex.floatButton};
-    padding-bottom: constant(safe-area-inset-bottom);
-    padding-bottom: env(safe-area-inset-bottom);
     
     
     > p {

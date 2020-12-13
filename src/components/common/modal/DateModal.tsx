@@ -43,7 +43,9 @@ const S: {
     background-color: ${({ theme }) => theme.colors.white};
     z-index: ${({ theme }) => theme.zIndex.modalDeem + 1};
     box-shadow: 0.1rem 0.3rem 1rem 0.2rem rgba(0, 0, 0, 0.2);
-
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
+    
     p {
       height: 15rem;
     }

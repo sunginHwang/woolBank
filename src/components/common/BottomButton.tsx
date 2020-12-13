@@ -47,6 +47,8 @@ const S : {
   Bottom: styled.div`
     position: fixed;
     bottom: 2rem;
+    bottom: calc(constant(safe-area-inset-bottom) + 2rem);
+    bottom: calc(env(safe-area-inset-bottom) + 2rem);
     left: 2rem;
     width: calc(100% - 4rem);
     height: 5.5rem;

@@ -200,6 +200,8 @@ const S: {
   Complete: styled.div`
     margin-top: auto;
     margin-bottom: 2rem;
+    margin-bottom: calc(constant(safe-area-inset-bottom) + 2rem);
+    margin-bottom: calc(env(safe-area-inset-bottom) + 2rem);
     height: 5.5rem;
     min-height: 5.5rem;
     width: 100%;

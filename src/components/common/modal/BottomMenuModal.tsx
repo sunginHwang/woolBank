@@ -64,6 +64,8 @@ const S: {
 
     > p:last-child {
       margin-bottom: 2.5rem;
+      margin-bottom: calc(constant(safe-area-inset-bottom) + 2.5rem);
+      margin-bottom: calc(env(safe-area-inset-bottom) + 2.5rem);
     }
   `,
   Title: styled.div`
