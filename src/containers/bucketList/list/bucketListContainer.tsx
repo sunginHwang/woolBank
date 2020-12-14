@@ -2,12 +2,10 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { IBucketList } from '@models/IBucketList';
 import { IAssetType } from '@models/IAssetType';
 import { RootState } from '@/store';
 import { getBucketList } from '@/store/modules/BucketList';
 import { checkNeedReFetch } from '@support/util/checkNeedReFetch';
-import { isDateExpired } from '@support/util/date';
 import { getBucketListLastUpdatedAt } from '@support/api/bucketListApi';
 
 import AddButton from '@components/common/AddButton';
@@ -53,16 +51,8 @@ function BucketListContainer() {
     history.push('/bucket-list/save');
   };
 
-  const isComplete = (bucket: IBucketList) => {
-    return isDateExpired(bucket.completeDate, new Date()) && bucket.completeTodoCount >= bucket.todoCount;
-  };
-
-  const isProgress = (bucket: IBucketList) => {
-    return !isComplete(bucket);
-  };
-
-  const progressBucketList = bucketList.data.filter(isProgress);
-  const endBucketList = bucketList.data.filter(isComplete);
+  const progressBucketList = bucketList.data.filter((bucket) => !bucket.isComplete);
+  const endBucketList = bucketList.data.filter((bucket) => bucket.isComplete);
 
   // 진행중 상태 버킷리스트
   const renderProgressBucketList =

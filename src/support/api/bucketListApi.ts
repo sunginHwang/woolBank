@@ -50,3 +50,7 @@ export const updateBucketList = async (bucketListForm: IBucketListForm) => {
 export const removeBucketList = (bucketListId: number) => {
   return apiCall.delete<ApiResType<void>>(`/bucket-list/${bucketListId}/`);
 };
+
+export const completeBucketList = (bucketListId: number) => {
+  return apiCall.put<ApiResType<void>>(`/bucket-list/${bucketListId}/complete`);
+};

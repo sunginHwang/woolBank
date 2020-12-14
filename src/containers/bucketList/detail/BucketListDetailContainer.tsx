@@ -11,9 +11,14 @@ import { IBottomMenu } from '../../../models/component/IBottomMenu';
 import { RootState } from '../../../store';
 import { checkNeedReFetch } from '../../../support/util/checkNeedReFetch';
 import BucketList, { getBucketList, getBucketListDetail } from '../../../store/modules/BucketList';
-import { getBucketListDetailLastUpdatedAt, removeBucketList } from '../../../support/api/bucketListApi';
+import {
+  completeBucketList,
+  getBucketListDetailLastUpdatedAt,
+  removeBucketList
+} from '../../../support/api/bucketListApi';
 import useRequest from '../../../support/hooks/useRequest';
 import { useToast } from '../../../support/hooks/useToast';
+import BottomButton from '@components/common/BottomButton';
 
 const bottomMenus: IBottomMenu[] = [
   {
@@ -36,6 +41,7 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
 
   const onToast = useToast();
   const [onRemoveRequest, removeLoading] = useRequest(removeBucketList);
+  const [onCompleteRequest, completeLoading] = useRequest(completeBucketList);
   const bucketListDetail = useSelector((state: RootState) => state.BucketList.bucketListDetail);
   const bucketListDetailDetailCache = useSelector((state: RootState) => state.BucketList.bucketListDetailCache);
   const dispatch = useDispatch();
@@ -90,6 +96,23 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
   };
 
   /**
+   * 버킷 리스트 완료 처리
+   **/
+  const onCompleteBucketList = async () => {
+    await onCompleteRequest({
+      params: [bucketListId],
+      onSuccess: () => {
+        // store 버킷리스트 정보 삭제
+        onLoadBucketListDetail(bucketListId);
+        onToast('목표를 달성하신걸 축하드립니다. :)');
+      },
+      onError: () => {
+        onToast('다시 시도해 주세요.');
+      }
+    });
+  };
+
+  /**
    * 우측 옵션 버튼 클릭
    **/
   const onMenuClick = (type: string) => {
@@ -111,6 +134,9 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
     return null;
   }
 
+  // 수정 메뉴는 완료상태에서 수정 불가
+  const modalMenus = bucketListDetail.data.isComplete ? [bottomMenus[0]] : bottomMenus;
+
   return (
     <>
       <BucketListDetailHeader
@@ -126,6 +152,12 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
         description={bucketListDetail.data.description}
         completeDate={bucketListDetail.data.completeDate}
       />
+      <BottomButton
+        message='달성하기'
+        isShow={!bucketListDetail.data.isComplete && !bucketListDetail.loading}
+        onClick={onCompleteBucketList}
+        loading={completeLoading}
+      />
       {/* 비동기 호출을 통한 아이템 삭제 모달 */}
       <ConfirmModal
         visible={showRemoveModal}
@@ -135,7 +167,7 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
         onCancelClick={offRemoveModal}
       />
       <BottomMenuModal
-        menus={bottomMenus}
+        menus={modalMenus}
         title='원하시는 메뉴를 선택해 주세요.'
         visible={showMenuModal}
         oncloseModal={offMenuModal}

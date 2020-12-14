@@ -8,6 +8,7 @@ export interface IBucketListDetail {
   imageUrl?: string;
   thumbImageUrl?: string;
   userId: number;
+  isComplete: boolean;
   createdAt: Date;
   updatedAt: Date;
   todoList: ITodo[];
