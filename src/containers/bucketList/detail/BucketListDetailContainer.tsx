@@ -2,23 +2,23 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import BucketListDetailHeader from '../../../components/bucketList/detail/BucketListDetailHeader';
-import BucketListContentInfo from '../../../components/bucketList/detail/BucketListContentInfo';
-import ConfirmModal from '../../../components/common/modal/ConfirmModal';
-import { useToggle } from '../../../support/hooks/useToggle';
-import BottomMenuModal from '../../../components/common/modal/BottomMenuModal';
-import { IBottomMenu } from '../../../models/component/IBottomMenu';
-import { RootState } from '../../../store';
-import { checkNeedReFetch } from '../../../support/util/checkNeedReFetch';
-import BucketList, { getBucketList, getBucketListDetail } from '../../../store/modules/BucketList';
+import BucketListDetailHeader from '@components/bucketList/detail/BucketListDetailHeader';
+import BucketListContentInfo from '@components/bucketList/detail/BucketListContentInfo';
+import ConfirmModal from '@components/common/modal/ConfirmModal';
+import BottomButton from '@components/common/BottomButton';
+import BottomMenuModal from '@components/common/modal/BottomMenuModal';
 import {
   completeBucketList,
   getBucketListDetailLastUpdatedAt,
   removeBucketList
-} from '../../../support/api/bucketListApi';
-import useRequest from '../../../support/hooks/useRequest';
-import { useToast } from '../../../support/hooks/useToast';
-import BottomButton from '@components/common/BottomButton';
+} from '@support/api/bucketListApi';
+import useRequest from '@support/hooks/useRequest';
+import { useToast } from '@support/hooks/useToast';
+import { useToggle } from '@support/hooks/useToggle';
+import { checkNeedReFetch } from '@support/util/checkNeedReFetch';
+import { RootState } from '@/store';
+import BucketList, { getBucketList, getBucketListDetail } from '@/store/modules/BucketList';
+import { IBottomMenu } from '@models/component/IBottomMenu';
 
 const bottomMenus: IBottomMenu[] = [
   {
