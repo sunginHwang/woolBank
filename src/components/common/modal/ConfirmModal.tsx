@@ -20,7 +20,7 @@ export interface WalletDateModalProps {
 function ConfirmModal({
   visible,
   message,
-  loading = true,
+  loading = false,
   confirmMsg = '확인',
   cancelMsg = '취소',
   onCancelClick,
