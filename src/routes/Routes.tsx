@@ -20,6 +20,7 @@ const BucketList = loadable(() => import('@pages/bucketList/BucketList'), defaul
 const BucketListDetail = loadable(() => import('@pages/bucketList/BucketListDetail'), defaultFallback);
 const BucketListSave = loadable(() => import('@pages/bucketList/BucketListSave'), defaultFallback);
 const Login = loadable(() => import('@pages/user/login'));
+const Menu = loadable(() => import('@pages/Menu'));
 
 function Routes() {
   const user = useSelector((state: RootState) => state.Auth.user);
@@ -29,6 +30,7 @@ function Routes() {
     <ScrollToTop>
       <Switch>
         <RouteWrapper path='/' component={Main} exact isLogin={isLogin} />
+        <RouteWrapper path='/extra' component={Menu} exact isLogin={isLogin} />
         <RouteWrapper path='/login' component={Login} exact useNavBar={false} checkAuth={false} />
         <RouteWrapper path='/accounts' component={AccountList} exact isLogin={isLogin} />
         <RouteWrapper path='/accounts/save' component={AccountRegister} exact isLogin={isLogin} />

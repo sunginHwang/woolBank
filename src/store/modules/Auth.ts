@@ -22,6 +22,9 @@ export default createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload;
+    },
+    logout: (state) => {
+      state.user = initialState.user;
     }
   }
 })

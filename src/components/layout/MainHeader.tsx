@@ -25,6 +25,7 @@ const S: {
     left: 0;
     right: 0;
     z-index: ${({ theme }) => theme.zIndex.header};
+    padding: env(safe-area-inset-top, 1rem) 0 1rem 0;
     padding: 1rem 0 1rem 0;
     border-bottom: 0.1rem solid ${({ theme }) => theme.colors.greyL2};
 

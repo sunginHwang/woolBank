@@ -12,7 +12,7 @@ export interface HeaderWithBackProps {
   onBackClick?: () => void;
   right?: React.ReactNode | string;
   useSkeleton?: boolean;
-};
+}
 
 function HeaderWithBack({
   title,
