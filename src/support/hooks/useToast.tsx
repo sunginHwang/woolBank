@@ -12,7 +12,7 @@ export const useToast = () => {
       const hideAfter1Sec = setTimeout(() => {
         dispatch(Layout.actions.hideToast());
         clearTimeout(hideAfter1Sec);
-      }, 1000);
+      }, 2000);
     },
     [dispatch]
   );
