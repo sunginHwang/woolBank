@@ -18,6 +18,7 @@ function AccountInfo({ account }: AccountInfoProps) {
   const { rate, startDate, endDate, title, savingType, currentAmount, amount } = account;
 
   const remainPercent = getRemainDatePercentage(startDate, endDate);
+  const ratePercent = `${(rate * 100).toFixed(2)}%`;
 
   return (
     <S.AccountInfo>
@@ -44,7 +45,7 @@ function AccountInfo({ account }: AccountInfoProps) {
       </S.Amount>
       <S.Amount>
         <span>
-          예상 이자 <S.Info>({rate * 100}%)</S.Info>
+          예상 이자 <S.Info>({ratePercent})</S.Info>
         </span>
         <S.Interest>
           {addComma(rateInterest)}
