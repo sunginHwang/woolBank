@@ -118,46 +118,39 @@ function SocialLoginContainer() {
 
   const isLogin = user.id > 0;
 
+  if (isLogin) {
+    return null;
+  }
+
   return (
-    <>
-      {!isLogin && (
-        <LoginBox title='소셜 로그인 하기' type='social'>
-          <FacebookLogin
-            appId={keys.social.facebook}
-            fields='name,email,picture'
-            render={(renderProps: any) => (
-              <SocialLoginButton provider='facebook' handleLoginClick={renderProps.onClick} />
-            )}
-            callback={onFacebookLogin}
-          />
-          <GoogleLogin
-            clientId={keys.social.google}
-            cookiePolicy='single_host_origin'
-            render={renderProps => (
-              <SocialLoginButton provider='google' handleLoginClick={renderProps.onClick} />
-            )}
-            onSuccess={onGoogleLogin}
-            onFailure={onLoginFailure}
-          />
-          <KaKaoLogin
-            jsKey={keys.social.kakaoTalk}
-            getProfile={true}
-            render={renderProps => (
-              <SocialLoginButton provider='kakaoTalk' handleLoginClick={renderProps.onClick} />
-            )}
-            onSuccess={onKakaoTalkLogin}
-            onFailure={onLoginFailure}
-          />
-        </LoginBox>
-      )}
-      {isLogin && (
-        <div>
-          <p>{user.name}</p>
-          <p>{user.email}</p>
-          <img src={user.imageUrl} alt='유저 이미지' />
-        </div>
-      )}
-    </>
+    <LoginBox title='소셜 로그인 하기' type='social'>
+      <FacebookLogin
+        appId={keys.social.facebook}
+        fields='name,email,picture'
+        render={(renderProps: any) => (
+          <SocialLoginButton provider='facebook' handleLoginClick={renderProps.onClick} />
+        )}
+        callback={onFacebookLogin}
+      />
+      <GoogleLogin
+        clientId={keys.social.google}
+        cookiePolicy='single_host_origin'
+        render={renderProps => (
+          <SocialLoginButton provider='google' handleLoginClick={renderProps.onClick} />
+        )}
+        onSuccess={onGoogleLogin}
+        onFailure={onLoginFailure}
+      />
+      <KaKaoLogin
+        jsKey={keys.social.kakaoTalk}
+        getProfile={true}
+        render={renderProps => (
+          <SocialLoginButton provider='kakaoTalk' handleLoginClick={renderProps.onClick} />
+        )}
+        onSuccess={onKakaoTalkLogin}
+        onFailure={onLoginFailure}
+      />
+    </LoginBox>
   );
 }
 
