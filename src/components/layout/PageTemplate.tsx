@@ -6,6 +6,8 @@ import MainHeader from '@components/layout/MainHeader';
 
 import palette from '@style/palette';
 
+const defaultTopPadding = 6.5;
+
 export interface PageTemplateProps {
   title?: string;
   isMain?: boolean;
@@ -34,14 +36,13 @@ function PageTemplate({
   const onHeaderBackClick = () => {
     onBackClick && onBackClick();
   };
-
-  const headerPadding = useHeader ? 5.5 : 0;
+  const headerPadding = useHeader ? defaultTopPadding : 0;
   const topAreaPadding = topPadding > headerPadding ? topPadding : headerPadding;
 
   return (
     <>
       {isMain ? (
-        <S.PageTemplate topPadding={5.5} >
+        <S.PageTemplate topPadding={defaultTopPadding} >
           <MainHeader />
           <S.Content useSidePadding >
             {children}

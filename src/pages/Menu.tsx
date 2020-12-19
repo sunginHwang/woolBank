@@ -35,7 +35,7 @@ function Menu() {
 
   return (
     <PageTemplate useHeader useBackButton={false} title='더보기'>
-      <Card>
+      <Card title='내 정보'>
         <S.UserItem>
           <div>
             <CircleImg size={3} imgUrl={user.imageUrl} alt={user.name + '_이미지'} />

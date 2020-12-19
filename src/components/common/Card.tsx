@@ -3,10 +3,18 @@ import styled from 'styled-components';
 
 interface ICard {
   children: any;
+  title?: string;
 }
 
-function Card({ children }: ICard) {
-  return <S.Card>{children}</S.Card>;
+function Card({ title, children }: ICard) {
+  return (
+    <S.Card>
+      {title && <h3>{title}</h3>}
+      <div>
+        {children}
+      </div>
+    </S.Card>
+  );
 }
 
 interface IItem {
@@ -40,10 +48,17 @@ export default Card;
 
 const S = {
   Card: styled.section`
-    border: 0.1rem solid #e6e6e6;
-    border-radius: 0.8rem;
-    box-shadow: 0 0.1rem 0.3rem 0 rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    
+    
+    > h3 {
+      font-size: 1.4rem;
+      padding: 1rem 0;
+    }
+    > div {
+      border: 0.1rem solid #e6e6e6;
+      border-radius: 0.8rem;
+      box-shadow: 0 0.1rem 0.3rem 0 rgba(0, 0, 0, 0.1);
+    }
   `,
   Item: styled.div`
     border-top: 0.1rem solid #f2f2f2;
