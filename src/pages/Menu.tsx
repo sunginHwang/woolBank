@@ -34,7 +34,7 @@ function Menu() {
   };
 
   return (
-    <PageTemplate useHeader={false}>
+    <PageTemplate useHeader useBackButton={false} title='더보기'>
       <Card>
         <S.UserItem>
           <div>

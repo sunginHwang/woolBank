@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import HeaderWithBack from '@components/common/HeaderWithBack';
+import PageHeader from '@components/common/PageHeader';
 
 export interface PhaseTemplateProps {
   // 헤더 사용 유무
@@ -24,7 +24,7 @@ function PhaseTemplate({
 }: PhaseTemplateProps) {
   return (
     <S.PhaseTemplate active={active}>
-      {active && <HeaderWithBack title={title} right={rightMessage} onBackClick={onBackClick} />}
+      {active && <PageHeader title={title} right={rightMessage} onBackClick={onBackClick} />}
       <S.Content useScroll={useScroll} usePadding={usePadding}>
         {children}
       </S.Content>

@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import Cropper from 'react-cropper';
 
-import HeaderWithBack from '@components/common/HeaderWithBack';
+import PageHeader from '@components/common/PageHeader';
 import IcoCircleCheck from '@components/icon/IcoCircleCheck';
 
 import colors from '@style/theme';
@@ -28,7 +28,7 @@ function ImageCrop({ url, onBackClick, onCrop }: ImageCropProps) {
 
   return (
     <S.ImageCrop>
-      <HeaderWithBack
+      <PageHeader
         title='이미지 편집'
         right={
           <i onClick={onCompleteCrop}>

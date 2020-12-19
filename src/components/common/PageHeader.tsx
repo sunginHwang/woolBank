@@ -2,10 +2,9 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import IcoChevronLeft from '@components/icon/IcoChevronLeft';
-
 import theme from '@style/theme';
 
-export interface HeaderWithBackProps {
+export interface PageHeaderProps {
   title: string;
   iconColor?: string;
   useBackButton?: boolean;
@@ -14,24 +13,26 @@ export interface HeaderWithBackProps {
   useSkeleton?: boolean;
 }
 
-function HeaderWithBack({
+function PageHeader({
   title,
   iconColor = theme.colors.mainColor,
   useSkeleton = false,
   useBackButton = true,
   onBackClick,
   right
-}: HeaderWithBackProps) {
+}: PageHeaderProps) {
   const onBackButtonClick = useCallback(() => {
     useBackButton && onBackClick && onBackClick();
   }, [useBackButton, onBackClick]);
 
   return (
-    <S.HeaderWithBack useSkeleton={useSkeleton}>
+    <S.HeaderWithBack useSkeleton={useSkeleton} useBigTitle={!useBackButton}>
       <div>
-        <div onClick={onBackButtonClick}>
-          {useBackButton && <IcoChevronLeft width={26} height={26} fill={iconColor} />}
-        </div>
+        {useBackButton && (
+          <div onClick={onBackButtonClick}>
+            <IcoChevronLeft width={26} height={26} fill={iconColor} />
+          </div>
+        )}
         <p data-cy='title'>{title}</p>
         <S.rightHeader>{right}</S.rightHeader>
       </div>
@@ -40,7 +41,10 @@ function HeaderWithBack({
 }
 
 const S: any = {
-  HeaderWithBack: styled.div`
+  HeaderWithBack: styled.div<{
+    useSkeleton: boolean;
+    useBigTitle: boolean;
+  }>`
     height: 5.5rem;
     display: flex;
     justify-content: space-between;
@@ -49,9 +53,9 @@ const S: any = {
     left: 0;
     top: 0;
     width: 100%;
-    z-index: ${(props) => props.theme.zIndex.header};
-    background-color: ${(props: any) => (props.useSkeleton ? 'transparent' : props.theme.colors.white)};
-    border-bottom: ${(props: any) => (props.useSkeleton ? 'none' : '0.1rem solid #dcdce9')};
+    z-index: ${({ theme }) => theme.zIndex.header};
+    background-color: ${({ useSkeleton, theme }) => (useSkeleton ? 'transparent' : theme.colors.white)};
+    border-bottom: ${({ useSkeleton }) => (useSkeleton ? 'none' : '0.1rem solid #dcdce9')};
 
     > div {
       width: 100%;
@@ -83,17 +87,17 @@ const S: any = {
 
       > p {
         flex: 2;
-        text-align: center;
-        font-size: 1.4rem;
-        font-weight: bold;
-        color: ${(props) => props.theme.colors.blackL1};
+        text-align: ${({ useBigTitle }) => useBigTitle ? 'left' : 'center'};
+        font-size: ${({ useBigTitle }) => useBigTitle ? 1.8 : 1.4}rem;
+        font-weight: 800;
+        color: ${({ theme }) => theme.colors.blackL1};
       }
     }
   `,
   rightHeader: styled.div`
     padding-top: 0.4rem;
-    color: ${(props) => props.theme.colors.greyD2};
+    color: ${({ theme }) => theme.colors.greyD2};
   `
 };
 
-export default HeaderWithBack;
+export default PageHeader;

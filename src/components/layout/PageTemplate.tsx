@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import HeaderWithBack from '@components/common/HeaderWithBack';
+import PageHeader from '@components/common/PageHeader';
 import MainHeader from '@components/layout/MainHeader';
 
 import palette from '@style/palette';
@@ -50,7 +50,7 @@ function PageTemplate({
       ) : (
         <S.PageTemplate topPadding={topAreaPadding}>
           {useHeader && (
-            <HeaderWithBack
+            <PageHeader
               title={title}
               useBackButton={useBackButton}
               onBackClick={onHeaderBackClick}

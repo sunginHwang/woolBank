@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
-import HeaderWithBack from '@components/common/HeaderWithBack';
+import PageHeader from '@components/common/PageHeader';
 import Progress from '@components/common/Progress';
 import IcoDowHorizontal from '@components/icon/IcoDotHorizontal';
 import PlaceHolderBar from '@components/common/PlaceHolderBar';
@@ -60,7 +60,7 @@ function BucketListDetailHeader({
 
   return (
     <>
-      <HeaderWithBack
+      <PageHeader
         iconColor={headerIconColor}
         title={fixedHeaderMsg}
         right={
