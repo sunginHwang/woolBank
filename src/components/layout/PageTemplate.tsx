@@ -12,6 +12,7 @@ export interface PageTemplateProps {
   useSidePadding?: boolean;
   bgColor?: string;
   useHeader?: boolean;
+  topPadding?: number;
   rightHeader?: React.ReactNode;
   useBackButton?: boolean;
   children?: React.ReactNode;
@@ -25,6 +26,7 @@ function PageTemplate({
   useSidePadding = true,
   useHeader = true,
   useBackButton = true,
+  topPadding = 0,
   onBackClick,
   rightHeader = null,
   children
@@ -33,17 +35,20 @@ function PageTemplate({
     onBackClick && onBackClick();
   };
 
+  const headerPadding = useHeader ? 5.5 : 0;
+  const topAreaPadding = topPadding > headerPadding ? topPadding : headerPadding;
+
   return (
-    <S.PageTemplate>
+    <>
       {isMain ? (
-        <>
+        <S.PageTemplate topPadding={5.5} >
           <MainHeader />
-          <S.Content useHeader useSidePadding>
+          <S.Content useSidePadding >
             {children}
           </S.Content>
-        </>
+        </S.PageTemplate>
       ) : (
-        <>
+        <S.PageTemplate topPadding={topAreaPadding}>
           {useHeader && (
             <HeaderWithBack
               title={title}
@@ -52,12 +57,12 @@ function PageTemplate({
               right={rightHeader}
             />
           )}
-          <S.Content useHeader={useHeader} bgColor={bgColor} useSidePadding={useSidePadding}>
+          <S.Content useSidePadding={useSidePadding} bgColor={bgColor} >
             {children}
           </S.Content>
-        </>
+        </S.PageTemplate>
       )}
-    </S.PageTemplate>
+    </>
   );
 }
 
@@ -67,18 +72,18 @@ const S: {
   PageTemplate: any;
   Content: any;
 } = {
-  PageTemplate: styled.div`
+  PageTemplate: styled.main<{
+    topPadding: number;
+    useSidePadding: boolean;
+  }>`
     width: 100%;
-    height: 100%;
+    padding-top: ${({ topPadding }) => `${topPadding}rem`} // 헤더 사용 유무에 따른 상단 패딩 조정
   `,
   Content: styled.div<{
-    useHeader: boolean;
-    useSidePadding: boolean;
     bgColor: string;
+    useSidePadding: boolean;
   }>`
-    height: ${({ useHeader }) => (useHeader ? 'calc(100% - 5.5rem)' : '100%')};
     background-color: ${({ bgColor }) => bgColor};
-    padding: ${({ useHeader }) => (useHeader ? '5.5rem' : '0')} // 헤더 사용 유무에 따른 상단 패딩 조정
-      ${({ useSidePadding }) => (useSidePadding ? '2rem 10rem 2rem' : '0 10rem 0')};
+    padding: 0 ${({ useSidePadding }) => (useSidePadding ? '2rem' : '0')};
   `
 };

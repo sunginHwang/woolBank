@@ -54,6 +54,8 @@ function Main() {
         mainInfo.accounts.map((account, index) => <AccountListItem key={index} account={account} />)}
       {activeTab.type === 'bucketList' &&
         mainInfo.bucketList.map((bucket, index) => <BucketListItem key={index} bucketList={bucket} />)}
+      {/*여기는 수정 필요 (컴포넌트 대체 */}
+      <div style={{ marginTop: '8.5rem', height: '1rem' }} />
     </PageTemplate>
   );
 }

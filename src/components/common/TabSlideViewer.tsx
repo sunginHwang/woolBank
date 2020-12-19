@@ -71,6 +71,15 @@ const S: {
   `,
   ListContent: styled.div`
     padding: 2rem 0;
+    
+    // 리스트 마지막 요소 네이게이션 영역 패딩 처리
+    a:last-child {
+      > div {
+        margin-bottom: 5.5rem;
+        margin-bottom: calc(constant(safe-area-inset-bottom) + 5.5rem);
+        margin-bottom: calc(env(safe-area-inset-bottom) + 5.5rem);
+      }
+    }
   `,
   ListTitle: styled.div`
     height: 4.8rem;

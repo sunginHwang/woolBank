@@ -24,19 +24,19 @@ export interface ListSkeletonProps {
 
 function ListSkeleton({ item, title, itemCount = 10 }: ListSkeletonProps) {
   return (
-    <>
-      <S.ListTitle>
+    <S.ListSkeleton>
+      <S.Title>
         <p>{title}</p>
-      </S.ListTitle>
+      </S.Title>
       <Tabs tabs={tabs} activeTab={tabs[0]} />
-      <S.ListWrapper>
-        <S.ListSkeleton>
+      <S.Wrapper>
+        <S.Content>
           {[...Array(itemCount)].map((_, key) => (
             <div key={key}>{item}</div>
           ))}
-        </S.ListSkeleton>
-      </S.ListWrapper>
-    </>
+        </S.Content>
+      </S.Wrapper>
+    </S.ListSkeleton>
   );
 }
 
@@ -44,17 +44,21 @@ export default React.memo(ListSkeleton);
 
 const S: {
   ListSkeleton: any;
-  ListTitle: any;
-  ListWrapper: any;
+  Title: any;
+  Wrapper: any;
+  Content: any;
 } = {
   ListSkeleton: styled.div`
+    margin-top: -8.8rem;
+  `,
+  Content: styled.div`
     margin: 0 2rem;
   `,
-  ListWrapper: styled.div`
+  Wrapper: styled.div`
     margin-top: 3.8rem;
     height: 100%;
   `,
-  ListTitle: styled.div`
+  Title: styled.div`
     height: 4.8rem;
     display: flex;
     justify-content: flex-start;
