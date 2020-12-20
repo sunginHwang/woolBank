@@ -30,7 +30,7 @@ const navigations: INavigationBar[] = [
   {
     name: '내 정보',
     value: 'me',
-    link: '/extra',
+    link: '/mypage',
     icon: <IcoAccountOutline />
   }
 ];

@@ -30,7 +30,7 @@ function Routes() {
     <ScrollToTop>
       <Switch>
         <RouteWrapper path='/' component={Main} exact isLogin={isLogin} />
-        <RouteWrapper path='/extra' component={Menu} exact isLogin={isLogin} />
+        <RouteWrapper path='/mypage' component={Menu} exact isLogin={isLogin} />
         <RouteWrapper path='/login' component={Login} exact useNavBar={false} checkAuth={false} />
         <RouteWrapper path='/accounts' component={AccountList} exact isLogin={isLogin} />
         <RouteWrapper path='/accounts/save' component={AccountRegister} exact isLogin={isLogin} />
