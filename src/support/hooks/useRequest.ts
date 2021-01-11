@@ -7,6 +7,7 @@ type onRequestType = {
   params: any;
   onSuccess?: Function;
   onError?: Function;
+  onFinally?: Function;
 };
 
 type UseRequestReturnType<T> = [
@@ -22,7 +23,7 @@ export default function useRequest<T>(axiosRequest: PromiseCreator<T>): UseReque
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<Error | null>(null);
 
-  const onRequest = async ({ params, onSuccess, onError }: onRequestType) => {
+  const onRequest = async ({ params, onSuccess, onError, onFinally }: onRequestType) => {
     try {
       setLoading(true);
       let response = null;
@@ -46,6 +47,9 @@ export default function useRequest<T>(axiosRequest: PromiseCreator<T>): UseReque
       }
     } finally {
       setLoading(false);
+      if (onFinally && typeof onFinally === 'function') {
+        onFinally();
+      }
     }
   };
 

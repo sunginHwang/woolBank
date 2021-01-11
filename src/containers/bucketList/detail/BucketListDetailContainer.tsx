@@ -38,6 +38,7 @@ type BucketListDetailContainerProps = {
 function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerProps) {
   const [showRemoveModal, onRemoveModal, offRemoveModal] = useToggle(false);
   const [showMenuModal, onMenuModal, offMenuModal] = useToggle(false);
+  const [showCompleteModal, onCompleteModal, offCompleteModal] = useToggle(false);
 
   const onToast = useToast();
   const [onRemoveRequest, removeLoading] = useRequest(removeBucketList);
@@ -108,6 +109,9 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
       },
       onError: () => {
         onToast('다시 시도해 주세요.');
+      },
+      onFinally: () => {
+        offCompleteModal();
       }
     });
   };
@@ -155,8 +159,14 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
       <BottomButton
         message='달성하기'
         isShow={!bucketListDetail.data.isComplete && !bucketListDetail.loading}
-        onClick={onCompleteBucketList}
-        loading={completeLoading}
+        onClick={onCompleteModal}
+      />
+      <BottomMenuModal
+        menus={modalMenus}
+        title='원하시는 메뉴를 선택해 주세요.'
+        visible={showMenuModal}
+        oncloseModal={offMenuModal}
+        onEditClick={onMenuClick}
       />
       {/* 비동기 호출을 통한 아이템 삭제 모달 */}
       <ConfirmModal
@@ -166,12 +176,13 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
         onConfirmClick={onRemoveBucketList}
         onCancelClick={offRemoveModal}
       />
-      <BottomMenuModal
-        menus={modalMenus}
-        title='원하시는 메뉴를 선택해 주세요.'
-        visible={showMenuModal}
-        oncloseModal={offMenuModal}
-        onEditClick={onMenuClick}
+      {/* 완료 안내 모달 */}
+      <ConfirmModal
+        visible={showCompleteModal}
+        message={`${bucketListDetail.data.title} 버킷리스트 목표를 달성하시겠습니까?`}
+        loading={completeLoading}
+        onConfirmClick={onCompleteBucketList}
+        onCancelClick={offCompleteModal}
       />
     </>
   );
