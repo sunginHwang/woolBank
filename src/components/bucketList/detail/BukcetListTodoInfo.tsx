@@ -15,6 +15,7 @@ export interface TodoListProps {
   todoUpdateLoading: boolean;
   onAddTodo: (todo: ITodo) => void;
   onRemoveTodo: (id: number) => void;
+  onToggleShowCompleteButton: (toggle: boolean) => void;
   onToggleTodoState: (todo: ITodo) => void;
 };
 
@@ -27,7 +28,8 @@ function BucketListTodoInfo({
   todoUpdateLoading = false,
   onAddTodo,
   onRemoveTodo,
-  onToggleTodoState
+  onToggleTodoState,
+  onToggleShowCompleteButton
 }: TodoListProps) {
   const todoItemLoading = {
     isLoading: todoUpdateLoading,
@@ -42,6 +44,14 @@ function BucketListTodoInfo({
       <PlaceHolderBar width='100%' height='5.4rem' />
     </>
   );
+
+  const onTodoFocusIn = () => {
+    onToggleShowCompleteButton(false);
+  };
+
+  const onTodoFocusOut = () => {
+    onToggleShowCompleteButton(true);
+  };
 
   return (
     <>
@@ -58,6 +68,8 @@ function BucketListTodoInfo({
             onAdd={onAddTodo}
             onRemove={onRemoveTodo}
             onToggleState={onToggleTodoState}
+            onTodoItemFocusIn={onTodoFocusIn}
+            onTodoItemFocusOut={onTodoFocusOut}
           />
         )}
       </S.BucketListTodoInfo>

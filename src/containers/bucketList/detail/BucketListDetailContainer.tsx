@@ -33,9 +33,10 @@ const bottomMenus: IBottomMenu[] = [
 
 type BucketListDetailContainerProps = {
   bucketListId: number;
+  showCompleteButton: boolean;
 };
 
-function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerProps) {
+function BucketListDetailContainer({ bucketListId, showCompleteButton }: BucketListDetailContainerProps) {
   const [showRemoveModal, onRemoveModal, offRemoveModal] = useToggle(false);
   const [showMenuModal, onMenuModal, offMenuModal] = useToggle(false);
   const [showCompleteModal, onCompleteModal, offCompleteModal] = useToggle(false);
@@ -158,7 +159,7 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
       />
       <BottomButton
         message={bucketListDetail.data.isComplete ? '목표 달성 완료' : '달성하기'}
-        isShow={!bucketListDetail.loading}
+        isShow={!bucketListDetail.loading && showCompleteButton}
         active={!bucketListDetail.data.isComplete}
         onClick={onCompleteModal}
       />

@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { ITodo } from '../../../models/ITodo';
-import BucketListTodoInfo from '../../../components/bucketList/detail/BukcetListTodoInfo';
-import { RootState } from '../../../store';
-import BucketList from '../../../store/modules/BucketList';
-import useRequest from '../../../support/hooks/useRequest';
-import { removeTodo, saveTodo, updateTodoState } from '../../../support/api/todoApi';
-import ConfirmModal from '../../../components/common/modal/ConfirmModal';
-import { useToggle } from '../../../support/hooks/useToggle';
-import { useToast } from '../../../support/hooks/useToast';
+import BucketListTodoInfo from '@components/bucketList/detail/BukcetListTodoInfo';
+import ConfirmModal from '@components/common/modal/ConfirmModal';
+
+import { RootState } from '@/store';
+import BucketList from '@/store/modules/BucketList';
+import { ITodo } from '@models/ITodo';
+import { removeTodo, saveTodo, updateTodoState } from '@support/api/todoApi';
+import { useToggle } from '@support/hooks/useToggle';
+import { useToast } from '@support/hooks/useToast';
+import useRequest from '@support/hooks/useRequest';
+
 
 type BucketListTodoContainerProps = {
   bucketListId: number;
+  onToggleShowCompleteButton: (toggle: boolean) => void;
 };
 
-function BucketListTodoContainer({ bucketListId }: BucketListTodoContainerProps) {
+function BucketListTodoContainer({ bucketListId, onToggleShowCompleteButton }: BucketListTodoContainerProps) {
   const [selectTodoId, setSelectTodoId] = useState(0);
   const [showRemoveModal, onRemoveModal, offRemoveModal] = useToggle(false);
 
@@ -107,6 +110,7 @@ function BucketListTodoContainer({ bucketListId }: BucketListTodoContainerProps)
         todoUpdateLoading={updateTodoLoading}
         onAddTodo={onAddTodo}
         onRemoveTodo={openTodoRemoveModal}
+        onToggleShowCompleteButton={onToggleShowCompleteButton}
         onToggleTodoState={onToggleTodoState}
       />
       <ConfirmModal
