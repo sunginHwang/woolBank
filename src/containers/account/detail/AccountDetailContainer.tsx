@@ -8,7 +8,8 @@ import AccountInfoSkeleton from '@components/account/detail/AccountInfoSkeleton'
 import { RootState } from '@/store';
 import AccountDetail, { getAccount } from '@store/modules/AccountDetail';
 import { checkNeedReFetch } from '@support/util/checkNeedReFetch';
-import { getAccountLastUpdatedAt } from '@support/api/accountApi';
+import { addDeposit, getAccountLastUpdatedAt } from '@support/api/accountApi';
+import BottomButton from '@components/common/BottomButton';
 
 export interface AccountDetailContainerProps {
   accountId: number;
@@ -60,6 +61,9 @@ function AccountDetailContainer({ accountId }: AccountDetailContainerProps) {
     <>
       <AccountInfo account={accountDetail.data} />
       <DepositList depositList={accountDetail.data.deposits} />
+      {
+        accountDetail.data.isExpiration && <BottomButton isShow message='만기 완료' active={false} />
+      }
     </>
   );
 }
