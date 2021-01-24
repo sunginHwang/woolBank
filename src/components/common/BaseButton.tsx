@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { ClipLoader } from 'react-spinners';
-
 import palette from '@style/palette';
+import hexToRgb from '@support/util/hexToRgb';
 
 type colorSchemeType = {
   bgColor: string;
@@ -63,6 +63,7 @@ function BaseButton({ dataType, message, color, size, name, loading = false, act
       name={name}
       data-type={dataType}
       active={active}
+      disabled={!active}
       colorScheme={colorScheme}
       sizeScheme={sizeScheme}
     >
@@ -83,8 +84,10 @@ const S: {
     width: ${({ sizeScheme }) => (sizeScheme ? sizeScheme.width : '10rem')};
     height: ${({ sizeScheme }) => (sizeScheme ? sizeScheme.height : '5rem')};
     background-color: ${({ colorScheme }) => colorScheme.bgColor};
-    color: ${({ colorScheme }) => colorScheme.color};
-    opacity: ${({ active }) => (active ? 1 : 0.5)};
+    color: ${({ colorScheme, active }) => {
+      const opacity = active  ? 1 : 0.5;
+      return `rgba(${hexToRgb(colorScheme.color)}, ${opacity})`;  
+    }};
   `
 };
 

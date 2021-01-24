@@ -10,6 +10,7 @@ export interface TodoListProps {
   todoList: ITodo[];
   selectTodoId: number;
   isLoading: boolean;
+  isFreeze: boolean;
   addLoading: boolean;
   todoUpdateLoading: boolean;
   onAddTodo: (todo: ITodo) => void;
@@ -21,6 +22,7 @@ function BucketListTodoInfo({
   todoList,
   selectTodoId,
   isLoading,
+  isFreeze,
   addLoading = false,
   todoUpdateLoading = false,
   onAddTodo,
@@ -52,6 +54,7 @@ function BucketListTodoInfo({
             addLoading={addLoading}
             todoItemLoading={todoItemLoading}
             todoList={todoList}
+            isFreeze={isFreeze}
             onAdd={onAddTodo}
             onRemove={onRemoveTodo}
             onToggleState={onToggleTodoState}

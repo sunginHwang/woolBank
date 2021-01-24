@@ -157,8 +157,9 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
         completeDate={bucketListDetail.data.completeDate}
       />
       <BottomButton
-        message='달성하기'
-        isShow={!bucketListDetail.data.isComplete && !bucketListDetail.loading}
+        message={bucketListDetail.data.isComplete ? '목표 달성 완료' : '달성하기'}
+        isShow={!bucketListDetail.loading}
+        active={!bucketListDetail.data.isComplete}
         onClick={onCompleteModal}
       />
       <BottomMenuModal
@@ -179,7 +180,7 @@ function BucketListDetailContainer({ bucketListId }: BucketListDetailContainerPr
       {/* 완료 안내 모달 */}
       <ConfirmModal
         visible={showCompleteModal}
-        message={`${bucketListDetail.data.title} 버킷리스트 목표를 달성하시겠습니까?`}
+        message={`'${bucketListDetail.data.title}' 버킷리스트 목표를 달성하시겠습니까?`}
         loading={completeLoading}
         onConfirmClick={onCompleteBucketList}
         onCancelClick={offCompleteModal}

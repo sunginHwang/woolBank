@@ -12,19 +12,24 @@ import { ITodo } from '@models/ITodo';
 export interface TodoListItemProps {
   todo: ITodo;
   isLoading?: boolean;
+  isFreeze?: boolean;
   onToggleState: (id: ITodo) => void;
   onRemove: (id: number) => void;
 }
 
-function TodoListItem({ todo, isLoading = false, onToggleState, onRemove }: TodoListItemProps) {
+function TodoListItem({ todo, isLoading = false, isFreeze = false, onToggleState, onRemove }: TodoListItemProps) {
   /**
    * todo 완료 상태 토글
    */
   const onToggleStateClick = useCallback(
     (e: React.MouseEvent<HTMLLIElement>) => {
-      !isLoading && onToggleState(todo);
+      if (isLoading || isFreeze) {
+        return;
+      }
+
+      onToggleState(todo);
     },
-    [todo, onToggleState, isLoading]
+    [todo, onToggleState, isLoading, isFreeze]
   );
 
   /**
@@ -40,6 +45,8 @@ function TodoListItem({ todo, isLoading = false, onToggleState, onRemove }: Todo
     <IcoBlackCircle fill={palette.mainColor} />
   );
 
+  const showRemoveBtn = !isLoading && !isFreeze;
+
   return (
     <S.TodoListItem data-cy='todoListItem'>
       <div>
@@ -48,7 +55,7 @@ function TodoListItem({ todo, isLoading = false, onToggleState, onRemove }: Todo
         </i>
         <S.ListTitle isComplete={todo.isComplete}>{todo.title}</S.ListTitle>
       </div>
-      {!isLoading && (
+      {showRemoveBtn && (
         <div onClick={onRemoveClick}>
           <IcoTrashCan fill={palette.greyD2} />
         </div>

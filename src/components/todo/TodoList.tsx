@@ -15,6 +15,7 @@ export interface TodoListProps {
     isLoading: boolean;
     todoId: number;
   };
+  isFreeze: boolean;
   onAdd: (todo: ITodo) => void;
   onRemove: (id: number) => void;
   onToggleState: (todo: ITodo) => void;
@@ -26,6 +27,7 @@ function TodoList({
   todoList,
   addLoading = false,
   todoItemLoading = { isLoading: false, todoId: 0 },
+  isFreeze,
   onAdd,
   onRemove,
   onToggleState,
@@ -47,6 +49,7 @@ function TodoList({
     addRef.current && addRef.current.scrollIntoView();
   };
 
+
   return (
     <>
       <S.TodoList>
@@ -56,6 +59,7 @@ function TodoList({
             <TodoListItem
               key={index}
               todo={todo}
+              isFreeze={isFreeze}
               isLoading={isTodoLoading}
               onRemove={onRemove}
               onToggleState={onToggleState}
@@ -63,18 +67,22 @@ function TodoList({
           );
         })}
       </S.TodoList>
-      <S.TodoAdd ref={addRef}>
-        {showAddInput ? (
-          <TodoInput
-            onAdd={onAddTodo}
-            onClose={offAddInput}
-            onFocusIn={onTodoItemFocusIn}
-            onFocusOut={onTodoItemFocusOut}
-          />
-        ) : (
-          <TodoAddButton loading={addLoading} onClick={onAddInput} />
-        )}
-      </S.TodoAdd>
+      {
+        !isFreeze && (
+          <S.TodoAdd ref={addRef}>
+            {showAddInput ? (
+              <TodoInput
+                onAdd={onAddTodo}
+                onClose={offAddInput}
+                onFocusIn={onTodoItemFocusIn}
+                onFocusOut={onTodoItemFocusOut}
+              />
+            ) : (
+              <TodoAddButton loading={addLoading} onClick={onAddInput} />
+            )}
+          </S.TodoAdd>
+        )
+      }
     </>
   );
 }

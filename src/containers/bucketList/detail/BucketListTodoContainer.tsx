@@ -101,6 +101,7 @@ function BucketListTodoContainer({ bucketListId }: BucketListTodoContainerProps)
       <BucketListTodoInfo
         todoList={bucketListDetail.data.todoList}
         selectTodoId={selectTodoId}
+        isFreeze={bucketListDetail.data.isComplete}
         isLoading={bucketListDetail.loading}
         addLoading={saveTodoLoading}
         todoUpdateLoading={updateTodoLoading}

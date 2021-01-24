@@ -17,8 +17,8 @@ function BottomButton({
   message,
   loading = false,
   active = true,
-  onClick,
-  isShow = false
+  isShow = false,
+  onClick
 }: BottomButtonProps) {
   if (!isShow) {
     return null;
