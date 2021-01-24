@@ -12,7 +12,6 @@ import { useToggle } from '@support/hooks/useToggle';
 import { useToast } from '@support/hooks/useToast';
 import useRequest from '@support/hooks/useRequest';
 
-
 type BucketListTodoContainerProps = {
   bucketListId: number;
   onToggleShowCompleteButton: (toggle: boolean) => void;
@@ -38,6 +37,7 @@ function BucketListTodoContainer({ bucketListId, onToggleShowCompleteButton }: B
       params: [bucketListId, todo],
       onSuccess: (res: any) => {
         const savedTodo: ITodo = Object.assign(todo, { id: res.data.todoId });
+        onToggleShowCompleteButton(true);
         dispatch(BucketList.actions.saveTodo(savedTodo));
       },
       onError: () => {
