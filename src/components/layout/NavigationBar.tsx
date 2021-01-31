@@ -28,6 +28,12 @@ const navigations: INavigationBar[] = [
     icon: <IcoBucketOutline />
   },
   {
+    name: '정기지출',
+    value: 'regularExpenditure',
+    link: '/regular-expenditure',
+    icon: <IcoBucketOutline />
+  },
+  {
     name: '내 정보',
     value: 'me',
     link: '/mypage',
