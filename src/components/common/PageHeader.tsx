@@ -55,7 +55,7 @@ const S: any = {
     width: 100%;
     z-index: ${({ theme }) => theme.zIndex.header};
     background-color: ${({ useSkeleton, theme }) => (useSkeleton ? 'transparent' : theme.colors.white)};
-    border-bottom: ${({ useSkeleton }) => (useSkeleton ? 'none' : '0.1rem solid #dcdce9')};
+    border-bottom: ${({ useSkeleton, useBigTitle }) => (useSkeleton || useBigTitle ? 'none' : '0.1rem solid #dcdce9')};
 
     > div {
       width: 100%;
