@@ -17,7 +17,15 @@ function ExpenditureTypeList({ expenditureType }: RegularAmountInfoProps) {
           <b>{addComma(totalExpenditureTypeAmount)}</b> 원
         </S.TotalAmount>
       </S.TypeInfo>
-      <S.DummyList>리스트</S.DummyList>
+      <S.DummyList>
+        <S.Left>
+          <S.Title>리스트</S.Title>
+          <S.Amount>20,102원</S.Amount>
+        </S.Left>
+        <S.Right>
+          <span>3일전</span>
+        </S.Right>
+      </S.DummyList>
     </S.ExpenditureTypeList>
   );
 }
@@ -28,7 +36,31 @@ const S: {
   TypeText: any;
   TotalAmount: any;
   DummyList: any;
+  Left: any;
+  Right: any;
+  Title: any;
+  Amount: any;
 } = {
+  Title: styled.span`
+    color: ${({ theme }) => theme.colors.blackL1};
+  `,
+  Amount: styled.span`
+    color: ${({ theme }) => theme.colors.greyD2};
+    font-size: 1.2rem;
+  `,
+  Left: styled.div`
+    display: flex;
+    flex-direction: column;
+  `,
+  Right: styled.div`
+    span {
+      padding: .5rem 1rem;
+      background-color: ${({ theme }) => theme.colors.mainColor};
+      border-radius: 1.3rem;
+      color: ${({ theme }) => theme.colors.white};
+      font-size: 1.2rem;
+    }
+  `,
   ExpenditureTypeList: styled.div`
     display: flex;
     flex-direction: column;
@@ -54,8 +86,11 @@ const S: {
   `,
   DummyList: styled.div` 
     margin-top: .5rem;
-    padding: 1.5rem;
+    padding: 1.2rem 1.5rem;
     border-radius: 1.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: ${({ theme }) => theme.colors.greyL2};
   `
 };
