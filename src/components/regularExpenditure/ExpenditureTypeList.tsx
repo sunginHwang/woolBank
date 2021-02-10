@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { addComma } from '@support/util/String';
 
@@ -8,6 +8,20 @@ export interface RegularAmountInfoProps {
 
 function ExpenditureTypeList({ expenditureType }: RegularAmountInfoProps) {
   const totalExpenditureTypeAmount = 1030485;
+  const [startX, setStartX] = useState(0);
+  const [moveX, setMoveX] = useState(0);
+
+  const onTouchS = (e: any) => {
+    setStartX(e.targetTouches[0].screenX || 0);
+  };
+
+  const onTouchM = (e: any) => {
+    const moveX = e.targetTouches[0].screenX || 0;
+    const calc = startX - moveX;
+    setMoveX(calc < 0 ? 0 : calc > 200 ? 200 : calc);
+  };
+
+  console.log(moveX);
 
   return (
     <S.ExpenditureTypeList>
@@ -17,7 +31,7 @@ function ExpenditureTypeList({ expenditureType }: RegularAmountInfoProps) {
           <b>{addComma(totalExpenditureTypeAmount)}</b> 원
         </S.TotalAmount>
       </S.TypeInfo>
-      <S.DummyList>
+      <S.DummyList onTouchStart={onTouchS} onTouchMove={onTouchM} onTouchEnd={}>
         <S.Left>
           <S.Title>리스트</S.Title>
           <S.Amount>20,102원</S.Amount>
@@ -54,7 +68,7 @@ const S: {
   `,
   Right: styled.div`
     span {
-      padding: .5rem 1rem;
+      padding: 0.5rem 1rem;
       background-color: ${({ theme }) => theme.colors.mainColor};
       border-radius: 1.3rem;
       color: ${({ theme }) => theme.colors.white};
@@ -69,7 +83,7 @@ const S: {
   TypeInfo: styled.div`
     display: flex;
     justify-content: space-between;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
   `,
   TypeText: styled.span`
     font-size: 1.4rem;
@@ -84,8 +98,8 @@ const S: {
       font-size: 1.4rem;
     }
   `,
-  DummyList: styled.div` 
-    margin-top: .5rem;
+  DummyList: styled.div`
+    margin-top: 0.5rem;
     padding: 1.2rem 1.5rem;
     border-radius: 1.8rem;
     display: flex;
