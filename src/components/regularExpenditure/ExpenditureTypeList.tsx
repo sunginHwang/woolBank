@@ -31,7 +31,7 @@ function ExpenditureTypeList({ expenditureType }: RegularAmountInfoProps) {
           <b>{addComma(totalExpenditureTypeAmount)}</b> 원
         </S.TotalAmount>
       </S.TypeInfo>
-      <S.DummyList onTouchStart={onTouchS} onTouchMove={onTouchM} onTouchEnd={}>
+      <S.DummyList onTouchStart={onTouchS} onTouchMove={onTouchM} >
         <S.Left>
           <S.Title>리스트</S.Title>
           <S.Amount>20,102원</S.Amount>
