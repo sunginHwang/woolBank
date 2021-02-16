@@ -21,7 +21,9 @@ function ExpenditureTypeList({ expenditureType }: RegularAmountInfoProps) {
     setMoveX(calc < 0 ? 0 : calc > 200 ? 200 : calc);
   };
 
-  console.log(moveX);
+  const onTouchEnd = (e: any) => {
+    setStartX(0);
+  };
 
   return (
     <S.ExpenditureTypeList>
@@ -31,20 +33,32 @@ function ExpenditureTypeList({ expenditureType }: RegularAmountInfoProps) {
           <b>{addComma(totalExpenditureTypeAmount)}</b> 원
         </S.TotalAmount>
       </S.TypeInfo>
-      <S.DummyList onTouchStart={onTouchS} onTouchMove={onTouchM} >
-        <S.Left>
-          <S.Title>리스트</S.Title>
-          <S.Amount>20,102원</S.Amount>
-        </S.Left>
-        <S.Right>
-          <span>3일전</span>
-        </S.Right>
+      <S.DummyList onTouchStart={onTouchS} onTouchMove={onTouchM} onTouchEnd={onTouchEnd}>
+        <S.Wrap x={moveX}>
+          <S.First>
+            <div>
+              <S.Left>
+                <S.Title>리스트</S.Title>
+                <S.Amount>20,102원</S.Amount>
+              </S.Left>
+              <S.Right>
+                <span>3일전</span>
+              </S.Right>
+            </div>
+          </S.First>
+          <S.Second>
+            <span>삭제하기</span>
+          </S.Second>
+        </S.Wrap>
       </S.DummyList>
     </S.ExpenditureTypeList>
   );
 }
 
 const S: {
+  Wrap: any;
+  First: any;
+  Second: any;
   ExpenditureTypeList: any;
   TypeInfo: any;
   TypeText: any;
@@ -55,6 +69,34 @@ const S: {
   Title: any;
   Amount: any;
 } = {
+  Wrap: styled.div`
+    width: auto;
+    display: block;
+    height: 100%;
+    padding: 1.2rem 1.5rem;
+    transition: transform 300ms ease;
+    position: relative;
+    transform: translateX(-${({ x }: { x: number }) => x}px);
+    white-space: nowrap;
+    
+    > div {
+      display: inline-block;
+    }
+  `,
+  First: styled.div`
+    width: 100%;
+    margin-right: 2rem;
+    
+    > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  `,
+  Second: styled.div`
+    width: 20%;
+    background-color: red;
+  `,
   Title: styled.span`
     color: ${({ theme }) => theme.colors.blackL1};
   `,
@@ -100,11 +142,8 @@ const S: {
   `,
   DummyList: styled.div`
     margin-top: 0.5rem;
-    padding: 1.2rem 1.5rem;
     border-radius: 1.8rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: relative;
     background-color: ${({ theme }) => theme.colors.greyL2};
   `
 };
