@@ -44,7 +44,7 @@ function ExpenditureTypeItem() {
         </S.Content>
         <S.Remove>
           <div>
-            <IcoTrashCan width={iconSize} height={iconSize} fill={palette.greyD2} />
+            <IcoTrashCan width={iconSize} height={iconSize} fill={palette.mainColor} />
           </div>
         </S.Remove>
       </S.Wrap>
@@ -64,8 +64,9 @@ const S: {
 } = {
   ExpenditureTypeItem: styled.li`
     margin-top: 1rem;
+    border: 0.1rem solid #e6e6e6;
     border-radius: 1.8rem;
-    background-color: ${({ theme }) => theme.colors.greyL2};
+    box-shadow: 0 0.1rem 0.3rem 0 rgba(0, 0, 0, 0.1);
     overflow: hidden;
     white-space: nowrap;
   `,
@@ -118,11 +119,9 @@ const S: {
   `,
   Right: styled.div`
     span {
-      padding: 0.5rem 1rem;
-      background-color: ${({ theme }) => theme.colors.mainColor};
-      border-radius: 1.3rem;
-      color: ${({ theme }) => theme.colors.white};
-      font-size: 1.2rem;
+      color: ${({ theme }) => theme.colors.greyD2};
+      font-size: 1.4rem;
+      // 활성화 단계는 mainColor + fontWeight: bold 조합
     }
   `
 };

@@ -18,6 +18,7 @@ const palette = {
   greyL7: '#cccccc',
   greyD1: '#383838',
   greyD2: '#868e96',
+  greyD3: '#506868', // 회색 내부 글씨에 이쁨
   cyanL1: '#56b6c2',
   whiteL1: '#F0F3F7',
   whiteL2: '#dfe2e5',

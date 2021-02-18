@@ -21,7 +21,7 @@ const S: {
 } = {
   OneWeekAgoItem: styled.li`
     margin-right: 1.5rem;
-    display: inline-block;   
+    display: inline-block;  
   `,
   Content: styled.div`
     display: flex;
@@ -29,22 +29,24 @@ const S: {
     justify-content: center;
     align-items: center;
     border-radius: 1.3rem;
-    padding: 1.5rem 1.2rem;
-    width: 7.2rem;
+    padding: 0.5rem 1.2rem;
+    max-width: 7.2rem;
+   
     background-color: ${({ theme }) => theme.colors.greyL2};
     
     p {
       font-size: 1.2rem;
-      color: ${({ theme }) => theme.colors.blackL1};
-      margin-bottom: .3rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      max-width: 7rem;
+      color: ${({ theme }) => theme.colors.greyD3};
     }
     
     span {
-      padding: .2rem 1.5rem;
-      background-color: ${({ theme }) => theme.colors.mainColor};
-      border-radius: 1.3rem;
-      color: ${({ theme }) => theme.colors.white};
+      color: ${({ theme }) => theme.colors.mainColor};
       font-size: 1rem;
+      text-align: right;
     }
   `
 };

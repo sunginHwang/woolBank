@@ -32,7 +32,7 @@ const S: {
   AmountText: styled.span`
     font-size: 1.6rem;
     font-weight: bold;
-    color: ${({ theme }) => theme.colors.greyD1};
+    color: ${({ theme }) => theme.colors.greyD3};
   `,
   Amount: styled.span`
     font-size: 1.4rem;

@@ -4,6 +4,7 @@ import RegularAmountInfo from '@components/regularExpenditure/RegularAmountInfo'
 import ExpenditureType from '@components/regularExpenditure/ExpenditureType';
 import OneWeekAgoList from '@components/regularExpenditure/list/OneWeekAgoList';
 import LineSeparator from '@components/common/LineSeparator';
+import AddButton from '@components/common/AddButton';
 
 function RegularExpenditureList() {
   return (
@@ -13,6 +14,7 @@ function RegularExpenditureList() {
       <LineSeparator />
       <ExpenditureType expenditureType='보험/상해' />
       <ExpenditureType expenditureType='통신/인터넷' />
+      <AddButton icon='+' onClick={() => {}} />
     </PageTemplate>
   );
 }
