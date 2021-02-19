@@ -22,6 +22,7 @@ const BucketListSave = loadable(() => import('@pages/bucketList/BucketListSave')
 const Login = loadable(() => import('@pages/user/login'));
 const Menu = loadable(() => import('@pages/Menu'));
 const RegularExpenditureList = loadable(() => import('@pages/regularExpenditure/RegularExpenditureList'));
+const SaveRegularExpenditure = loadable(() => import('@pages/regularExpenditure/SaveRegularExpenditure'));
 
 function Routes() {
   const user = useSelector((state: RootState) => state.Auth.user);
@@ -39,6 +40,7 @@ function Routes() {
         <RouteWrapper path='/bucket-list' component={BucketList} exact isLogin={isLogin} />
         <RouteWrapper path='/bucket-list/save' component={BucketListSave} exact isLogin={isLogin} />
         <RouteWrapper path='/regular-expenditure' component={RegularExpenditureList} exact isLogin={isLogin} />
+        <RouteWrapper path='/regular-expenditure/save' component={SaveRegularExpenditure} exact isLogin={isLogin} />
 
         <RouteWrapper
           path='/bucket-list/:bucketListId'
