@@ -21,7 +21,7 @@ function BottomModal({ visible, title, showCloseBtn = true, children, oncloseMod
       <S.BottomModal visible={visible}>
         <S.Header>
           <p>{title}</p>
-          {showCloseBtn && <IcoClose width={24} height={30} fill={palette.blackL1} />}
+          {showCloseBtn && <i onClick={oncloseModal}><IcoClose width={24} height={30} fill={palette.blackL1} /></i>}
         </S.Header>
         <S.Content>
           {children}
@@ -40,6 +40,7 @@ const S: {
     padding: 2rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     
     p {
       font-weight: bold;

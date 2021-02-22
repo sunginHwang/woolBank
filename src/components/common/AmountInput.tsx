@@ -1,24 +1,20 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import BaseButton from '@components/common/BaseButton';
 
 export interface AmountInputProps {
   visible?: boolean;
-  showBackBtn?: boolean;
+  useCompleteBtn?: boolean;
   showInitBtn?: boolean;
+  // 0원 여부
+  isZeroAmount: boolean;
   onNumberClick: (e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>) => void;
-  onRemoveLastNumber: () => void;
-  onInit: () => void;
+  onBackNumberClick: () => void;
+  // 우측 최 하단 클릭
+  onRightBottomClick: () => void;
 }
 
-function AmountInput({ showBackBtn = true, showInitBtn = true, onNumberClick, onInit, onRemoveLastNumber }: AmountInputProps) {
-
-  const onRemoveLastNumberClick = useCallback(() => {
-    showBackBtn && onRemoveLastNumber()
-  },[ showBackBtn, onRemoveLastNumber ]);
-
-  const onInitClick = useCallback(() => {
-    showInitBtn && onInit()
-  },[ showInitBtn, onInit ]);
+function AmountInput({ useCompleteBtn = false, isZeroAmount, onNumberClick, onRightBottomClick, onBackNumberClick }: AmountInputProps) {
 
   return (
     <S.Input>
@@ -40,13 +36,21 @@ function AmountInput({ showBackBtn = true, showInitBtn = true, onNumberClick, on
             <S.InputTd data-cy='number_9' data-number={9} onClick={onNumberClick}>9</S.InputTd>
           </tr>
           <tr>
-            <S.InputTd data-cy='numberBack' isHide={!showBackBtn}  onClick={onRemoveLastNumberClick}>
-              {showBackBtn && '←'}
+            <S.InputTd data-cy='numberBack' isHide={isZeroAmount}  onClick={onBackNumberClick}>
+              {!isZeroAmount && '←'}
             </S.InputTd>
             <S.InputTd data-cy='number_0' data-number={0} onClick={onNumberClick}>0</S.InputTd>
-            <S.InputTd data-cy='numberX' isHide={!showInitBtn} onClick={onInitClick}>
-              {showInitBtn && 'x'}
-            </S.InputTd>
+            { useCompleteBtn && (
+              <S.InputTd data-cy='numberComplete' isHide={isZeroAmount} isSmall={true} onClick={onRightBottomClick}>
+                {!isZeroAmount && <BaseButton message='확인' color='red' size='sm'/>}
+              </S.InputTd>)
+            }
+            {
+              !useCompleteBtn && (
+                <S.InputTd data-cy='numberX' isHide={isZeroAmount} onClick={onRightBottomClick}>
+                  {!isZeroAmount && 'x'}
+                </S.InputTd>)
+            }
           </tr>
         </tbody>
       </S.InputTable>
@@ -75,10 +79,11 @@ const S: {
   `,
   InputTd: styled.td<{
     isHide: boolean;
+    isSmall?: boolean;
   }>`
     font-size: 1.8rem;
     width: 33.33333%;
-    padding: 1rem 0;
+    padding: ${({ isSmall }) => (isSmall ? '.3rem' : '1rem')} 0;
 
     &:active {
       border-radius: 1.6rem;

@@ -12,13 +12,15 @@ type colorSchemeType = {
 type sizeSchemeType = {
   width: string;
   height: string;
+  padding?: string;
+  fontSize?: string;
 };
 
 export interface BaseButtonProps {
   dataType?: string;
   message: string;
   color: 'red';
-  size: 'full';
+  size: 'full' | 'sm';
   name?: string,
   active?: boolean;
   loading?: boolean;
@@ -38,12 +40,17 @@ function BaseButton({ dataType, message, color, size, name, loading = false, act
   }, [color]);
 
   const sizeScheme: sizeSchemeType = useMemo(() => {
-    const result = { width: '100%', height: '100%', fontSize: '1.2rem' };
+    const result: any = { fontSize: '1.2rem' };
 
     if (size === 'full') {
       result.width = '100%';
       result.height = '100%';
       result.fontSize = '';
+    }
+
+    if (size === 'sm' ) {
+      result.padding = '1rem 2rem';
+      result.fontSize = '1.3rem';
     }
 
     return result;
@@ -83,6 +90,8 @@ const S: {
     border-radius: 0.8rem;
     width: ${({ sizeScheme }) => (sizeScheme ? sizeScheme.width : '10rem')};
     height: ${({ sizeScheme }) => (sizeScheme ? sizeScheme.height : '5rem')};
+    padding: ${({ sizeScheme }) => (sizeScheme.padding && sizeScheme.padding )};
+    font-size: ${({ sizeScheme }) => (sizeScheme.fontSize && sizeScheme.fontSize )};
     background-color: ${({ colorScheme }) => colorScheme.bgColor};
     color: ${({ colorScheme, active }) => {
       const opacity = active  ? 1 : 0.5;
