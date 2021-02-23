@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import BottomModal from '@components/common/modal/BottomModal';
@@ -9,24 +9,32 @@ import IcoCloseCircle from '@components/icon/IcoCloseCircle';
 
 export interface NumberInputModalProps {
   visible: boolean;
+  currentAmount: number;
   oncloseModal: () => void;
+  onComplete: (amount: number) => void;
 }
 
-function NumberInputModal({ visible, oncloseModal }: NumberInputModalProps) {
-  const { displayAmount, amount, onAddAmount, onBackAmount, onInitAmount } = useNumberAmount({ currentAmount: 0 });
+function NumberInputModal({ visible, currentAmount, oncloseModal, onComplete }: NumberInputModalProps) {
+  const { displayAmount, amount, onAddAmount, onBackAmount, onInitAmount } = useNumberAmount({ currentAmount });
+
+  const onCompleteClick = useCallback(() => {
+    onComplete(amount);
+  }, [amount, onComplete]);
 
   return (
     <BottomModal title='고정 지출액' visible={visible} oncloseModal={oncloseModal}>
       <S.AmountDisplay>
         <S.Amount>{displayAmount}</S.Amount>
-        <i onClick={onInitAmount}><IcoCloseCircle width={20} height={20} fill={palette.greyL3} /></i>
+        <i onClick={onInitAmount}>
+          <IcoCloseCircle width={20} height={20} fill={palette.greyL3} />
+        </i>
       </S.AmountDisplay>
       <AmountInput
         useCompleteBtn
         isZeroAmount={amount === 0}
         onNumberClick={onAddAmount}
         onBackNumberClick={onBackAmount}
-        onRightBottomClick={onInitAmount}
+        onRightBottomClick={onCompleteClick}
       />
     </BottomModal>
   );
@@ -40,7 +48,7 @@ const S: {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 5rem 2rem 5rem; 
+    margin: 0 5rem 2rem 5rem;
   `,
   Amount: styled.p`
     font-weight: bold;

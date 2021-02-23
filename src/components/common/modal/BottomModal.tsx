@@ -50,6 +50,8 @@ const S: {
   `,
   Content: styled.div`
     margin-bottom: 2.5rem;
+    max-height: 27rem;
+    overflow-y: scroll;
   `,
   BottomModal: styled.div<{
     visible: boolean;

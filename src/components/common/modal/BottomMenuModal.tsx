@@ -1,81 +1,55 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ModalDeem from '@components/common/modal/ModalDeem';
-
 import { IBottomMenu } from '@models/component/IBottomMenu';
+import BottomModal from '@components/common/modal/BottomModal';
 
 export interface BottomMenuModalProps {
   menus: IBottomMenu[];
+  activeMenu?: IBottomMenu;
   title: string;
   visible: boolean;
   oncloseModal: () => void;
   onEditClick: (menuType: string) => void;
 }
 
-function BottomMenuModal({ menus, title, visible, oncloseModal, onEditClick }: BottomMenuModalProps) {
+function BottomMenuModal({ menus, title, activeMenu, visible, oncloseModal, onEditClick }: BottomMenuModalProps) {
   const renderMenus = menus.map((menu) => {
     const onMenuClick = () => onEditClick(menu.type);
+    const isActive = activeMenu && activeMenu.type === menu.type;
     return (
-      <p key={menu.type} onClick={onMenuClick}>
+      <S.Menu key={menu.type} isActive={isActive} onClick={onMenuClick}>
         {menu.value}
-      </p>
+      </S.Menu>
     );
   });
 
   return (
-    <ModalDeem visible={visible} onDeemClick={oncloseModal}>
-      <S.BottomMenuModal visible={visible}>
-        <S.Title>
-          <p>{title}</p>
-        </S.Title>
-        {renderMenus}
-      </S.BottomMenuModal>
-    </ModalDeem>
+    <BottomModal title={title} visible={visible} oncloseModal={oncloseModal}>
+      {renderMenus}
+    </BottomModal>
   );
 }
 
 const S: {
-  BottomMenuModal: any;
-  Title: any;
+  Menu: any;
 } = {
-  BottomMenuModal: styled.div<{
-    visible: boolean;
+  Menu: styled.p<{
+    isActive: boolean;
   }>`
-    position: fixed;
-    bottom: ${({ visible }) => (visible ? '0' : '-30rem')};
-    width: 100%;
-    transition: all 0.3s ease;
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
-    text-align: center;
-    background-color: ${({ theme }) => theme.colors.white};
-    z-index: ${({ theme }) => theme.zIndex.modalDeem + 1};
-    box-shadow: 0.1rem 0.3rem 1rem 0.2rem rgba(0, 0, 0, 0.2);
-
-    > p {
-      margin-left: 1rem;
-      padding: 1.4rem;
-      font-size: 1.6rem;
-      font-weight: bold;
-      color: ${({ theme }) => theme.colors.blackL1};
-      text-align: left;
-    }
-
-    > p:last-child {
+    margin: 0 1rem;
+    padding: 1.4rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: ${({ theme }) => theme.colors.blackL1};
+    text-align: left;
+    background-color: ${({ isActive, theme }) => isActive ? theme.colors.greyL2 : theme.colors.white};
+    border-radius: .8rem;
+    
+    &:last-child {
       margin-bottom: 2.5rem;
       margin-bottom: calc(constant(safe-area-inset-bottom) + 2.5rem);
       margin-bottom: calc(env(safe-area-inset-bottom) + 2.5rem);
-    }
-  `,
-  Title: styled.div`
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
-    p {
-      font-weight: bold;
-
-      color: ${({ theme }) => theme.colors.blackL1};
     }
   `
 };

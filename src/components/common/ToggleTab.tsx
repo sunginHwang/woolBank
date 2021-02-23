@@ -100,7 +100,7 @@ const S: {
       'box-shadow: 0 0.2rem 0.4rem -0.1rem rgba(0, 0, 0, 0.2), 0 0.4rem 0.5rem 0 rgba(0, 0, 0, 0.14),\n      0 0.1rem 1rem 0 rgba(0, 0, 0, 0.12);'};
 
     button {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
     }
   `,
   Tab: styled.button<{
@@ -122,7 +122,18 @@ const S: {
   }>`
     width: 100%;
     border: 0.1rem solid ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.greyL6)};
-    color: ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.greyL6)};
+    background-color: ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.white)};
+    color: ${({ active, theme }) => (active ? theme.colors.white : theme.colors.greyL6)};
+    
+    &:first-child {
+      border-bottom-left-radius: 1.3rem;
+      border-top-left-radius: 1.3rem;
+    }
+    
+    &:last-child {
+      border-bottom-right-radius: 1.3rem;
+      border-top-right-radius: 1.3rem;
+    }
   `,
   BottomLine: styled.span<{
     width: number;

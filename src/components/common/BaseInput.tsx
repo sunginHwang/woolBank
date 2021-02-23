@@ -38,6 +38,7 @@ function BaseInput({
   onFocusIn,
   onFocusOut
 }: BaseInputProps) {
+  console.log(label);
   const isExistInputValue = value !== '';
   const inputRef = useRef<HTMLInputElement>(null);
   const [focus, setFocus] = useState(false);
@@ -153,4 +154,4 @@ const S: {
   `
 };
 
-export default BaseInput;
+export default React.memo(BaseInput);
