@@ -16,6 +16,8 @@ const palette = {
   greyL5: '#B3B3B3',
   greyL6: '#DCDCE9',
   greyL7: '#cccccc',
+  greyL8: '#acbcbb',
+  greyL9: '#F2F3F4',
   greyD1: '#383838',
   greyD2: '#868e96',
   greyD3: '#506868', // 회색 내부 글씨에 이쁨
@@ -39,7 +41,12 @@ const palette = {
   loadingAnimationColor1: 'hsl(0,0%,89%)',
   loadingAnimationColor2: 'hsl(0,0%,85%)',
   loadingAnimationColor3: 'hsl(0,0%,89%)',
-  mainColor: '#f25e5e'
+  mainColor: '#f25e5e',
+  subColor1: '#A94242',
+  subColor2: '#FFD8D8',
+  subColor3: '#FFB1B1',
+  subColor4: '#E89292',
+  subColor5: '#F5EFF4'
 };
 
 export default palette;

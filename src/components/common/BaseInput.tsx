@@ -96,7 +96,7 @@ function BaseInput({
         />
         {isExistInputValue && (
           <i onClick={onInputClear} data-type={dataType}>
-            <IcoCloseCircle width={28} height={32} fill='#958d9e' />
+            <IcoCloseCircle width={24} height={28} fill='#958d9e' />
           </i>
         )}
       </S.BaseInput>
@@ -120,30 +120,30 @@ const S: {
     flex-direction: column;
     position: relative;
     margin: 1rem 0;
+    
     label {
       font-size: 1.2rem;
       font-weight: 500;
-      color: ${({ focus, theme }) => (focus ? theme.colors.mainColor : theme.colors.mainColor)};
+      color: ${({ focus, theme }) => (focus ? theme.colors.mainColor : theme.colors.greyD2)};
       text-align: left;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
     }
 
     input {
-      background: transparent;
-      border: none;
-      border-bottom: 0.1rem solid ${({ focus, theme }) => (focus ? theme.colors.mainColor : theme.colors.greyL1)};
-      padding-right: 3rem;
-      border-radius: 0;
+      border: 0.1rem solid ${({ theme }) => theme.colors.greyL2};
+      background-color: ${({ focus, theme }) => (focus ? theme.colors.subColor5 : theme.colors.greyL9)};
+      border-radius: .8rem;
+      padding: 0 1rem;
       height: 4rem;
       color: #27173e;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
     }
 
     i {
       align-items: center;
       justify-content: center;
       position: absolute;
-      right: 0;
+      right: 1.2rem;
       bottom: 0;
       opacity: 0.5;
     }
