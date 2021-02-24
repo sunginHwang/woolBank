@@ -1,18 +1,32 @@
 import React, { useCallback } from 'react';
+
 import NumberInputModal from '@components/common/modal/NumbetInputModal';
 import DateSelectModal from '@components/common/modal/DateSelectModal';
 import BottomMenuModal from '@components/common/modal/BottomMenuModal';
 import { IBottomMenu } from '@models/component/IBottomMenu';
 
 interface RegularFormModalListProps {
+  // 열리는 모달 이름
   openModalName: string;
+  // 지출 금액
   amount: number;
+  // 정기 지출 일자
   regularDate: number;
+  // 자동 이체 종류
   expenditureType: string;
+  // 자동 이체 종류 메뉴 리스트
   expenditureTypeMenus: IBottomMenu[];
+  // 모달 닫기
   onCloseModal: () => void;
+  // 모달 선택 완료
   onCompleteModal: (type: string, value: string | number) => void;
 }
+
+/**
+ * 정기 지출 입력 모달 박스 리스트
+ * @component
+ */
+
 function RegularFormModalList({
   openModalName,
   amount,
