@@ -7,6 +7,7 @@ import hexToRgb from '@support/util/hexToRgb';
 type colorSchemeType = {
   bgColor: string;
   color: string;
+  disableColor: string;
 };
 
 type sizeSchemeType = {
@@ -52,11 +53,12 @@ function BaseButton({
   onClick
 }: BaseButtonProps) {
   const colorScheme: colorSchemeType = useMemo(() => {
-    const result = { bgColor: '', color: '' };
+    const result = { bgColor: '', color: '', disableColor: '' };
 
     if (color === 'red') {
       result.bgColor = palette.mainColor;
       result.color = palette.white;
+      result.disableColor = palette.subColor3;
     }
 
     return result;
@@ -121,7 +123,7 @@ const S: {
     height: ${({ sizeScheme }) => (sizeScheme ? sizeScheme.height : '')};
     padding: ${({ sizeScheme }) => sizeScheme.padding && sizeScheme.padding};
     font-size: ${({ sizeScheme }) => sizeScheme.fontSize && sizeScheme.fontSize};
-    background-color: ${({ colorScheme }) => colorScheme.bgColor};
+    background-color: ${({ colorScheme, active }) => active ? colorScheme.bgColor : colorScheme.disableColor};
     color: ${({ colorScheme, active }) => {
       const opacity = active ? 1 : 0.5;
       return `rgba(${hexToRgb(colorScheme.color)}, ${opacity})`;
