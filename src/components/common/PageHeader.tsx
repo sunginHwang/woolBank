@@ -5,13 +5,24 @@ import IcoChevronLeft from '@components/icon/IcoChevronLeft';
 import theme from '@style/theme';
 
 export interface PageHeaderProps {
+  // 헤더 타이틀
   title: string;
+  // 아이콘 색상
   iconColor?: string;
+  // 뒤로가기 버튼 사용 우무
   useBackButton?: boolean;
+  // 뒤로가기 클릭 이벤트
   onBackClick?: () => void;
+  // 우측 영역 dom 추가
   right?: React.ReactNode | string;
+  // skeleton 모드 사용 유무
   useSkeleton?: boolean;
 }
+
+/**
+ * 페이지 헤더 영역
+ * @component
+ */
 
 function PageHeader({
   title,
@@ -21,6 +32,8 @@ function PageHeader({
   onBackClick,
   right
 }: PageHeaderProps) {
+
+  // 뒤로 버튼 클릭 이벤트
   const onBackButtonClick = useCallback(() => {
     useBackButton && onBackClick && onBackClick();
   }, [useBackButton, onBackClick]);
@@ -45,7 +58,7 @@ const S: any = {
     useSkeleton: boolean;
     useBigTitle: boolean;
   }>`
-    height: 5.5rem;
+    height: 4.8rem;
     display: flex;
     justify-content: space-between;
     align-items: center;

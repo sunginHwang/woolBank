@@ -5,12 +5,22 @@ import { IAssetType } from '@models/IAssetType';
 import { useWindowDimensions } from '@support/hooks/useWindowDemensions';
 
 export interface ToggleTabProps {
+  // 탭 리스트
   tabs: IAssetType[];
-  useOutline?: boolean;
-  useListType?: boolean;
+  // 황성화 탭
   activeTab: IAssetType;
+  // 경계선 사용 유무
+  useOutline?: boolean;
+  // 리스트 타입 사용 유무
+  useListType?: boolean;
+  // 탭 변경 이벤트
   onChangeTab?: (tab: IAssetType) => void;
 }
+
+/**
+ * 토글 탭
+ * @component
+ */
 
 function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, onChangeTab }: ToggleTabProps) {
   const { width } = useWindowDimensions();
@@ -100,7 +110,7 @@ const S: {
       'box-shadow: 0 0.2rem 0.4rem -0.1rem rgba(0, 0, 0, 0.2), 0 0.4rem 0.5rem 0 rgba(0, 0, 0, 0.14),\n      0 0.1rem 1rem 0 rgba(0, 0, 0, 0.12);'};
 
     button {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
     }
   `,
   Tab: styled.button<{
@@ -121,8 +131,8 @@ const S: {
     active: boolean;
   }>`
     width: 100%;
-    border: 0.1rem solid ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.greyL6)};
-    background-color: ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.white)};
+    border: 0.1rem solid ${({ active, theme }) => (active ? theme.colors.subColor4 : theme.colors.greyL6)};
+    background-color: ${({ active, theme }) => (active ? theme.colors.subColor4 : theme.colors.white)};
     color: ${({ active, theme }) => (active ? theme.colors.white : theme.colors.greyL6)};
     
     &:first-child {

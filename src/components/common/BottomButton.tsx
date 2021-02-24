@@ -4,14 +4,22 @@ import styled from 'styled-components';
 import BaseButton from '@components/common/BaseButton';
 
 export interface BottomButtonProps {
+  // 버튼 메세지
   message: string;
+  // 버튼 로딩중 여부
   loading?: boolean;
   // 버튼 활성화 여부
   active?: boolean;
   // 버튼 디스플레이 여부
   isShow?: boolean;
+  // 버튼 클릭
   onClick?: (e: React.ChangeEvent<HTMLButtonElement>) => void;
 }
+
+/**
+ * 하단 고정 버튼
+ * @component
+ */
 
 function BottomButton({
   message,
@@ -29,7 +37,7 @@ function BottomButton({
       <BaseButton
         name='bottomButton'
         color='red'
-        size='full'
+        size='wideFull'
         message={message}
         active={active}
         loading={loading}

@@ -14,20 +14,43 @@ type sizeSchemeType = {
   height: string;
   padding?: string;
   fontSize?: string;
+  radius?: string;
 };
 
 export interface BaseButtonProps {
+  // data attribute
   dataType?: string;
+  // name attribute
+  name?: string;
+  // 버튼 텍스트
   message: string;
+  // 컬러
   color: 'red';
-  size: 'full' | 'sm';
-  name?: string,
+  // 버튼 사이즈
+  size: 'full' | 'wideFull' | 'sm';
+  // 버튼 활성화 유무 (@todo disable 로 바꾸기)
   active?: boolean;
+  // 버튼 로딩 스피너 사용 여부
   loading?: boolean;
+  // 버튼 클릭 이벤트
   onClick?: (e: React.ChangeEvent<HTMLButtonElement>) => void;
 }
 
-function BaseButton({ dataType, message, color, size, name, loading = false, active = true, onClick }: BaseButtonProps) {
+/**
+ * 기본 버튼 이벤트
+ * @component
+ */
+
+function BaseButton({
+  dataType,
+  message,
+  color,
+  size,
+  name,
+  loading = false,
+  active = true,
+  onClick
+}: BaseButtonProps) {
   const colorScheme: colorSchemeType = useMemo(() => {
     const result = { bgColor: '', color: '' };
 
@@ -40,17 +63,23 @@ function BaseButton({ dataType, message, color, size, name, loading = false, act
   }, [color]);
 
   const sizeScheme: sizeSchemeType = useMemo(() => {
-    const result: any = { fontSize: '1.2rem' };
+    const result: any = { fontSize: '1.3rem' };
 
     if (size === 'full') {
       result.width = '100%';
-      result.height = '100%';
-      result.fontSize = '';
+      result.height = '4.8rem';
+      result.fontSize = '1.5rem';
     }
 
-    if (size === 'sm' ) {
+    if (size === 'wideFull') {
+      result.width = '100%';
+      result.height = '5.6rem';
+      result.fontSize = '1.6rem';
+      result.radius = '1.3rem';
+    }
+
+    if (size === 'sm') {
       result.padding = '1rem 2rem';
-      result.fontSize = '1.3rem';
     }
 
     return result;
@@ -87,15 +116,15 @@ const S: {
     colorScheme: colorSchemeType;
     active: boolean;
   }>`
-    border-radius: 0.8rem;
-    width: ${({ sizeScheme }) => (sizeScheme ? sizeScheme.width : '10rem')};
-    height: ${({ sizeScheme }) => (sizeScheme ? sizeScheme.height : '5rem')};
-    padding: ${({ sizeScheme }) => (sizeScheme.padding && sizeScheme.padding )};
-    font-size: ${({ sizeScheme }) => (sizeScheme.fontSize && sizeScheme.fontSize )};
+    border-radius: ${({ sizeScheme }) => sizeScheme.radius || '0.8rem'};
+    width: ${({ sizeScheme }) => (sizeScheme ? sizeScheme.width : '')};
+    height: ${({ sizeScheme }) => (sizeScheme ? sizeScheme.height : '')};
+    padding: ${({ sizeScheme }) => sizeScheme.padding && sizeScheme.padding};
+    font-size: ${({ sizeScheme }) => sizeScheme.fontSize && sizeScheme.fontSize};
     background-color: ${({ colorScheme }) => colorScheme.bgColor};
     color: ${({ colorScheme, active }) => {
-      const opacity = active  ? 1 : 0.5;
-      return `rgba(${hexToRgb(colorScheme.color)}, ${opacity})`;  
+      const opacity = active ? 1 : 0.5;
+      return `rgba(${hexToRgb(colorScheme.color)}, ${opacity})`;
     }};
   `
 };
