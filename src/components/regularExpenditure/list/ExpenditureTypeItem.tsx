@@ -6,6 +6,11 @@ import IcoTrashCan from '@components/icon/IcoTrashCan';
 
 const iconSize = 26;
 
+/**
+ * 정기 지출 리스트 -> 정기 지출 리스트 아이탬
+ * @component
+ */
+
 function ExpenditureTypeItem() {
   const [startX, setStartX] = useState(0);
   const [moveX, setMoveX] = useState(0);
@@ -34,7 +39,10 @@ function ExpenditureTypeItem() {
         <S.Content>
           <div>
             <S.Left>
-              <S.Title>리스트</S.Title>
+              <S.Title>
+                <span>리스트</span>
+                <label>정기이체</label>
+              </S.Title>
               <S.Amount>20,102원</S.Amount>
             </S.Left>
             <S.Right>
@@ -88,7 +96,7 @@ const S: {
     width: 100%;
     height: 100%;
     vertical-align: bottom;
-    
+
     > div {
       display: flex;
       justify-content: space-between;
@@ -98,7 +106,7 @@ const S: {
   Remove: styled.div`
     width: 20%;
     margin-left: 0.5rem;
-    
+
     > div {
       display: flex;
       height: 100%;
@@ -106,8 +114,22 @@ const S: {
       align-items: center;
     }
   `,
-  Title: styled.span`
-    color: ${({ theme }) => theme.colors.blackL1};
+  Title: styled.div`
+    display: flex;
+    align-items: center;
+
+    span {
+      color: ${({ theme }) => theme.colors.blackL1};
+      margin-right: 0.6rem;
+    }
+    label {
+      font-size: 1rem;
+      background-color: ${({ theme }) => theme.colors.subColor2};
+      color: ${({ theme }) => theme.colors.mainColor};
+      border-radius: 1.3rem;
+      padding: 0.1rem 0.8rem;
+      margin-bottom: 0.35rem;
+    }
   `,
   Amount: styled.span`
     color: ${({ theme }) => theme.colors.greyD2};

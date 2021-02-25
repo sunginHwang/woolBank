@@ -4,6 +4,11 @@ import OneWeekAgoItem from '@components/regularExpenditure/list/OneWeekAgoItem';
 
 export interface OneWeekRemainListProps {}
 
+/**
+ * 정기 지출 리스트 -> 이주일 이내 지출 리스트
+ * @component
+ */
+
 // eslint-disable-next-line no-empty-pattern
 function OneWeekAgoList({}: OneWeekRemainListProps) {
   return (

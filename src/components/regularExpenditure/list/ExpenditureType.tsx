@@ -1,14 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import { addComma } from '@support/util/String';
-import ExpenditureTypeItem from '@components/regularExpenditure/ExpenditureTypeItem';
+import ExpenditureTypeItem from '@components/regularExpenditure/list/ExpenditureTypeItem';
 
 export interface RegularAmountInfoProps {
+  // 지출 타입
   expenditureType: string;
 }
 
+/**
+ * 정기 지출 리스트 -> 정기 지출 타입별 리스트
+ * @component
+ */
+
 function ExpenditureType({ expenditureType }: RegularAmountInfoProps) {
   const totalExpenditureTypeAmount = 1030485;
+
   return (
     <S.ExpenditureType>
       <S.TypeInfo>
@@ -36,6 +43,10 @@ const S: {
     display: flex;
     flex-direction: column;
     margin-top: 3rem;
+    
+    &:last-child {
+      padding-bottom: 20rem;
+    }
   `,
   TypeInfo: styled.div`
     display: flex;
