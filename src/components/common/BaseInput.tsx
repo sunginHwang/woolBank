@@ -38,7 +38,7 @@ function BaseInput({
   onFocusIn,
   onFocusOut
 }: BaseInputProps) {
-  console.log(label);
+
   const isExistInputValue = value !== '';
   const inputRef = useRef<HTMLInputElement>(null);
   const [focus, setFocus] = useState(false);

@@ -35,8 +35,8 @@ function RegularInputForm({
   onClearForm,
   onOpenModal
 }: IRegularInputFormProps) {
-  return (
-    <S.RegularInputForm>
+  const renderTitleInput = React.useMemo(
+    () => (
       <BaseInput
         dataType='title'
         name='title'
@@ -46,6 +46,12 @@ function RegularInputForm({
         onClear={onClearForm}
         onChange={onInputChange}
       />
+    ),
+    [title, onClearForm, onInputChange]
+  );
+
+  const renderExpenditureTypeInput = React.useMemo(
+    () => (
       <BaseInput
         disable
         label='지출 타입'
@@ -55,6 +61,12 @@ function RegularInputForm({
         onClear={onClearForm}
         onClick={onOpenModal}
       />
+    ),
+    [expenditureType, onClearForm, onOpenModal]
+  );
+
+  const renderRegularDateInput = React.useMemo(
+    () => (
       <BaseInput
         disable
         dataType='regularDate'
@@ -64,6 +76,12 @@ function RegularInputForm({
         onClear={onClearForm}
         onClick={onOpenModal}
       />
+    ),
+    [regularDate, onClearForm, onOpenModal]
+  );
+
+  const renderAmountInput = React.useMemo(
+    () => (
       <BaseInput
         disable
         dataType='amount'
@@ -73,6 +91,16 @@ function RegularInputForm({
         onClear={onClearForm}
         onClick={onOpenModal}
       />
+    ),
+    [amount, onClearForm, onOpenModal]
+  );
+
+  return (
+    <S.RegularInputForm>
+      {renderTitleInput}
+      {renderExpenditureTypeInput}
+      {renderRegularDateInput}
+      {renderAmountInput}
     </S.RegularInputForm>
   );
 }
@@ -82,10 +110,10 @@ const S: {
 } = {
   RegularInputForm: styled.div`
     margin-top: 2rem;
-    
+
     div + div {
       margin-top: 4rem;
     }
   `
-}
+};
 export default RegularInputForm;

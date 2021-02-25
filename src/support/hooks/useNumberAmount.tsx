@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { addComma } from '@support/util/String';
 
 const BILLION = 1000000000;
@@ -39,9 +39,12 @@ export function useNumberAmount({ maxAmount = BILLION, currentAmount }: useNumbe
     setAmount(Number(stringNumber.substring(0, stringNumber.length - 1)));
   };
 
-  const displayAmount = `${addComma(amount)}원`;
+  // 금액 변경 싱크 맞추기
+  useEffect(() => {
+    setAmount(currentAmount);
+  }, [currentAmount]);
 
-  console.log(amount);
+  const displayAmount = `${addComma(amount)}원`;
 
   return {
     onInitAmount,

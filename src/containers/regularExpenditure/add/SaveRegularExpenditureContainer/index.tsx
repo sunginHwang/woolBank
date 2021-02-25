@@ -63,6 +63,8 @@ function SaveRegularExpenditureContainer() {
   } = state;
 
   const selectExpenditureType = menus.find((m) => m.type === expenditureType);
+  // 저장 버튼 활성화 유효성 검사
+  const isValidSaveForm = title.length > 0 && amount > 0 && regularDate > 0 && expenditureType.length > 0;
 
   return (
     <>
@@ -85,7 +87,7 @@ function SaveRegularExpenditureContainer() {
         onCloseModal={onCloseModal}
         onCompleteModal={onCompleteModal}
       />
-      <BottomButton isShow message='만들기' active={false} />
+      <BottomButton isShow message='만들기' active={isValidSaveForm} />
     </>
   );
 }

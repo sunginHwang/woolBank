@@ -21,7 +21,7 @@ const BucketListDetail = loadable(() => import('@pages/bucketList/BucketListDeta
 const BucketListSave = loadable(() => import('@pages/bucketList/BucketListSave'), defaultFallback);
 const Login = loadable(() => import('@pages/user/login'));
 const Menu = loadable(() => import('@pages/Menu'));
-const RegularExpenditureList = loadable(() => import('@pages/regularExpenditure/RegularExpenditureList'));
+const RegularExpenditureList = loadable(() => import('@pages/regularExpenditure/RegularExpenditureListPage'));
 const SaveRegularExpenditurePage = loadable(() => import('@pages/regularExpenditure/SaveRegularExpenditurePage'));
 
 function Routes() {

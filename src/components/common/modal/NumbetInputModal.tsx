@@ -58,4 +58,4 @@ const S: {
   `
 };
 
-export default NumberInputModal;
+export default React.memo(NumberInputModal);
