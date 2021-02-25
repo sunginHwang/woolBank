@@ -5,7 +5,7 @@ import ExpenditureTabs from '@components/regularExpenditure/save/ExpenditureTabs
 import RegularInputForm from '@components/regularExpenditure/save/RegularInputForm';
 
 import { IBottomMenu } from '@models/component/IBottomMenu';
-import reducer, { initialState } from './reducer';
+import reducer, { initState } from './reducer';
 import BottomButton from '@components/common/BottomButton';
 
 const menus: IBottomMenu[] = [{ type: 'telephone', value: '통신/인터넷' }];
@@ -16,7 +16,17 @@ const menus: IBottomMenu[] = [{ type: 'telephone', value: '통신/인터넷' }];
  */
 
 function SaveRegularExpenditureContainer() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  console.log(initState);
+  const [state, dispatch] = useReducer(reducer, {
+    openModalName: '',
+    form: {
+      title: '',
+      regularDate: 0,
+      amount: 0,
+      useAutoExpenditure: false,
+      expenditureType: ''
+    }
+  });
 
   // 모달 열기
   const onOpenModal = (e: ChangeEvent<HTMLDivElement>) => {

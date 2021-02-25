@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 type SaveRegularForm = {
   title: string;
   regularDate: number;
@@ -40,7 +41,7 @@ function reducer(state: ISaveRegularExpenditure, action: Action): ISaveRegularEx
   }
 }
 
-export const initialState: ISaveRegularExpenditure = {
+const initialState: ISaveRegularExpenditure = {
   openModalName: '',
   form: {
     title: '',
@@ -50,5 +51,7 @@ export const initialState: ISaveRegularExpenditure = {
     expenditureType: ''
   }
 };
+
+export const initState = _.cloneDeep(initialState);
 
 export default reducer;
