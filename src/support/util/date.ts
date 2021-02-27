@@ -1,3 +1,4 @@
+import { format, differenceInCalendarDays } from 'date-fns';
 export const secondsToTime = (seconds: number): string => {
   const hh = secondsToHour(seconds);
   const mm = Math.floor((seconds % 3600) / 60);
@@ -87,6 +88,23 @@ export const getKoMonth = (month: number): string => {
   const koYear = `${Math.floor(month / 12)}년`;
   const koMonth = month % 12 === 0 ? '' : `${month % 12}개월`;
   return `${koYear} ${koMonth}`;
+};
+
+export const getRemainDay = (date: string | number, { completeMsg = 'd-day' }: { completeMsg: string }) => {
+  const now = new Date();
+  const compareDay = new Date(date);
+
+  if (now.getMonth() < compareDay.getMonth()) {
+    return format(compareDay, 'MM-DD');
+  }
+
+  if (now.getDate() === compareDay.getDate()) {
+    return completeMsg;
+  }
+
+  const remainDay = differenceInCalendarDays(compareDay, now);
+
+  return remainDay > 7 ? format(compareDay, 'MM-dd') : `${remainDay}일 뒤`;
 };
 
 export const DATE_FORMAT: {

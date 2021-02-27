@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 
-import RegularSummaryContainer from '@containers/regularExpenditure/list/RegularSummaryContainer';
 import RegularExpenditureListContainer from '@containers/regularExpenditure/list/RegularExpenditureListContainer';
 import PageTemplate from '@components/layout/PageTemplate';
 import AddButton from '@components/common/AddButton';
@@ -18,7 +17,6 @@ function RegularExpenditureListPage() {
 
   return (
     <PageTemplate useHeader useBackButton={false} title='정기지출'>
-      <RegularSummaryContainer />
       <RegularExpenditureListContainer />
       <AddButton icon='+' onClick={goRegisterPage} />
     </PageTemplate>

@@ -3,15 +3,24 @@ import styled from 'styled-components';
 
 import palette from '@style/palette';
 import IcoTrashCan from '@components/icon/IcoTrashCan';
+import { IRegularExpenditure } from '@models/IRegularExpenditure';
+import { addComma } from '@support/util/String';
+import { getRemainDay } from '@support/util/date';
 
 const iconSize = 26;
 
+export interface IExpenditureTypeItemProps {
+  // 정기지출 아이템
+  regularExpenditure: IRegularExpenditure;
+  // 정기지출 삭제
+  onRemoveItem: (id: number) => void;
+}
 /**
  * 정기 지출 리스트 -> 정기 지출 리스트 아이탬
  * @component
  */
 
-function ExpenditureTypeItem() {
+function ExpenditureTypeItem({ regularExpenditure, onRemoveItem }: IExpenditureTypeItemProps) {
   const [startX, setStartX] = useState(0);
   const [moveX, setMoveX] = useState(0);
 
@@ -33,6 +42,12 @@ function ExpenditureTypeItem() {
     setStartX(0);
   };
 
+  const onRemoveClick = () => {
+    onRemoveItem(id);
+  };
+
+  const { title, isAutoExpenditure, amount, id, regularExpenditureDay } = regularExpenditure;
+  const remainDay = getRemainDay(regularExpenditureDay, { completeMsg: '지출일' });
   return (
     <S.ExpenditureTypeItem onTouchStart={onItemTouchStart} onTouchMove={onItemTouchMove} onTouchEnd={onItemTouchEnd}>
       <S.Wrap x={moveX}>
@@ -40,18 +55,18 @@ function ExpenditureTypeItem() {
           <div>
             <S.Left>
               <S.Title>
-                <span>리스트</span>
-                <label>정기이체</label>
+                <span>{title}</span>
+                {isAutoExpenditure && <label>정기이체</label>}
               </S.Title>
-              <S.Amount>20,102원</S.Amount>
+              <S.Amount>{addComma(amount)}원</S.Amount>
             </S.Left>
             <S.Right>
-              <span>3일전</span>
+              <span>{remainDay}</span>
             </S.Right>
           </div>
         </S.Content>
         <S.Remove>
-          <div>
+          <div onClick={onRemoveClick}>
             <IcoTrashCan width={iconSize} height={iconSize} fill={palette.mainColor} />
           </div>
         </S.Remove>

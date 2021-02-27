@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { addComma } from '@support/util/String';
 import ExpenditureTypeItem from '@components/regularExpenditure/list/ExpenditureTypeItem';
+import { RegularExpenditureType } from '@support/api/regularExpenditureApi';
 
 export interface RegularAmountInfoProps {
-  // 지출 타입
-  expenditureType: string;
+  expenditureType: RegularExpenditureType;
+  onRemoveItem: (id: number) => void;
 }
 
 /**
@@ -13,21 +14,22 @@ export interface RegularAmountInfoProps {
  * @component
  */
 
-function ExpenditureType({ expenditureType }: RegularAmountInfoProps) {
-  const totalExpenditureTypeAmount = 1030485;
+function ExpenditureType({ expenditureType, onRemoveItem }: RegularAmountInfoProps) {
+  const { list, name } = expenditureType;
+  const totalAmount = list.reduce((acc, item) => item.amount + acc, 0);
 
   return (
     <S.ExpenditureType>
       <S.TypeInfo>
-        <S.TypeText>{expenditureType}</S.TypeText>
+        <S.TypeText>{name}</S.TypeText>
         <S.TotalAmount>
-          <b>{addComma(totalExpenditureTypeAmount)}</b> 원
+          <b>{addComma(totalAmount)}</b> 원
         </S.TotalAmount>
       </S.TypeInfo>
       <ul>
-        <ExpenditureTypeItem />
-        <ExpenditureTypeItem />
-        <ExpenditureTypeItem />
+        {list.map((item) => {
+          return <ExpenditureTypeItem key={item.id} regularExpenditure={item} onRemoveItem={onRemoveItem} />;
+        })}
       </ul>
     </S.ExpenditureType>
   );

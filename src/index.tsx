@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { RecoilRoot } from 'recoil';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
@@ -13,14 +14,16 @@ import ErrorHandler from '@pages/error/ErrorHandler';
 
 ReactDOM.render(
   <Provider store={store()}>
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <GlobalStyle />
-        <ErrorHandler>
-          <App />
-        </ErrorHandler>
-      </BrowserRouter>
-    </ThemeProvider>
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <GlobalStyle />
+          <ErrorHandler>
+            <App />
+          </ErrorHandler>
+        </BrowserRouter>
+      </ThemeProvider>
+    </RecoilRoot>
   </Provider>,
   document.getElementById('root')
 );
