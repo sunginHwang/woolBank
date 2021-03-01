@@ -13,14 +13,14 @@ export interface IExpenditureTypeItemProps {
   // 정기지출 아이템
   regularExpenditure: IRegularExpenditure;
   // 정기지출 삭제
-  onRemoveItem: (id: number) => void;
+  onClickRemoveItem: (id: number) => void;
 }
 /**
  * 정기 지출 리스트 -> 정기 지출 리스트 아이탬
  * @component
  */
 
-function ExpenditureTypeItem({ regularExpenditure, onRemoveItem }: IExpenditureTypeItemProps) {
+function ExpenditureTypeItem({ regularExpenditure, onClickRemoveItem }: IExpenditureTypeItemProps) {
   const [startX, setStartX] = useState(0);
   const [moveX, setMoveX] = useState(0);
 
@@ -43,11 +43,12 @@ function ExpenditureTypeItem({ regularExpenditure, onRemoveItem }: IExpenditureT
   };
 
   const onRemoveClick = () => {
-    onRemoveItem(id);
+    onClickRemoveItem(id);
   };
 
   const { title, isAutoExpenditure, amount, id, regularExpenditureDay } = regularExpenditure;
-  const remainDay = getRemainDay(regularExpenditureDay, { completeMsg: '지출일' });
+  const { remainDayKo, remainDay } = getRemainDay(regularExpenditureDay, { completeMsg: '지출일' });
+  const isAccentRemainDay = remainDay <= 3;
   return (
     <S.ExpenditureTypeItem onTouchStart={onItemTouchStart} onTouchMove={onItemTouchMove} onTouchEnd={onItemTouchEnd}>
       <S.Wrap x={moveX}>
@@ -60,8 +61,8 @@ function ExpenditureTypeItem({ regularExpenditure, onRemoveItem }: IExpenditureT
               </S.Title>
               <S.Amount>{addComma(amount)}원</S.Amount>
             </S.Left>
-            <S.Right>
-              <span>{remainDay}</span>
+            <S.Right isActive={isAccentRemainDay}>
+              <span>{remainDayKo}</span>
             </S.Right>
           </div>
         </S.Content>
@@ -154,11 +155,13 @@ const S: {
     display: flex;
     flex-direction: column;
   `,
-  Right: styled.div`
+  Right: styled.div<{
+    isActive: boolean;
+  }>`
     span {
-      color: ${({ theme }) => theme.colors.greyD2};
-      font-size: 1.4rem;
-      // 활성화 단계는 mainColor + fontWeight: bold 조합
+      color: ${({ theme, isActive }) => isActive ? theme.colors.mainColor : theme.colors.greyD2};
+      font-weight: ${({ isActive }) => isActive ? 'bold' : 400};
+      font-size: 1.3rem;
     }
   `
 };

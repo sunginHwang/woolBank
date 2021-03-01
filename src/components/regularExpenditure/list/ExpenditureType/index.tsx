@@ -5,8 +5,10 @@ import ExpenditureTypeItem from '@components/regularExpenditure/list/Expenditure
 import { RegularExpenditureType } from '@support/api/regularExpenditureApi';
 
 export interface RegularAmountInfoProps {
+  // 정기지출 타입
   expenditureType: RegularExpenditureType;
-  onRemoveItem: (id: number) => void;
+  // 삭제 버튼 클릭 이벤트
+  onClickRemoveItem: (id: number) => void;
 }
 
 /**
@@ -14,7 +16,7 @@ export interface RegularAmountInfoProps {
  * @component
  */
 
-function ExpenditureType({ expenditureType, onRemoveItem }: RegularAmountInfoProps) {
+function ExpenditureType({ expenditureType, onClickRemoveItem }: RegularAmountInfoProps) {
   const { list, name } = expenditureType;
   const totalAmount = list.reduce((acc, item) => item.amount + acc, 0);
 
@@ -28,7 +30,7 @@ function ExpenditureType({ expenditureType, onRemoveItem }: RegularAmountInfoPro
       </S.TypeInfo>
       <ul>
         {list.map((item) => {
-          return <ExpenditureTypeItem key={item.id} regularExpenditure={item} onRemoveItem={onRemoveItem} />;
+          return <ExpenditureTypeItem key={item.id} regularExpenditure={item} onClickRemoveItem={onClickRemoveItem} />;
         })}
       </ul>
     </S.ExpenditureType>
@@ -45,7 +47,7 @@ const S: {
     display: flex;
     flex-direction: column;
     margin-top: 3rem;
-    
+
     &:last-child {
       padding-bottom: 20rem;
     }

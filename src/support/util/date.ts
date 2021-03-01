@@ -94,17 +94,13 @@ export const getRemainDay = (date: string | number, { completeMsg = 'd-day' }: {
   const now = new Date();
   const compareDay = new Date(date);
 
-  if (now.getMonth() < compareDay.getMonth()) {
-    return format(compareDay, 'MM-DD');
-  }
-
-  if (now.getDate() === compareDay.getDate()) {
-    return completeMsg;
+  if (now.getMonth() === compareDay.getMonth() && now.getDate() === compareDay.getDate()) {
+    return { remainDay: 0, remainDayKo: completeMsg };
   }
 
   const remainDay = differenceInCalendarDays(compareDay, now);
 
-  return remainDay > 7 ? format(compareDay, 'MM-dd') : `${remainDay}일 뒤`;
+  return { remainDay, remainDayKo: remainDay > 7 ? format(compareDay, 'M월 D일') : `${remainDay}일 뒤` };
 };
 
 export const DATE_FORMAT: {

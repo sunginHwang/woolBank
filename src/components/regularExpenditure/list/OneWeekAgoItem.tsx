@@ -1,15 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export interface OneWeekAgoItemProps {}
+import { getRemainDay } from '@support/util/date';
+import { IRegularExpenditure } from '@models/IRegularExpenditure';
 
-// eslint-disable-next-line no-empty-pattern
-function OneWeekAgoItem({}: OneWeekAgoItemProps) {
+export interface OneWeekAgoItemProps {
+  // 정기 지출 정보
+  regularExpenditure: IRegularExpenditure;
+}
+
+/**
+ * 정기 지출 리스트 -> 이주일 이내 지출 리스트 아이템
+ * @component
+ */
+
+function OneWeekAgoItem({ regularExpenditure }: OneWeekAgoItemProps) {
+  const { title, regularExpenditureDay } = regularExpenditure;
+  const { remainDayKo } = getRemainDay(regularExpenditureDay, { completeMsg: '지출일' });
+
   return (
     <S.OneWeekAgoItem>
       <S.Content>
-        <p>리스트</p>
-        <span>3일전</span>
+        <p>{title}</p>
+        <span>{remainDayKo}</span>
       </S.Content>
     </S.OneWeekAgoItem>
   );
@@ -21,7 +34,7 @@ const S: {
 } = {
   OneWeekAgoItem: styled.li`
     margin-right: 1.5rem;
-    display: inline-block;  
+    display: inline-block;
   `,
   Content: styled.div`
     display: flex;
@@ -31,9 +44,9 @@ const S: {
     border-radius: 1.3rem;
     padding: 0.5rem 1.2rem;
     max-width: 7.2rem;
-   
+
     background-color: ${({ theme }) => theme.colors.greyL2};
-    
+
     p {
       font-size: 1.2rem;
       text-overflow: ellipsis;
@@ -42,7 +55,7 @@ const S: {
       max-width: 7rem;
       color: ${({ theme }) => theme.colors.greyD3};
     }
-    
+
     span {
       color: ${({ theme }) => theme.colors.mainColor};
       font-size: 1rem;
@@ -51,4 +64,4 @@ const S: {
   `
 };
 
-export default OneWeekAgoItem;
+export default React.memo(OneWeekAgoItem);

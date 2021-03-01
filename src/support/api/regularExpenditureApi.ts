@@ -11,3 +11,7 @@ export interface RegularExpenditureType {
 export const fetchRegularExpenditureList = () => {
   return apiCall.get<ApiResType<RegularExpenditureType[]>>('/regular-expenditures');
 };
+
+export const removeRegularExpenditure = (regularExpenditureId: number) => {
+  return apiCall.delete<ApiResType<void>>(`/regular-expenditures/${regularExpenditureId}/`);
+};

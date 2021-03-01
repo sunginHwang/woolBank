@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useReducer } from 'react';
+import React, { ChangeEvent, useCallback, useReducer, useState } from 'react';
 
 import RegularFormModalList from '@components/regularExpenditure/save/RegularFormModalList';
 import ExpenditureTabs from '@components/regularExpenditure/save/ExpenditureTabs';
@@ -16,7 +16,6 @@ const menus: IBottomMenu[] = [{ type: 'telephone', value: '통신/인터넷' }];
  */
 
 function SaveRegularExpenditureContainer() {
-  console.log(initState);
   const [state, dispatch] = useReducer(reducer, {
     openModalName: '',
     form: {

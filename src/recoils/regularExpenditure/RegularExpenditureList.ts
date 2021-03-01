@@ -1,10 +1,10 @@
-import { selector } from 'recoil';
+import { atom, selector } from 'recoil';
 import { fetchRegularExpenditureList } from '@support/api/regularExpenditureApi';
 
 const PREFIX = 'REGULAR_EXPENDITURE/LIST/';
 
 const selectors = {
-  personState: selector({
+  regularExpenditureApiList: selector({
     key: `${PREFIX}listState`,
     get: async () => {
       const res = await fetchRegularExpenditureList();
@@ -13,6 +13,14 @@ const selectors = {
   })
 };
 
+const atoms = {
+  regularExpenditureList: atom({
+    key: `${PREFIX}ATOM/regularExpenditureList`,
+    default: selectors.regularExpenditureApiList
+  })
+};
+
 export default {
+  atoms,
   selectors
 };

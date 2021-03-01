@@ -5,18 +5,18 @@ import { RegularExpenditureType } from '@support/api/regularExpenditureApi';
 
 export interface IExpenditureTypeListProps {
   list: RegularExpenditureType[];
-  onRemoveRegularExpenditure: (id: number) => void;
+  onClickRemoveRegularExpenditure: (id: number) => void;
 }
 /**
  * 정기 지출 리스트 -> 정기 지출 타입별 리스트
  * @component
  */
 
-function ExpenditureTypeList({ list, onRemoveRegularExpenditure }: IExpenditureTypeListProps) {
+function ExpenditureTypeList({ list, onClickRemoveRegularExpenditure }: IExpenditureTypeListProps) {
   return (
     <section>
       {list.map((item) => {
-        return <ExpenditureType key={item.type} expenditureType={item} onRemoveItem={onRemoveRegularExpenditure} />;
+        return <ExpenditureType key={item.type} expenditureType={item} onClickRemoveItem={onClickRemoveRegularExpenditure} />;
       })}
     </section>
   );

@@ -1,26 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 import OneWeekAgoItem from '@components/regularExpenditure/list/OneWeekAgoItem';
+import { IRegularExpenditure } from '@models/IRegularExpenditure';
 
-export interface OneWeekRemainListProps {}
+export interface IOneWeekRemainListProps {
+  // 일주일 안남은 정기지출 리스트
+  regularExpenditureList: IRegularExpenditure[];
+}
 
 /**
  * 정기 지출 리스트 -> 이주일 이내 지출 리스트
  * @component
  */
 
-// eslint-disable-next-line no-empty-pattern
-function OneWeekAgoList({}: OneWeekRemainListProps) {
+function OneWeekAgoList({ regularExpenditureList }: IOneWeekRemainListProps) {
+  const isEmptyList = regularExpenditureList.length === 0;
+
   return (
     <S.ExpenditureType>
       <S.TypeInfo>
         <S.TypeText>일주일 이내 이체 예정 지출 목록</S.TypeText>
       </S.TypeInfo>
-      <ul>
-        <OneWeekAgoItem />
-        <OneWeekAgoItem />
-        <OneWeekAgoItem />
-      </ul>
+      {isEmptyList && <S.Empty>당분간 지출할 내역이 없어요. :)</S.Empty>}
+      {!isEmptyList && (
+        <ul>
+          {regularExpenditureList.map((item) => (
+            <OneWeekAgoItem key={item.id} regularExpenditure={item} />
+          ))}
+        </ul>
+      )}
     </S.ExpenditureType>
   );
 }
@@ -30,7 +38,13 @@ const S: {
   TypeInfo: any;
   TypeText: any;
   TotalAmount: any;
+  Empty: any;
 } = {
+  Empty: styled.p`
+    padding: 1.1rem 1.2rem;
+    text-align: center;
+    color: ${({ theme }) => theme.colors.greyD3};
+  `,
   ExpenditureType: styled.div`
     display: flex;
     flex-direction: column;
