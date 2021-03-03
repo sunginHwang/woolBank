@@ -1,9 +1,9 @@
 import * as _ from 'lodash';
-type SaveRegularForm = {
+export interface SaveRegularForm {
   title: string;
   regularDate: number;
   amount: number;
-  useAutoExpenditure: boolean;
+  isAutoExpenditure: boolean;
   expenditureType: string;
 };
 
@@ -47,7 +47,7 @@ const initialState: ISaveRegularExpenditure = {
     title: '',
     regularDate: 0,
     amount: 0,
-    useAutoExpenditure: false,
+    isAutoExpenditure: false,
     expenditureType: ''
   }
 };

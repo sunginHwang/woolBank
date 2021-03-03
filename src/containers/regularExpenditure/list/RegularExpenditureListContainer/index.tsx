@@ -13,7 +13,7 @@ import { removeRegularExpenditure, RegularExpenditureType } from '@support/api/r
 import { useToast } from '@support/hooks/useToast';
 import RegularExpenditureList from '../../../../recoils/regularExpenditure/RegularExpenditureList';
 
-const { regularExpenditureList } = RegularExpenditureList.atoms;
+const { regularExpenditureListState } = RegularExpenditureList.atoms;
 /**
  * 정기 지출 리스트 -> 정기 지출 리스트 컨테이너
  * @component
@@ -25,7 +25,7 @@ function RegularExpenditureListContainer() {
 
   const onToast = useToast();
   const [regularExpenditureTypeList, setRegularExpenditureTypeList] = useRecoilState<RegularExpenditureType[]>(
-    regularExpenditureList
+    regularExpenditureListState
   );
   const [onRemoveRequest, removeLoading] = useRequest(removeRegularExpenditure);
 

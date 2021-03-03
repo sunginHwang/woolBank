@@ -1,12 +1,15 @@
 import { atom, selector } from 'recoil';
+
+import useRecoilTrigger from '@support/hooks/useRecoilTrigger';
 import { fetchRegularExpenditureList } from '@support/api/regularExpenditureApi';
 
 const PREFIX = 'REGULAR_EXPENDITURE/LIST/';
 
 const selectors = {
-  regularExpenditureApiList: selector({
+  regularExpenditureApiListState: selector({
     key: `${PREFIX}listState`,
-    get: async () => {
+    get: async ({ get }) => {
+      get(atoms.regularExpenditureApiListTriggerState);
       const res = await fetchRegularExpenditureList();
       return res.data.data;
     }
@@ -14,9 +17,13 @@ const selectors = {
 };
 
 const atoms = {
-  regularExpenditureList: atom({
+  regularExpenditureListState: atom({
     key: `${PREFIX}ATOM/regularExpenditureList`,
-    default: selectors.regularExpenditureApiList
+    default: selectors.regularExpenditureApiListState
+  }),
+  regularExpenditureApiListTriggerState: atom({
+    key: `${PREFIX}ATOM/regularExpenditureApiListTriggerState`,
+    default: 0
   })
 };
 

@@ -9,7 +9,7 @@ const { selfTab, autoTab } = options;
 
 interface ExpenditureTabsProps {
   // 자동 이체 유무
-  useAutoExpenditure: boolean;
+  isAutoExpenditure: boolean;
   // 저장 폼 변경 이벤트
   onChangeSaveForm: (type: string, value: string | number | boolean) => void;
 }
@@ -19,15 +19,15 @@ interface ExpenditureTabsProps {
  * @component
  */
 
-function ExpenditureTabs({ useAutoExpenditure, onChangeSaveForm }: ExpenditureTabsProps) {
+function ExpenditureTabs({ isAutoExpenditure, onChangeSaveForm }: ExpenditureTabsProps) {
   // 자동 이체 유무 변경
   const onChangeAutoExpenditure = useCallback((tab: IAssetType) => {
     const isAutoExpenditure = autoTab.type === tab.type;
-    onChangeSaveForm('useAutoExpenditure', isAutoExpenditure);
+    onChangeSaveForm('isAutoExpenditure', isAutoExpenditure);
   }, [onChangeSaveForm]);
 
   const tabs = [autoTab, selfTab];
-  const activeTab = useAutoExpenditure ? autoTab : selfTab;
+  const activeTab = isAutoExpenditure ? autoTab : selfTab;
 
   return (
     <S.ExpenditureTabs>

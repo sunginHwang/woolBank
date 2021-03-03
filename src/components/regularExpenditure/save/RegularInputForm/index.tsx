@@ -42,6 +42,7 @@ function RegularInputForm({
         name='title'
         label='제목'
         placeHolder='제목을 입력해주세요.'
+        max={20}
         value={title}
         onClear={onClearForm}
         onChange={onInputChange}

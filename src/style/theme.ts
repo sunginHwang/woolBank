@@ -1,5 +1,6 @@
 import { keyframes } from 'styled-components';
 import palette from '@style/palette';
+
 export default {
   colors: palette,
   zIndex: {
