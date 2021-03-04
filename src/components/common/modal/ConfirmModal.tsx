@@ -40,12 +40,15 @@ function ConfirmModal({
             <p>{message}</p>
           </S.Content>
           <S.Footer>
-            {loading ? (
-              LoadingEl
-            ) : (
+            {loading && LoadingEl}
+            {!loading && (
               <>
-                <S.Button data-cy='icoCancel' onClick={onCancelClick}>{cancelMsg}</S.Button>
-                <S.Button data-cy='icoConfirm' onClick={onConfirmClick}>{confirmMsg}</S.Button>
+                <S.Button data-cy='icoCancel' onClick={onCancelClick}>
+                  {cancelMsg}
+                </S.Button>
+                <S.Button data-cy='icoConfirm' onClick={onConfirmClick}>
+                  {confirmMsg}
+                </S.Button>
               </>
             )}
           </S.Footer>
