@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -12,17 +13,21 @@ import GlobalStyle from '@style/GlobalStyle';
 import theme from '@style/theme';
 import ErrorHandler from '@pages/error/ErrorHandler';
 
+const queryClient = new QueryClient();
+
 ReactDOM.render(
   <Provider store={store()}>
     <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <GlobalStyle />
-          <ErrorHandler>
-            <App />
-          </ErrorHandler>
-        </BrowserRouter>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <GlobalStyle />
+            <ErrorHandler>
+              <App />
+            </ErrorHandler>
+          </BrowserRouter>
+        </ThemeProvider>
+      </QueryClientProvider>
     </RecoilRoot>
   </Provider>,
   document.getElementById('root')
