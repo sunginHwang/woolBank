@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 
-import RegularExpenditureListContainer from '@containers/regularExpenditure/list/RegularExpenditureListContainer';
+import RegularExpenditureListContainer from '@containers/regularExpenditure/list/RegularExpenditureList';
 import PageTemplate from '@components/layout/PageTemplate';
 import AddButton from '@components/common/AddButton';
 

@@ -7,29 +7,32 @@ import ModalDeem from '@components/common/modal/ModalDeem';
 import palette from '@style/palette';
 import '@style/css/customCalendar.css';
 
-export interface WalletDateModalProps {
-  visible: boolean;
+export interface IProps {
+  open?: boolean;
   message: string;
   loading?: boolean;
   confirmMsg?: string;
   cancelMsg?: string;
-  onConfirmClick: () => void;
-  onCancelClick: () => void;
+  onConfirm?: () => void;
+  onCancel?: () => void;
 }
 
-/*
-* deprecated : common/Confirm 사용 하자
-* */
+/**
+ * 커스텀 Confirm 모달
+ * @component
+ */
 
-function ConfirmModal({
-  visible,
-  message,
-  loading = false,
-  confirmMsg = '확인',
-  cancelMsg = '취소',
-  onCancelClick,
-  onConfirmClick
-}: WalletDateModalProps) {
+function Confirm(props: IProps) {
+  const {
+    open = false,
+    message,
+    loading = false,
+    confirmMsg = '확인',
+    cancelMsg = '취소',
+    onConfirm = () => {},
+    onCancel = () => {},
+  } = props;
+
   const LoadingEl = (
     <S.Loading>
       <ClipLoader size={20} color={palette.mainColor} />
@@ -37,7 +40,7 @@ function ConfirmModal({
   );
 
   return (
-    <ModalDeem data-cy='confirmModal' visible={visible}>
+    <ModalDeem data-cy='confirmModal' visible={open}>
       <S.ModalWrapper>
         <S.ConfirmModal>
           <S.Content>
@@ -47,10 +50,10 @@ function ConfirmModal({
             {loading && LoadingEl}
             {!loading && (
               <>
-                <S.Button data-cy='icoCancel' onClick={onCancelClick}>
+                <S.Button data-cy='icoCancel' onClick={onCancel}>
                   {cancelMsg}
                 </S.Button>
-                <S.Button data-cy='icoConfirm' onClick={onConfirmClick}>
+                <S.Button data-cy='icoConfirm' onClick={onConfirm}>
                   {confirmMsg}
                 </S.Button>
               </>
@@ -124,4 +127,4 @@ const S: {
   `
 };
 
-export default ConfirmModal;
+export default Confirm;

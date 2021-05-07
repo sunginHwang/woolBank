@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -12,6 +12,7 @@ import * as serviceWorker from '@/serviceWorker';
 import GlobalStyle from '@style/GlobalStyle';
 import theme from '@style/theme';
 import ErrorHandler from '@pages/error/ErrorHandler';
+import { ConfirmProvider } from '@components/common/Confirm/ConfirmService';
 
 const queryClient = new QueryClient();
 
@@ -23,7 +24,9 @@ ReactDOM.render(
           <BrowserRouter>
             <GlobalStyle />
             <ErrorHandler>
-              <App />
+              <ConfirmProvider>
+                <App />
+              </ConfirmProvider>
             </ErrorHandler>
           </BrowserRouter>
         </ThemeProvider>

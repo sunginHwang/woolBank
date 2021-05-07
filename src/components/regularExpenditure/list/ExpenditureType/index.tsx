@@ -20,6 +20,11 @@ function ExpenditureType({ expenditureType, onClickRemoveItem }: RegularAmountIn
   const { list, name } = expenditureType;
   const totalAmount = list.reduce((acc, item) => item.amount + acc, 0);
 
+  // 리스트 없는 경우
+  if (list.length === 0) {
+    return null;
+  }
+
   return (
     <S.ExpenditureType>
       <S.TypeInfo>
