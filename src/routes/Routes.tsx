@@ -34,6 +34,13 @@ const SaveRegularExpenditurePage = loadable(() => import('@pages/regularExpendit
   fallback: <PageTemplate title='정기지출 등록' />
 });
 
+
+// 가계부
+// 등록
+const SaveAccountBookPage = loadable(() => import('@pages/accountBook/SaveAccountBook'), {
+  fallback: <PageTemplate title='가계부 등록' />
+});
+
 function Routes() {
   const user = useSelector((state: RootState) => state.Auth.user);
   const isLogin = user.id > 0;
@@ -66,6 +73,8 @@ function Routes() {
           useNavBar={false}
           isLogin={isLogin}
         />
+        {/* 가계부 페이지 */}
+        <RouteWrapper path='/account-book/save' component={SaveAccountBookPage} exact useNavBar={false} isLogin={isLogin} />
         <Route component={PageNotFound} />
       </Switch>
     </ScrollToTop>

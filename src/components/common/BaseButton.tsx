@@ -26,9 +26,9 @@ export interface BaseButtonProps {
   // 버튼 텍스트
   message: string;
   // 컬러
-  color: 'red';
+  color: 'red' | 'white';
   // 버튼 사이즈
-  size: 'full' | 'wideFull' | 'sm';
+  size: 'full' | 'wideFull' | 'sm' | 'small';
   // 버튼 활성화 유무 (@todo disable 로 바꾸기)
   active?: boolean;
   // 버튼 로딩 스피너 사용 여부
@@ -61,6 +61,12 @@ function BaseButton({
       result.disableColor = palette.subColor3;
     }
 
+    if (color === 'white') {
+      result.bgColor = palette.white;
+      result.color = palette.blackL1;
+      result.disableColor = palette.white;
+    }
+
     return result;
   }, [color]);
 
@@ -82,6 +88,11 @@ function BaseButton({
 
     if (size === 'sm') {
       result.padding = '1rem 2rem';
+    }
+
+    if (size === 'small') {
+      result.padding = '.7rem 1rem';
+      result.fontSize = '1.2rem';
     }
 
     return result;

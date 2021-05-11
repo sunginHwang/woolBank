@@ -5,6 +5,7 @@ import PageHeader from '@components/common/PageHeader';
 import MainHeader from '@components/layout/MainHeader';
 
 import palette from '@style/palette';
+import { useHistory } from 'react-router';
 
 const defaultTopPadding = 6.5;
 
@@ -33,8 +34,11 @@ function PageTemplate({
   rightHeader = null,
   children
 }: PageTemplateProps) {
+  const history = useHistory();
+
   const onHeaderBackClick = () => {
-    onBackClick && onBackClick();
+    // 함수호출 없으면 뒤로가기 기본
+    onBackClick ? onBackClick() : history.goBack();
   };
   const headerPadding = useHeader ? defaultTopPadding : 0;
   const topAreaPadding = topPadding > headerPadding ? topPadding : headerPadding;
