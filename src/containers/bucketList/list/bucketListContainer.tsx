@@ -1,12 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useQuery } from 'react-query';
 
 import { IAssetType } from '@models/IAssetType';
-import { RootState } from '@/store';
-import { getBucketList } from '@/store/modules/BucketList';
-import { checkNeedReFetch } from '@support/util/checkNeedReFetch';
-import { getBucketListLastUpdatedAt } from '@support/api/bucketListApi';
+import { fetchBucketList } from '@support/api/bucketListApi';
 
 import AddButton from '@components/common/AddButton';
 import TabSlideViewer from '@components/common/TabSlideViewer';
@@ -14,6 +11,7 @@ import ListSkeleton from '@components/common/ListSkeleton';
 import BucketListItemSkeleton from '@components/bucketList/list/BucketListItemSkeleton';
 import EmptyList from '@components/common/EmptyList';
 import BucketListItem from '@components/bucketList/list/BucketListItem';
+import { IBucketList } from '@models/IBucketList';
 
 const tabs: IAssetType[] = [
   {
@@ -29,20 +27,8 @@ const tabs: IAssetType[] = [
 const title = '버킷리스트';
 
 function BucketListContainer() {
-  const bucketList = useSelector((state: RootState) => state.BucketList.bucketList);
-  const lastUpdatedDate = useSelector((state: RootState) => state.BucketList.lastUpdatedDate);
-  const dispatch = useDispatch();
+  const { data: bucketList = [], isFetching } = useQuery<IBucketList[]>('bucketList', fetchBucketList);
   const history = useHistory();
-
-  useEffect(() => {
-    onLoadBucketList();
-  }, []);
-
-  const onLoadBucketList = async () => {
-    // 캐싱 날짜 없으면 바로 조회
-    const needFetch = await checkNeedReFetch(lastUpdatedDate, getBucketListLastUpdatedAt);
-    needFetch && dispatch(getBucketList());
-  };
 
   /**
    * 버킷리스트 등록 페이지 이동
@@ -51,28 +37,19 @@ function BucketListContainer() {
     history.push('/bucket-list/save');
   };
 
-  const progressBucketList = bucketList.data.filter((bucket) => !bucket.isComplete);
-  const endBucketList = bucketList.data.filter((bucket) => bucket.isComplete);
-
-  // 진행중 상태 버킷리스트
-  const renderProgressBucketList =
-    progressBucketList.length === 0 ? (
-      <EmptyList message='진행중인 버킷리스트가 없습니다. :(' />
-    ) : (
-      progressBucketList.map((bucket, index) => <BucketListItem key={index} bucketList={bucket} useSideMargin />)
-    );
-
-  // 완료 상태 버킷리스트
-  const renderEndBucketList =
-    endBucketList.length === 0 ? (
-      <EmptyList message='완료중인 버킷리스트가 없습니다. :(' />
-    ) : (
-      endBucketList.map((bucket, index) => <BucketListItem key={index} bucketList={bucket} useSideMargin />)
-    );
-
-  if (!bucketList.data || bucketList.loading) {
+  if (isFetching || bucketList.length === 0) {
     return <ListSkeleton title={title} item={<BucketListItemSkeleton />} />;
   }
+
+  // 진행중 상태 버킷리스트
+  const renderProgressBucketList = renderList(
+    '진행중인 버킷리스트가 없습니다. :(',
+    bucketList.filter((bucket) => !bucket.isComplete)
+  );
+  // 완료 상태 버킷리스트
+  const renderEndBucketList = renderList('완료중인 버킷리스트가 없습니다. :(',
+    bucketList.filter((bucket) => bucket.isComplete)
+  );
 
   return (
     <>
@@ -80,6 +57,14 @@ function BucketListContainer() {
       <AddButton icon='+' onClick={goSaveBucketListPage} />
     </>
   );
+}
+
+function renderList(message: string, list: IBucketList[]) {
+  if (list.length === 0) {
+    return <EmptyList message={message} />;
+  }
+
+  return list.map((item) => <BucketListItem key={item.id} bucketList={item} useSideMargin />);
 }
 
 export default React.memo(BucketListContainer);

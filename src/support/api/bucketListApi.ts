@@ -5,6 +5,11 @@ import { IBucketListDetail } from '@models/bucketList/IBucketListDetail';
 import { IBucketListForm } from '@models/bucketList/IBucketListForm';
 
 export const fetchBucketList = async () => {
+  const result = await apiCall.get<ApiResType<IBucketList[]>>('bucket-list');
+  return result.data.data;
+};
+
+export const fetchBucketListByPass = async () => {
   return await apiCall.get<ApiResType<IBucketList>>('bucket-list');
 };
 
