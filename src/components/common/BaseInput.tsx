@@ -76,7 +76,7 @@ function BaseInput({
 
   return (
     <>
-      <S.BaseInput focus={focus} onClick={onClick} data-type={dataType}>
+      <S.BaseInput focus={focus} onClick={onClick} data-type={dataType === '' ? name : dataType}>
         {label && <label>{label}</label>}
         <input
           data-cy={name}
@@ -95,7 +95,7 @@ function BaseInput({
           {...defaultProps}
         />
         {isExistInputValue && (
-          <i onClick={onInputClear} data-type={dataType}>
+          <i onClick={onInputClear} data-type={dataType === '' ? name : dataType}>
             <IcoCloseCircle width={24} height={28} fill='#958d9e' />
           </i>
         )}

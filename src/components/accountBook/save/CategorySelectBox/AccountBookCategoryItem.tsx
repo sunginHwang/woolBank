@@ -5,7 +5,7 @@ import { IAccountBookCategory } from '@models/accountBook/IAccountBookCategory';
 export interface IProps {
   accountBookCategory: IAccountBookCategory;
   isActive: boolean;
-  onCategoryClick: (accountBookCategory: IAccountBookCategory) => void;
+  onSelect: (accountBookCategory: IAccountBookCategory) => void;
 }
 
 /**
@@ -14,7 +14,12 @@ export interface IProps {
  */
 
 function AccountBookCategoryItem(props: IProps) {
-  const { accountBookCategory, isActive, onCategoryClick } = props;
+  const { accountBookCategory, isActive, onSelect } = props;
+
+  const onCategoryClick = () => {
+    onSelect(accountBookCategory);
+  };
+
   return (
     <S.AccountBookCategoryItem isActive={isActive} onClick={onCategoryClick}>
       {accountBookCategory.name}

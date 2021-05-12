@@ -41,9 +41,9 @@ function CategorySelectBox(props: IProps) {
                 key={c.id}
                 accountBookCategory={c}
                 isActive={c.id === selectCategoryId}
-                onCategoryClick={onCategorySelect}
+                onSelect={onCategorySelect}
               />
-            )
+            );
           })}
         </S.CategoryList>
         <S.Footer>

@@ -1,10 +1,10 @@
 import React, { ChangeEvent } from 'react';
-import styled from 'styled-components';
 
 import BaseInput from '@components/common/BaseInput';
+import Form from '@components/atoms/Form';
 import { addComma } from '@support/util/String';
 
-interface IRegularInputFormProps {
+interface IProps {
   // 제목
   title: string;
   // 자동 이체 종류
@@ -26,15 +26,17 @@ interface IRegularInputFormProps {
  * @component
  */
 
-function RegularInputForm({
-  title,
-  expenditureType,
-  regularDate,
-  amount,
-  onInputChange,
-  onClearForm,
-  onOpenModal
-}: IRegularInputFormProps) {
+function RegularInputForm(props: IProps) {
+  const {
+    title,
+    expenditureType,
+    regularDate,
+    amount,
+    onInputChange,
+    onClearForm,
+    onOpenModal
+  } = props;
+
   const renderTitleInput = React.useMemo(
     () => (
       <BaseInput
@@ -97,24 +99,13 @@ function RegularInputForm({
   );
 
   return (
-    <S.RegularInputForm>
+    <Form>
       {renderTitleInput}
       {renderExpenditureTypeInput}
       {renderRegularDateInput}
       {renderAmountInput}
-    </S.RegularInputForm>
+    </Form>
   );
 }
 
-const S: {
-  RegularInputForm: any;
-} = {
-  RegularInputForm: styled.div`
-    margin-top: 2rem;
-
-    div + div {
-      margin-top: 4rem;
-    }
-  `
-};
 export default RegularInputForm;

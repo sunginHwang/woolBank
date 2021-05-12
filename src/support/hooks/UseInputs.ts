@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from 'react';
+import React, { useReducer, useCallback, useState, ChangeEvent } from 'react';
 
 type DefaultValues = {
   [key: string]: string;
@@ -24,20 +24,41 @@ function reducer<T>(state: T, action: UseInputsAction | null) {
 }
 
 export default function useInputs<T>(defaultValues: T) {
-  const [state, dispatch] = useReducer(reducer, defaultValues);
-  const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      name: e.target.name,
-      value: e.target.value
+  const [ inputs, setInputs ] = useState(defaultValues);
+
+
+  // 인풋 이벤트 변경
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setInput(name, value);
+  }, []);
+
+  const setInput = useCallback(<T>(name:string, value: T) => {
+    setInputs((prevState) => {
+      return {
+        ...prevState,
+        [name]: value
+      };
     });
   }, []);
+
+  const onClear = useCallback((e: React.MouseEvent<HTMLLIElement>) => {
+    const type = e.currentTarget.dataset.type || '';
+    // @ts-ignore
+    setInput(type, defaultValues[type]);
+  }, [])
+
+
   const onReset = useCallback(() => {
-    dispatch(null);
+    setInputs(Object.assign({}, defaultValues));
   }, []);
-  return [state, onChange, dispatch, onReset] as [
-    T,
-    typeof onChange,
-    typeof dispatch,
-    typeof onReset
-  ];
+
+
+  return {
+    inputs,
+    onChange,
+    onClear,
+    onReset,
+    setInput,
+  };
 }
