@@ -26,7 +26,7 @@ function RegularTopInfo({ regularExpenditureTypeList }: IRegularTopInfoProps) {
   const oneWeekRemainList: IRegularExpenditure[] = regularExpenditureTypeList
     .flatMap(item => item.list)
     .filter(item => {
-      const remainDay = differenceInCalendarDays(item.regularExpenditureDay, now);
+      const remainDay = differenceInCalendarDays(new Date(item.regularExpenditureDay), now);
       return remainDay >= 0 && remainDay <= oneWeekDay;
     });
 
