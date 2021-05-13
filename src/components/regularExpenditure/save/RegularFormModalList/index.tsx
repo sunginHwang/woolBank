@@ -65,6 +65,7 @@ function RegularFormModalList({
   return (
     <>
       <NumberInputModal
+        title='고정지출액'
         visible={openModalName === 'amount'}
         currentAmount={amount}
         oncloseModal={onCloseModal}
