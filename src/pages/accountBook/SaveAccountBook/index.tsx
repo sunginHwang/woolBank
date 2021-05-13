@@ -15,7 +15,7 @@ function SaveAccountBook() {
   };
 
   return (
-    <PageTemplate title='가계부 내역 추가' onBackClick={onBackClick}>
+    <PageTemplate title='거래 내역 추가' onBackClick={onBackClick}>
       <SaveForm />
     </PageTemplate>
   );
