@@ -6,9 +6,10 @@ const BILLION = 1000000000;
 interface useNumberAmountProps {
   maxAmount?: number;
   currentAmount: number;
+  subFix?: string;
 }
 
-export function useNumberAmount({ maxAmount = BILLION, currentAmount }: useNumberAmountProps) {
+export function useNumberAmount({ maxAmount = BILLION, currentAmount, subFix = '원' }: useNumberAmountProps) {
   const [isValidAmount, setIsValidAmount] = useState(true);
   const [amount, setAmount] = useState(currentAmount);
 
@@ -44,7 +45,7 @@ export function useNumberAmount({ maxAmount = BILLION, currentAmount }: useNumbe
     setAmount(currentAmount);
   }, [currentAmount]);
 
-  const displayAmount = `${addComma(amount)}원`;
+  const displayAmount = `${addComma(amount)}${subFix}`;
 
   return {
     onInitAmount,

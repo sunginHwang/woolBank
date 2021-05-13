@@ -7,7 +7,7 @@ const expenditureTab:IAssetType = {
 };
 const incomeTab:IAssetType = {
   type: 'income',
-  name: '소비',
+  name: '수입',
 };
 
 

@@ -1,11 +1,12 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
+import { format } from 'date-fns';
 import Form from '@components/atoms/Form';
 import BaseInput from '@components/common/BaseInput';
 import ToggleTab from '@components/common/ToggleTab';
 import BottomButton from '@components/common/BottomButton';
 import NumberInputModal from '@components/common/modal/NumbetInputModal';
 import CategorySelectBox from '@components/accountBook/save/CategorySelectBox';
+import DateTimePickerModal from '@components/common/modal/DateTimePickerModal';
 
 import { IAssetType } from '@models/IAssetType';
 import { AccountBookCategoryType } from '@models/accountBook/AccountBookCategoryType';
@@ -13,7 +14,6 @@ import { IAccountBookCategory } from '@models/accountBook/IAccountBookCategory';
 import useOpenModal from '@support/hooks/useOpenModal';
 import useInputs from '@support/hooks/UseInputs';
 import { addComma } from '@support/util/String';
-
 
 import options from './options';
 
@@ -23,6 +23,7 @@ interface IAccountBookSaveForm {
   title: string;
   amount: number;
   memo: string;
+  dateTime: Date;
   category: IAccountBookCategory;
   type: AccountBookCategoryType;
 }
@@ -37,6 +38,7 @@ const initForm: IAccountBookSaveForm = {
     createdAt: new Date(),
     updatedAt: new Date(),
   },
+  dateTime: new Date(),
   type: 'expenditure',
   memo: '',
 }
@@ -47,13 +49,19 @@ const initForm: IAccountBookSaveForm = {
  */
 
 function SaveForm() {
-  const { openModalName, setModalWithType, onCloseModal }  = useOpenModal();
+  const { openModalName, setModalWithType, setModal, onCloseModal }  = useOpenModal();
+
   const {
     inputs: formData,
     onChange,
     setInput,
     onClear
   } = useInputs<IAccountBookSaveForm>(initForm);
+
+  // 폼입력시 금액 설정 input 나오도록
+  useEffect(() => {
+    setModal('amount');
+  }, []);
 
   const setCategory = (accountBookCategory: IAccountBookCategory) => {
     setInput<IAccountBookCategory>('category', accountBookCategory);
@@ -67,10 +75,18 @@ function SaveForm() {
 
   const setType = (tab: IAssetType) => {
     setInput<string>('type', tab.type);
+    // 타입 변경시 카테고리 초기화 필요
+    setInput<IAccountBookCategory>('category', {...initForm.category});
   };
+
+   const setDateTime = (date: Date) => {
+     setInput<Date>('dateTime', date);
+   };
 
    const isActiveSendButton = isValidForm(formData);
    const { title, type, amount, category, memo } = formData;
+
+   const typeMsg = type === 'income' ? '수입' : '지출'
 
    return (
     <Form>
@@ -80,12 +96,39 @@ function SaveForm() {
         onChangeTab={setType}
       />
       <BaseInput
+        disable
+        dataType='amount'
+        label={`* ${typeMsg}금액`}
+        placeHolder={`${typeMsg}금액을 입력해 주세요.`}
+        value={amount === 0 ? '' : `${addComma(amount)}원`}
+        onClick={setModalWithType}
+        onClear={onClear}
+      />
+      <BaseInput
         name='title'
-        label='제목'
-        placeHolder='제목을 입력해주세요.'
+        label={`* ${typeMsg}처`}
+        placeHolder={`${typeMsg}처를 선택해 주세요.`}
         max={20}
         value={title}
         onChange={onChange}
+        onClear={onClear}
+      />
+      <BaseInput
+        disable
+        dataType='dateTime'
+        label={`* ${typeMsg}일시`}
+        placeHolder={`${typeMsg}일시를 선택해 주세요.`}
+        value={format(formData.dateTime, 'yyyy-MM-dd HH:mm')}
+        onClick={setModalWithType}
+        onClear={onClear}
+      />
+      <BaseInput
+        disable
+        dataType='category'
+        label={`* ${typeMsg}카테고리`}
+        placeHolder={`${typeMsg} 카테고리를 선택해 주세요.`}
+        value={category.name}
+        onClick={setModalWithType}
         onClear={onClear}
       />
       <BaseInput
@@ -97,33 +140,22 @@ function SaveForm() {
         onChange={onChange}
         onClear={onClear}
       />
-      <BaseInput
-        disable
-        dataType='category'
-        label='카테고리'
-        placeHolder='카테고리를 선택해 주세요.'
-        value={category.name}
-        onClick={setModalWithType}
-        onClear={onClear}
-      />
-      <BaseInput
-        disable
-        dataType='amount'
-        label='금액'
-        placeHolder='지출 금액을 작성해 주세요.'
-        value={amount === 0 ? '' : `${addComma(amount)}원`}
-        onClick={setModalWithType}
-        onClear={onClear}
-      />
       <>
+        <DateTimePickerModal
+          visible={openModalName === 'dateTime'}
+          oncloseModal={onCloseModal}
+          onChangeDateTime={setDateTime}
+          date={new Date()}
+        />
         <CategorySelectBox
           open={openModalName === 'category'}
-          type='expenditure'
+          type={type}
           onClose={onCloseModal}
           selectCategoryId={category.id}
           onCategorySelect={setCategory}
         />
         <NumberInputModal
+          title={`* ${typeMsg}금액`}
           visible={openModalName === 'amount'}
           currentAmount={amount}
           oncloseModal={onCloseModal}
@@ -132,7 +164,7 @@ function SaveForm() {
       </>
       <BottomButton
         isShow
-        message='가계부 내역 추가'
+        message='추가하기'
         active={isActiveSendButton}
       />
     </Form>
