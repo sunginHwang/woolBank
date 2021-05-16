@@ -1,5 +1,4 @@
 import React from 'react';
-import CategorySelectBox from '@components/accountBook/save/CategorySelectBox';
 import PageTemplate from '@components/layout/PageTemplate';
 import { useHistory } from 'react-router';
 import SaveForm from '@components/accountBook/save/SaveForm';
