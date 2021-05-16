@@ -9,6 +9,7 @@ export default {
     phase: 300,
     floatButton: 400,
     modalDeem: 500,
+    fullDeem: 510,
     notification: 600
   },
   animations: {
