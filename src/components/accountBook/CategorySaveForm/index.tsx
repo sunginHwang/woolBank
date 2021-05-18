@@ -36,6 +36,7 @@ function CategorySaveForm(props: IProps) {
   const onToast = useToast();
   const setCategoryState = useSetRecoilState(accountBookCategoriesState);
   const saveCategoryMutation = useMutation(addAccountBookCategory);
+
   const typeMsg = getCategoryMsg(type);
 
   const onAddCategoryClick = () => {
@@ -97,3 +98,4 @@ const S = {
     padding: 0 2rem;
   `
 };
+
