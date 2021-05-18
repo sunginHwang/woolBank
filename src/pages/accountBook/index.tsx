@@ -18,14 +18,15 @@ const menuTabs: IAssetType[] = [{
   type: 'sum',
   name: '통계',
 }];
+
 /**
  * 가계부 리스트 페이징
  * @component
  */
 
 function AccountBookList() {
-  const [ activeTab, setActiveTab ] = useState(menuTabs[0]);
   const history = useHistory();
+  const [ activeTab, setActiveTab ] = useState(getInitTab(history.location.pathname));
 
   const onChangeTab = (tab: IAssetType) => {
     setActiveTab(tab);
@@ -51,6 +52,10 @@ function AccountBookList() {
   );
 }
 
+function getInitTab(pathname: string) {
+  const initTab = menuTabs.find(menu => menu.type === pathname.split(urlPrefix+'/')[1]);
+  return initTab || menuTabs[0];
+}
 function List() {
   return <div>리스트</div>
 }
