@@ -92,7 +92,7 @@ function RegularDate(props: IRegularDateProps) {
   const onSelectRegularDate = (date: number) => {
     onCompleteModal('regularDate', date);
   };
-  console.log(openModalName);
+
   return (
     <>
       <BaseInput
@@ -184,12 +184,11 @@ function Category(props: ICategoryProps) {
         onClick={onInputClick}
       />
       <CategorySelectBox
-        open={openModalName === 'expenditureType'}
+        open={openModalName === 'category'}
         type='expenditure'
         selectCategoryId={category.id}
         onCategorySelect={onChangeCategory}
         onClose={onCloseModal}
-
       />
     </>
   );
