@@ -7,9 +7,9 @@ import MainHeader from '@components/layout/MainHeader';
 import palette from '@style/palette';
 import { useHistory } from 'react-router';
 
-const defaultTopPadding = 6.5;
+const defaultTopPadding = 5.5;
 
-export interface PageTemplateProps {
+export interface IProps {
   title?: string;
   isMain?: boolean;
   useSidePadding?: boolean;
@@ -22,18 +22,20 @@ export interface PageTemplateProps {
   onBackClick?: () => void;
 }
 
-function PageTemplate({
-  title = '',
-  isMain = false,
-  bgColor = palette.white,
-  useSidePadding = true,
-  useHeader = true,
-  useBackButton = true,
-  topPadding = 0,
-  onBackClick,
-  rightHeader = null,
-  children
-}: PageTemplateProps) {
+function PageTemplate(props: IProps) {
+  const {
+    title = '',
+    isMain = false,
+    bgColor = palette.white,
+    useSidePadding = true,
+    useHeader = true,
+    useBackButton = true,
+    topPadding = 0,
+    onBackClick,
+    rightHeader = null,
+    children
+  } = props;
+
   const history = useHistory();
 
   const onHeaderBackClick = () => {

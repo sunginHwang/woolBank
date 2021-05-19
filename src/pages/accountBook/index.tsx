@@ -34,7 +34,7 @@ function AccountBookList() {
   };
 
   return (
-    <PageTemplate title='가계부' useSidePadding={false}>
+    <PageTemplate title='가계부' useBackButton={false} useSidePadding={false}>
       <Tabs tabs={menuTabs} activeTab={activeTab} onChangeTab={onChangeTab} />
       <div style={{padding: '2rem'}}>
         <Switch>

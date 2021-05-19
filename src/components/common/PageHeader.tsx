@@ -38,8 +38,10 @@ function PageHeader({
     useBackButton && onBackClick && onBackClick();
   }, [useBackButton, onBackClick]);
 
+  const useBigTitleMode = !useBackButton && title.length > 0 && !right;
+
   return (
-    <S.HeaderWithBack useSkeleton={useSkeleton} useBigTitle={!useBackButton}>
+    <S.HeaderWithBack useSkeleton={useSkeleton} useBigTitle={useBigTitleMode}>
       <div>
         {useBackButton && (
           <div onClick={onBackButtonClick}>
