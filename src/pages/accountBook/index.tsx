@@ -40,10 +40,12 @@ function AccountBookList() {
         <Switch>
           <Route
             path='/account-books/list'
+            exact
             component={List}
           />
           <Route
             path='/account-books/regular-expenditure'
+            exact
             component={RegularExpenditureList}
           />
         </Switch>

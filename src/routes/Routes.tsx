@@ -30,19 +30,20 @@ const Menu = loadable(() => import('@pages/Menu'), {
 const RegularExpenditureList = loadable(() => import('@pages/regularExpenditure/RegularExpenditureListPage'), {
   fallback: <PageTemplate useHeader useBackButton={false} title='정기지출' />
 });
-const SaveRegularExpenditurePage = loadable(() => import('@pages/regularExpenditure/SaveRegularExpenditurePage'), {
-  fallback: <PageTemplate title='정기지출 등록' />
-});
-
 
 // 가계부
 // 리스트
 const AccountBookList = loadable(() => import('@pages/accountBook'), {
-  fallback: <PageTemplate title='가계부' />
+  fallback: <PageTemplate title='가계부'  useBackButton={false} useSidePadding={false} />
 });
-// 등록
+// 가계부 등록
 const SaveAccountBookPage = loadable(() => import('@pages/accountBook/SaveAccountBook'), {
   fallback: <PageTemplate title='가계부 등록' />
+});
+
+// 가계부 등록
+const SaveRegularExpenditure = loadable(() => import('@pages/accountBook/save/SaveRegularExpenditure'), {
+  fallback: <PageTemplate title='정기지출 등록' />
 });
 
 function Routes() {
@@ -70,16 +71,16 @@ function Routes() {
         />
         {/* 정기지출 페이지 */}
         <RouteWrapper path='/regular-expenditure' component={RegularExpenditureList} exact isLogin={isLogin} />
+        {/* 가계부 페이지 */}
+        <RouteWrapper path='/account-books' component={AccountBookList} exact isLogin={isLogin} />
+        <RouteWrapper path='/account-book/save' component={SaveAccountBookPage} exact useNavBar={false} isLogin={isLogin} />
         <RouteWrapper
-          path='/regular-expenditure/save'
-          component={SaveRegularExpenditurePage}
+          path='/account-books/save/regular-expenditure'
+          component={SaveRegularExpenditure}
           exact
           useNavBar={false}
           isLogin={isLogin}
         />
-        {/* 가계부 페이지 */}
-        <RouteWrapper path='/account-books' component={AccountBookList} isLogin={isLogin} />
-        <RouteWrapper path='/account-book/save' component={SaveAccountBookPage} exact useNavBar={false} isLogin={isLogin} />
         <Route component={PageNotFound} />
       </Switch>
     </ScrollToTop>
