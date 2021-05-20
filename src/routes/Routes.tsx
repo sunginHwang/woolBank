@@ -37,7 +37,7 @@ const AccountBookList = loadable(() => import('@pages/accountBook'), {
   fallback: <PageTemplate title='가계부'  useBackButton={false} useSidePadding={false} />
 });
 // 가계부 등록
-const SaveAccountBookPage = loadable(() => import('@pages/accountBook/SaveAccountBook'), {
+const SaveAccountBookPage = loadable(() => import('@pages/accountBook/save/SaveAccountBook'), {
   fallback: <PageTemplate title='가계부 등록' />
 });
 
@@ -73,7 +73,7 @@ function Routes() {
         <RouteWrapper path='/regular-expenditure' component={RegularExpenditureList} exact isLogin={isLogin} />
         {/* 가계부 페이지 */}
         <RouteWrapper path='/account-books' component={AccountBookList} exact isLogin={isLogin} />
-        <RouteWrapper path='/account-book/save' component={SaveAccountBookPage} exact useNavBar={false} isLogin={isLogin} />
+        <RouteWrapper path='/account-books/save' component={SaveAccountBookPage} exact useNavBar={false} isLogin={isLogin} />
         <RouteWrapper
           path='/account-books/save/regular-expenditure'
           component={SaveRegularExpenditure}
