@@ -41,6 +41,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: column;
     background-color: ${theme.colors.white};
+    color: ${theme.colors.blackL1};
     -ms-overflow-style: none;
     overscroll-behavior: contain; // 브라우저 ptr 제거
     overscroll-behavior-y: none; // 바운스 효과를 비활성화 https://developers.google.com/web/updates/2017/11/overscroll-behavior

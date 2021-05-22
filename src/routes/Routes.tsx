@@ -72,7 +72,7 @@ function Routes() {
         {/* 정기지출 페이지 */}
         <RouteWrapper path='/regular-expenditure' component={RegularExpenditureList} exact isLogin={isLogin} />
         {/* 가계부 페이지 */}
-        <RouteWrapper path='/account-books' component={AccountBookList} exact isLogin={isLogin} />
+        <RouteWrapper path='/account-books' component={AccountBookList} isLogin={isLogin} />
         <RouteWrapper path='/account-books/save' component={SaveAccountBookPage} exact useNavBar={false} isLogin={isLogin} />
         <RouteWrapper
           path='/account-books/save/regular-expenditure'

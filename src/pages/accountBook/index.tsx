@@ -3,6 +3,7 @@ import { Route, Switch, useHistory } from 'react-router';
 
 import Tabs from '@components/common/Tabs';
 import PageTemplate from '@components/layout/PageTemplate';
+import AccountBookListPage from '@pages/accountBook/list';
 import RegularExpenditureList from '@containers/regularExpenditure/list/RegularExpenditureList';
 
 import { IAssetType } from '@models/IAssetType';
@@ -24,7 +25,7 @@ const menuTabs: IAssetType[] = [{
  * @component
  */
 
-function AccountBookList() {
+function AccountBook() {
   const history = useHistory();
   const [ activeTab, setActiveTab ] = useState(getInitTab(history.location.pathname));
 
@@ -41,7 +42,7 @@ function AccountBookList() {
           <Route
             path='/account-books/list'
             exact
-            component={List}
+            component={AccountBookListPage}
           />
           <Route
             path='/account-books/regular-expenditure'
@@ -58,8 +59,5 @@ function getInitTab(pathname: string) {
   const initTab = menuTabs.find(menu => menu.type === pathname.split(urlPrefix+'/')[1]);
   return initTab || menuTabs[0];
 }
-function List() {
-  return <div>리스트</div>
-}
 
-export default AccountBookList;
+export default AccountBook;
