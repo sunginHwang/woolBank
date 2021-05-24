@@ -21,20 +21,19 @@ function AccountBookList() {
     .value();
 
   return (
-    <div>
+    <S.AccountBookList>
       {
         Object.entries(accountBookListGroupDays).map(key => {
           const days = key[0];
           const accountBookList = key[1];
           return (
-            <div key={days}>
-              <DayGroup days={days} totalAmount={1030303} />
+            <DayGroup key={days} days={days} totalAmount={1030303}>
               { accountBookList.map(item => <Item key={item.id} accountBookListItem={item} />) }
-            </div>
+            </DayGroup>
           );
         })
       }
-    </div>
+    </S.AccountBookList>
   );
 }
 
@@ -43,9 +42,7 @@ interface ItemProps {
 };
 
 function Item({ accountBookListItem }: ItemProps) {
-  const { categoryName, title, amount, registerDateTime, isRegularExpenditure} = accountBookListItem;
-
-  const registerTime = format(registerDateTime, 'hh:mm');
+  const { categoryName, title, amount, isRegularExpenditure} = accountBookListItem;
 
   return (
     <S.Item>
@@ -61,11 +58,15 @@ function Item({ accountBookListItem }: ItemProps) {
 }
 
 const S: {
+  AccountBookList: any;
   Item: any;
   Price: any;
   Category: any;
   Info: any;
 } = {
+  AccountBookList: styled.div`
+    margin-top: 3rem;
+  `,
   Item: styled.div`
     display: flex;
     justify-content: space-between;
@@ -76,10 +77,11 @@ const S: {
       display: flex;
       justify-content: flex-start;
     }
+    
   `,
   Price: styled.p`
     font-weight: 600;
-    color: ${({ theme }) => theme.colors.pinkL2};
+    color: ${({ theme }) => theme.colors.redL1};
   `,
   Category: styled.p`
     width: 6rem;

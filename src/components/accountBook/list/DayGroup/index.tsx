@@ -11,23 +11,33 @@ import { addComma } from '@support/util/String';
 interface IProps {
   days: string;
   totalAmount: number;
+  children: React.ReactNode;
 }
-function DayGroup({ days, totalAmount}: IProps) {
+function DayGroup({ days, totalAmount, children }: IProps) {
 
   return (
     <S.DayGroup>
-      <S.Day>{days}일</S.Day>
-      <S.Price>{addComma(totalAmount)}원</S.Price>
+      <S.DayInfo>
+        <S.Day>{days}일</S.Day>
+        <S.Price>{addComma(totalAmount)}원</S.Price>
+      </S.DayInfo>
+      {children}
     </S.DayGroup>
   );
 }
 
 const S: {
   DayGroup: any;
+  DayInfo: any;
   Day: any;
   Price: any;
 } = {
   DayGroup: styled.div`
+    & + & {
+      margin-top: 2.4rem;
+    }
+  `,
+  DayInfo: styled.div`
     padding-bottom: 1rem;
     border-bottom: .1rem solid ${({ theme }) => theme.colors.greyL2};
     display: flex;
