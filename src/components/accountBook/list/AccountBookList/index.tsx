@@ -49,7 +49,7 @@ function Item({ accountBookListItem }: ItemProps) {
       <div>
         <S.Category>{categoryName}</S.Category>
         <S.Info>
-          <span>{title}</span>{isRegularExpenditure && <em>정기지출</em>}
+          <span>{title}</span>{isRegularExpenditure && <S.Label>정기지출</S.Label>}
         </S.Info>
       </div>
       <S.Price>{addComma(amount)}원</S.Price>
@@ -63,6 +63,7 @@ const S: {
   Price: any;
   Category: any;
   Info: any;
+  Label: any;
 } = {
   AccountBookList: styled.div`
     margin-top: 3rem;
@@ -92,11 +93,17 @@ const S: {
   `,
   Info: styled.div`
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     font-size: 1.2rem;
-  `
+  `,
+  Label: styled.label`
+    font-size: 1rem;
+    background-color: ${({ theme }) => theme.colors.greyL2};
+    border-radius: 1.3rem;
+    padding: .5rem .7rem;
+    margin-left: .5rem;
+  `,
 }
 
 export default AccountBookList;
