@@ -1,7 +1,9 @@
+import { delay } from '@support/util/delay';
+
 import { IAccountBookCategory } from '@models/accountBook/IAccountBookCategory';
 import { AccountBookCategoryType } from '@models/accountBook/AccountBookCategoryType';
-import { delay } from '@support/util/delay';
 import { IAccountBookSaveForm } from '@models/accountBook/IAccountBookSaveForm';
+import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
 
 /*
 * 가계부 카테고리 작성 api
@@ -28,4 +30,45 @@ export const addAccountBook = async ({ accountBook, userId }: { accountBook: IAc
   await delay(300);
   console.log(accountBook);
   return {} ;
+}
+
+/*
+* 가계부 리스트 조회
+* @Todo 더미 치환 해야 함
+* */
+export const fetchAccountBookList = async (searchDate: Date): Promise<IAccountBookListItem[]> => {
+  console.log(searchDate);
+  await delay(1000);
+  return DUMMY.list;
+}
+
+const DUMMY: {
+  list: IAccountBookListItem[];
+} = {
+  list: [
+    {
+      id: 111,
+      title: '오늘날짜 테스트 구매',
+      isRegularExpenditure: true,
+      categoryName: '취미생활',
+      amount: 50000,
+      registerDateTime: new Date()
+    },
+    {
+      id: 1,
+      title: '피규어 구매',
+      isRegularExpenditure: false,
+      categoryName: '취미생활',
+      amount: 50000,
+      registerDateTime: new Date(2021, 5, 3,11,30)
+    },
+    {
+      id: 2,
+      title: '교통비',
+      isRegularExpenditure: false,
+      categoryName: '차비',
+      amount: 3020,
+      registerDateTime: new Date(2021, 5, 3, 12, 40)
+    },
+  ]
 }

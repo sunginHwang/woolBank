@@ -5,20 +5,29 @@ import { format } from 'date-fns';
 
 import { addComma } from '@support/util/String';
 import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
-import { DummyAccountBookList } from './dummy';
 import DayGroup from '@components/accountBook/list/DayGroup';
+import EmptyData from '@components/common/EmptyData';
 
 /**
  * 가계부 리스트
  * @component
  */
 
+interface IProps {
+  accountBookList: IAccountBookListItem[];
+}
 
-function AccountBookList() {
+function AccountBookList(props: IProps) {
+  const { accountBookList } = props;
+
   const accountBookListGroupDays =
-    _.chain(DummyAccountBookList)
+    _.chain(accountBookList)
     .groupBy(a => format(a.registerDateTime, 'd'))
     .value();
+
+  if (accountBookList.length === 0) {
+    return <S.AccountBookList><EmptyData msg='작성한 소비 내역이 없습니다.' /></S.AccountBookList>;
+  }
 
   return (
     <S.AccountBookList>
