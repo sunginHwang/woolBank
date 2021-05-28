@@ -15,6 +15,8 @@ const now = new Date();
 interface IProps {
   selectedDate: Date;
   changeSelectedDate: (date: Date) => void;
+  totalIncomeAmount: number;
+  totalExpenditureAmount: number;
 }
 
 /**
@@ -23,7 +25,7 @@ interface IProps {
  */
 
 function MonthStatistics(props: IProps) {
-  const { selectedDate, changeSelectedDate } = props;
+  const { selectedDate, changeSelectedDate, totalIncomeAmount, totalExpenditureAmount } = props;
 
   const [isOpenMonthPicker, openMonthPicker, closeMonthPicker] = useToggle(false);
 
@@ -49,10 +51,10 @@ function MonthStatistics(props: IProps) {
         </S.Title>
         <S.TotalSection>
           <label>{monthLabelPrefix}</label>
-          <S.Expenditure>지출 : {addComma(1213131)}원</S.Expenditure>
+          <S.Expenditure>지출 : {addComma(totalExpenditureAmount)}원</S.Expenditure>
           <p>
             <span>수입 : </span>
-            {addComma(1213131)}원
+            {addComma(totalIncomeAmount)}원
           </p>
         </S.TotalSection>
         <LineSeparator />

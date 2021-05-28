@@ -44,13 +44,12 @@ const S: {
     justify-content: space-between;
     align-items: flex-end;
     margin: 1rem 0;
+    font-size: 1.5rem;
   `,
   Day: styled.span`
-    font-size: 1.4rem;
     color: ${({ theme }) => theme.colors.greyD2};
   `,
   Price: styled.span`
-    font-weight: bold;
   `,
 }
 

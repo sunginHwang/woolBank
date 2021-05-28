@@ -52,6 +52,7 @@ const DUMMY: {
       isRegularExpenditure: true,
       categoryName: '취미생활',
       amount: 50000,
+      type: 'income',
       registerDateTime: new Date()
     },
     {
@@ -60,6 +61,7 @@ const DUMMY: {
       isRegularExpenditure: false,
       categoryName: '취미생활',
       amount: 50000,
+      type: 'expenditure',
       registerDateTime: new Date(2021, 5, 3,11,30)
     },
     {
@@ -68,6 +70,7 @@ const DUMMY: {
       isRegularExpenditure: false,
       categoryName: '차비',
       amount: 3020,
+      type: 'expenditure',
       registerDateTime: new Date(2021, 5, 3, 12, 40)
     },
   ]

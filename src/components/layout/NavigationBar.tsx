@@ -28,9 +28,9 @@ const navigations: INavigationBar[] = [
     icon: <IcoBucketOutline />
   },
   {
-    name: '정기지출',
-    value: 'regularExpenditure',
-    link: '/regular-expenditure',
+    name: '가계부',
+    value: 'accountBooks',
+    link: '/account-books',
     icon: <IcoBucketOutline />
   },
   {
