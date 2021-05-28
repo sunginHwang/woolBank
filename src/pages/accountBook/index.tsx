@@ -29,30 +29,31 @@ function AccountBook() {
   const history = useHistory();
   const [ activeTab, setActiveTab ] = useState(getInitTab(history.location.pathname));
 
-  const onChangeTab = (tab: IAssetType) => {
-    setActiveTab(tab);
-    history.push(`${urlPrefix}/${tab.type}`);
-  };
-
   return (
-    <PageTemplate title='가계부' useBackButton={false} useSidePadding={false}>
-      <Tabs tabs={menuTabs} activeTab={activeTab} onChangeTab={onChangeTab} />
+    <PageTemplate
+      title='가계부'
+      useBackButton={false}
+      useSidePadding={false}
+      tabs={<Tabs tabs={menuTabs} activeTab={activeTab} onChangeTab={setActiveTab} />}
+    >
       <div style={{padding: '2rem'}}>
-        <Switch>
-          <Route
-            path='/account-books/list'
-            exact
-            component={AccountBookListPage}
-          />
-          <Route
-            path='/account-books/regular-expenditure'
-            exact
-            component={RegularExpenditureList}
-          />
-        </Switch>
+        {getContentSlide(activeTab.type)}
       </div>
     </PageTemplate>
   );
+}
+
+function getContentSlide(type: string) {
+  switch (type) {
+    case 'list' :
+      return <AccountBookListPage />;
+    case 'regular-expenditure' :
+      return <RegularExpenditureList />;
+    case 'sum' :
+      return null;
+    default :
+      return null;
+  }
 }
 
 function getInitTab(pathname: string) {

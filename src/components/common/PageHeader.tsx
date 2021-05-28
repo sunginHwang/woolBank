@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import IcoChevronLeft from '@components/icon/IcoChevronLeft';
 import theme from '@style/theme';
 
-export interface PageHeaderProps {
+interface IProps {
   // 헤더 타이틀
   title: string;
   // 아이콘 색상
@@ -17,6 +17,8 @@ export interface PageHeaderProps {
   right?: React.ReactNode | string;
   // skeleton 모드 사용 유무
   useSkeleton?: boolean;
+  // 헤더 탭 필요시 작성
+  tabs?: React.ReactNode;
 }
 
 /**
@@ -24,14 +26,16 @@ export interface PageHeaderProps {
  * @component
  */
 
-function PageHeader({
-  title,
-  iconColor = theme.colors.mainColor,
-  useSkeleton = false,
-  useBackButton = true,
-  onBackClick,
-  right
-}: PageHeaderProps) {
+function PageHeader(props: IProps) {
+  const {
+    title,
+    iconColor = theme.colors.mainColor,
+    useSkeleton = false,
+    useBackButton = true,
+    onBackClick,
+    right,
+    tabs
+  } = props;
 
   // 뒤로 버튼 클릭 이벤트
   const onBackButtonClick = useCallback(() => {
@@ -39,9 +43,10 @@ function PageHeader({
   }, [useBackButton, onBackClick]);
 
   const useBigTitleMode = !useBackButton && title.length > 0 && !right;
+  const useTabs = !!tabs;
 
   return (
-    <S.HeaderWithBack useSkeleton={useSkeleton} useBigTitle={useBigTitleMode}>
+    <S.HeaderWithBack useTabs={useTabs} useSkeleton={useSkeleton} useBigTitle={useBigTitleMode}>
       <div>
         {useBackButton && (
           <div onClick={onBackButtonClick}>
@@ -51,17 +56,20 @@ function PageHeader({
         <p data-cy='title'>{title}</p>
         <S.rightHeader>{right}</S.rightHeader>
       </div>
+      { tabs }
     </S.HeaderWithBack>
   );
 }
 
 const S: any = {
   HeaderWithBack: styled.div<{
+    useTabs: boolean;
     useSkeleton: boolean;
     useBigTitle: boolean;
   }>`
-    height: 4.8rem;
+    height: ${({ useTabs }) => useTabs ? '9.8rem' : '4.8rem'};
     display: flex;
+    flex-direction: ${({ useTabs }) => useTabs ? 'column' : 'row'};;
     justify-content: space-between;
     align-items: center;
     position: fixed;

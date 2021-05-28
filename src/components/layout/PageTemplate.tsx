@@ -1,15 +1,18 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
 import PageHeader from '@components/common/PageHeader';
 import MainHeader from '@components/layout/MainHeader';
 
 import palette from '@style/palette';
-import { useHistory } from 'react-router';
 
-const defaultTopPadding = 5.5;
+const TOP_PADDING = {
+  NORMAL: 5.5,
+  TOP: 10.5,
+}
 
-export interface IProps {
+interface IProps {
   title?: string;
   isMain?: boolean;
   useSidePadding?: boolean;
@@ -18,6 +21,8 @@ export interface IProps {
   topPadding?: number;
   rightHeader?: React.ReactNode;
   useBackButton?: boolean;
+  // 헤더 탭 필요시 작성
+  tabs?: React.ReactNode;
   children?: React.ReactNode;
   onBackClick?: () => void;
 }
@@ -33,6 +38,7 @@ function PageTemplate(props: IProps) {
     topPadding = 0,
     onBackClick,
     rightHeader = null,
+    tabs,
     children
   } = props;
 
@@ -42,6 +48,8 @@ function PageTemplate(props: IProps) {
     // 함수호출 없으면 뒤로가기 기본
     onBackClick ? onBackClick() : history.goBack();
   };
+  // 기본 탑 padding 계산 (탭영역 유무)
+  const defaultTopPadding = tabs ? TOP_PADDING.TOP : TOP_PADDING.NORMAL;
   const headerPadding = useHeader ? defaultTopPadding : 0;
   const topAreaPadding = topPadding > headerPadding ? topPadding : headerPadding;
 
@@ -59,9 +67,10 @@ function PageTemplate(props: IProps) {
           {useHeader && (
             <PageHeader
               title={title}
+              tabs={tabs}
               useBackButton={useBackButton}
-              onBackClick={onHeaderBackClick}
               right={rightHeader}
+              onBackClick={onHeaderBackClick}
             />
           )}
           <S.Content useSidePadding={useSidePadding} bgColor={bgColor} >
