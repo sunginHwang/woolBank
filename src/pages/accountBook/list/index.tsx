@@ -1,5 +1,7 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, Suspense } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
+import { useHistory } from 'react-router';
+
 import AccountBookList from '@components/accountBook/list/AccountBookList';
 import MonthStatistics from '@components/accountBook/list/MonthStatistics';
 import AccountBookListSkeleton from '@components/accountBook/list/AccountBookListSkeleton';
@@ -8,7 +10,6 @@ import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
 import useUpdateEffect from '@support/hooks/useUpdateEffect';
 import { AccountBookCategoryType } from '@models/accountBook/AccountBookCategoryType';
 import AddButton from '@components/common/AddButton';
-import { useHistory } from 'react-router';
 
 /**
  * 가계부 리스트 페이지
@@ -22,9 +23,8 @@ function AccountBookListPage() {
 
   const {
     data: accountBookList = [],
-    isFetching,
     refetch
-  } = useQuery<IAccountBookListItem[]>('accountBookList',() => fetchAccountBookList(selectedDate));
+  } = useQuery<IAccountBookListItem[]>('accountBookList',() => fetchAccountBookList(selectedDate), { suspense: true });
   const queryClient = useQueryClient();
 
   useUpdateEffect(() => {
@@ -52,8 +52,9 @@ function AccountBookListPage() {
         totalIncomeAmount={totalIncomeAmount}
         totalExpenditureAmount={totalExpenditureAmount}
       />
-      { isFetching && <AccountBookListSkeleton /> }
-      { !isFetching && <AccountBookList accountBookList={accountBookList} /> }
+      <Suspense fallback={<AccountBookListSkeleton />}>
+        <AccountBookList accountBookList={accountBookList} />
+      </Suspense>
       <AddButton icon='+' onClick={moveSavePage} />
     </>
   );
