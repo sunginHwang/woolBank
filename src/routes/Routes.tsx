@@ -4,22 +4,16 @@ import { useSelector } from 'react-redux';
 import { Redirect, Route, RouteComponentProps, RouteProps, Switch } from 'react-router';
 import { RootState } from '@/store';
 
+import accounts from '@routes/account';
 import PageNotFound from '@pages/error/PageNotFound';
 import LayoutContainer from '@containers/LayoutContainer';
 import MainPageSkeleton from '@components/main/MainPageSkeleton';
 import PageTemplate from '@components/layout/PageTemplate';
 import ScrollToTop from '@routes/ScrollToTop';
 
-const defaultFallback = { fallback: <PageTemplate useHeader={false} /> };
+export const defaultFallback = { fallback: <PageTemplate useHeader={false} /> };
 
 const Main = loadable(() => import('@pages/Main'), { fallback: <MainPageSkeleton /> });
-const AccountList = loadable(() => import('@pages/account/AccountList'), {
-  fallback: <PageTemplate useHeader={false} topPadding={8.8} useSidePadding={false} />
-});
-const AccountDetail = loadable(() => import('@pages/account/AccountDetail'), {
-  fallback: <PageTemplate title='계좌정보' useSidePadding={false} />
-});
-const AccountRegister = loadable(() => import('@pages/account/AccountRegister'), defaultFallback);
 const BucketList = loadable(() => import('@pages/bucketList/BucketList'), defaultFallback);
 const BucketListDetail = loadable(() => import('@pages/bucketList/BucketListDetail'), defaultFallback);
 const BucketListSave = loadable(() => import('@pages/bucketList/BucketListSave'), defaultFallback);
@@ -57,9 +51,7 @@ function Routes() {
         <RouteWrapper path='/mypage' component={Menu} exact isLogin={isLogin} />
         <RouteWrapper path='/login' component={Login} exact useNavBar={false} checkAuth={false} />
         {/* 예적금 페이지 */}
-        <RouteWrapper path='/accounts' component={AccountList} exact isLogin={isLogin} />
-        <RouteWrapper path='/accounts/save' component={AccountRegister} exact isLogin={isLogin} />
-        <RouteWrapper path='/accounts/:accountId' component={AccountDetail} useNavBar={false} isLogin={isLogin} />
+        { accounts.map((route, index) => <RouteWrapper {...route} key={index} isLogin={isLogin} />)}
         {/* 버킷리스트 페이지 */}
         <RouteWrapper path='/bucket-list' component={BucketList} exact isLogin={isLogin} />
         <RouteWrapper path='/bucket-list/save' component={BucketListSave} exact isLogin={isLogin} />
@@ -94,7 +86,7 @@ export interface LayoutRouteProps extends RouteProps {
   checkAuth?: boolean;
 }
 
-function RouteWrapper({
+export function RouteWrapper({
   component: Component,
   useNavBar,
   isLogin = false,
