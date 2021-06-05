@@ -21,10 +21,9 @@ function AccountBookListPage() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const history = useHistory();
 
-  const {
-    data: accountBookList = [],
-    refetch
-  } = useQuery<IAccountBookListItem[]>('accountBookList',() => fetchAccountBookList(selectedDate), { suspense: true });
+  const { data: accountBookList = [], isFetching, refetch } = useQuery<IAccountBookListItem[]>('accountBookList', () =>
+    fetchAccountBookList(selectedDate)
+  );
   const queryClient = useQueryClient();
 
   useUpdateEffect(() => {
@@ -39,7 +38,7 @@ function AccountBookListPage() {
 
   const moveSavePage = () => {
     history.push('/account-books/save');
-  }
+  };
 
   const totalIncomeAmount = useMemo(() => getTotalAmount(accountBookList, 'income'), [accountBookList]);
   const totalExpenditureAmount = useMemo(() => getTotalAmount(accountBookList, 'expenditure'), [accountBookList]);
@@ -52,18 +51,14 @@ function AccountBookListPage() {
         totalIncomeAmount={totalIncomeAmount}
         totalExpenditureAmount={totalExpenditureAmount}
       />
-      <Suspense fallback={<AccountBookListSkeleton />}>
-        <AccountBookList accountBookList={accountBookList} />
-      </Suspense>
+      {isFetching ? <AccountBookListSkeleton /> : <AccountBookList accountBookList={accountBookList} />}
       <AddButton icon='+' onClick={moveSavePage} />
     </>
   );
 }
 
 function getTotalAmount(accountBookList: IAccountBookListItem[], type: AccountBookCategoryType) {
-  return accountBookList
-    .filter(item => item.type === type)
-    .reduce((prev, item) => prev + item.amount, 0);
+  return accountBookList.filter((item) => item.type === type).reduce((prev, item) => prev + item.amount, 0);
 }
 
 export default AccountBookListPage;

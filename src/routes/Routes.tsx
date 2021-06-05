@@ -5,74 +5,41 @@ import { Redirect, Route, RouteComponentProps, RouteProps, Switch } from 'react-
 import { RootState } from '@/store';
 
 import accounts from '@routes/account';
+import bucketlist from '@routes/bucketlist';
+import accountBook from '@routes/accountBook';
+import userRoutes from '@routes/user';
+
 import PageNotFound from '@pages/error/PageNotFound';
 import LayoutContainer from '@containers/LayoutContainer';
 import MainPageSkeleton from '@components/main/MainPageSkeleton';
 import PageTemplate from '@components/layout/PageTemplate';
 import ScrollToTop from '@routes/ScrollToTop';
 
-export const defaultFallback = { fallback: <PageTemplate useHeader={false} /> };
 
-const Main = loadable(() => import('@pages/Main'), { fallback: <MainPageSkeleton /> });
-const BucketList = loadable(() => import('@pages/bucketList/BucketList'), defaultFallback);
-const BucketListDetail = loadable(() => import('@pages/bucketList/BucketListDetail'), defaultFallback);
-const BucketListSave = loadable(() => import('@pages/bucketList/BucketListSave'), defaultFallback);
-const Login = loadable(() => import('@pages/user/login'), defaultFallback);
-const Menu = loadable(() => import('@pages/Menu'), {
-  fallback: <PageTemplate useHeader useBackButton={false} title='나의 뱅킷리스트' />
-});
-const RegularExpenditureList = loadable(() => import('@pages/regularExpenditure/RegularExpenditureListPage'), {
-  fallback: <PageTemplate useHeader useBackButton={false} title='정기지출' />
-});
-
-// 가계부
-// 리스트
-const AccountBookList = loadable(() => import('@pages/accountBook'), {
-  fallback: <PageTemplate title='가계부'  useBackButton={false} useSidePadding={false} />
-});
-// 가계부 등록
-const SaveAccountBookPage = loadable(() => import('@pages/accountBook/save/SaveAccountBook'), {
-  fallback: <PageTemplate title='가계부 등록' />
-});
-
-// 가계부 등록
-const SaveRegularExpenditure = loadable(() => import('@pages/accountBook/save/SaveRegularExpenditure'), {
-  fallback: <PageTemplate title='정기지출 등록' />
-});
+const defaultRoutes: LayoutRouteProps[] = [{
+  path: '/',
+  key: 'mainPage',
+  component: loadable(() => import('@pages/Main'), { fallback: <MainPageSkeleton /> }),
+  exact: true,
+},{
+  path: '/regular-expenditure',
+  key: 'regular-expenditure',
+  component: loadable(() => import('@pages/regularExpenditure/RegularExpenditureListPage'), {
+    fallback: <PageTemplate useHeader useBackButton={false} title='정기지출' />
+  }),
+  exact: true,
+}];
 
 function Routes() {
   const user = useSelector((state: RootState) => state.Auth.user);
   const isLogin = user.id > 0;
 
+  const routes = [...defaultRoutes, ...accounts, ...bucketlist, ...accountBook, ...userRoutes];
+
   return (
     <ScrollToTop>
       <Switch>
-        <RouteWrapper path='/' component={Main} exact isLogin={isLogin} />
-        <RouteWrapper path='/mypage' component={Menu} exact isLogin={isLogin} />
-        <RouteWrapper path='/login' component={Login} exact useNavBar={false} checkAuth={false} />
-        {/* 예적금 페이지 */}
-        { accounts.map((route, index) => <RouteWrapper {...route} key={index} isLogin={isLogin} />)}
-        {/* 버킷리스트 페이지 */}
-        <RouteWrapper path='/bucket-list' component={BucketList} exact isLogin={isLogin} />
-        <RouteWrapper path='/bucket-list/save' component={BucketListSave} exact isLogin={isLogin} />
-        <RouteWrapper
-          path='/bucket-list/:bucketListId'
-          component={BucketListDetail}
-          useNavBar={false}
-          isLogin={isLogin}
-        />
-        {/* 정기지출 페이지 */}
-        <RouteWrapper path='/regular-expenditure' component={RegularExpenditureList} exact isLogin={isLogin} />
-        {/* 가계부 페이지 */}
-        <RouteWrapper path='/account-books' component={AccountBookList} exact isLogin={isLogin} />
-        <RouteWrapper path='/account-books/save' component={SaveAccountBookPage} exact useNavBar={false} isLogin={isLogin} />
-        <RouteWrapper
-          path='/account-books/save/regular-expenditure'
-          component={SaveRegularExpenditure}
-          exact
-          useNavBar={false}
-          isLogin={isLogin}
-        />
+        { routes.map((route, index) => <RouteWrapper {...route} key={route.key} isLogin={isLogin} />)}
         <Route component={PageNotFound} />
       </Switch>
     </ScrollToTop>
@@ -81,6 +48,7 @@ function Routes() {
 
 export interface LayoutRouteProps extends RouteProps {
   component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+  key: string;
   useNavBar?: boolean;
   isLogin?: boolean;
   checkAuth?: boolean;
@@ -94,7 +62,7 @@ export function RouteWrapper({
   ...rest
 }: LayoutRouteProps) {
   const renderLayout = (props: any) => (
-    <LayoutContainer useNavBar={useNavBar}>{Component && <Component {...props} {...rest} />}</LayoutContainer>
+    <LayoutContainer key={rest.key} useNavBar={useNavBar}>{Component && <Component {...props} {...rest} />}</LayoutContainer>
   );
 
   const isNotAuth = checkAuth && !isLogin;

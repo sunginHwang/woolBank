@@ -15,14 +15,17 @@ const AccountRegister = loadable(() => import('@pages/account/AccountRegister'),
 
 const accounts: LayoutRouteProps[] = [{
   path: '/accounts',
+  key: 'accountListPage',
   component: AccountList,
   exact: true,
 },{
   path: '/accounts/save',
+  key: 'accountRegisterPage',
   component: AccountRegister,
   exact: true,
 },{
   path: '/accounts/:accountId',
+  key: 'accountDetailPage',
   component: AccountDetail,
   exact: true,
   useNavBar: false,
