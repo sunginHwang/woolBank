@@ -4,6 +4,8 @@ import { IAccountBookCategory } from '@models/accountBook/IAccountBookCategory';
 import { AccountBookCategoryType } from '@models/accountBook/AccountBookCategoryType';
 import { IAccountBookSaveForm } from '@models/accountBook/IAccountBookSaveForm';
 import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
+import apiCall from '@support/util/apiCall';
+import { ApiResType } from '@models/api/ApiResType';
 
 /*
 * 가계부 카테고리 작성 api
@@ -36,10 +38,16 @@ export const addAccountBook = async ({ accountBook, userId }: { accountBook: IAc
 * 가계부 리스트 조회
 * @Todo 더미 치환 해야 함
 * */
-export const fetchAccountBookList = async (searchDate: Date): Promise<IAccountBookListItem[]> => {
+export const fetchAccountBookList = async (searchDate: Date) => {
   console.log(searchDate);
   await delay(1000);
-  return DUMMY.list;
+  const apiResult = await apiCall.get<ApiResType<IAccountBookListItem[]>>('account-books');
+  return apiResult.data.data.map(item => {
+    return {
+      ...item,
+      registerDateTime: new Date(item.registerDateTime),
+    };
+  });;
 }
 
 const DUMMY: {
