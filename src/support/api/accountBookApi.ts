@@ -8,10 +8,18 @@ import apiCall from '@support/util/apiCall';
 import { ApiResType } from '@models/api/ApiResType';
 
 /*
-* 가계부 카테고리 작성 api
-* @Todo 더미 치환 해야 함
-* */
-export const addAccountBookCategory = async ({ name, type, userId }: { name: string, type: AccountBookCategoryType, userId: number}): Promise<IAccountBookCategory> => {
+ * 가계부 카테고리 작성 api
+ * @Todo 더미 치환 해야 함
+ * */
+export const addAccountBookCategory = async ({
+  name,
+  type,
+  userId
+}: {
+  name: string;
+  type: AccountBookCategoryType;
+  userId: number;
+}): Promise<IAccountBookCategory> => {
   await delay(300);
   const now = new Date();
 
@@ -20,35 +28,43 @@ export const addAccountBookCategory = async ({ name, type, userId }: { name: str
     name,
     type,
     createdAt: now,
-    updatedAt: now,
-  } ;
-}
+    updatedAt: now
+  };
+};
 
 /*
-* 가계부 작성 api
-* @Todo 더미 치환 해야 함
-* */
-export const addAccountBook = async ({ accountBook, userId }: { accountBook: IAccountBookSaveForm, userId: number}): Promise<{}> => {
+ * 가계부 작성 api
+ * @Todo 더미 치환 해야 함
+ * */
+export const addAccountBook = async ({
+  accountBook,
+  userId
+}: {
+  accountBook: IAccountBookSaveForm;
+  userId: number;
+}): Promise<{}> => {
   await delay(300);
   console.log(accountBook);
-  return {} ;
-}
+  return {};
+};
 
 /*
-* 가계부 리스트 조회
-* @Todo 더미 치환 해야 함
-* */
+ * 가계부 리스트 조회
+ * @Todo 더미 치환 해야 함
+ * */
 export const fetchAccountBookList = async (searchDate: Date) => {
   console.log(searchDate);
   await delay(1000);
-  const apiResult = await apiCall.get<ApiResType<IAccountBookListItem[]>>('account-books');
-  return apiResult.data.data.map(item => {
+  const apiResult = await apiCall.get<ApiResType<IAccountBookListItem[]>>('account-books', {
+    params: searchDate
+  });
+  return apiResult.data.data.map((item) => {
     return {
       ...item,
-      registerDateTime: new Date(item.registerDateTime),
+      registerDateTime: new Date(item.registerDateTime)
     };
-  });;
-}
+  });
+};
 
 const DUMMY: {
   list: IAccountBookListItem[];
@@ -70,7 +86,7 @@ const DUMMY: {
       categoryName: '취미생활',
       amount: 50000,
       type: 'expenditure',
-      registerDateTime: new Date(2021, 5, 3,11,30)
+      registerDateTime: new Date(2021, 5, 3, 11, 30)
     },
     {
       id: 2,
@@ -80,6 +96,6 @@ const DUMMY: {
       amount: 3020,
       type: 'expenditure',
       registerDateTime: new Date(2021, 5, 3, 12, 40)
-    },
+    }
   ]
-}
+};
