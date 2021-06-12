@@ -6,7 +6,7 @@ export interface IAccountBookSaveForm {
   title: string;
   amount: number;
   memo: string;
-  dateTime: Date;
+  registerDateTime: Date;
   category: IAccountBookCategory;
   type: AccountBookCategoryType;
 }

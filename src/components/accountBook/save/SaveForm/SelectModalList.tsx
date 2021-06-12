@@ -29,7 +29,7 @@ function SelectModalList(props: IProps) {
         visible={openModalName === 'dateTime'}
         oncloseModal={onCloseModal}
         onChangeDateTime={onChangeDateTime}
-        date={formData.dateTime}
+        date={formData.registerDateTime}
       />
       <CategorySelectBox
         open={openModalName === 'category'}

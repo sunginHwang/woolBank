@@ -15,10 +15,10 @@ import { addComma } from '@support/util/String';
 import getCategoryMsg from '@support/util/accountBook/getCategoryMsg';
 import { addAccountBook } from '@support/api/accountBookApi';
 import { useToast } from '@support/hooks/useToast';
-import { useUserId } from '@support/hooks/useUser';
 
 import options from './options';
 import { IAccountBookSaveForm } from '@models/accountBook/IAccountBookSaveForm';
+import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
 
 const { incomeTab, expenditureTab, tabs, initForm } = options;
 
@@ -30,7 +30,6 @@ const { incomeTab, expenditureTab, tabs, initForm } = options;
 
 function SaveForm() {
   const { openModalName, setModalWithType, setModal, onCloseModal }  = useOpenModal();
-  const userId = useUserId();
   const onToast = useToast();
   const {
     inputs: formData,
@@ -53,9 +52,9 @@ function SaveForm() {
     }
 
     addAccountBookMutation
-      .mutate({ accountBook: formData, userId }, {
-        onSuccess: () => {
-          //todo 성공정보로 리스트 추가 후 리스트 페이지 전환
+      .mutate(formData, {
+        onSuccess: (accountBook: IAccountBookListItem) => {
+          console.log(accountBook);
         },
         onError: () => onToast('다시 시도해 주세요.'),
       });
@@ -77,8 +76,8 @@ function SaveForm() {
     setInput<IAccountBookCategory>('category', {...initForm.category});
   };
 
-   const setDateTime = (date: Date) => {
-     setInput<Date>('dateTime', date);
+   const setRegisterDateTime = (date: Date) => {
+     setInput<Date>('registerDateTime', date);
    };
 
    const isActiveSendButton = isValidForm(formData);
@@ -114,10 +113,10 @@ function SaveForm() {
         />
         <BaseInput
           disable
-          dataType='dateTime'
+          dataType='registerDateTime'
           label={`* ${typeMsg}일시`}
           placeHolder={`${typeMsg}일시를 선택해 주세요.`}
-          value={format(formData.dateTime, 'yyyy-MM-dd HH:mm')}
+          value={format(formData.registerDateTime, 'yyyy-MM-dd HH:mm')}
           onClick={setModalWithType}
           onClear={onClear}
         />
@@ -146,7 +145,7 @@ function SaveForm() {
         onCloseModal={onCloseModal}
         onChangeAmount={setAmount}
         onChangeCategory={setCategory}
-        onChangeDateTime={setDateTime}
+        onChangeDateTime={setRegisterDateTime}
       />
       <BottomButton
         isShow

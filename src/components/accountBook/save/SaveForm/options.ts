@@ -34,7 +34,7 @@ const options: {
       createdAt: new Date(),
       updatedAt: new Date()
     },
-    dateTime: new Date(),
+    registerDateTime: new Date(),
     type: 'expenditure',
     memo: ''
   }

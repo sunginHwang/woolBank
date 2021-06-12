@@ -31,18 +31,13 @@ export const fetchAccountBookCategories = async (): Promise<IAccountBookCategory
 
 /*
  * 가계부 작성 api
- * @Todo 더미 치환 해야 함
  * */
-export const addAccountBook = async ({
-  accountBook,
-  userId
-}: {
-  accountBook: IAccountBookSaveForm;
-  userId: number;
-}): Promise<{}> => {
+export const addAccountBook = async (accountBook: IAccountBookSaveForm): Promise<IAccountBookListItem> => {
+  const { title, registerDateTime, type, amount, memo, category } = accountBook;
+  const requestParam = { title, registerDateTime, type, amount, memo, categoryId: category.id };
   await delay(300);
-  const apiResult = await apiCall.post<ApiResType<IAccountBookListItem>>('account-books/')
-  return {};
+  const apiResult = await apiCall.post<ApiResType<IAccountBookListItem>>('account-books/', requestParam);
+  return apiResult.data.data;
 };
 
 /*
