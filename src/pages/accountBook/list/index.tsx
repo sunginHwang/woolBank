@@ -1,6 +1,7 @@
-import React, { useMemo, useState, Suspense } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { useHistory } from 'react-router';
+import { format } from 'date-fns';
 
 import AccountBookList from '@components/accountBook/list/AccountBookList';
 import MonthStatistics from '@components/accountBook/list/MonthStatistics';
@@ -17,14 +18,14 @@ import AddButton from '@components/common/AddButton';
  */
 
 function AccountBookListPage() {
-  //Todo 참조타입 말고 기본타입으로 변경해야함
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const queryClient = useQueryClient();
+  const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM'));
   const history = useHistory();
 
   const { data: accountBookList = [], isFetching, refetch } = useQuery<IAccountBookListItem[]>('accountBookList', () =>
     fetchAccountBookList(selectedDate)
   );
-  const queryClient = useQueryClient();
+
 
   useUpdateEffect(() => {
     onRefetch();
@@ -46,7 +47,7 @@ function AccountBookListPage() {
   return (
     <>
       <MonthStatistics
-        selectedDate={selectedDate}
+        selectedDate={new Date(selectedDate)}
         changeSelectedDate={setSelectedDate}
         totalIncomeAmount={totalIncomeAmount}
         totalExpenditureAmount={totalExpenditureAmount}

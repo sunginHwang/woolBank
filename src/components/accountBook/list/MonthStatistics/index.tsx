@@ -14,7 +14,7 @@ const now = new Date();
 
 interface IProps {
   selectedDate: Date;
-  changeSelectedDate: (date: Date) => void;
+  changeSelectedDate: (date: string) => void;
   totalIncomeAmount: number;
   totalExpenditureAmount: number;
 }
@@ -34,7 +34,7 @@ function MonthStatistics(props: IProps) {
   }, []);
 
   const onMonthClick = (month: string) => {
-    changeSelectedDate(new Date(month));
+    changeSelectedDate(month);
     closeMonthPicker();
   };
 
@@ -73,7 +73,7 @@ function MonthStatistics(props: IProps) {
 
 function getMonthMenu(month: Date) {
   return {
-    type: month.toString(),
+    type: format(month, 'yyyy-MM'),
     value: format(month, 'yyyy년 M월')
   };
 }
