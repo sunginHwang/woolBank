@@ -13,23 +13,20 @@ import { ApiResType } from '@models/api/ApiResType';
  * */
 export const addAccountBookCategory = async ({
   name,
-  type,
-  userId
+  type
 }: {
   name: string;
   type: AccountBookCategoryType;
-  userId: number;
 }): Promise<IAccountBookCategory> => {
   await delay(300);
-  const now = new Date();
+  const res = await apiCall.post<ApiResType<IAccountBookCategory>>('account-book-categories', { type, name });
+  return res.data.data;
+};
 
-  return {
-    id: now.getTime(),
-    name,
-    type,
-    createdAt: now,
-    updatedAt: now
-  };
+export const fetchAccountBookCategories = async (): Promise<IAccountBookCategory[]> => {
+  await delay(300);
+  const apiResult = await apiCall.get<ApiResType<IAccountBookCategory[]>>('account-book-categories');
+  return apiResult.data.data;
 };
 
 /*
@@ -44,7 +41,7 @@ export const addAccountBook = async ({
   userId: number;
 }): Promise<{}> => {
   await delay(300);
-  console.log(accountBook);
+  const apiResult = await apiCall.post<ApiResType<IAccountBookListItem>>('account-books/')
   return {};
 };
 
@@ -52,11 +49,11 @@ export const addAccountBook = async ({
  * 가계부 리스트 조회
  * @Todo 더미 치환 해야 함
  * */
-export const fetchAccountBookList = async (searchDate: Date) => {
-  console.log(searchDate);
-  await delay(1000);
+export const fetchAccountBookList = async (searchDate: string) => {
+  const date = new Date(searchDate);
+  await delay(300);
   const apiResult = await apiCall.get<ApiResType<IAccountBookListItem[]>>('account-books', {
-    params: searchDate
+    params: { dateTime: date }
   });
   return apiResult.data.data.map((item) => {
     return {

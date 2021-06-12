@@ -1,5 +1,4 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import BaseButton from '@components/common/BaseButton';
@@ -7,12 +6,11 @@ import BottomModal from '@components/common/modal/BottomModal';
 import CategorySaveForm from '@components/accountBook/CategorySaveForm';
 import { IAccountBookCategory } from '@models/accountBook/IAccountBookCategory';
 import { AccountBookCategoryType } from '@models/accountBook/AccountBookCategoryType';
-import accountBookRecoil from '../../../../recoils/accountBook';
 import { useToggle } from '@support/hooks/useToggle';
+import useAccountBookCategories from '@/services/accountBook/useAccountBookCategories';
 
 import AccountBookCategoryItem from './AccountBookCategoryItem';
 
-const { atoms: { accountBookCategoriesState} } = accountBookRecoil;
 
 export interface IProps {
   open: boolean;
@@ -28,8 +26,8 @@ export interface IProps {
 
 function CategorySelectBox(props: IProps) {
   const { open, onClose, type, selectCategoryId, onCategorySelect } = props;
+  const { accountBookCategories, saveAccountBookCategory, saveLoading } = useAccountBookCategories();
 
-  const accountBookCategories = useRecoilValue(accountBookCategoriesState);
   const [ isOpenSaveForm, onOpenSaveForm, onCloseSaveForm ] = useToggle(false);
 
   const categories = accountBookCategories.filter(a => a.type === type);
@@ -56,7 +54,13 @@ function CategorySelectBox(props: IProps) {
           </S.Footer>
         </S.CategorySelectBox>
       </BottomModal>
-      { isOpenSaveForm && <CategorySaveForm type={type} onClose={onCloseSaveForm}/> }
+      { isOpenSaveForm && (
+        <CategorySaveForm
+          type={type}
+          isLoading={saveLoading}
+          saveAccountBookCategory={saveAccountBookCategory}
+          onClose={onCloseSaveForm}/>
+      ) }
     </>
   );
 }

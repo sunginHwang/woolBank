@@ -1,6 +1,4 @@
 import React from 'react';
-import { useMutation } from 'react-query';
-import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import PageHeader from '@components/common/PageHeader';
@@ -8,19 +6,14 @@ import BaseInput from '@components/common/BaseInput';
 import BottomButton from '@components/common/BottomButton';
 import useInput from '@support/hooks/UseInput';
 import { useToast } from '@support/hooks/useToast';
-import { useUserId } from '@support/hooks/useUser';
 import getCategoryMsg from '@support/util/accountBook/getCategoryMsg';
-import { addAccountBookCategory } from '@support/api/accountBookApi';
-import { IAccountBookCategory } from '@models/accountBook/IAccountBookCategory';
 import { AccountBookCategoryType } from '@models/accountBook/AccountBookCategoryType';
-import accountBookRecoil from '@/recoils/accountBook';
-
-const {
-  atoms: { accountBookCategoriesState }
-} = accountBookRecoil;
+import { ISaveAccountBookCategory } from '@/services/accountBook/useAccountBookCategories';
 
 interface IProps {
   type: AccountBookCategoryType;
+  isLoading: boolean;
+  saveAccountBookCategory: ({ name, type, onSuccessCb }: ISaveAccountBookCategory) => void;
   onClose: () => void;
 }
 
@@ -30,12 +23,9 @@ interface IProps {
  */
 
 function CategorySaveForm(props: IProps) {
-  const { type, onClose } = props;
+  const { type, onClose, isLoading, saveAccountBookCategory } = props;
   const [categoryName, onChangeCategoryName, onReset] = useInput('');
-  const userId = useUserId();
   const onToast = useToast();
-  const setCategoryState = useSetRecoilState(accountBookCategoriesState);
-  const saveCategoryMutation = useMutation(addAccountBookCategory);
 
   const typeMsg = getCategoryMsg(type);
 
@@ -44,18 +34,11 @@ function CategorySaveForm(props: IProps) {
       onToast('최대 20글자 까지 가능합니다.');
       return;
     }
-
-    saveCategoryMutation.mutate(
-      { name: categoryName, type, userId },
-      {
-        onSuccess: (category: IAccountBookCategory) => {
-          onToast('카테고리가 생성되었습니다.');
-          setCategoryState((prev) => [...prev, category]);
-          onClose();
-        },
-        onError: () => onToast('다시 시도해 주세요.')
-      }
-    );
+    saveAccountBookCategory({
+      name: categoryName,
+      type,
+      onSuccessCb: () => onClose()
+    });
   };
 
   return (
@@ -72,7 +55,7 @@ function CategorySaveForm(props: IProps) {
       </S.InputArea>
       <BottomButton
         isShow
-        loading={saveCategoryMutation.isLoading}
+        loading={isLoading}
         message='추가하기'
         active={categoryName.length > 0}
         onClick={onAddCategoryClick}
@@ -98,4 +81,3 @@ const S = {
     padding: 0 2rem;
   `
 };
-
