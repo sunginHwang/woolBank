@@ -14,9 +14,7 @@ import { useToast } from '@support/hooks/useToast';
 
 export default function useAccountBookCategories() {
   const onToast = useToast();
-  const [accountBookCategories, setAccountBookCategories] = useRecoilState(
-    accountBook.atoms.accountBookCategoriesState
-  );
+  const [accountBookCategories, setAccountBookCategories] = useRecoilState(accountBook.atoms.accountBookCategoriesState);
   const onFetch = useMutation(fetchAccountBookCategories);
   const saveCategoryMutation = useMutation(addAccountBookCategory);
 

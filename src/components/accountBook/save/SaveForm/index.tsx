@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router';
+import { useMutation, useQueryClient } from 'react-query';
+import { useRecoilValue } from 'recoil';
 import { format } from 'date-fns';
-import { useMutation } from 'react-query';
 
 import Form from '@components/atoms/Form';
 import BaseInput from '@components/common/BaseInput';
@@ -15,10 +17,11 @@ import { addComma } from '@support/util/String';
 import getCategoryMsg from '@support/util/accountBook/getCategoryMsg';
 import { addAccountBook } from '@support/api/accountBookApi';
 import { useToast } from '@support/hooks/useToast';
-
-import options from './options';
+import accountBookState from '@/recoils/accountBook';
 import { IAccountBookSaveForm } from '@models/accountBook/IAccountBookSaveForm';
 import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
+import { QUERY_KEY } from '@/services/accountBook/useAccountBookList';
+import options from './options';
 
 const { incomeTab, expenditureTab, tabs, initForm } = options;
 
@@ -30,6 +33,7 @@ const { incomeTab, expenditureTab, tabs, initForm } = options;
 
 function SaveForm() {
   const { openModalName, setModalWithType, setModal, onCloseModal }  = useOpenModal();
+  const history = useHistory();
   const onToast = useToast();
   const {
     inputs: formData,
@@ -38,6 +42,8 @@ function SaveForm() {
     onClear
   } = useInputs<IAccountBookSaveForm>(initForm);
   const addAccountBookMutation = useMutation(addAccountBook);
+  const accountBookListDate = useRecoilValue(accountBookState.atoms.listDateState)
+  const queryClient = useQueryClient();
 
   // 폼입력시 금액 설정 input 나오도록
   useEffect(() => {
@@ -54,7 +60,11 @@ function SaveForm() {
     addAccountBookMutation
       .mutate(formData, {
         onSuccess: (accountBook: IAccountBookListItem) => {
-          console.log(accountBook);
+          const registerDateMonth = format(accountBook.registerDateTime, 'yyyy-MM');
+          if (registerDateMonth === accountBookListDate) {
+            queryClient.setQueryData<IAccountBookListItem[]>(QUERY_KEY, (prev = []) => [...prev, accountBook]);
+          }
+          history.goBack();
         },
         onError: () => onToast('다시 시도해 주세요.'),
       });

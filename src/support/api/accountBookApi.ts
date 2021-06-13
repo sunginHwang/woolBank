@@ -37,7 +37,9 @@ export const addAccountBook = async (accountBook: IAccountBookSaveForm): Promise
   const requestParam = { title, registerDateTime, type, amount, memo, categoryId: category.id };
   await delay(300);
   const apiResult = await apiCall.post<ApiResType<IAccountBookListItem>>('account-books/', requestParam);
-  return apiResult.data.data;
+  const newAccountBook = apiResult.data.data;
+  newAccountBook.registerDateTime = new Date(newAccountBook.registerDateTime);
+  return newAccountBook;
 };
 
 /*

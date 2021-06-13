@@ -1,16 +1,17 @@
-import React, { useMemo, useState } from 'react';
-import { useQuery, useQueryClient } from 'react-query';
+import React, { useMemo } from 'react';
+import { useQueryClient } from 'react-query';
 import { useHistory } from 'react-router';
-import { format } from 'date-fns';
+import { useRecoilState } from 'recoil';
 
+import AddButton from '@components/common/AddButton';
 import AccountBookList from '@components/accountBook/list/AccountBookList';
 import MonthStatistics from '@components/accountBook/list/MonthStatistics';
 import AccountBookListSkeleton from '@components/accountBook/list/AccountBookListSkeleton';
-import { fetchAccountBookList } from '@support/api/accountBookApi';
 import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
 import useUpdateEffect from '@support/hooks/useUpdateEffect';
 import { AccountBookCategoryType } from '@models/accountBook/AccountBookCategoryType';
-import AddButton from '@components/common/AddButton';
+import accountBook from '@/recoils/accountBook';
+import useAccountBookList, { QUERY_KEY } from '@/services/accountBook/useAccountBookList';
 
 /**
  * 가계부 리스트 페이지
@@ -19,13 +20,10 @@ import AddButton from '@components/common/AddButton';
 
 function AccountBookListPage() {
   const queryClient = useQueryClient();
-  const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM'));
+  const [selectedDate, setSelectedDate] = useRecoilState(accountBook.atoms.listDateState);
   const history = useHistory();
 
-  const { data: accountBookList = [], isFetching, refetch } = useQuery<IAccountBookListItem[]>('accountBookList', () =>
-    fetchAccountBookList(selectedDate)
-  );
-
+  const { data: accountBookList = [], isFetching, refetch } = useAccountBookList(selectedDate);
 
   useUpdateEffect(() => {
     onRefetch();
@@ -33,7 +31,7 @@ function AccountBookListPage() {
 
   // refresh 함수
   const onRefetch = async () => {
-    await queryClient.setQueryData('accountBookList', undefined);
+    await queryClient.setQueryData(QUERY_KEY, undefined);
     refetch();
   };
 

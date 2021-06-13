@@ -27,7 +27,6 @@ export interface IProps {
 function CategorySelectBox(props: IProps) {
   const { open, onClose, type, selectCategoryId, onCategorySelect } = props;
   const { accountBookCategories, saveAccountBookCategory, saveLoading } = useAccountBookCategories();
-
   const [ isOpenSaveForm, onOpenSaveForm, onCloseSaveForm ] = useToggle(false);
 
   const categories = accountBookCategories.filter(a => a.type === type);

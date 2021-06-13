@@ -26,7 +26,7 @@ function SelectModalList(props: IProps) {
   return (
     <>
       <DateTimePickerModal
-        visible={openModalName === 'dateTime'}
+        visible={openModalName === 'registerDateTime'}
         oncloseModal={onCloseModal}
         onChangeDateTime={onChangeDateTime}
         date={formData.registerDateTime}
