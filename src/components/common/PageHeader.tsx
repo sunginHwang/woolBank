@@ -91,7 +91,7 @@ const S: any = {
         margin-left: 2rem;
       }
       &:last-child {
-        margin-right: 2rem;
+        margin-right: ${({ useTabs }) => useTabs ? 0 : 2}rem;
       }
 
       > div {

@@ -34,7 +34,7 @@ const S: {
 } = {
   DayGroup: styled.div`
     & + & {
-      margin-top: 2.4rem;
+      margin-top: 3.4rem;
     }
   `,
   DayInfo: styled.div`

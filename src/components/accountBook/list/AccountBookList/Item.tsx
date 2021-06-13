@@ -57,10 +57,12 @@ const S: {
     color: ${({ theme, useRedColor }) => useRedColor ? theme.colors.redL1 : theme.colors.blackL1 };
   `,
   Category: styled.p`
-    width: 6rem;
+    width: 7.5rem;
     font-size: 1.2rem;
-    display: flex;
-    align-items: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-right: 1rem;
     color: ${({ theme }) => theme.colors.greyD2};
   `,
   Info: styled.div`
