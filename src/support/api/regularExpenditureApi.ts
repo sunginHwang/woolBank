@@ -2,7 +2,7 @@ import apiCall from '@support/util/apiCall';
 
 import { ApiResType } from '@models/api/ApiResType';
 import { IRegularExpenditure } from '@models/IRegularExpenditure';
-import { SaveRegularForm } from '@containers/regularExpenditure/add/SaveRegularExpenditureContainer/reducer';
+import { IRegularExpenditureForm } from '@models/regularExpenditre/IRegularExpenditureForm';
 
 export interface RegularExpenditureType {
   type: string;
@@ -25,7 +25,12 @@ export const removeRegularExpenditure = (regularExpenditureId: number) => {
   return apiCall.delete<ApiResType<void>>(`${API_URL.REMOVE_REGULAR_EXPENDITURE}/${regularExpenditureId}/`);
 };
 
-export const saveRegularExpenditure = (regularExpenditure: SaveRegularForm) => {
-  console.log(regularExpenditure);
-  return apiCall.post<ApiResType<void>>(`${API_URL.SAVE_REGULAR_EXPENDITURE}`, { ...regularExpenditure });
+export const saveRegularExpenditure = async (regularExpenditure: IRegularExpenditureForm) => {
+  const { category, ...rest } = regularExpenditure;
+  const response = await apiCall.post<ApiResType<void>>(`${API_URL.SAVE_REGULAR_EXPENDITURE}`, {
+    ...rest,
+    accountBookCategoryId: category.id
+  });
+
+  return response.data.data;
 };

@@ -6,13 +6,13 @@ import SaveForm from '@components/accountBook/regularExpenditure/SaveRegularExpe
 
 import useInputs from '@support/hooks/UseInputs';
 import { useToast } from '@support/hooks/useToast';
-import useRequest from '@support/hooks/useRequest';
 import useOpenModal from '@support/hooks/useOpenModal';
 import { saveRegularExpenditure } from '@support/api/regularExpenditureApi';
 import { IAccountBookCategory } from '@models/accountBook/IAccountBookCategory';
 import { IRegularExpenditureForm } from '@models/regularExpenditre/IRegularExpenditureForm';
 
 import options from './options';
+import { useMutation } from 'react-query';
 
 const { initForm } = options;
 
@@ -25,13 +25,8 @@ function SaveRegularExpenditureForm() {
   const onToast = useToast();
   const history = useHistory();
   const { openModalName, onCloseModal, setModalWithType } = useOpenModal('');
-  const {
-    inputs: formData,
-    setInput,
-    onChange: onInputChange,
-    onClear,
-  } = useInputs<IRegularExpenditureForm>(initForm);
-  const [ onSaveRequest, saveLoading ] = useRequest(saveRegularExpenditure);
+  const { inputs: formData, setInput, onChange: onInputChange, onClear } = useInputs<IRegularExpenditureForm>(initForm);
+  const saveMutation = useMutation(saveRegularExpenditure);
 
   // 모달 완료 이벤트
   const onCompleteModal = (type: string, value: string | number | IAccountBookCategory) => {
@@ -45,11 +40,11 @@ function SaveRegularExpenditureForm() {
   };
 
   const onSaveClick = () => {
-    onSaveRequest({
-      params: formData,
-      onSuccess: () => {
+    saveMutation.mutate(formData, {
+      onSuccess: (res) => {
+        console.log(res);
         onToast('성공적으로 등록되었습니다. :)');
-        history.push('/regular-expenditure');
+        history.push('/account-books');
       },
       onError: () => {
         onToast('다시 시도해 주세요.');
@@ -67,31 +62,19 @@ function SaveRegularExpenditureForm() {
   return (
     <>
       <SaveForm>
-        <SaveForm.Title
-          title={title}
-          { ...onInputEvent }
-        />
-        <SaveForm.RegularDate
-          regularDate={regularDate}
-          { ...onInputEvent }
-          { ...onModalEvent }
-        />
-        <SaveForm.Amount
-          amount={amount}
-          { ...onInputEvent }
-          { ...onModalEvent }
-        />
-        <SaveForm.Category
-          category={category}
-          { ...onInputEvent }
-          { ...onModalEvent }
-        />
-        <SaveForm.AutoExpenditure
-          isAutoExpenditure={isAutoExpenditure}
-          onChangeSaveForm={onChangeSaveForm}
-        />
+        <SaveForm.Title title={title} {...onInputEvent} />
+        <SaveForm.RegularDate regularDate={regularDate} {...onInputEvent} {...onModalEvent} />
+        <SaveForm.Amount amount={amount} {...onInputEvent} {...onModalEvent} />
+        <SaveForm.Category category={category} {...onInputEvent} {...onModalEvent} />
+        <SaveForm.AutoExpenditure isAutoExpenditure={isAutoExpenditure} onChangeSaveForm={onChangeSaveForm} />
       </SaveForm>
-      <BottomButton isShow message='만들기' active={isValidSaveForm} loading={saveLoading} onClick={onSaveClick} />
+      <BottomButton
+        isShow
+        message='만들기'
+        active={isValidSaveForm}
+        loading={saveMutation.isLoading}
+        onClick={onSaveClick}
+      />
     </>
   );
 }

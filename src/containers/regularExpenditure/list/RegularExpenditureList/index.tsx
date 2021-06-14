@@ -12,6 +12,8 @@ import withSuspense from '@support/hocs/withSuspense';
 import { removeRegularExpenditure, RegularExpenditureType } from '@support/api/regularExpenditureApi';
 import { useToast } from '@support/hooks/useToast';
 import RegularExpenditureListState from '../../../../recoils/regularExpenditure/RegularExpenditureList';
+import AddButton from '@components/common/AddButton';
+import { useHistory } from 'react-router';
 
 const { regularExpenditureListState } = RegularExpenditureListState.atoms;
 
@@ -22,6 +24,7 @@ const { regularExpenditureListState } = RegularExpenditureListState.atoms;
 
 function RegularExpenditureList() {
   const { openConfirm, setConfirmLoading } = useConfirm();
+  const history = useHistory();
   const onToast = useToast();
   const [regularExpenditureTypeList, setRegularExpenditureTypeList] = useRecoilState<RegularExpenditureType[]>(
     regularExpenditureListState
@@ -39,7 +42,6 @@ function RegularExpenditureList() {
     }
   };
 
-
   const onRemoveRegularExpenditure = (removeId: number) => {
     setConfirmLoading(true);
     removeMutate.mutate(removeId, {
@@ -52,10 +54,15 @@ function RegularExpenditureList() {
     });
   };
 
+  const onMoveSavePage = () => {
+    history.push('/account-books/save/regular-expenditure');
+  };
+
   return (
     <>
       <RegularTopInfo regularExpenditureTypeList={regularExpenditureTypeList} />
       <ExpenditureTypeList list={regularExpenditureTypeList} onClickRemoveRegularExpenditure={onRemoveItemClick} />
+      <AddButton icon='+' onClick={onMoveSavePage} />
     </>
   );
 }
