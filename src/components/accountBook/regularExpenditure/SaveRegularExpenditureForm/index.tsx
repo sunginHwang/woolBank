@@ -10,7 +10,7 @@ import useOpenModal from '@support/hooks/useOpenModal';
 import { saveRegularExpenditure } from '@support/api/regularExpenditureApi';
 import { IAccountBookCategory } from '@models/accountBook/IAccountBookCategory';
 import { IRegularExpenditureForm } from '@models/regularExpenditre/IRegularExpenditureForm';
-
+import regularExpenditureCoil from '@/recoils/regularExpenditure/RegularExpenditureList';
 import options from './options';
 import { useMutation } from 'react-query';
 
@@ -24,6 +24,7 @@ const { initForm } = options;
 function SaveRegularExpenditureForm() {
   const onToast = useToast();
   const history = useHistory();
+  const onListRefresh = regularExpenditureCoil.trigger.useRefreshRegularExpenditureList();
   const { openModalName, onCloseModal, setModalWithType } = useOpenModal('');
   const { inputs: formData, setInput, onChange: onInputChange, onClear } = useInputs<IRegularExpenditureForm>(initForm);
   const saveMutation = useMutation(saveRegularExpenditure);
@@ -41,8 +42,8 @@ function SaveRegularExpenditureForm() {
 
   const onSaveClick = () => {
     saveMutation.mutate(formData, {
-      onSuccess: (res) => {
-        console.log(res);
+      onSuccess: () => {
+        onListRefresh();
         onToast('성공적으로 등록되었습니다. :)');
         history.push('/account-books');
       },

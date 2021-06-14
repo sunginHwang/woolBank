@@ -27,7 +27,15 @@ const atoms = {
   })
 };
 
+// 캐싱된 selectFamily 캐시 새로고침용
+const trigger = {
+  useRefreshRegularExpenditureList() {
+    return useRecoilTrigger(atoms.regularExpenditureApiListTriggerState);
+  }
+};
+
 export default {
   atoms,
-  selectors
+  selectors,
+  trigger
 };
