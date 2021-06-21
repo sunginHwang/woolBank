@@ -100,7 +100,7 @@ export const getRemainDay = (date: string | number, { completeMsg = 'd-day' }: {
 
   const remainDay = differenceInCalendarDays(compareDay, now);
 
-  return { remainDay, remainDayKo: remainDay > 7 ? format(compareDay, 'mm월 dd일') : `${remainDay}일 뒤` };
+  return { remainDay, remainDayKo: remainDay > 7 ? format(compareDay, 'MM월 dd일') : `${remainDay}일 뒤` };
 };
 
 export const DATE_FORMAT: {
