@@ -23,7 +23,7 @@ function Item({ accountBookListItem }: IProps) {
       <div>
         <S.Category>{categoryName}</S.Category>
         <S.Info>
-          <span>{title}</span>{isRegularExpenditure && <S.Label>정기지출</S.Label>}
+          <span>{title}</span>{isRegularExpenditure && <S.Label>매월</S.Label>}
         </S.Info>
       </div>
       <S.Price useRedColor={isIncomeType}>{displayAmount}</S.Price>
@@ -72,11 +72,11 @@ const S: {
     font-size: 1.2rem;
   `,
   Label: styled.label`
-    font-size: 1rem;
+    font-size: .8rem;
     background-color: ${({ theme }) => theme.colors.greyL2};
     border-radius: 1.3rem;
-    padding: .5rem .7rem;
-    margin-left: .5rem;
+    padding: .3rem .7rem;
+    margin-left: .7rem;
   `,
 }
 
