@@ -42,7 +42,7 @@ const S: {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 
     > div:first-child {
       display: flex;
@@ -53,7 +53,6 @@ const S: {
   Price: styled.p<{
     useRedColor: boolean;
   }>`
-    font-weight: 600;
     color: ${({ theme, useRedColor }) => useRedColor ? theme.colors.redL1 : theme.colors.blackL1 };
   `,
   Category: styled.p`

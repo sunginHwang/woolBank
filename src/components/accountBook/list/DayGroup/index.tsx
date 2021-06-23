@@ -50,6 +50,7 @@ const S: {
     color: ${({ theme }) => theme.colors.greyD2};
   `,
   Price: styled.span`
+    font-weight: 600;
   `,
 }
 
