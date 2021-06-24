@@ -42,7 +42,7 @@ function AmountInput({ useCompleteBtn = false, isZeroAmount, onNumberClick, onRi
             <S.InputTd data-cy='number_0' data-number={0} onClick={onNumberClick}>0</S.InputTd>
             { useCompleteBtn && (
               <S.InputTd data-cy='numberComplete' isHide={isZeroAmount} isSmall={true} onClick={onRightBottomClick}>
-                {!isZeroAmount && <BaseButton message='확인' color='red' size='sm'/>}
+                {!isZeroAmount && <S.SaveButton><BaseButton message='확인' color='red' size='full'/></S.SaveButton>}
               </S.InputTd>)
             }
             {
@@ -62,7 +62,11 @@ const S: {
   InputTable: any;
   InputTd: any;
   Input: any;
+  SaveButton: any;
 } = {
+  SaveButton: styled.div`
+    padding: 0 2rem;
+  `,
   Input: styled.div`
     width: 100%;
     height: 100%;
