@@ -1,5 +1,6 @@
 {
   "name": "woolBank",
+  "description": "sungin + hyejin couple web application ",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
