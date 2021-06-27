@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link, useHistory } from 'react-router-dom';
+
+import IcoPig from '@components/icon/IcoPig';
+import { INavigationBar } from '@models/layout/INavigationBar';
+import { isIOS } from '@support/util/device';
 import IcoAccountOutline from '../icon/IcoAccountOutline';
 import IcoBucketOutline from '../icon/IcoBucketOutline';
 import IcoWalletOutline from '../icon/IcoWallet';
 import IcoHomeOutline from '../icon/IcoHomeOutline';
-import { INavigationBar } from '../../models/layout/INavigationBar';
-import { Link, useHistory } from 'react-router-dom';
-import { isIOS } from '@support/util/device';
-
 const navigations: INavigationBar[] = [
   {
     name: '홈',
@@ -31,7 +32,7 @@ const navigations: INavigationBar[] = [
     name: '가계부',
     value: 'accountBooks',
     link: '/account-books',
-    icon: <IcoBucketOutline />
+    icon: <IcoPig />
   },
   {
     name: '내 정보',
