@@ -70,7 +70,7 @@ const S: {
       
       &:last-child {
         justify-content: flex-end;
-        min-width: 5rem;
+        min-width: 6rem;
       }
     }
 
