@@ -65,6 +65,7 @@ const S: {
 } = {
   AccountBookList: styled.div`
     margin-top: 3rem;
+    margin-bottom: 10rem;
   `
 };
 

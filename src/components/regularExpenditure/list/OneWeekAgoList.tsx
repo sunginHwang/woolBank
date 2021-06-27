@@ -23,11 +23,11 @@ function OneWeekAgoList({ regularExpenditureList }: IOneWeekRemainListProps) {
       </S.TypeInfo>
       {isEmptyList && <S.Empty>당분간 지출할 내역이 없어요. :)</S.Empty>}
       {!isEmptyList && (
-        <ul>
+        <S.OneWeekAgoList>
           {regularExpenditureList.map((item) => (
             <OneWeekAgoItem key={item.id} regularExpenditure={item} />
           ))}
-        </ul>
+        </S.OneWeekAgoList>
       )}
     </S.ExpenditureType>
   );
@@ -39,7 +39,12 @@ const S: {
   TypeText: any;
   TotalAmount: any;
   Empty: any;
+  OneWeekAgoList: any;
 } = {
+  OneWeekAgoList: styled.ul`
+    white-space: nowrap;
+    overflow: auto;
+  `,
   Empty: styled.p`
     padding: 1.1rem 1.2rem;
     text-align: center;

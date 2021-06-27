@@ -102,7 +102,7 @@ const S: {
     padding: 1.2rem 1.5rem;
     transition: transform 300ms ease;
     position: relative;
-    transform: translateX(-${({ x }: { x: number }) => x * 0.3}px);
+    transform: translateX(-${({ x }: { x: number }) => x * 0.1}%);
 
     > div {
       display: inline-block;

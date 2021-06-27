@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { addComma } from '@support/util/String';
 
-export interface RegularAmountInfoProps {
+export interface IProps {
   // 이달의 지출 금액
   amount: number;
 }
@@ -12,10 +12,10 @@ export interface RegularAmountInfoProps {
  * @component
  */
 
-function RegularAmountInfo({ amount }: RegularAmountInfoProps) {
+function RegularAmountInfo({ amount }: IProps) {
   return (
     <S.RegularAmountInfo>
-      <S.AmountText>이달의 예상 지출 금액</S.AmountText>
+      <S.AmountText>이달의 정기 지출</S.AmountText>
       <S.Amount>
         <b>{addComma(amount)}</b> 원
       </S.Amount>

@@ -18,17 +18,18 @@ export interface IRegularTopInfoProps {
  */
 
 function RegularTopInfo({ regularExpenditureTypeList }: IRegularTopInfoProps) {
+  const flatRegularList = regularExpenditureTypeList.flatMap((item) => item.list);
   // 전체 지출 액
-  const totalAmount = regularExpenditureTypeList.reduce((acc, { list }) => {
-    return list.reduce((acc, item) => acc + item.amount, 0);
+  const totalAmount = flatRegularList.reduce((acc, item) => {
+    return acc + item.amount;
   }, 0);
 
-  const oneWeekRemainList: IRegularExpenditure[] = regularExpenditureTypeList
-    .flatMap(item => item.list)
-    .filter(item => {
+  const oneWeekRemainList: IRegularExpenditure[] = flatRegularList
+    .filter((item) => {
       const remainDay = differenceInCalendarDays(new Date(item.regularExpenditureDay), now);
       return remainDay >= 0 && remainDay <= oneWeekDay;
-    });
+    })
+    .sort((a, b) => a.regularDate - b.regularDate);
 
   return (
     <section>
