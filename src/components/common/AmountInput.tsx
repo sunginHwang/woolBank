@@ -66,6 +66,7 @@ const S: {
 } = {
   SaveButton: styled.div`
     padding: 0 2rem;
+    margin: -4px 0;
   `,
   Input: styled.div`
     width: 100%;
@@ -88,7 +89,7 @@ const S: {
     font-size: 1.8rem;
     width: 33.33333%;
     padding: ${({ isSmall }) => (isSmall ? '.3rem' : '1rem')} 0;
-
+    
     &:active {
       border-radius: 1.6rem;
       background-color: ${({ isHide, theme }) => (isHide ? theme.colors.white : theme.colors.greyL3)};
