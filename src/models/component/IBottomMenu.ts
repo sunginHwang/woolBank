@@ -1,4 +1,4 @@
-export interface IBottomMenu {
-  type: string;
+export interface IBottomMenu<T = string> {
+  type: T;
   value: string;
 };

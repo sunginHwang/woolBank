@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { format, addMonths, isSameYear, isSameMonth } from 'date-fns';
-import { addComma } from '@support/util/String';
+
 import LineSeparator from '@components/common/LineSeparator';
-import IcoChevronDown from '@components/icon/IcoChevronDown';
 import BottomMenuModal from '@components/common/modal/BottomMenuModal';
+import DropdownTitle from '@components/common/DropdownTitle';
+import { addComma } from '@support/util/String';
 import { useToggle } from '@support/hooks/useToggle';
-import options from './options';
 import { IBottomMenu } from '@models/component/IBottomMenu';
+import options from './options';
 
 const { month5Years } = options;
 const now = new Date();
@@ -45,10 +46,7 @@ function MonthStatistics(props: IProps) {
   return (
     <>
       <div>
-        <S.Title onClick={openMonthPicker}>
-          <p>{titleMsg}</p>
-          <IcoChevronDown width={30} height={30} />
-        </S.Title>
+        <DropdownTitle title={titleMsg} onClick={openMonthPicker} />
         <S.TotalSection>
           <label>{monthLabelPrefix}</label>
           <S.Expenditure>지출 : {addComma(totalExpenditureAmount)}원</S.Expenditure>
@@ -93,21 +91,9 @@ function getMonthLabelPrefix(selectedDate: Date) {
 }
 
 const S: {
-  Title: any;
   TotalSection: any;
   Expenditure: any;
 } = {
-  Title: styled.h2`
-    display: flex;
-    align-items: center;
-
-    > p {
-      font-size: 2rem;
-      font-weight: bold;
-      color: ${({ theme }) => theme.colors.blackL1};
-      margin-right: 0.5rem;
-    }
-  `,
   TotalSection: styled.section`
     margin-top: 2rem;
 
