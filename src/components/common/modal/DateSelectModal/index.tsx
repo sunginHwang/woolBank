@@ -26,7 +26,7 @@ function DateSelectModal({ title, visible, selectDate, oncloseModal, onSelectDat
   return (
     <BottomMenuModal
       title={title}
-      activeMenu={selectMenu}
+      activeMenuType={selectMenu.type}
       menus={dateMenus}
       visible={visible}
       oncloseModal={oncloseModal}

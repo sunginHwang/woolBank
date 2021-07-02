@@ -4,19 +4,19 @@ import styled from 'styled-components';
 import { IBottomMenu } from '@models/component/IBottomMenu';
 import BottomModal from '@components/common/modal/BottomModal';
 
-export interface BottomMenuModalProps {
+export interface BottomMenuModalProps<T = string> {
   menus: IBottomMenu[];
-  activeMenu?: IBottomMenu;
+  activeMenuType?: T;
   title: string;
   visible: boolean;
   oncloseModal: () => void;
   onEditClick: (menuType: string) => void;
 }
 
-function BottomMenuModal({ menus, title, activeMenu, visible, oncloseModal, onEditClick }: BottomMenuModalProps) {
+function BottomMenuModal({ menus, title, activeMenuType, visible, oncloseModal, onEditClick }: BottomMenuModalProps) {
   const renderMenus = menus.map((menu) => {
     const onMenuClick = () => onEditClick(menu.type);
-    const isActive = activeMenu && activeMenu.type === menu.type;
+    const isActive = activeMenuType && activeMenuType === menu.type;
     return (
       <S.Menu key={menu.type} isActive={isActive} onClick={onMenuClick}>
         {menu.value}

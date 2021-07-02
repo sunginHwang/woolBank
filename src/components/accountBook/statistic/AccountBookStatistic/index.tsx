@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TopInfo from '@components/accountBook/statistic/TopInfo';
+import { IAccountBookStatisticFilter } from '@models/accountBook/statistic/IAccountBookStatisticFilter';
+import getDateRange from '@/services/accountBook/getDateRange';
 
 /**
  * 가계부 통계 페이지
@@ -7,13 +9,22 @@ import TopInfo from '@components/accountBook/statistic/TopInfo';
  */
 
 function AccountBookStatistic() {
+  const initDateInfo = getDateRange('month');
+  const [searchFilter, setSearchFilter] = useState<IAccountBookStatisticFilter>({
+    startDate: initDateInfo[0],
+    endDate: initDateInfo[1],
+    type: 'expenditure'
+  });
+
+  const onChangeSearchFilter = (searchFilter: IAccountBookStatisticFilter) => {
+    setSearchFilter(searchFilter);
+  };
+
   return (
     <>
-      <TopInfo />
+      <TopInfo searchFilter={searchFilter} onChangeSearchFilter={onChangeSearchFilter} />
     </>
   );
 }
-
-
 
 export default AccountBookStatistic;

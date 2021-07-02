@@ -81,7 +81,7 @@ function RegularFormModalList({
       <BottomMenuModal
         title='지출 타입'
         visible={openModalName === 'expenditureType'}
-        activeMenu={selectExpenditureType}
+        activeMenuType={selectExpenditureType?.type}
         menus={expenditureTypeMenus}
         oncloseModal={onCloseModal}
         onEditClick={onSelectExpenditureType}

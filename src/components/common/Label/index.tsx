@@ -23,6 +23,7 @@ const S: {
     font-size: 1.2rem;
     color: ${({ theme }) => theme.colors.greyD3};
     background-color: ${({ theme }) => theme.colors.greyL2};
+    margin-right: 1rem;
   `
 };
 

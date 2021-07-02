@@ -60,7 +60,7 @@ function MonthStatistics(props: IProps) {
       <BottomMenuModal
         title='월 선택하기'
         menus={FiveYearMonthList}
-        activeMenu={activeMonthMenu}
+        activeMenuType={activeMonthMenu.type}
         visible={isOpenMonthPicker}
         oncloseModal={closeMonthPicker}
         onEditClick={onMonthClick}
