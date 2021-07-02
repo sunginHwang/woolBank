@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TopInfo from '@components/accountBook/statistic/TopInfo';
 import { IAccountBookStatisticFilter } from '@models/accountBook/statistic/IAccountBookStatisticFilter';
 import getDateRange from '@/services/accountBook/getDateRange';
@@ -19,6 +19,12 @@ function AccountBookStatistic() {
   const onChangeSearchFilter = (searchFilter: IAccountBookStatisticFilter) => {
     setSearchFilter(searchFilter);
   };
+
+  useEffect(() => {
+    console.log('----start--searchFilter');
+    console.log(searchFilter);
+    console.log('----end----searchFilter');
+  }, [searchFilter]);
 
   return (
     <>

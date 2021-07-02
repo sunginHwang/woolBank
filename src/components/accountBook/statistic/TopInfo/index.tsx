@@ -7,6 +7,7 @@ import { DateRangeType } from '@models/date/DateRangeType';
 import { IAccountBookStatisticFilter } from '@models/accountBook/statistic/IAccountBookStatisticFilter';
 import useUpdateEffect from '@support/hooks/useUpdateEffect';
 import getDateRange from '@/services/accountBook/getDateRange';
+import { AccountBookCategoryType } from '@models/accountBook/AccountBookCategoryType';
 
 interface IProps {
   searchFilter: IAccountBookStatisticFilter;
@@ -30,7 +31,11 @@ function TopInfo({ searchFilter, onChangeSearchFilter }: IProps) {
     onChangeSearchFilter({ ...searchFilter, startDate, endDate });
   };
 
-  const { startDate, endDate } = searchFilter;
+  const onTypeChange = (type: AccountBookCategoryType) => {
+    onChangeSearchFilter({ ...searchFilter, type });
+  };
+
+  const { startDate, endDate, type } = searchFilter;
 
   return (
     <>
@@ -42,7 +47,7 @@ function TopInfo({ searchFilter, onChangeSearchFilter }: IProps) {
           dateRangeType={dateRangeType}
           onDateRangeChange={onDateChange}
         />
-        <LabelFilter.Type />
+        <LabelFilter.Type activeType={type} onTypeChange={onTypeChange} />
       </LabelFilter>
       <LineSeparator />
     </>
