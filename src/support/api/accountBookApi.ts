@@ -6,10 +6,11 @@ import { IAccountBookSaveForm } from '@models/accountBook/IAccountBookSaveForm';
 import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
 import apiCall from '@support/util/apiCall';
 import { ApiResType } from '@models/api/ApiResType';
+import { IAccountBookStatisticFilter } from '@models/accountBook/statistic/IAccountBookStatisticFilter';
+import { IAccountBookStatistic } from '@models/accountBook/statistic/IAccountBookStatistic';
 
 /*
  * 가계부 카테고리 작성 api
- * @Todo 더미 치환 해야 함
  * */
 export const addAccountBookCategory = async ({
   name,
@@ -18,13 +19,11 @@ export const addAccountBookCategory = async ({
   name: string;
   type: AccountBookCategoryType;
 }): Promise<IAccountBookCategory> => {
-  await delay(300);
   const res = await apiCall.post<ApiResType<IAccountBookCategory>>('account-book-categories', { type, name });
   return res.data.data;
 };
 
 export const fetchAccountBookCategories = async (): Promise<IAccountBookCategory[]> => {
-  await delay(300);
   const apiResult = await apiCall.get<ApiResType<IAccountBookCategory[]>>('account-book-categories');
   return apiResult.data.data;
 };
@@ -35,7 +34,6 @@ export const fetchAccountBookCategories = async (): Promise<IAccountBookCategory
 export const addAccountBook = async (accountBook: IAccountBookSaveForm): Promise<IAccountBookListItem> => {
   const { title, registerDateTime, type, amount, memo, category } = accountBook;
   const requestParam = { title, registerDateTime, type, amount, memo, categoryId: category.id };
-  await delay(300);
   const apiResult = await apiCall.post<ApiResType<IAccountBookListItem>>('account-books/', requestParam);
   const newAccountBook = apiResult.data.data;
   newAccountBook.registerDateTime = new Date(newAccountBook.registerDateTime);
@@ -44,11 +42,9 @@ export const addAccountBook = async (accountBook: IAccountBookSaveForm): Promise
 
 /*
  * 가계부 리스트 조회
- * @Todo 더미 치환 해야 함
  * */
 export const fetchAccountBookList = async (searchDate: string) => {
   const date = new Date(searchDate);
-  await delay(300);
   const apiResult = await apiCall.get<ApiResType<IAccountBookListItem[]>>('account-books', {
     params: { dateTime: date }
   });
@@ -58,4 +54,14 @@ export const fetchAccountBookList = async (searchDate: string) => {
       registerDateTime: new Date(item.registerDateTime)
     };
   });
+};
+
+/*
+ * 가계부 통계
+ * */
+export const fetchAccountBookStatistics = async (filterRequest: IAccountBookStatisticFilter) => {
+  const apiResult = await apiCall.get<ApiResType<IAccountBookStatistic[]>>('account-books/statistics', {
+    params: { ...filterRequest }
+  });
+  return apiResult.data.data;
 };

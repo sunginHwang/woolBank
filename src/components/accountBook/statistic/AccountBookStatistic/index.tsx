@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TopInfo from '@components/accountBook/statistic/TopInfo';
 import { IAccountBookStatisticFilter } from '@models/accountBook/statistic/IAccountBookStatisticFilter';
 import getDateRange from '@/services/accountBook/getDateRange';
+import { useQuery } from 'react-query';
+import { fetchAccountBookStatistics } from '@support/api/accountBookApi';
+import useUpdateEffect from '@support/hooks/useUpdateEffect';
+import { IAccountBookStatistic } from '@models/accountBook/statistic/IAccountBookStatistic';
 
 /**
  * 가계부 통계 페이지
@@ -15,16 +19,14 @@ function AccountBookStatistic() {
     endDate: initDateInfo[1],
     type: 'expenditure'
   });
+  const { data, refetch } = useQuery<IAccountBookStatistic[]>('fetchAccountBookStatistic', () => fetchAccountBookStatistics(searchFilter));
 
+  useUpdateEffect(() => {
+    refetch();
+  }, [searchFilter]);
   const onChangeSearchFilter = (searchFilter: IAccountBookStatisticFilter) => {
     setSearchFilter(searchFilter);
   };
-
-  useEffect(() => {
-    console.log('----start--searchFilter');
-    console.log(searchFilter);
-    console.log('----end----searchFilter');
-  }, [searchFilter]);
 
   return (
     <>
