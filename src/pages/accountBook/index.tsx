@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 
 import Tabs from '@components/common/Tabs';
 import PageTemplate from '@components/layout/PageTemplate';
@@ -7,6 +7,7 @@ import AccountBookListPage from '@pages/accountBook/list';
 import RegularExpenditureList from '@containers/regularExpenditure/list/RegularExpenditureList';
 
 import { IAssetType } from '@models/IAssetType';
+import AccountBookStatistic from '@components/accountBook/statistic/AccountBookStatistic';
 
 const urlPrefix = '/account-books';
 const menuTabs: IAssetType[] = [{
@@ -16,7 +17,7 @@ const menuTabs: IAssetType[] = [{
   type: 'regular-expenditure',
   name: '정기지출',
 }, {
-  type: 'sum',
+  type: 'statistic',
   name: '통계',
 }];
 
@@ -49,8 +50,8 @@ function getContentSlide(type: string) {
       return <AccountBookListPage />;
     case 'regular-expenditure' :
       return <RegularExpenditureList />;
-    case 'sum' :
-      return null;
+    case 'statistic' :
+      return <AccountBookStatistic />;
     default :
       return null;
   }
@@ -58,7 +59,7 @@ function getContentSlide(type: string) {
 
 function getInitTab(pathname: string) {
   const initTab = menuTabs.find(menu => menu.type === pathname.split(urlPrefix+'/')[1]);
-  return initTab || menuTabs[0];
+  return initTab || menuTabs[2];
 }
 
 export default AccountBook;

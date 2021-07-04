@@ -6,6 +6,8 @@ import { useQuery } from 'react-query';
 import { fetchAccountBookStatistics } from '@support/api/accountBookApi';
 import useUpdateEffect from '@support/hooks/useUpdateEffect';
 import { IAccountBookStatistic } from '@models/accountBook/statistic/IAccountBookStatistic';
+import StatisticChart from '@components/accountBook/statistic/StatisticChart';
+import StatisticList from '@components/accountBook/statistic/StatisticList';
 
 /**
  * 가계부 통계 페이지
@@ -19,7 +21,9 @@ function AccountBookStatistic() {
     endDate: initDateInfo[1],
     type: 'expenditure'
   });
-  const { data, refetch } = useQuery<IAccountBookStatistic[]>('fetchAccountBookStatistic', () => fetchAccountBookStatistics(searchFilter));
+  const { data = [], refetch } = useQuery<IAccountBookStatistic[]>('fetchAccountBookStatistic', () =>
+    fetchAccountBookStatistics(searchFilter)
+  );
 
   useUpdateEffect(() => {
     refetch();
@@ -28,9 +32,15 @@ function AccountBookStatistic() {
     setSearchFilter(searchFilter);
   };
 
+  const listData = data.map(({ categoryName, amount }) => {
+    return { name: categoryName, value: amount, color: '#9d4e4e' };
+  });
+
   return (
     <>
       <TopInfo searchFilter={searchFilter} onChangeSearchFilter={onChangeSearchFilter} />
+      <StatisticChart accountBookStatistics={data} />
+      <StatisticList statisticList={listData} />
     </>
   );
 }

@@ -35,7 +35,7 @@ function DefaultItem({ title, onClick }: IDefaultItem) {
     <S.Item onClick={onClick}>
       <S.DefaultItem>
         <p>{title}</p>
-        <p>></p>
+        <p>&gt;</p>
       </S.DefaultItem>
     </S.Item>
   );

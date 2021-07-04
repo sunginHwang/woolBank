@@ -15,7 +15,7 @@ function UserCardItem({ name, userImgUrl, onModifyClick }: UserCardItemProps) {
         <CircleImg size={3} imgUrl={userImgUrl || ''} alt={`${name}_유저_이미지`} />
         <p>{name}</p>
       </div>
-      <p>정보수정 하기 ></p>
+      <p>정보수정 하기 &gt;</p>
     </S.UserCardItem>
   );
 }

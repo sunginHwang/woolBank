@@ -36,7 +36,7 @@ function AccountInfo({ account }: AccountInfoProps) {
         startMessage={`개설일: ${parseDate(startDate)}`}
         endMessage={`만기일: ${parseDate(endDate)}`}
       />
-      <S.Amount isRoot={true}>
+      <S.Amount isRoot>
         <span>만기예상액 : </span>
         <p>
           {addComma(amount)}
@@ -107,8 +107,8 @@ const S: {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-top: ${({ isRoot }) => isRoot ? '3rem' : '1rem'};
-    
+    margin-top: ${({ isRoot }) => (isRoot ? '3rem' : '1rem')};
+
     > p {
       font-size: 2.2rem;
       font-weight: bold;

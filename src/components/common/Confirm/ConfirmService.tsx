@@ -18,8 +18,6 @@ const initState: ConfirmServiceProps = {
   useAutoClose: true,
   open: false,
   message: '',
-  onConfirm: () => {},
-  onCancel: () => {}
 };
 
 export function ConfirmProvider({ children }: { children: React.ReactNode }) {
