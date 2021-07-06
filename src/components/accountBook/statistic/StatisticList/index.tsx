@@ -39,10 +39,6 @@ const S = {
     display: flex;
     justify-content: space-between;
 
-    span {
-      font-size: 1.6rem;
-    }
-
     & + & {
       margin-top: 2rem;
     }

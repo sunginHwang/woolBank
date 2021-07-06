@@ -26,6 +26,12 @@ function StatisticChart({ accountBookStatistics }: IProps) {
     return { name: categoryName, value: amount };
   });
 
+  const renderLabel = ({ percent, index }: any) => {
+    const name = data[index].name;
+    const value = `${name}: ${(percent * 100).toFixed(0)}%`;
+    return value;
+  };
+
   return (
     <div style={{ height: '300px' }}>
       <ResponsiveContainer width='100%' height='100%'>
@@ -34,8 +40,8 @@ function StatisticChart({ accountBookStatistics }: IProps) {
             data={data}
             cx='50%'
             cy='50%'
-            labelLine={false}
-            label={renderCustomizedLabel}
+            labelLine
+            label={renderLabel}
             outerRadius={80}
             fill='#8884d8'
             dataKey='value'
