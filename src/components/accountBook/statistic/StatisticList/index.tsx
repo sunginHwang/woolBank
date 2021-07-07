@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { IChartData } from '@models/IChartData';
 import { addComma } from '@support/util/String';
 import { PIE_CHART_COLOR_LIST } from '@support/constants';
 import { IAccountBookStatistic } from '@models/accountBook/statistic/IAccountBookStatistic';
