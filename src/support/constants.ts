@@ -12,8 +12,7 @@ export enum SAVING_TYPE {
 export enum TAX_TYPE {
   TAX_FREE = 'taxFree',
   NORMAL_TAX = 'normalTax',
-  PREFERENTIAL_TAX = 'preferentialTax',
-
+  PREFERENTIAL_TAX = 'preferentialTax'
 }
 
 export const INSTALLMENT_SAVINGS_TAX: IAssetType[] = [
@@ -47,4 +46,28 @@ export const INSTALLMENT_SAVINGS: IAssetType[] = [
     type: SAVING_TYPE.REGULAR_DEPOSIT,
     name: '정기예금'
   }
+];
+
+export const PIE_CHART_COLOR_LIST: string[] = [
+  '#F47560',
+  '#36A2EB',
+  '#f1e15b',
+  '#4BC0C0',
+  '#CDDC39',
+  '#9966FF',
+  '#00A8C6',
+  '#379F7A',
+  '#CC2738',
+  '#8B628A',
+  '#8FBE00',
+  '#606060',
+  '#1abc9c',
+  '#2ecc71',
+  '#3498db',
+  '#9b59b6',
+  '#34495e',
+  '#f1c40f',
+  '#f39c12',
+  '#F44336',
+  '#00BCD4'
 ];

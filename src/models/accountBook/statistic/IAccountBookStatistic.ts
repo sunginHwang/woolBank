@@ -3,4 +3,5 @@ export interface IAccountBookStatistic {
   categoryId: number;
   categoryName: string;
   amount: number;
+  percentage: number;
 }

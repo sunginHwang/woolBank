@@ -1,27 +1,30 @@
-import { IChartData } from '@models/IChartData';
-import styled from 'styled-components';
 import React from 'react';
+import styled from 'styled-components';
+
+import { IChartData } from '@models/IChartData';
 import { addComma } from '@support/util/String';
+import { PIE_CHART_COLOR_LIST } from '@support/constants';
+import { IAccountBookStatistic } from '@models/accountBook/statistic/IAccountBookStatistic';
 
 interface IProps {
-  statisticList: IChartData[];
+  accountBookStatistics: IAccountBookStatistic[];
 }
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+/**
+ * 가계부 통계 - 통계 리스트
+ * @component
+ */
 
-function StatisticList({ statisticList }: IProps) {
-  const totalAmount = statisticList.reduce((acc, item) => acc + item.value, 0);
-
+function StatisticList({ accountBookStatistics }: IProps) {
   return (
     <S.StatisticList>
-      {statisticList.map((item, index) => {
-        const percentText = `${((item.value / totalAmount) * 100).toFixed(0)}%`;
+      {accountBookStatistics.map(({ categoryName, percentage, amount }, index) => {
         return (
-          <S.Item key={item.name}>
-            <S.CategoryName color={COLORS[index] || '#0088FE'}>
-              {item.name}({percentText})
+          <S.Item key={categoryName}>
+            <S.CategoryName color={PIE_CHART_COLOR_LIST[index] || PIE_CHART_COLOR_LIST[0]}>
+              {categoryName}({percentage}%)
             </S.CategoryName>
-            <S.Amount>{addComma(item.value)}원</S.Amount>
+            <S.Amount>{addComma(amount)}원</S.Amount>
           </S.Item>
         );
       })}
