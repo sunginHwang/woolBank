@@ -2,11 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { addComma } from '@support/util/String';
-import { PIE_CHART_COLOR_LIST } from '@support/constants';
-import { IAccountBookStatistic } from '@models/accountBook/statistic/IAccountBookStatistic';
+import { IAccountBookChartData } from './index';
 
 interface IProps {
-  accountBookStatistics: IAccountBookStatistic[];
+  accountBookChartList: IAccountBookChartData[];
 }
 
 /**
@@ -14,16 +13,16 @@ interface IProps {
  * @component
  */
 
-function StatisticList({ accountBookStatistics }: IProps) {
+function StatisticList({ accountBookChartList }: IProps) {
   return (
     <S.StatisticList>
-      {accountBookStatistics.map(({ categoryName, percentage, amount }, index) => {
+      {accountBookChartList.map(({ label, percentage, value, color }, index) => {
         return (
-          <S.Item key={categoryName}>
-            <S.CategoryName color={PIE_CHART_COLOR_LIST[index] || PIE_CHART_COLOR_LIST[0]}>
-              {categoryName}({percentage}%)
+          <S.Item key={label}>
+            <S.CategoryName color={color}>
+              {label}({percentage})
             </S.CategoryName>
-            <S.Amount>{addComma(amount)}원</S.Amount>
+            <S.Amount>{addComma(value)}원</S.Amount>
           </S.Item>
         );
       })}

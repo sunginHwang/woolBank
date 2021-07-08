@@ -3,12 +3,12 @@ import { useQuery } from 'react-query';
 
 import TopInfo from '@components/accountBook/statistic/TopInfo';
 import StatisticChart from '@components/accountBook/statistic/StatisticChart';
-import StatisticList from '@components/accountBook/statistic/StatisticList';
 import { fetchAccountBookStatistics } from '@support/api/accountBookApi';
 import useUpdateEffect from '@support/hooks/useUpdateEffect';
 import { IAccountBookStatistic } from '@models/accountBook/statistic/IAccountBookStatistic';
 import { IAccountBookStatisticFilter } from '@models/accountBook/statistic/IAccountBookStatisticFilter';
 import getDateRange from '@/services/accountBook/getDateRange';
+import SpinnerLoading from '@components/common/SpinnerLoading';
 
 /**
  * 가계부 통계 페이지
@@ -22,9 +22,12 @@ function AccountBookStatistic() {
     endDate: initDateInfo[1],
     type: 'expenditure'
   });
-  const { data = [], refetch } = useQuery<IAccountBookStatistic[]>('fetchAccountBookStatistic', () =>
-    fetchAccountBookStatistics(searchFilter)
-  );
+  const {
+    data = [],
+    refetch,
+    isSuccess,
+    isFetching,
+  } = useQuery<IAccountBookStatistic[]>('fetchAccountBookStatistic', () => fetchAccountBookStatistics(searchFilter));
 
   useUpdateEffect(() => {
     refetch();
@@ -37,8 +40,8 @@ function AccountBookStatistic() {
   return (
     <>
       <TopInfo searchFilter={searchFilter} onChangeSearchFilter={onChangeSearchFilter} />
-      <StatisticChart accountBookStatistics={data} />
-      <StatisticList accountBookStatistics={data} />
+      {isFetching && <SpinnerLoading loading message='잠시만 기다려 주세요.' />}
+      {isSuccess && <StatisticChart accountBookStatistics={data} />}
     </>
   );
 }

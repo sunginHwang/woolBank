@@ -53,9 +53,7 @@ export const PIE_CHART_COLOR_LIST: string[] = [
   '#36A2EB',
   '#f1e15b',
   '#4BC0C0',
-  '#CDDC39',
   '#9966FF',
-  '#00A8C6',
   '#379F7A',
   '#CC2738',
   '#8B628A',
@@ -69,5 +67,7 @@ export const PIE_CHART_COLOR_LIST: string[] = [
   '#f1c40f',
   '#f39c12',
   '#F44336',
+  '#CDDC39',
+  '#00A8C6',
   '#00BCD4'
 ];

@@ -1,8 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { ResponsivePie } from '@nivo/pie';
 import { IAccountBookStatistic } from '@models/accountBook/statistic/IAccountBookStatistic';
 import { PIE_CHART_COLOR_LIST } from '@support/constants';
+import EmptyData from '@components/common/EmptyData';
+import List from './List';
+
+export interface IAccountBookChartData {
+  id: string;
+  label: string;
+  value: number;
+  percentage: string;
+  color: string;
+}
 
 interface IProps {
   accountBookStatistics: IAccountBookStatistic[];
@@ -14,39 +25,49 @@ interface IProps {
  */
 
 function StatisticChart({ accountBookStatistics }: IProps) {
-  const chartDataList = accountBookStatistics.map(({ categoryName, amount, percentage }, index) => {
-    return {
-      id: categoryName,
-      label: categoryName,
-      value: amount,
-      percentage: `${percentage}%`
-    };
-  });
+  const accountBookChartList: IAccountBookChartData[] = accountBookStatistics.map(
+    ({ categoryName, amount, percentage }, index) => {
+      return {
+        id: categoryName,
+        label: categoryName,
+        value: amount,
+        percentage: `${percentage}%`,
+        color: PIE_CHART_COLOR_LIST[index] || PIE_CHART_COLOR_LIST[0]
+      };
+    }
+  );
+
+  if (accountBookChartList.length === 0) {
+    return <EmptyData msg='통계 내역이 존재하지 않습니다.' />;
+  }
 
   return (
-    <S.StatisticChart>
-      <ResponsivePie
-        data={chartDataList}
-        colors={PIE_CHART_COLOR_LIST}
-        margin={{ top: 60, right: 40, bottom: 60, left: 40 }}
-        innerRadius={0.4}
-        padAngle={3}
-        cornerRadius={3}
-        activeOuterRadiusOffset={8}
-        borderWidth={1}
-        arcLinkLabel={getLabel}
-        arcLabel={getInnerLabel}
-        borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
-        arcLinkLabelsSkipAngle={10}
-        arcLinkLabelsTextColor={{ from: 'color', modifiers: [] }}
-        arcLinkLabelsThickness={1}
-        arcLinkLabelsStraightLength={6}
-        arcLinkLabelsDiagonalLength={10}
-        arcLinkLabelsColor={{ from: 'color' }}
-        arcLabelsSkipAngle={10}
-        arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
-      />
-    </S.StatisticChart>
+    <>
+      <S.StatisticChart>
+        <ResponsivePie
+          data={accountBookChartList}
+          colors={{ datum: 'data.color' }}
+          margin={{ top: 60, right: 40, bottom: 60, left: 40 }}
+          innerRadius={0.4}
+          padAngle={3}
+          cornerRadius={3}
+          activeOuterRadiusOffset={8}
+          borderWidth={1}
+          arcLinkLabel={getLabel}
+          arcLabel={getInnerLabel}
+          borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
+          arcLinkLabelsSkipAngle={10}
+          arcLinkLabelsTextColor={{ from: 'color', modifiers: [] }}
+          arcLinkLabelsThickness={1}
+          arcLinkLabelsStraightLength={6}
+          arcLinkLabelsDiagonalLength={10}
+          arcLinkLabelsColor={{ from: 'color' }}
+          arcLabelsSkipAngle={10}
+          arcLabelsTextColor={{ from: 'color', modifiers: [['darker', 2]] }}
+        />
+      </S.StatisticChart>
+      <List accountBookChartList={accountBookChartList} />
+    </>
   );
 }
 
