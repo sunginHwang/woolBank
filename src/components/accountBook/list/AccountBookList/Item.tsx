@@ -14,14 +14,14 @@ interface IProps {
 }
 
 function Item({ accountBookListItem }: IProps) {
-  const { categoryName, title, amount, isRegularExpenditure, type } = accountBookListItem;
+  const { category, title, amount, isRegularExpenditure, type } = accountBookListItem;
   const isIncomeType = type ==='income';
 
   const displayAmount = `${addComma(isIncomeType ? amount : -amount)}원`;
   return (
     <S.Item>
       <div>
-        <S.Category>{categoryName}</S.Category>
+        <S.Category>{category.name}</S.Category>
         <S.Info>
           <span>{title}</span>{isRegularExpenditure && <S.Label>매월</S.Label>}
         </S.Info>

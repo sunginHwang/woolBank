@@ -1,49 +1,54 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router';
-import { useMutation, useQueryClient } from 'react-query';
-import { useRecoilValue } from 'recoil';
+import { useMutation } from 'react-query';
 import { format } from 'date-fns';
+import styled from 'styled-components';
 
 import Form from '@components/atoms/Form';
 import BaseInput from '@components/common/BaseInput';
 import ToggleTab from '@components/common/ToggleTab';
+import BaseButton from '@components/common/BaseButton';
 import SelectModalList from '@components/accountBook/save/SaveForm/SelectModalList';
 import { IAssetType } from '@models/IAssetType';
 import { IAccountBookCategory } from '@models/accountBook/IAccountBookCategory';
+import { IAccountBookSaveForm } from '@models/accountBook/IAccountBookSaveForm';
 import useOpenModal from '@support/hooks/useOpenModal';
 import useInputs from '@support/hooks/UseInputs';
 import { addComma } from '@support/util/String';
 import getCategoryMsg from '@support/util/accountBook/getCategoryMsg';
 import { addAccountBook } from '@support/api/accountBookApi';
 import { useToast } from '@support/hooks/useToast';
-import accountBookState from '@/recoils/accountBook';
-import { IAccountBookSaveForm } from '@models/accountBook/IAccountBookSaveForm';
-import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
-import { QUERY_KEY } from '@/services/accountBook/useAccountBookList';
 import options from './options';
-import BaseButton from '@components/common/BaseButton';
-import styled from 'styled-components';
+import useUpdateEffect from '@support/hooks/useUpdateEffect';
 
 const { incomeTab, expenditureTab, tabs, initForm } = options;
 
+interface IProps {
+  isInsertMode: boolean;
+  onFormSubmit: (formData: IAccountBookSaveForm) => void;
+  saveForm?: IAccountBookSaveForm;
+}
+
 /**
- * 가계부 지출 / 수입 작성 폼
+ * 가계부 지출 / 수입 작성 or 수정 폼
  * @component
  */
 
-function SaveForm() {
-  const { openModalName, setModalWithType, setModal, onCloseModal } = useOpenModal();
-  const history = useHistory();
+function SaveForm({ isInsertMode, onFormSubmit, saveForm = initForm }: IProps) {
   const onToast = useToast();
-  const { inputs: formData, onChange, setInput, onClear } = useInputs<IAccountBookSaveForm>(initForm);
+  const { openModalName, setModalWithType, setModal, onCloseModal } = useOpenModal();
+  const { inputs: formData, onChange, setInput, onClear, setInputs } = useInputs<IAccountBookSaveForm>(saveForm);
   const addAccountBookMutation = useMutation(addAccountBook);
-  const accountBookListDate = useRecoilValue(accountBookState.atoms.listDateState);
-  const queryClient = useQueryClient();
 
   // 폼입력시 금액 설정 input 나오도록
   useEffect(() => {
-    setModal('amount');
+    if (isInsertMode) {
+      setModal('amount');
+    }
   }, []);
+
+  useUpdateEffect(() => {
+    setInputs(saveForm);
+  }, [saveForm]);
 
   const onSubmitAccountBook = () => {
     if (formData.title.length > 20) {
@@ -52,16 +57,7 @@ function SaveForm() {
       return;
     }
 
-    addAccountBookMutation.mutate(formData, {
-      onSuccess: (accountBook: IAccountBookListItem) => {
-        const registerDateMonth = format(accountBook.registerDateTime, 'yyyy-MM');
-        if (registerDateMonth === accountBookListDate) {
-          queryClient.setQueryData<IAccountBookListItem[]>(QUERY_KEY, (prev = []) => [...prev, accountBook]);
-        }
-        history.goBack();
-      },
-      onError: () => onToast('다시 시도해 주세요.')
-    });
+    onFormSubmit(formData);
   };
 
   const setCategory = (accountBookCategory: IAccountBookCategory) => {
@@ -96,6 +92,7 @@ function SaveForm() {
         <BaseInput
           disable
           dataType='amount'
+          isShowCloseBtn={isInsertMode}
           label={`* ${typeMsg}금액`}
           placeHolder={`${typeMsg}금액을 입력해 주세요.`}
           value={amount === 0 ? '' : `${addComma(amount)}원`}
@@ -104,6 +101,7 @@ function SaveForm() {
         />
         <BaseInput
           name='title'
+          isShowCloseBtn={isInsertMode}
           label={`* ${typeMsg}처`}
           placeHolder={`${typeMsg}처를 선택해 주세요.`}
           max={20}
@@ -113,6 +111,7 @@ function SaveForm() {
         />
         <BaseInput
           disable
+          isShowCloseBtn={isInsertMode}
           dataType='registerDateTime'
           label={`* ${typeMsg}일시`}
           placeHolder={`${typeMsg}일시를 선택해 주세요.`}
@@ -122,6 +121,7 @@ function SaveForm() {
         />
         <BaseInput
           disable
+          isShowCloseBtn={isInsertMode}
           dataType='category'
           label={`* ${typeMsg}카테고리`}
           placeHolder={`${typeMsg} 카테고리를 선택해 주세요.`}
@@ -134,13 +134,14 @@ function SaveForm() {
           label='메모'
           placeHolder='메모를 입력해주세요.'
           max={20}
+          isShowCloseBtn={isInsertMode}
           value={memo}
           onChange={onChange}
           onClear={onClear}
         />
         <S.SaveButton>
           <BaseButton
-            message='추가하기'
+            message={isInsertMode ? '작성하기' : '수정하기'}
             size='full'
             color='red'
             loading={addAccountBookMutation.isLoading}
@@ -170,9 +171,7 @@ function isValidForm(form: IAccountBookSaveForm) {
 
 export default SaveForm;
 
-const S: {
-  SaveButton: any;
-} = {
+const S = {
   SaveButton: styled.div`
     margin-top: 5rem;
     padding-bottom: 5rem;

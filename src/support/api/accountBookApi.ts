@@ -57,6 +57,20 @@ export const fetchAccountBookList = async (searchDate: string) => {
 };
 
 /*
+ * 가계부 리스트 상세 조회
+ * */
+export const fetchAccountBook = async (accountBookId: number) => {
+  const apiResult = await apiCall.get<ApiResType<IAccountBookListItem>>(`account-books/${accountBookId}`);
+  const accountBook = apiResult.data.data;
+  // format date
+  accountBook.registerDateTime = new Date(accountBook.registerDateTime);
+  accountBook.category.createdAt = new Date(accountBook.category.createdAt);
+  accountBook.category.updatedAt = new Date(accountBook.category.updatedAt);
+
+  return accountBook;
+};
+
+/*
  * 가계부 통계
  * */
 export const fetchAccountBookStatistics = async (filterRequest: IAccountBookStatisticFilter) => {

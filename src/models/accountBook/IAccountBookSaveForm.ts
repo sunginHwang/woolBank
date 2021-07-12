@@ -3,6 +3,7 @@ import { AccountBookCategoryType } from '@models/accountBook/AccountBookCategory
 
 // 가계부 작성 폼 타입
 export interface IAccountBookSaveForm {
+  id?: number;
   title: string;
   amount: number;
   memo: string;

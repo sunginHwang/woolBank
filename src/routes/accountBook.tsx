@@ -11,13 +11,13 @@ const accountBook: LayoutRouteProps[] = [
     component: loadable(() => import('@pages/accountBook'), {
       fallback: <PageTemplate title='가계부' useBackButton={false} useSidePadding={false} />
     }),
-    exact: true,
+    exact: true
   },
   {
     path: '/account-books/save',
     key: 'accountBookRegisterPage',
     component: loadable(() => import('@pages/accountBook/save/SaveAccountBook'), {
-      fallback: <PageTemplate title='가계부 등록' />
+      fallback: <PageTemplate title='가계부 상세' />
     }),
     exact: true,
     useNavBar: false
@@ -30,7 +30,16 @@ const accountBook: LayoutRouteProps[] = [
     }),
     exact: true,
     useNavBar: false
-  }
+  },
+  {
+    path: '/account-books/:accountBookId',
+    key: 'accountBookListPage',
+    component: loadable(() => import('@pages/accountBook/Detail'), {
+      fallback: <PageTemplate title='가계부' useBackButton={false} useSidePadding={false} />
+    }),
+    exact: true,
+    useNavBar: false
+  },
 ];
 
 export default accountBook;

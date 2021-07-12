@@ -24,8 +24,7 @@ function reducer<T>(state: T, action: UseInputsAction | null) {
 }
 
 export default function useInputs<T>(defaultValues: T) {
-  const [ inputs, setInputs ] = useState(defaultValues);
-
+  const [inputs, setInputs] = useState(defaultValues);
 
   // 인풋 이벤트 변경
   const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +32,7 @@ export default function useInputs<T>(defaultValues: T) {
     setInput(name, value);
   }, []);
 
-  const setInput = useCallback(<T>(name:string, value: T) => {
+  const setInput = useCallback(<T>(name: string, value: T) => {
     setInputs((prevState) => {
       return {
         ...prevState,
@@ -46,13 +45,11 @@ export default function useInputs<T>(defaultValues: T) {
     const type = e.currentTarget.dataset.type || '';
     // @ts-ignore
     setInput(type, defaultValues[type]);
-  }, [])
-
+  }, []);
 
   const onReset = useCallback(() => {
     setInputs(Object.assign({}, defaultValues));
   }, []);
-
 
   return {
     inputs,
@@ -60,5 +57,6 @@ export default function useInputs<T>(defaultValues: T) {
     onClear,
     onReset,
     setInput,
+    setInputs
   };
 }
