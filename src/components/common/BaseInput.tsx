@@ -13,6 +13,7 @@ export interface BaseInputProps {
   useLengthInfo?: boolean;
   disable?: boolean;
   dataType?: string;
+  isShowCloseBtn?: boolean;
   onChange?: React.ChangeEventHandler;
   onClear?: (e: React.MouseEvent<HTMLLIElement>) => void;
   onFocusIn?: () => void;
@@ -30,6 +31,7 @@ function BaseInput({
   max = 999,
   useLengthInfo = false,
   dataType = '',
+  isShowCloseBtn = true,
   disable = false,
   onChange,
   onClear,
@@ -38,8 +40,7 @@ function BaseInput({
   onFocusIn,
   onFocusOut
 }: BaseInputProps) {
-
-  const isExistInputValue = value !== '';
+  const isExistInputValue = value !== '' && isShowCloseBtn;
   const inputRef = useRef<HTMLInputElement>(null);
   const [focus, setFocus] = useState(false);
 
@@ -132,7 +133,7 @@ const S: {
     input {
       border: 0.1rem solid ${({ theme }) => theme.colors.greyL2};
       background-color: ${({ focus, theme }) => (focus ? theme.colors.subColor5 : theme.colors.greyL9)};
-      border-radius: .8rem;
+      border-radius: 0.8rem;
       padding: 0 1rem;
       height: 4rem;
       color: #27173e;
