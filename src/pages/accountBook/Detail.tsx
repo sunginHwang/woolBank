@@ -1,13 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router';
+import { useQuery } from 'react-query';
 
 import PageTemplate from '@components/layout/PageTemplate';
-import { useQuery } from 'react-query';
-import { fetchAccountBook } from '@support/api/accountBookApi';
+import SaveForm from '@components/accountBook/save/SaveForm';
 import SpinnerLoading from '@components/common/SpinnerLoading';
 import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
 import { IAccountBookSaveForm } from '@models/accountBook/IAccountBookSaveForm';
-import SaveForm from '@components/accountBook/save/SaveForm';
+import { fetchAccountBook } from '@support/api/accountBookApi';
 
 const initData: IAccountBookListItem = {
   id: -1,
@@ -24,6 +24,7 @@ const initData: IAccountBookListItem = {
   },
   registerDateTime: new Date()
 };
+
 /**
  * 가계부 상세 페이지
  * @component
@@ -35,22 +36,23 @@ function AccountBookDetailPage() {
     fetchAccountBook(Number(accountBookId))
   );
 
-  const formData = convertFormData(data);
+  const accountBookUpdateForm = convertFormData(data);
 
-  const a = (a: any) => {
-    console.log(a);
-  };
+  const updateAccountBook = (accountBookUpdateForm: IAccountBookSaveForm) => {
+    console.log(accountBookUpdateForm);
+  }
 
   return (
     <PageTemplate title={data.title}>
       {isFetching && <SpinnerLoading loading />}
-      <SaveForm isInsertMode={false} saveForm={formData} onFormSubmit={a} />
+      <SaveForm isInsertMode={false} saveForm={accountBookUpdateForm} onFormSubmit={updateAccountBook} />
     </PageTemplate>
   );
 }
 
 export default AccountBookDetailPage;
 
+// form 데이터로 컨버팅
 function convertFormData(accountBook: IAccountBookListItem): IAccountBookSaveForm {
   const { id, title, amount, registerDateTime, category, memo = '', isRegularExpenditure } = accountBook;
   return {
