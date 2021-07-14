@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
 import { addComma } from '@support/util/String';
+import { useHistory } from 'react-router';
 
 /**
  * 가계부 리스트 아이템
@@ -14,12 +15,18 @@ interface IProps {
 }
 
 function Item({ accountBookListItem }: IProps) {
-  const { category, title, amount, isRegularExpenditure, type } = accountBookListItem;
-  const isIncomeType = type ==='income';
+  const history = useHistory();
+  const { category, title, amount, isRegularExpenditure, type, id } = accountBookListItem;
 
+  const onItemClick = () => {
+    history.push(`/account-books/${id}`);
+  }
+
+  const isIncomeType = type ==='income';
   const displayAmount = `${addComma(isIncomeType ? amount : -amount)}원`;
+
   return (
-    <S.Item>
+    <S.Item onClick={onItemClick}>
       <div>
         <S.Category>{category.name}</S.Category>
         <S.Info>
@@ -79,4 +86,4 @@ const S: {
   `,
 }
 
-export default Item;
+export default React.memo(Item);

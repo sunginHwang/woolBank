@@ -19,6 +19,8 @@ import { addAccountBook } from '@support/api/accountBookApi';
 import { useToast } from '@support/hooks/useToast';
 import options from './options';
 import useUpdateEffect from '@support/hooks/useUpdateEffect';
+import IcoTrashCan from '@components/icon/IcoTrashCan';
+import { useConfirm } from '@components/common/Confirm/ConfirmService';
 
 const { incomeTab, expenditureTab, tabs, initForm } = options;
 
@@ -35,6 +37,7 @@ interface IProps {
 
 function SaveForm({ isInsertMode, onFormSubmit, saveForm = initForm }: IProps) {
   const onToast = useToast();
+  const { openConfirm } = useConfirm();
   const { openModalName, setModalWithType, setModal, onCloseModal } = useOpenModal();
   const { inputs: formData, onChange, setInput, onClear, setInputs } = useInputs<IAccountBookSaveForm>(saveForm);
   const addAccountBookMutation = useMutation(addAccountBook);
@@ -50,7 +53,7 @@ function SaveForm({ isInsertMode, onFormSubmit, saveForm = initForm }: IProps) {
     setInputs(saveForm);
   }, [saveForm]);
 
-  const onSubmitAccountBook = () => {
+  const onSubmitClick= () => {
     if (formData.title.length > 20) {
       const typeMsg = getCategoryMsg(type);
       onToast(`${typeMsg}명은 20글자 까지 작성 가능합니다.`);
@@ -58,6 +61,14 @@ function SaveForm({ isInsertMode, onFormSubmit, saveForm = initForm }: IProps) {
     }
 
     onFormSubmit(formData);
+  };
+
+  const onRemoveClick = async () => {
+    const isConfirm = await openConfirm({ message: '정말 삭제 하시겠습니까?'});
+
+    if (isConfirm) {
+      console.log('onDelete');
+    }
   };
 
   const setCategory = (accountBookCategory: IAccountBookCategory) => {
@@ -139,16 +150,19 @@ function SaveForm({ isInsertMode, onFormSubmit, saveForm = initForm }: IProps) {
           onChange={onChange}
           onClear={onClear}
         />
-        <S.SaveButton>
+        <S.ButtonArea>
+          <S.CloseButton onClick={onRemoveClick}>
+            <IcoTrashCan />
+          </S.CloseButton>
           <BaseButton
             message={isInsertMode ? '작성하기' : '수정하기'}
             size='full'
             color='red'
             loading={addAccountBookMutation.isLoading}
-            onClick={onSubmitAccountBook}
+            onClick={onSubmitClick}
             active={isActiveSendButton}
           />
-        </S.SaveButton>
+        </S.ButtonArea>
       </Form>
       <SelectModalList
         openModalName={openModalName}
@@ -172,8 +186,15 @@ function isValidForm(form: IAccountBookSaveForm) {
 export default SaveForm;
 
 const S = {
-  SaveButton: styled.div`
+  ButtonArea: styled.div`
     margin-top: 5rem;
     padding-bottom: 5rem;
+    display: flex;
+  `,
+  CloseButton: styled.button`
+    width: 7rem;
+    border-radius: .8rem;
+    margin-right: 2rem;
+    border: .1rem solid ${({ theme }) => theme.colors.greyL6};
   `
 };
