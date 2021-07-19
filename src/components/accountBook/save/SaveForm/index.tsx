@@ -27,6 +27,7 @@ const { incomeTab, expenditureTab, tabs, initForm } = options;
 interface IProps {
   isInsertMode: boolean;
   onFormSubmit: (formData: IAccountBookSaveForm) => void;
+  onRemove?: () => void;
   saveForm?: IAccountBookSaveForm;
 }
 
@@ -35,7 +36,7 @@ interface IProps {
  * @component
  */
 
-function SaveForm({ isInsertMode, onFormSubmit, saveForm = initForm }: IProps) {
+function SaveForm({ isInsertMode, onRemove, onFormSubmit, saveForm = initForm }: IProps) {
   const onToast = useToast();
   const { openConfirm } = useConfirm();
   const { openModalName, setModalWithType, setModal, onCloseModal } = useOpenModal();
@@ -64,10 +65,10 @@ function SaveForm({ isInsertMode, onFormSubmit, saveForm = initForm }: IProps) {
   };
 
   const onRemoveClick = async () => {
-    const isConfirm = await openConfirm({ message: '정말 삭제 하시겠습니까?'});
+    const isConfirm = await openConfirm({ message: '정말 삭제 하시겠습니까?' });
 
     if (isConfirm) {
-      console.log('onDelete');
+      onRemove?.();
     }
   };
 

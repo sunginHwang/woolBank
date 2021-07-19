@@ -19,8 +19,9 @@ const queryClient = new QueryClient({
     queries: {
       // 윈도우 포커스 fefetch 기본 제한 처리
       refetchOnWindowFocus: false,
-    },
-  },
+      retry: 1
+    }
+  }
 });
 
 ReactDOM.render(

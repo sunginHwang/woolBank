@@ -71,6 +71,14 @@ export const fetchAccountBook = async (accountBookId: number) => {
 };
 
 /*
+ * 가계부 삭제
+ * */
+export const deleteAccountBook = async (accountBookId: number) => {
+  const apiResult = await apiCall.delete<ApiResType<number>>(`account-books/${accountBookId}`);
+  return apiResult.data.data;
+};
+
+/*
  * 가계부 통계
  * */
 export const fetchAccountBookStatistics = async (filterRequest: IAccountBookStatisticFilter) => {

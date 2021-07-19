@@ -25,7 +25,13 @@ export function ConfirmProvider({ children }: { children: React.ReactNode }) {
   const awaitingPromiseRef = React.useRef<{ resolve: (value: boolean) => void }>();
 
   const openConfirm = (confirmProps: ConfirmServiceProps) => {
-    setConfirmServiceState({ open: true, ...confirmProps });
+    setConfirmServiceState(prev => {
+      return {
+        ...prev,
+        open: true,
+        ...confirmProps,
+      }
+    });
 
     return new Promise<boolean>(resolve => {
       awaitingPromiseRef.current = { resolve };

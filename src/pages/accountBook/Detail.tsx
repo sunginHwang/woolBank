@@ -1,13 +1,16 @@
 import React from 'react';
-import { useParams } from 'react-router';
-import { useQuery } from 'react-query';
+import { useHistory, useParams } from 'react-router';
+import { useMutation, useQuery } from 'react-query';
 
 import PageTemplate from '@components/layout/PageTemplate';
 import SaveForm from '@components/accountBook/save/SaveForm';
 import SpinnerLoading from '@components/common/SpinnerLoading';
 import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
 import { IAccountBookSaveForm } from '@models/accountBook/IAccountBookSaveForm';
-import { fetchAccountBook } from '@support/api/accountBookApi';
+import { deleteAccountBook, fetchAccountBook } from '@support/api/accountBookApi';
+import { useConfirm } from '@components/common/Confirm/ConfirmService';
+import { useToast } from '@support/hooks/useToast';
+import useUpdateEffect from '@support/hooks/useUpdateEffect';
 
 const initData: IAccountBookListItem = {
   id: -1,
@@ -32,20 +35,47 @@ const initData: IAccountBookListItem = {
 
 function AccountBookDetailPage() {
   const { accountBookId } = useParams();
-  const { data = initData, isFetching } = useQuery<IAccountBookListItem>(['accountBook', Number(accountBookId)], () =>
+  const history = useHistory();
+  const onToast = useToast();
+  const deleteMutation = useMutation(deleteAccountBook);
+  const { data = initData, isFetching, isError } = useQuery<IAccountBookListItem>(['accountBook', Number(accountBookId)], () =>
     fetchAccountBook(Number(accountBookId))
   );
 
   const accountBookUpdateForm = convertFormData(data);
 
+  useUpdateEffect(() => {
+    if (isError) {
+      onToast('존재하지 않는 페이지 입니다.');
+      history.goBack();
+    }
+  }, [isError]);
+
   const updateAccountBook = (accountBookUpdateForm: IAccountBookSaveForm) => {
     console.log(accountBookUpdateForm);
-  }
+  };
+
+  const removeAccountBook = async () => {
+    deleteMutation.mutate(accountBookId, {
+      onSuccess: () => {
+        onToast('정상적으로 삭제되었습니다.');
+        history.goBack();
+      },
+      onError: () => onToast('다시 시도해 주세요.')
+    });
+  };
+
+  const isShowLoading = isFetching || deleteMutation.isLoading;
 
   return (
     <PageTemplate title={data.title}>
-      {isFetching && <SpinnerLoading loading />}
-      <SaveForm isInsertMode={false} saveForm={accountBookUpdateForm} onFormSubmit={updateAccountBook} />
+      {isShowLoading && <SpinnerLoading loading />}
+      <SaveForm
+        isInsertMode={false}
+        saveForm={accountBookUpdateForm}
+        onRemove={removeAccountBook}
+        onFormSubmit={updateAccountBook}
+      />
     </PageTemplate>
   );
 }
