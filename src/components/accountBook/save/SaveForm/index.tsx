@@ -54,10 +54,15 @@ function SaveForm({ isInsertMode, onRemove, onFormSubmit, saveForm = initForm }:
     setInputs(saveForm);
   }, [saveForm]);
 
-  const onSubmitClick= () => {
+  const onSubmitClick = () => {
     if (formData.title.length > 20) {
       const typeMsg = getCategoryMsg(type);
       onToast(`${typeMsg}명은 20글자 까지 작성 가능합니다.`);
+      return;
+    }
+
+    if (formData.amount <= 0) {
+      onToast('금액을 입력해 주세요.');
       return;
     }
 

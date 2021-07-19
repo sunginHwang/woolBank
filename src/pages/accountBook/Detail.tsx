@@ -7,8 +7,7 @@ import SaveForm from '@components/accountBook/save/SaveForm';
 import SpinnerLoading from '@components/common/SpinnerLoading';
 import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
 import { IAccountBookSaveForm } from '@models/accountBook/IAccountBookSaveForm';
-import { deleteAccountBook, fetchAccountBook } from '@support/api/accountBookApi';
-import { useConfirm } from '@components/common/Confirm/ConfirmService';
+import { deleteAccountBook, fetchAccountBook, updateAccountBook } from '@support/api/accountBookApi';
 import { useToast } from '@support/hooks/useToast';
 import useUpdateEffect from '@support/hooks/useUpdateEffect';
 
@@ -38,6 +37,7 @@ function AccountBookDetailPage() {
   const history = useHistory();
   const onToast = useToast();
   const deleteMutation = useMutation(deleteAccountBook);
+  const updateMutation = useMutation(updateAccountBook);
   const { data = initData, isFetching, isError } = useQuery<IAccountBookListItem>(['accountBook', Number(accountBookId)], () =>
     fetchAccountBook(Number(accountBookId))
   );
@@ -51,11 +51,16 @@ function AccountBookDetailPage() {
     }
   }, [isError]);
 
-  const updateAccountBook = (accountBookUpdateForm: IAccountBookSaveForm) => {
-    console.log(accountBookUpdateForm);
+  const onUpdateAccountBook = (accountBookUpdateForm: IAccountBookSaveForm) => {
+    updateMutation.mutate(accountBookUpdateForm, {
+      onSuccess: () => {
+        onToast('수정되었습니다.');
+      },
+      onError: () => onToast('다시 시도해 주세요.')
+    });
   };
 
-  const removeAccountBook = async () => {
+  const onRemoveAccountBook = async () => {
     deleteMutation.mutate(accountBookId, {
       onSuccess: () => {
         onToast('정상적으로 삭제되었습니다.');
@@ -65,7 +70,7 @@ function AccountBookDetailPage() {
     });
   };
 
-  const isShowLoading = isFetching || deleteMutation.isLoading;
+  const isShowLoading = isFetching || deleteMutation.isLoading || updateMutation.isLoading;
 
   return (
     <PageTemplate title={data.title}>
@@ -73,8 +78,8 @@ function AccountBookDetailPage() {
       <SaveForm
         isInsertMode={false}
         saveForm={accountBookUpdateForm}
-        onRemove={removeAccountBook}
-        onFormSubmit={updateAccountBook}
+        onRemove={onRemoveAccountBook}
+        onFormSubmit={onUpdateAccountBook}
       />
     </PageTemplate>
   );

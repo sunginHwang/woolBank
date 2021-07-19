@@ -40,6 +40,19 @@ export const addAccountBook = async (accountBook: IAccountBookSaveForm): Promise
   return newAccountBook;
 };
 
+
+/*
+ * 가계부 수정 api
+ * */
+export const updateAccountBook = async (accountBookForm: IAccountBookSaveForm): Promise<IAccountBookListItem> => {
+  const { title, registerDateTime, type, amount, memo, category, id } = accountBookForm;
+  const requestParam = { title, registerDateTime, type, amount, memo, categoryId: category.id };
+  const apiResult = await apiCall.put<ApiResType<IAccountBookListItem>>(`account-books/${id}`, requestParam);
+  const newAccountBook = apiResult.data.data;
+  newAccountBook.registerDateTime = new Date(newAccountBook.registerDateTime);
+  return newAccountBook;
+};
+
 /*
  * 가계부 리스트 조회
  * */
