@@ -36,9 +36,20 @@ export function useAccountBookQuerySetter() {
     },
     [queryClient]
   );
+
+  const remove = useCallback(
+    (removeId: number) => {
+      queryClient.setQueryData<IAccountBookListItem[]>(QUERY_KEY, (prev = []) => {
+        return prev.filter(item => removeId !== item.id);
+      });
+    },
+    [queryClient]
+  );
+
   return {
     set,
     add,
-    update
+    update,
+    remove,
   };
 }

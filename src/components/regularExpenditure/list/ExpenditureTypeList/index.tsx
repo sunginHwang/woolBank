@@ -15,8 +15,8 @@ export interface IExpenditureTypeListProps {
 function ExpenditureTypeList({ list, onClickRemoveRegularExpenditure }: IExpenditureTypeListProps) {
   return (
     <section>
-      {list.map((item) => {
-        return <ExpenditureType key={item.type} expenditureType={item} onClickRemoveItem={onClickRemoveRegularExpenditure} />;
+      {list.map((item, index) => {
+        return <ExpenditureType key={`${item.name}/${index}`} expenditureType={item} onClickRemoveItem={onClickRemoveRegularExpenditure} />;
       })}
     </section>
   );
