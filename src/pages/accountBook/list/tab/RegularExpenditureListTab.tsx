@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import { useMutation } from 'react-query';
 import { useRecoilState } from 'recoil';
 import * as _ from 'lodash';
@@ -7,22 +8,21 @@ import ExpenditureTypeList from '@components/regularExpenditure/list/Expenditure
 import RegularTopInfo from '@components/regularExpenditure/list/RegularTopInfo';
 import RegularExpenditureSkeleton from '@components/regularExpenditure/list/RegularExpenditureSkeleton';
 import { useConfirm } from '@components/common/Confirm/ConfirmService';
+import AddButton from '@components/common/AddButton';
 
+import { useToast } from '@support/hooks/useToast';
 import withSuspense from '@support/hocs/withSuspense';
 import { removeRegularExpenditure, RegularExpenditureType } from '@support/api/regularExpenditureApi';
-import { useToast } from '@support/hooks/useToast';
 import RegularExpenditureListState from '../../../../recoils/regularExpenditure/RegularExpenditureList';
-import AddButton from '@components/common/AddButton';
-import { useHistory } from 'react-router';
 
 const { regularExpenditureListState } = RegularExpenditureListState.atoms;
 
 /**
- * 정기 지출 리스트 -> 정기 지출 리스트 컨테이너
+ * 정기 지출 리스트 탭
  * @component
  */
 
-function RegularExpenditureList() {
+function RegularExpenditureListTab() {
   const { openConfirm, setConfirmLoading } = useConfirm();
   const history = useHistory();
   const onToast = useToast();
@@ -81,4 +81,4 @@ function getRemovedList(regularExpenditureTypeList: RegularExpenditureType[], re
   return [];
 }
 
-export default withSuspense(RegularExpenditureList, <RegularExpenditureSkeleton />);
+export default withSuspense(RegularExpenditureListTab, <RegularExpenditureSkeleton />);

@@ -12,7 +12,6 @@ import userRoutes from '@routes/user';
 import PageNotFound from '@pages/error/PageNotFound';
 import LayoutContainer from '@containers/LayoutContainer';
 import MainPageSkeleton from '@components/main/MainPageSkeleton';
-import PageTemplate from '@components/layout/PageTemplate';
 import ScrollToTop from '@routes/ScrollToTop';
 
 
@@ -20,13 +19,6 @@ const defaultRoutes: LayoutRouteProps[] = [{
   path: '/',
   key: 'mainPage',
   component: loadable(() => import('@pages/Main'), { fallback: <MainPageSkeleton /> }),
-  exact: true,
-},{
-  path: '/regular-expenditure',
-  key: 'regular-expenditure',
-  component: loadable(() => import('@pages/regularExpenditure/RegularExpenditureListPage'), {
-    fallback: <PageTemplate useHeader useBackButton={false} title='정기지출' />
-  }),
   exact: true,
 }];
 

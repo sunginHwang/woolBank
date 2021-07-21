@@ -11,11 +11,11 @@ import getDateRange from '@/services/accountBook/getDateRange';
 import SpinnerLoading from '@components/common/SpinnerLoading';
 
 /**
- * 가계부 통계 페이지
+ * 가계부 통계 탭
  * @component
  */
 
-function AccountBookStatistic() {
+function StatisticTab() {
   const initDateInfo = getDateRange('month');
   const [searchFilter, setSearchFilter] = useState<IAccountBookStatisticFilter>({
     startDate: initDateInfo[0],
@@ -46,4 +46,4 @@ function AccountBookStatistic() {
   );
 }
 
-export default AccountBookStatistic;
+export default StatisticTab;

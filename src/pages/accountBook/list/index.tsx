@@ -1,63 +1,77 @@
 import React, { useMemo } from 'react';
-import { useQueryClient } from 'react-query';
-import { useHistory } from 'react-router';
-import { useRecoilState } from 'recoil';
+import { useHistory, useLocation } from 'react-router';
 
-import AddButton from '@components/common/AddButton';
-import AccountBookList from '@components/accountBook/list/AccountBookList';
-import MonthStatistics from '@components/accountBook/list/MonthStatistics';
-import AccountBookListSkeleton from '@components/accountBook/list/AccountBookListSkeleton';
-import { IAccountBookListItem } from '@models/accountBook/IAccountBookListItem';
-import useUpdateEffect from '@support/hooks/useUpdateEffect';
-import { AccountBookCategoryType } from '@models/accountBook/AccountBookCategoryType';
-import accountBook from '@/recoils/accountBook';
-import useAccountBookList, { QUERY_KEY } from '@/services/accountBook/useAccountBookList';
+import Tabs from '@components/common/Tabs';
+import PageTemplate from '@components/layout/PageTemplate';
+import { IAssetType } from '@models/IAssetType';
+import { useQuery } from '@support/hooks/UseQuery';
+import { ListTab, StatisticTab, RegularExpenditureListTab } from './tab';
+
+const menuTabs: IAssetType[] = [
+  {
+    type: 'list',
+    name: '리스트'
+  },
+  {
+    type: 'regular-expenditure',
+    name: '정기지출'
+  },
+  {
+    type: 'statistic',
+    name: '통계'
+  }
+];
 
 /**
- * 가계부 리스트 페이지
+ * 가계부 리스트 페이징
  * @component
  */
 
-function AccountBookListPage() {
-  const queryClient = useQueryClient();
-  const [selectedDate, setSelectedDate] = useRecoilState(accountBook.atoms.listDateState);
+function AccountBook() {
   const history = useHistory();
+  const { pathname } = useLocation();
+  const { tab } = useQuery(['tab']);
 
-  const { data: accountBookList = [], isFetching, refetch } = useAccountBookList(selectedDate);
-
-  useUpdateEffect(() => {
-    onRefetch();
-  }, [selectedDate]);
-
-  // refresh 함수
-  const onRefetch = async () => {
-    await queryClient.setQueryData(QUERY_KEY, undefined);
-    refetch();
+  const onTabChange = (activeTab: IAssetType) => {
+    const searchParam = new URLSearchParams({ tab: activeTab.type });
+    // history 추가가 아닌 queryString 만 replace 전환
+    history.replace({ pathname, search: searchParam.toString() });
   };
 
-  const moveSavePage = () => {
-    history.push('/account-books/save');
-  };
-
-  const totalIncomeAmount = useMemo(() => getTotalAmount(accountBookList, 'income'), [accountBookList]);
-  const totalExpenditureAmount = useMemo(() => getTotalAmount(accountBookList, 'expenditure'), [accountBookList]);
+  const activeTabMenu = useMemo(() => getActiveTab(tab), [tab]);
 
   return (
-    <>
-      <MonthStatistics
-        selectedDate={new Date(selectedDate)}
-        changeSelectedDate={setSelectedDate}
-        totalIncomeAmount={totalIncomeAmount}
-        totalExpenditureAmount={totalExpenditureAmount}
-      />
-      {isFetching ? <AccountBookListSkeleton /> : <AccountBookList accountBookList={accountBookList} />}
-      <AddButton icon='+' onClick={moveSavePage} />
-    </>
+    <PageTemplate
+      title='가계부'
+      useBackButton={false}
+      useSidePadding={false}
+      tabs={<Tabs tabs={menuTabs} activeTab={activeTabMenu} onChangeTab={onTabChange} />}
+    >
+      <div style={{ padding: '2rem' }}>{getContentSlide(activeTabMenu.type)}</div>
+    </PageTemplate>
   );
 }
 
-function getTotalAmount(accountBookList: IAccountBookListItem[], type: AccountBookCategoryType) {
-  return accountBookList.filter((item) => item.type === type).reduce((prev, item) => prev + item.amount, 0);
+function getContentSlide(type: string) {
+  switch (type) {
+    case 'list':
+      return <ListTab />;
+    case 'regular-expenditure':
+      return <RegularExpenditureListTab />;
+    case 'statistic':
+      return <StatisticTab />;
+    default:
+      return null;
+  }
 }
 
-export default AccountBookListPage;
+function getActiveTab(tabType?: string) {
+  if (!tabType) {
+    return menuTabs[0];
+  }
+
+  const initTab = menuTabs.find((menu) => menu.type === tabType);
+  return initTab || menuTabs[0];
+}
+
+export default AccountBook;
