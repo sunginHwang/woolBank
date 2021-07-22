@@ -8,7 +8,7 @@ import AccountInfoSkeleton from '@components/account/detail/AccountInfoSkeleton'
 import { RootState } from '@/store';
 import AccountDetail, { getAccount } from '@store/modules/AccountDetail';
 import { checkNeedReFetch } from '@support/util/checkNeedReFetch';
-import { addDeposit, getAccountLastUpdatedAt } from '@support/api/accountApi';
+import { getAccountLastUpdatedAt } from '@support/api/accountApi';
 import BottomButton from '@components/common/BottomButton';
 
 export interface AccountDetailContainerProps {

@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useTransition, useSpring, animated } from 'react-spring';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import BottomModal from '@components/common/modal/BottomModal';

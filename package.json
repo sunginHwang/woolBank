@@ -79,12 +79,6 @@
     "eject": "react-scripts eject",
     "test:e2e": "npx cypress open"
   },
-  "eslintConfig": {
-    "extends": [
-      "standard",
-      "standard-react"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",

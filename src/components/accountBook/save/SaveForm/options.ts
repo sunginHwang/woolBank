@@ -1,5 +1,4 @@
 import { IAssetType } from '@models/IAssetType';
-import { IAccountForm } from '@models/IAccountForm';
 import { IAccountBookSaveForm } from '@models/accountBook/IAccountBookSaveForm';
 
 const expenditureTab: IAssetType = {

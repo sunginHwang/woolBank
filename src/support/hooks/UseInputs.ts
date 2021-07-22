@@ -1,27 +1,4 @@
-import React, { useReducer, useCallback, useState, ChangeEvent } from 'react';
-
-type DefaultValues = {
-  [key: string]: string;
-};
-
-type UseInputsAction = {
-  name: string;
-  value: string;
-};
-
-function reducer<T>(state: T, action: UseInputsAction | null) {
-  if (!action) {
-    const initialState: any = {};
-    Object.keys(state).forEach((key) => {
-      initialState[key] = '';
-    });
-    return initialState;
-  }
-  return {
-    ...state,
-    [action.name]: action.value
-  };
-}
+import React, { useCallback, useState, ChangeEvent } from 'react';
 
 export default function useInputs<T>(defaultValues: T) {
   const [inputs, setInputs] = useState(defaultValues);

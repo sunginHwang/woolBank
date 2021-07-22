@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useMutation } from 'react-query';
 import { format } from 'date-fns';
 import styled from 'styled-components';
@@ -20,6 +20,7 @@ import useOpenModal from '@support/hooks/useOpenModal';
 import useUpdateEffect from '@support/hooks/useUpdateEffect';
 import { addAccountBook } from '@support/api/accountBookApi';
 import getCategoryMsg from '@support/util/accountBook/getCategoryMsg';
+import useMount from '@support/hooks/useMount';
 import options from './options';
 
 const { incomeTab, expenditureTab, tabs, initForm } = options;
@@ -44,11 +45,11 @@ function SaveForm({ isInsertMode, onRemove, onFormSubmit, saveForm = initForm }:
   const addAccountBookMutation = useMutation(addAccountBook);
 
   // 폼입력시 금액 설정 input 나오도록
-  useEffect(() => {
+  useMount(() => {
     if (isInsertMode) {
       setModal('amount');
     }
-  }, []);
+  });
 
   useUpdateEffect(() => {
     setInputs(saveForm);
@@ -199,8 +200,8 @@ const S = {
   `,
   CloseButton: styled.button`
     width: 7rem;
-    border-radius: .8rem;
+    border-radius: 0.8rem;
     margin-right: 2rem;
-    border: .1rem solid ${({ theme }) => theme.colors.greyL6};
+    border: 0.1rem solid ${({ theme }) => theme.colors.greyL6};
   `
 };

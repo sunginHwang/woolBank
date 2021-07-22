@@ -9,6 +9,9 @@
     "standard",
     "standard-react"
   ],
+  "plugins": [
+    "react-hooks"
+  ],
   "rules": {
     "space-before-function-paren": [
       "error",
@@ -17,7 +20,8 @@
         "named": "never"
       }
     ],
-    "semi": "off"
+    "semi": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }
 

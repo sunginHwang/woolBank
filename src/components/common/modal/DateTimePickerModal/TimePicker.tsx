@@ -20,7 +20,7 @@ interface IProps {
 function TimePicker({ time, onChangeTime }: IProps) {
   const HH_MM = time.split(':');
   const { inputs, onChange } = useInputs({ hours: '', minutes: '', });
-  const [ isValidTime , _, offValidTime ] = useToggle(true);
+  const [ isValidTime , , offValidTime ] = useToggle(true);
   const [ isAm, onAm, offAm ] = useToggle(Number(HH_MM[0]) <= HALF_DAY_HOUR);
 
 
