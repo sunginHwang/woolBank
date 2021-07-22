@@ -44,7 +44,7 @@ function SaveRegularExpenditureForm() {
       onSuccess: () => {
         onListRefresh();
         onToast('성공적으로 등록되었습니다. :)');
-        history.push('/account-books');
+        history.goBack();
       },
       onError: () => {
         onToast('다시 시도해 주세요.');
