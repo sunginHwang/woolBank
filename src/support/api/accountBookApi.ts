@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import apiCall from '@support/util/apiCall';
 import { ApiResType } from '@models/api/ApiResType';
 import { IAccountBookStatisticFilter } from '@models/accountBook/statistic/IAccountBookStatisticFilter';
@@ -93,8 +94,13 @@ export const deleteAccountBook = async (accountBookId: number) => {
  * 가계부 통계
  * */
 export const fetchAccountBookStatistics = async (filterRequest: IAccountBookStatisticFilter) => {
+  const params = {
+    ...filterRequest,
+    startDate: format(filterRequest.startDate, 'yyyy-MM-dd HH:mm:ss'),
+    endDate: format(filterRequest.endDate, 'yyyy-MM-dd HH:mm:ss')
+  };
   const apiResult = await apiCall.get<ApiResType<IAccountBookStatistic[]>>('account-books/statistics', {
-    params: { ...filterRequest }
+    params
   });
   return apiResult.data.data;
 };
