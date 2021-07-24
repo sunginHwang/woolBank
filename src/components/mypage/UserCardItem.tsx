@@ -1,6 +1,6 @@
 import React from 'react';
-import CircleImg from '@components/common/CircleImg';
 import styled from 'styled-components';
+import CircleImg from '@components/common/CircleImg';
 
 interface UserCardItemProps {
   name: string;
