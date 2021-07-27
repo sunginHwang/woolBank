@@ -34,6 +34,7 @@ ReactDOM.render(
             <ErrorHandler>
               <ConfirmProvider>
                 <App />
+                <div id="modalDeem" />
               </ConfirmProvider>
             </ErrorHandler>
           </BrowserRouter>

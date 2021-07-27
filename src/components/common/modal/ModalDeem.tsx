@@ -1,5 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import styled from 'styled-components';
+import Portal from '@components/common/Portal';
 
 export interface ModalDeemProps {
   visible: boolean;
@@ -17,13 +18,16 @@ function ModalDeem({ visible, children, onDeemClick }: ModalDeemProps) {
   }, [onDeemClick]);
 
   return (
-    <S.ModalDeem
-      ref={modalDeemRef}
-      visible={visible}
-      onClick={onModalDeemClick}
-    >
-      {children}
-    </S.ModalDeem>
+    <Portal targetId='modalDeem'>
+      <S.ModalDeem
+        ref={modalDeemRef}
+        visible={visible}
+        onClick={onModalDeemClick}
+      >
+        {children}
+      </S.ModalDeem>
+    </Portal>
+
   );
 }
 
