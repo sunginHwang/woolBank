@@ -91,3 +91,4 @@ typings/
 
 # 비밀 키 정보
 src/keys.ts
+!/.idea/
