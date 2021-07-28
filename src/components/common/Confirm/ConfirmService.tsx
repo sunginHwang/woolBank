@@ -1,15 +1,19 @@
 import * as React from 'react';
 import Confirm, { IProps } from './index';
 
-interface ConfirmServiceProps extends IProps{
+interface ConfirmServiceProps extends IProps {
   // 확인 버튼 누를시 자동 컴펌 종료 옵션
   useAutoClose?: boolean;
 }
 
 const ConfirmationServiceContext = React.createContext<{
-  openConfirm: (options: ConfirmServiceProps) => Promise<boolean>;
+  openConfirm:(options: ConfirmServiceProps) => Promise<boolean>;
   setConfirmLoading: (loading: boolean) => void;
-}>({ openConfirm: Promise.resolve, setConfirmLoading : loading => {}});
+    }>({
+      openConfirm: Promise.resolve,
+      setConfirmLoading: loading => {
+      }
+    });
 
 export const useConfirm = () => React.useContext(ConfirmationServiceContext);
 
@@ -17,20 +21,20 @@ const initState: ConfirmServiceProps = {
   // 확인버튼 누를시 컨펌창 close
   useAutoClose: true,
   open: false,
-  message: '',
+  message: ''
 };
 
 export function ConfirmProvider({ children }: { children: React.ReactNode }) {
   const [confirmServiceState, setConfirmServiceState] = React.useState<ConfirmServiceProps>(initState);
-  const awaitingPromiseRef = React.useRef<{ resolve: (value: boolean) => void }>();
+  const awaitingPromiseRef = React.useRef<{ resolve:(value: boolean) => void }>();
 
   const openConfirm = (confirmProps: ConfirmServiceProps) => {
     setConfirmServiceState(prev => {
       return {
         ...prev,
         open: true,
-        ...confirmProps,
-      }
+        ...confirmProps
+      };
     });
 
     return new Promise<boolean>(resolve => {
@@ -62,11 +66,11 @@ export function ConfirmProvider({ children }: { children: React.ReactNode }) {
     if (!loading) {
       setConfirmServiceState(initState);
     }
-  }
+  };
 
   const providerValue = {
-    openConfirm, setConfirmLoading,
-  }
+    openConfirm, setConfirmLoading
+  };
 
   const { useAutoClose, ...confirmProps } = confirmServiceState;
 

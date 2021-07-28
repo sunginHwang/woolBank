@@ -30,7 +30,7 @@ function Confirm(props: IProps) {
     confirmMsg = '확인',
     cancelMsg = '취소',
     onConfirm = () => {},
-    onCancel = () => {},
+    onCancel = () => {}
   } = props;
 
   const LoadingEl = (
@@ -65,14 +65,7 @@ function Confirm(props: IProps) {
   );
 }
 
-const S: {
-  ConfirmModal: any;
-  ModalWrapper: any;
-  Content: any;
-  Footer: any;
-  Button: any;
-  Loading: any;
-} = {
+const S = {
   ConfirmModal: styled.div`
     width: 80%;
     max-width: 68rem;

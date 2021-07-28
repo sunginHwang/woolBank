@@ -27,12 +27,10 @@ function DateModal({ date, visible, onChangeDate, oncloseModal }: WalletDateModa
   );
 }
 
-const S: {
-  DateModal: any;
-} = {
-  DateModal: styled.div<{
-    visible: boolean;
-  }>`
+const S = {
+  DateModal: styled.div < {
+    visible: boolean
+  } > `
     position: fixed;
     bottom: ${({ visible }) => (visible ? '0' : '-30rem')};
     width: 100%;

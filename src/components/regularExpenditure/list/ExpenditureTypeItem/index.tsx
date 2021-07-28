@@ -31,15 +31,20 @@ function ExpenditureTypeItem({ regularExpenditure, onClickRemoveItem }: IExpendi
   const onItemTouchMove = (e: React.TouchEvent<HTMLLIElement>) => {
     const moveX = e.targetTouches[0].screenX || 0;
     const calc = startX - moveX;
+    console.log('onMove');
     setMoveX(calc < 0 ? 0 : calc > 200 ? 200 : calc);
   };
 
   const onItemTouchEnd = () => {
-    if (moveX > 100 && moveX <= 200) {
+    console.log(moveX);
+    if (moveX > 50 && moveX <= 200) {
+      console.log('this');
+      console.log(moveX);
       setMoveX(200);
+      return;
     }
-
-    setStartX(0);
+    console.log('end');
+    setMoveX(0);
   };
 
   const onRemoveClick = () => {
