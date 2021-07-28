@@ -16,11 +16,12 @@ import Layout from '@store/modules/Layout';
 import { delay } from '@support/util/delay';
 import { useAlert } from '@support/hooks/useAlert';
 import { ISocialUser } from '@models/ISocialUser';
-import keys from '@/keys';
+import config from '@support/config';
 import { createSocialUser } from '@support/api/userApi';
 import { saveToken, setHeaderAuthToken } from '@support/util/apiCall';
 import { ITokenInfo } from '@models/ITokenInfo';
 
+const { socialAuthKey } = config;
 function SocialLoginContainer() {
 
   const user = useSelector((state: RootState) => state.Auth.user);
@@ -122,10 +123,12 @@ function SocialLoginContainer() {
     return null;
   }
 
+
+
   return (
     <LoginBox title='소셜 로그인 하기' type='social'>
       <FacebookLogin
-        appId={keys.social.facebook}
+        appId={socialAuthKey.facebook}
         fields='name,email,picture'
         render={(renderProps: any) => (
           <SocialLoginButton provider='facebook' handleLoginClick={renderProps.onClick} />
@@ -133,7 +136,7 @@ function SocialLoginContainer() {
         callback={onFacebookLogin}
       />
       <GoogleLogin
-        clientId={keys.social.google}
+        clientId={socialAuthKey.google}
         cookiePolicy='single_host_origin'
         render={renderProps => (
           <SocialLoginButton provider='google' handleLoginClick={renderProps.onClick} />
@@ -142,7 +145,7 @@ function SocialLoginContainer() {
         onFailure={onLoginFailure}
       />
       <KaKaoLogin
-        jsKey={keys.social.kakaoTalk}
+        jsKey={socialAuthKey.kakaoTalk}
         getProfile={true}
         render={renderProps => (
           <SocialLoginButton provider='kakaoTalk' handleLoginClick={renderProps.onClick} />
