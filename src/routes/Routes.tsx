@@ -10,16 +10,15 @@ import accountBook from '@routes/accountBook';
 import userRoutes from '@routes/user';
 
 import PageNotFound from '@pages/error/PageNotFound';
-import LayoutContainer from '@containers/LayoutContainer';
+import Layout from '@components/layout/Layout';
 import MainPageSkeleton from '@components/main/MainPageSkeleton';
 import ScrollToTop from '@routes/ScrollToTop';
-
 
 const defaultRoutes: LayoutRouteProps[] = [{
   path: '/',
   key: 'mainPage',
   component: loadable(() => import('@pages/Main'), { fallback: <MainPageSkeleton /> }),
-  exact: true,
+  exact: true
 }];
 
 function Routes() {
@@ -31,7 +30,7 @@ function Routes() {
   return (
     <ScrollToTop>
       <Switch>
-        { routes.map((route, index) => <RouteWrapper {...route} key={route.key} isLogin={isLogin} />)}
+        {routes.map((route, index) => <RouteWrapper {...route} key={route.key} isLogin={isLogin} />)}
         <Route component={PageNotFound} />
       </Switch>
     </ScrollToTop>
@@ -54,7 +53,7 @@ export function RouteWrapper({
   ...rest
 }: LayoutRouteProps) {
   const renderLayout = (props: any) => (
-    <LayoutContainer key={rest.key} useNavBar={useNavBar}>{Component && <Component {...props} {...rest} />}</LayoutContainer>
+    <Layout key={rest.key} useNavBar={useNavBar}>{Component && <Component {...props} {...rest} />}</Layout>
   );
 
   const isNotAuth = checkAuth && !isLogin;

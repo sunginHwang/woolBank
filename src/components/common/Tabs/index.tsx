@@ -4,13 +4,18 @@ import styled from 'styled-components';
 import { IAssetType } from '@models/IAssetType';
 import { useWindowDimensions } from '@support/hooks/useWindowDemensions';
 
-export interface TabsProps {
+interface IProps {
   tabs: IAssetType[];
   activeTab: IAssetType;
   onChangeTab?: (tab: IAssetType) => void;
 }
 
-function Tabs({ tabs, activeTab, onChangeTab }: TabsProps) {
+/**
+ * 공통 - 상단 리스트 탭
+ * @component
+ */
+
+function Index({ tabs, activeTab, onChangeTab }: IProps) {
   const { width } = useWindowDimensions();
 
   // 인디케이터 길이
@@ -57,8 +62,6 @@ const S: {
     position: relative;
     display: flex;
     justify-content: space-around;
-    /*box-shadow: 0 0.2rem 0.4rem -0.1rem rgba(0, 0, 0, 0.2), 0 0.4rem 0.5rem 0 rgba(0, 0, 0, 0.14),
-      0 0.1rem 1rem 0 rgba(0, 0, 0, 0.12); 그림자 효과*/
     button {
       font-size: 1.4rem;
     }
@@ -86,4 +89,4 @@ const S: {
   `
 };
 
-export default Tabs;
+export default Index;

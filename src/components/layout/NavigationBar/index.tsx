@@ -5,44 +5,48 @@ import { Link, useHistory } from 'react-router-dom';
 import IcoPig from '@components/icon/IcoPig';
 import { INavigationBar } from '@models/layout/INavigationBar';
 import { isIOS } from '@support/util/device';
-import IcoAccountOutline from '../icon/IcoAccountOutline';
-import IcoBucketOutline from '../icon/IcoBucketOutline';
-import IcoWalletOutline from '../icon/IcoWallet';
-import IcoHomeOutline from '../icon/IcoHomeOutline';
+import IcoAccountOutline from '../../icon/IcoAccountOutline';
+import IcoBucketOutline from '../../icon/IcoBucketOutline';
+import IcoWalletOutline from '../../icon/IcoWallet';
+import IcoHomeOutline from '../../icon/IcoHomeOutline';
+
 const navigations: INavigationBar[] = [
   {
     name: '홈',
     value: 'home',
     link: '/',
-    icon: <IcoHomeOutline />
+    icon: <IcoHomeOutline/>
   },
   {
     name: '자산관리',
     value: 'accounts',
     link: '/accounts',
-    icon: <IcoWalletOutline />
+    icon: <IcoWalletOutline/>
   },
   {
     name: '버킷리스트',
     value: 'bucketList',
     link: '/bucket-list',
-    icon: <IcoBucketOutline />
+    icon: <IcoBucketOutline/>
   },
   {
     name: '가계부',
     value: 'accountBooks',
     link: '/account-books',
-    icon: <IcoPig />
+    icon: <IcoPig/>
   },
   {
     name: '내 정보',
     value: 'me',
     link: '/mypage',
-    icon: <IcoAccountOutline />
+    icon: <IcoAccountOutline/>
   }
 ];
 
-
+/**
+ * 하단 네이게이션바
+ * @component
+ */
 
 function NavigationBar() {
   const history = useHistory();
@@ -66,6 +70,9 @@ function NavigationBar() {
     </S.NavigationBar>
   );
 }
+
+
+export default NavigationBar;
 
 const S: {
   NavigationBar: any;
@@ -124,5 +131,3 @@ const S: {
     }
   `
 };
-
-export default NavigationBar;

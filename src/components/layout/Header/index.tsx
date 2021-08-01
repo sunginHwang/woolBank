@@ -1,11 +1,17 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-export interface HeaderProps {
+interface IProps {
   title: string;
   description: string;
 }
-function Header({ title, description }: HeaderProps) {
+
+/**
+ * 기본 헤더 구성 요소
+ * @component
+ */
+
+function Header({ title, description }: IProps) {
   return (
     <Helmet>
       <meta charSet='utf-8' />

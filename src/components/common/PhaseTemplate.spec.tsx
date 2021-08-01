@@ -1,5 +1,5 @@
 import React from 'react';
-import PhaseTemplate from 'src/components/common/PhaseTemplate';
+import PhaseTemplate from '@components/common/PhaseTemplate';
 import withThemeRender from '@support/test/withThemeRender';
 
 describe('<PhaseTemplate />', () => {

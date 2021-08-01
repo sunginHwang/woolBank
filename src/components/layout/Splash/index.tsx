@@ -4,12 +4,19 @@ import styled from 'styled-components';
 import { useInterval } from '@support/hooks/useInterval';
 import mainImage from '@/image/main_image.svg';
 
+const INTERVAL_TIME = 500;
+
+/**
+ * 앱 구동시 cra 로 인한 초기 splash 대체 화면
+ * @component
+ */
+
 function Splash() {
   const [dot, setDot] = useState('.');
 
   useInterval(() => {
     setDot(dot === '...' ? '.' : dot + '.');
-  }, 500);
+  }, INTERVAL_TIME);
 
   return (
     <S.Splash>

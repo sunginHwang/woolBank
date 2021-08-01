@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
 import PageHeader from '@components/common/PageHeader';
-import MainHeader from '@components/layout/MainHeader';
+import MainHeader from '@components/layout/PageTemplate/MainHeader';
 
 import palette from '@style/palette';
 
@@ -26,6 +26,11 @@ interface IProps {
   children?: React.ReactNode;
   onBackClick?: () => void;
 }
+
+/**
+ * 페이지 구성 템플릿
+ * @component
+ */
 
 function PageTemplate(props: IProps) {
   const {

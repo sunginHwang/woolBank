@@ -13,11 +13,21 @@ import { useAlert } from '@support/hooks/useAlert';
 import { IToast } from '@models/layout/IToast';
 import { ILayoutLoading } from '@models/layout/ILayoutLoading';
 
-function LayoutContainer({ children, useNavBar = true }: LayoutRouteProps) {
+interface IProps extends LayoutRouteProps {
+
+}
+
+/**
+ * 레이아웃 영역
+ * @component
+ */
+
+function Layout({ children, useNavBar = true }: IProps) {
   const layoutLoading: ILayoutLoading = useSelector((state: RootState) => state.Layout.loading);
   const toast: IToast = useSelector((state: RootState) => state.Layout.toast);
   const alert: IToast = useSelector((state: RootState) => state.Layout.alert);
   const [, offAlert] = useAlert();
+
   return (
     <>
       <Header title='뱅킷리스트' description='계좌 정보를 한곳에 모으고 도전하고 싶은 버킷리스트를 만들어봐요~' />
@@ -30,4 +40,4 @@ function LayoutContainer({ children, useNavBar = true }: LayoutRouteProps) {
   );
 }
 
-export default LayoutContainer;
+export default Layout;
