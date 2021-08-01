@@ -2,13 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import CircleImg from '@components/common/CircleImg';
 
-interface UserCardItemProps {
+interface IProps {
   name: string;
   userImgUrl?: string;
   onModifyClick: () => void;
 }
 
-function UserCardItem({ name, userImgUrl, onModifyClick }: UserCardItemProps) {
+/**
+ * 마이페이지 - 유저 카드 정보
+ * @component
+ */
+
+function UserCard({ name, userImgUrl, onModifyClick }: IProps) {
   return (
     <S.UserCardItem onClick={onModifyClick}>
       <div>
@@ -20,7 +25,7 @@ function UserCardItem({ name, userImgUrl, onModifyClick }: UserCardItemProps) {
   );
 }
 
-export default UserCardItem;
+export default UserCard;
 
 const S: {
   UserCardItem: any;

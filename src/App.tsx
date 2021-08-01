@@ -4,13 +4,18 @@ import { useDispatch } from 'react-redux';
 import Splash from '@components/layout/Splash';
 
 import Auth from '@store/modules/Auth';
-import Routes from '@routes/Routes';
+import Routes from '@/routes';
 import { useToggle } from '@support/hooks/useToggle';
 import { saveToken, setHeaderAuthToken } from '@support/util/apiCall';
 import { getInitUserInfo } from '@support/api/userApi';
 import config from '@/config';
 
 const { ACCESS_TOKEN } = config.auth;
+
+/**
+ * 앱 init 시점
+ * @component
+ */
 
 function App() {
   const [isShowSplash, , hideInitLoading] = useToggle(true);

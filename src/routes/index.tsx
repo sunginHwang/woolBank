@@ -14,6 +14,14 @@ import Layout from '@components/layout/Layout';
 import MainPageSkeleton from '@components/main/MainPageSkeleton';
 import ScrollToTop from '@routes/ScrollToTop';
 
+export interface LayoutRouteProps extends RouteProps {
+  component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+  key: string;
+  useNavBar?: boolean;
+  isLogin?: boolean;
+  checkAuth?: boolean;
+}
+
 const defaultRoutes: LayoutRouteProps[] = [{
   path: '/',
   key: 'mainPage',
@@ -35,14 +43,6 @@ function Routes() {
       </Switch>
     </ScrollToTop>
   );
-}
-
-export interface LayoutRouteProps extends RouteProps {
-  component?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
-  key: string;
-  useNavBar?: boolean;
-  isLogin?: boolean;
-  checkAuth?: boolean;
 }
 
 export function RouteWrapper({

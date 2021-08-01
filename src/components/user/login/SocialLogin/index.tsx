@@ -7,8 +7,8 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 import KaKaoLogin from 'react-kakao-login';
 import { KakaoLoginResponseV2 } from 'react-kakao-login/dist/types';
 
-import SocialLoginButton from '@components/user/SocialLogin/SocialLoginButton';
-import Index from '@components/user/LoginBox';
+import SocialLoginButton from '@components/user/login/SocialLogin/SocialLoginButton';
+import Index from '@components/user/login/LoginBox';
 
 import { RootState } from '@/store';
 import Auth from '@store/modules/Auth';

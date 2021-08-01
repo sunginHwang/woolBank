@@ -1,6 +1,6 @@
 import React from 'react';
 import loadable from '@loadable/component';
-import { LayoutRouteProps } from '@routes/Routes';
+import { LayoutRouteProps } from '@routes/index';
 
 import PageTemplate from '@components/layout/PageTemplate';
 

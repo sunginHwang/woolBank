@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import SocialLogin from '@components/user/SocialLogin';
-import IdLogin from '@components/user/IdLogin';
+import SocialLogin from '@components/user/login/SocialLogin';
+import IdLogin from '@components/user/login/IdLogin';
 import PageTemplate from '@components/layout/PageTemplate';
-import LoginTitle from '@components/user/LoginTitle';
+import LoginTitle from '@components/user/login/LoginTitle';
 import { RootState } from '@/store';
 
 function Login() {

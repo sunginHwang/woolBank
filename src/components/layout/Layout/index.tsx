@@ -8,7 +8,7 @@ import Header from '@components/layout/Header';
 import AlertModal from '@components/common/modal/AlertModal';
 
 import { RootState } from '@/store';
-import { LayoutRouteProps } from '@routes/Routes';
+import { LayoutRouteProps } from '@/routes';
 import { useAlert } from '@support/hooks/useAlert';
 import { IToast } from '@models/layout/IToast';
 import { ILayoutLoading } from '@models/layout/ILayoutLoading';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import BaseInput from '@components/common/BaseInput';
 import BaseButton from '@components/common/BaseButton';
-import Index from '@components/user/LoginBox';
+import Index from '@components/user/login/LoginBox';
 
 /**
  * 일반 (id, pwd) 로그인 영역
