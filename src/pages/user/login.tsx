@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
-import SocialLoginContainer from '@containers/user/SocialLoginContainer';
-import LoginContainer from '@containers/user/LoginContainer';
+import SocialLogin from '@components/user/SocialLogin';
+import IdLogin from '@components/user/IdLogin';
 import PageTemplate from '@components/layout/PageTemplate';
 import LoginTitle from '@components/user/LoginTitle';
 import { RootState } from '@/store';
@@ -19,8 +19,8 @@ function Login() {
   return (
     <PageTemplate useHeader={false}>
       <LoginTitle />
-      <LoginContainer />
-      <SocialLoginContainer />
+      <IdLogin />
+      <SocialLogin />
     </PageTemplate>
   );
 }

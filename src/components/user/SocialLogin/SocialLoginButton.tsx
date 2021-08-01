@@ -24,12 +24,17 @@ const providerMap = {
   }
 };
 
-export interface SocialLoginButtonProps {
+interface IProps {
   provider: 'facebook' | 'google' | 'kakaoTalk';
   handleLoginClick: (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => void;
 };
 
-function SocialLoginButton({ provider, handleLoginClick }: SocialLoginButtonProps) {
+/**
+ * 소셜 로그인 버튼
+ * @component
+ */
+
+function SocialLoginButton({ provider, handleLoginClick }: IProps) {
   const socialButton = providerMap[provider];
 
   return (
@@ -38,6 +43,8 @@ function SocialLoginButton({ provider, handleLoginClick }: SocialLoginButtonProp
     </S.SocialLoginButton>
   );
 }
+
+export default SocialLoginButton;
 
 const S: {
   SocialLoginButton: any;
@@ -57,4 +64,3 @@ const S: {
   `
 };
 
-export default SocialLoginButton;

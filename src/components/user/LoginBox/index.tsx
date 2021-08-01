@@ -1,13 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export interface LoginBoxProps {
+interface IProps {
   title: string;
   type: 'normal' | 'social';
   children: React.ReactNode;
 }
 
-function LoginBox({ title, type, children }: LoginBoxProps) {
+/**
+ * 로그인 박스 영역 디자인
+ * @component
+ */
+
+function LoginBox({ title, type, children }: IProps) {
   return (
     <S.LoginBox>
       <h3>{title}</h3>

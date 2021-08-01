@@ -7,8 +7,8 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 import KaKaoLogin from 'react-kakao-login';
 import { KakaoLoginResponseV2 } from 'react-kakao-login/dist/types';
 
-import SocialLoginButton from '@components/user/SocialLoginButton';
-import LoginBox from '@components/user/LoginBox';
+import SocialLoginButton from '@components/user/SocialLogin/SocialLoginButton';
+import Index from '@components/user/LoginBox';
 
 import { RootState } from '@/store';
 import Auth from '@store/modules/Auth';
@@ -22,7 +22,13 @@ import { saveToken, setHeaderAuthToken } from '@support/util/apiCall';
 import { ITokenInfo } from '@models/ITokenInfo';
 
 const { socialAuthKey } = config;
-function SocialLoginContainer() {
+
+/**
+ * 소셜 로그인
+ * @component
+ */
+
+function SocialLogin() {
 
   const user = useSelector((state: RootState) => state.Auth.user);
   const history = useHistory();
@@ -123,10 +129,8 @@ function SocialLoginContainer() {
     return null;
   }
 
-
-
   return (
-    <LoginBox title='소셜 로그인 하기' type='social'>
+    <Index title='소셜 로그인 하기' type='social'>
       <FacebookLogin
         appId={socialAuthKey.facebook}
         fields='name,email,picture'
@@ -153,9 +157,9 @@ function SocialLoginContainer() {
         onSuccess={onKakaoTalkLogin}
         onFailure={onLoginFailure}
       />
-    </LoginBox>
+    </Index>
   );
 }
 
 
-export default SocialLoginContainer;
+export default SocialLogin;

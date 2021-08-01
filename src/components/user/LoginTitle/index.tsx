@@ -1,6 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
+/**
+ * 로그인 페이지 제목
+ * @component
+ */
+
 function LoginTitle() {
   return (
     <S.LoginTitle>
