@@ -59,7 +59,6 @@ const S: {
     justify-content: space-around;
     /*box-shadow: 0 0.2rem 0.4rem -0.1rem rgba(0, 0, 0, 0.2), 0 0.4rem 0.5rem 0 rgba(0, 0, 0, 0.14),
       0 0.1rem 1rem 0 rgba(0, 0, 0, 0.12); 그림자 효과*/
-    border-bottom: .2rem solid ${({ theme }) => theme.colors.greyL2};
     button {
       font-size: 1.4rem;
     }
@@ -68,14 +67,16 @@ const S: {
     active: boolean;
   }>`
     width: 100%;
+    height: 100%;
     font-weight: bold;
+    border-bottom: ${({ active, theme }) => active ? '' : `.2rem solid ${theme.colors.greyL2}`};
     color: ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.greyL1)};
   `,
   BottomLine: styled.span<{
     width: number;
     left: number;
   }>`
-    bottom: .5px;
+    bottom: -.1rem;
     width: ${({ width }) => width}px;
     left: ${({ left }) => left}px;
     height: .2rem;
