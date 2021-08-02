@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export interface EmptyListProps {
+interface IProps {
   message: string;
 }
 
-function EmptyList({ message }: EmptyListProps) {
+function EmptyList({ message }: IProps) {
   return <S.EmptyList>{message}</S.EmptyList>;
 }
 
-const S: { EmptyList: any } = {
+const S = {
   EmptyList: styled.div`
     display: flex;
     justify-content: center;

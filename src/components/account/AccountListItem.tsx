@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import CardItem from '@components/common/CardItem';
-
 import { getRemainDatePercentage, parseDate } from '@support/util/date';
 import { addComma } from '@support/util/String';
 import { IAccount } from '@models/IAccount';
@@ -47,12 +46,7 @@ function AccountListItem({
   );
 }
 
-const S: {
-  Top: any;
-  Content: any;
-  Bottom: any;
-  Progress: any;
-} = {
+const S = {
   Top: styled.div`
     display: flex;
     justify-content: space-between;

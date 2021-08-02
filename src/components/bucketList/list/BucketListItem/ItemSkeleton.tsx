@@ -5,7 +5,12 @@ import CardItem from '@components/common/CardItem';
 import EmptyCircle from '@components/common/EmptyCircle';
 import PlaceHolderBar from '@components/common/PlaceHolderBar';
 
-function BucketListItemSkeleton() {
+/**
+ * 버킷리스 - 리스트 아이템 스켈레톤 영역
+ * @component
+ */
+
+function ItemSkeleton() {
   return (
     <CardItem>
       <S.BucketListItem data-cy='bucketListSkeleton'>
@@ -21,10 +26,9 @@ function BucketListItemSkeleton() {
   );
 }
 
-const S: {
-  BucketListItem: any;
-  Content: any;
-} = {
+export default React.memo(ItemSkeleton);
+
+const S = {
   BucketListItem: styled.div`
     display: flex;
     align-items: center;
@@ -48,5 +52,3 @@ const S: {
     margin-left: 1.4rem;
   `
 };
-
-export default React.memo(BucketListItemSkeleton);

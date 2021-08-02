@@ -14,5 +14,4 @@ describe('<CardItem />', () => {
     const { getByText } = setup();
     expect(getByText('12').textContent).toBe('12');
   });
-
 });

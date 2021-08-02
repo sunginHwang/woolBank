@@ -48,13 +48,7 @@ function RegularExpenditureSkeleton() {
   );
 }
 
-const S: {
-  Title: any;
-  OneWeek: any;
-  List: any;
-  ListTop: any;
-  ListContent: any;
-} = {
+const S = {
   ListContent: styled.div`
     margin-top: 1rem;
   `,

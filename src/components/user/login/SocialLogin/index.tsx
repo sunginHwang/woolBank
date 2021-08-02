@@ -8,7 +8,7 @@ import KaKaoLogin from 'react-kakao-login';
 import { KakaoLoginResponseV2 } from 'react-kakao-login/dist/types';
 
 import SocialLoginButton from '@components/user/login/SocialLogin/SocialLoginButton';
-import Index from '@components/user/login/LoginBox';
+import LoginBox from '@components/user/login/LoginBox';
 
 import { RootState } from '@/store';
 import Auth from '@store/modules/Auth';
@@ -130,7 +130,7 @@ function SocialLogin() {
   }
 
   return (
-    <Index title='소셜 로그인 하기' type='social'>
+    <LoginBox title='소셜 로그인 하기' type='social'>
       <FacebookLogin
         appId={socialAuthKey.facebook}
         fields='name,email,picture'
@@ -157,7 +157,7 @@ function SocialLogin() {
         onSuccess={onKakaoTalkLogin}
         onFailure={onLoginFailure}
       />
-    </Index>
+    </LoginBox>
   );
 }
 

@@ -1,18 +1,23 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-export interface CardItemProps {
+interface IProps {
   children: ReactNode;
   useSideMargin?: boolean;
 }
 
-function CardItem({ children, useSideMargin = false }: CardItemProps) {
+/**
+ * 공통 카드 아이템 영역
+ * @component
+ */
+
+function CardItem({ children, useSideMargin = false }: IProps) {
   return <S.CardItem useSideMargin={useSideMargin}>{children}</S.CardItem>;
 }
 
-const S: {
-  CardItem: any;
-} = {
+export default CardItem;
+
+const S = {
   CardItem: styled.div<{
     useSideMargin: boolean;
   }>`
@@ -26,5 +31,3 @@ const S: {
     box-shadow: rgb(220, 220, 233) 0.1rem 0.3rem 1rem 0.3rem;
   `
 };
-
-export default CardItem;

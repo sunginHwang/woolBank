@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Tabs from '@components/common/Tabs';
-
 import { IAssetType } from '@models/IAssetType';
 
 const tabs: IAssetType[] = [
@@ -16,13 +15,18 @@ const tabs: IAssetType[] = [
   }
 ];
 
-export interface ListSkeletonProps {
+interface IProps {
   item: React.ReactNode;
   title: string;
   itemCount?: number;
 }
 
-function ListSkeleton({ item, title, itemCount = 10 }: ListSkeletonProps) {
+/**
+ * 공통 리스트 로딩 처리
+ * @component
+ */
+
+function SlideViewerSkeleton({ item, title, itemCount = 10 }: IProps) {
   return (
     <S.ListSkeleton>
       <S.Title>
@@ -40,14 +44,9 @@ function ListSkeleton({ item, title, itemCount = 10 }: ListSkeletonProps) {
   );
 }
 
-export default React.memo(ListSkeleton);
+export default React.memo(SlideViewerSkeleton);
 
-const S: {
-  ListSkeleton: any;
-  Title: any;
-  Wrapper: any;
-  Content: any;
-} = {
+const S = {
   ListSkeleton: styled.div`
     margin-top: -8.8rem;
   `,

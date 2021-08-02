@@ -11,7 +11,7 @@ import userRoutes from '@routes/user';
 
 import PageNotFound from '@pages/error/PageNotFound';
 import Layout from '@components/layout/Layout';
-import Index from '@components/main/MainPageSkeleton';
+import MainPageSkeleton from '@components/main/MainPageSkeleton';
 import ScrollToTop from '@routes/ScrollToTop';
 
 export interface LayoutRouteProps extends RouteProps {
@@ -25,7 +25,7 @@ export interface LayoutRouteProps extends RouteProps {
 const defaultRoutes: LayoutRouteProps[] = [{
   path: '/',
   key: 'mainPage',
-  component: loadable(() => import('@pages/Main'), { fallback: <Index /> }),
+  component: loadable(() => import('@pages/Main'), { fallback: <MainPageSkeleton /> }),
   exact: true
 }];
 

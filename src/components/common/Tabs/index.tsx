@@ -15,7 +15,7 @@ interface IProps {
  * @component
  */
 
-function Index({ tabs, activeTab, onChangeTab }: IProps) {
+function Tabs({ tabs, activeTab, onChangeTab }: IProps) {
   const { width } = useWindowDimensions();
 
   // 인디케이터 길이
@@ -51,11 +51,9 @@ function Index({ tabs, activeTab, onChangeTab }: IProps) {
   );
 }
 
-const S: {
-  Tabs: any;
-  Tab: any;
-  BottomLine: any;
-} = {
+export default Tabs;
+
+const S = {
   Tabs: styled.div`
     width: 100%;
     height: 3.8rem;
@@ -88,5 +86,3 @@ const S: {
     background-color: ${({ theme }) => theme.colors.redL2};
   `
 };
-
-export default Index;

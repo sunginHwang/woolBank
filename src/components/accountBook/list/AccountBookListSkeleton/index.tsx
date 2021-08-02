@@ -60,7 +60,7 @@ const S: {
     & + & {
       margin-top: 2.4rem;
     }
-  `,
+  `
 };
 
 export default AccountBookListSkeleton;

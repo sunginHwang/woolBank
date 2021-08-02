@@ -2,20 +2,28 @@ import React, { ReactNode, useState } from 'react';
 import styled from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
 
-import ListWrapper from '@components/common/ListWrapper';
 import Tabs from '@components/common/Tabs';
-
 import { IAssetType } from '@models/IAssetType';
+import SlideViewerSkeleton from './SlideViewerSkeleton';
+import EmptyList from './EmptyList';
+
 import 'swiper/swiper-bundle.min.css';
 import '@style/css/tabSlideViewer.css';
 
-export interface ITabSlideViewerProps {
+const SwipeableViewsStyle = { height: '100%' };
+
+interface IProps {
   tabs: IAssetType[];
   slideViewList: ReactNode[];
   title: string;
 }
 
-function TabSlideViewer({ tabs, slideViewList, title }: ITabSlideViewerProps) {
+/**
+ * 탭 슬라이드 리스트
+ * @component
+ */
+
+function TabSlideViewer({ tabs, slideViewList, title }: IProps) {
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [tabIndex, setTavIndex] = useState(0);
 
@@ -43,24 +51,23 @@ function TabSlideViewer({ tabs, slideViewList, title }: ITabSlideViewerProps) {
         </S.ListTitle>
         <Tabs tabs={tabs} activeTab={activeTab} onChangeTab={onTabChange} />
       </S.FixedHeader>
-      <ListWrapper>
-        <SwipeableViews index={tabIndex} onChangeIndex={onSlideTo} style={{ height: '100%' }}>
+      <S.ListWrapper>
+        <SwipeableViews index={tabIndex} onChangeIndex={onSlideTo} style={SwipeableViewsStyle}>
           {slideViewList.map((view, index) => (
             <S.ListContent key={index}>{view}</S.ListContent>
           ))}
         </SwipeableViews>
-      </ListWrapper>
+      </S.ListWrapper>
     </>
   );
 }
 
+TabSlideViewer.EmptyList = EmptyList;
+TabSlideViewer.Skeleton = SlideViewerSkeleton;
+
 export default TabSlideViewer;
 
-const S: {
-  FixedHeader: any;
-  ListTitle: any;
-  ListContent: any;
-} = {
+const S = {
   FixedHeader: styled.div`
     position: fixed;
     top: 0;
@@ -93,5 +100,8 @@ const S: {
       font-weight: 800;
       color: ${({ theme }) => theme.colors.blackL1};
     }
+  `,
+  ListWrapper: styled.div`
+    height: calc(100vh - 8.8rem);
   `
 };

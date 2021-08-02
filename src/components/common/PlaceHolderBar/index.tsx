@@ -1,18 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export interface PlaceHolderBarProps {
+interface IProps {
   width: string;
   height: string;
 }
 
-function PlaceHolderBar({ width = '100%', height = '1rem' }: PlaceHolderBarProps) {
+/**
+ * 로딩 스켈레톤 용 bar
+ * @component
+ */
+
+function PlaceHolderBar({ width = '100%', height = '1rem' }: IProps) {
   return <S.PlaceHolderBar width={width} height={height} />;
 }
 
-const S: {
-  PlaceHolderBar: any;
-} = {
+export default PlaceHolderBar;
+
+const S = {
   PlaceHolderBar: styled.div<{
     width: string;
     height: string;
@@ -24,5 +29,3 @@ const S: {
     margin-bottom: 0.5rem;
   `
 };
-
-export default PlaceHolderBar;
