@@ -1,65 +1,51 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useQuery } from 'react-query';
 
-import BucketListItem from '@components/bucketList/list/BucketListItem';
-import AccountListItem from '@components/account/AccountListItem';
 import PageTemplate from '@components/layout/PageTemplate';
 import MainPageSkeleton from '@components/main/MainPageSkeleton';
-import TotalSavedAmount from '@components/main/TotalSavedAmount';
-import AmountChart from '@components/main/AmountChart';
-import ToggleTab from '@components/common/ToggleTab';
+import TotalSaveAmount from '@components/main/TotalSaveAmount';
+import AmountCompareInfo from '@components/main/AmountCompareInfo';
+import TabList from '@components/main/ListTab';
 
 import { useAlert } from '@support/hooks/useAlert';
-import useFetch from '@support/hooks/useFetch';
+import { fetchMainInfo } from '@support/api/mainApi';
 import { IMainInfo } from '@models/main/IMainInfo';
-import { IAssetType } from '@models/IAssetType';
 
-const MAIN_LIST_TAB: IAssetType[] = [
-  {
-    type: 'account',
-    name: '저축'
-  },
-  {
-    type: 'bucketList',
-    name: '버킷'
-  }
-];
+const initInfo: IMainInfo = {
+  totalSavedAmount: 0,
+  totalSavedAmountExceptCurrentMonth: 0,
+  accounts: [],
+  bucketList: []
+};
+
+/**
+ * 메인페이지
+ * @component
+ */
 
 function Main() {
-  const [activeTab, setActiveTab] = useState<IAssetType>({
-    type: 'account',
-    name: '저축'
-  });
-
-  const [mainInfo, mainInfoLoading, mainInfoError] = useFetch<IMainInfo | null>('main', {
-    initData: null,
-    useDelay: true
-  });
-
+  const {
+    data: mainInfo = initInfo, isLoading, isError
+  } = useQuery<IMainInfo>('mainInfo', fetchMainInfo);
   const [onAlert] = useAlert();
 
-  if (!mainInfo || mainInfoLoading) {
+  if (isLoading) {
     return <MainPageSkeleton />;
   }
 
-  if (mainInfoError) {
+  if (isError) {
     onAlert('정보를 불러오지 못했습니다.');
     return null;
   }
 
   return (
     <PageTemplate isMain>
-      <TotalSavedAmount totalPrice={mainInfo.totalSavedAmount} />
-      <AmountChart
+      <TotalSaveAmount totalPrice={mainInfo.totalSavedAmount} />
+      <AmountCompareInfo
         totalPrice={mainInfo.totalSavedAmount}
         lastMonthTotalPrice={mainInfo.totalSavedAmountExceptCurrentMonth}
       />
-      <ToggleTab useListType tabs={MAIN_LIST_TAB} activeTab={activeTab} onChangeTab={setActiveTab} useOutline={false} />
-      {activeTab.type === 'account' &&
-        mainInfo.accounts.map((account, index) => <AccountListItem key={index} account={account} />)}
-      {activeTab.type === 'bucketList' &&
-        mainInfo.bucketList.map((bucket, index) => <BucketListItem key={index} bucketList={bucket} />)}
-      {/*여기는 수정 필요 (컴포넌트 대체 */}
-      <div style={{ marginTop: '8.5rem', height: '1rem' }} />
+      <TabList accounts={mainInfo.accounts} bucketList={mainInfo.bucketList} />
     </PageTemplate>
   );
 }

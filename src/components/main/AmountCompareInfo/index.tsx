@@ -3,20 +3,24 @@ import styled from 'styled-components';
 
 import { addComma } from '@support/util/String';
 
-export interface AmountChartProps {
+interface IProps {
   totalPrice: number;
   lastMonthTotalPrice: number;
 }
 
-function AmountChart({ totalPrice, lastMonthTotalPrice }: AmountChartProps) {
+/**
+ * 메인페이지 - 자산 증감내역 비교 정보
+ * @component
+ */
+
+function AmountCompareInfo({ totalPrice, lastMonthTotalPrice }: IProps) {
   const isIncreaseAsset = totalPrice > lastMonthTotalPrice;
   const isEqualAsset = totalPrice === lastMonthTotalPrice;
 
   return (
-    <S.AmountChart>
-      {isEqualAsset ? (
-        <p>지날달과 동일한 자산입니다.</p>
-      ) : (
+    <S.AmountCompareInfo>
+      {isEqualAsset && <p>지날달과 동일한 자산입니다.</p>}
+      {!isEqualAsset && (
         <>
           <p>지난달 대비</p>
           <p>
@@ -25,14 +29,14 @@ function AmountChart({ totalPrice, lastMonthTotalPrice }: AmountChartProps) {
           </p>
         </>
       )}
-    </S.AmountChart>
+    </S.AmountCompareInfo>
   );
 }
 
-const S: {
-  AmountChart: any;
-} = {
-  AmountChart: styled.div`
+export default AmountCompareInfo;
+
+const S = {
+  AmountCompareInfo: styled.div`
     padding: 2rem 0 2rem 0;
     
     > p {
@@ -47,5 +51,3 @@ const S: {
     }
   `
 };
-
-export default AmountChart;

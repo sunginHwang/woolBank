@@ -3,26 +3,30 @@ import styled from 'styled-components';
 
 import AccountListItemSkeleton from '@components/account/list/AccountListItemSkeleton';
 import PageTemplate from '@components/layout/PageTemplate';
-import TotalSavedAmount from '@components/main/TotalSavedAmount';
+import TotalSaveAmount from '@components/main/TotalSaveAmount';
+
+/**
+ * 메인페이지 - 로딩 스켈레톤 영역
+ * @component
+ */
 
 function MainPageSkeleton() {
+  const render3Skeleton = [...Array(3)];
   return (
     <PageTemplate isMain>
-      <TotalSavedAmount useSkeleton />
+      <TotalSaveAmount isLoading />
       <S.EmptyArea />
-      {[...Array(3)].map((_, key) => (
+      {render3Skeleton.map((_, key) => (
         <AccountListItemSkeleton key={key} />
       ))}
     </PageTemplate>
   );
 }
 
-const S: {
-  EmptyArea: any;
-} = {
+export default MainPageSkeleton;
+
+const S = {
   EmptyArea: styled.div`
     padding-top: 15rem;
   `
 };
-
-export default MainPageSkeleton;
