@@ -4,7 +4,7 @@ import { LayoutRouteProps } from '@routes/index';
 
 import PageTemplate from '@components/layout/PageTemplate';
 
-const AccountList = loadable(() => import('@pages/account/AccountList'), {
+const AccountList = loadable(() => import('@pages/account/AccountListPage'), {
   fallback: <PageTemplate useHeader={false} topPadding={8.8} useSidePadding={false} />
 });
 const AccountDetail = loadable(() => import('@pages/account/AccountDetail'), {
@@ -17,18 +17,18 @@ const accounts: LayoutRouteProps[] = [{
   path: '/accounts',
   key: 'accountListPage',
   component: AccountList,
-  exact: true,
-},{
+  exact: true
+}, {
   path: '/accounts/save',
   key: 'accountRegisterPage',
   component: AccountRegister,
-  exact: true,
-},{
+  exact: true
+}, {
   path: '/accounts/:accountId',
   key: 'accountDetailPage',
   component: AccountDetail,
   exact: true,
-  useNavBar: false,
+  useNavBar: false
 }];
 
 export default accounts;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import ToggleTab from '@components/common/ToggleTab';
-import AccountListItem from '@components/account/AccountListItem';
+import AccountListItem from '@components/account/list/AccountListItem';
 import BucketListItem from '@components/bucketList/list/BucketListItem';
 import { IAssetType } from '@models/IAssetType';
 import { IAccount } from '@models/IAccount';

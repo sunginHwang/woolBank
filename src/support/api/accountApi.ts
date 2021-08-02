@@ -3,8 +3,9 @@ import { ApiResType } from '@models/api/ApiResType';
 import { IAccountForm } from '@models/IAccountForm';
 import apiCall from '@support/util/apiCall';
 
-export const fetchAccountList = () => {
-  return apiCall.get<ApiResType<IAccount[]>>('/accounts');
+export const fetchAccountList = async (): Promise<IAccount[]> => {
+  const response = await apiCall.get<ApiResType<IAccount[]>>('/accounts');
+  return response.data.data;
 };
 
 export const getAccountListLastUpdatedAt = () => {

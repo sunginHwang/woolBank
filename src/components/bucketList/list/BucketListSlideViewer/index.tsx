@@ -33,13 +33,11 @@ function BucketListSlideViewer() {
 }
 
 function renderList(status: 'complete' | 'progress', list: IBucketList[]) {
-  if (list.length === 0) {
+  const listWithFilter = list.filter(item => status === 'complete' ? item.isComplete : !item.isComplete);
+
+  if (listWithFilter.length === 0) {
     return <TabSlideViewer.EmptyList message={emptyMsg[status]} />;
   }
-
-  const listWithFilter = list.filter(item => {
-    return status === 'complete' ? item.isComplete : !item.isComplete;
-  });
 
   return listWithFilter.map((item) => <BucketListItem key={item.id} bucketList={item} useSideMargin />);
 }

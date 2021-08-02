@@ -7,7 +7,6 @@ import DepositDate from '@components/account/detail/DepositDate';
 import ConfirmModal from '@components/common/modal/ConfirmModal';
 
 import { RootState } from '@/store';
-import { getAccountList } from '@store/modules/AccountList';
 import accountDetailModule, { getAccount } from '@store/modules/AccountDetail';
 import { useToggle } from '@support/hooks/useToggle';
 import useRequest from '@support/hooks/useRequest';
@@ -49,8 +48,7 @@ function AccountDetailModalContainer({
     await onRemoveRequest({
       params: [accountId],
       onSuccess: () => {
-        // 삭제 후 리스트 싱크를 위한 조회
-        dispatch(getAccountList());
+        // todo 삭제 후 리스트 싱크를 위한 조회
         // 캐시 내역 삭제
         dispatch(accountDetailModule.actions.removeAccountDetail(accountId));
         onToast('삭제되었습니다.');

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import AccountListItemSkeleton from '@components/account/list/AccountListItemSkeleton';
+import AccountListItemSkeleton from '@components/account/list/AccountListItem/ItemSkeleton';
 import PageTemplate from '@components/layout/PageTemplate';
 import TotalSaveAmount from '@components/main/TotalSaveAmount';
 

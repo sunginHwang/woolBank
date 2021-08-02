@@ -6,16 +6,24 @@ import CardItem from '@components/common/CardItem';
 import { getRemainDatePercentage, parseDate } from '@support/util/date';
 import { addComma } from '@support/util/String';
 import { IAccount } from '@models/IAccount';
+import ItemSkeleton from './ItemSkeleton';
 
-export interface WalletListItemProps {
+interface IProps {
   account: IAccount;
   useSideMargin?: boolean;
-};
+}
 
-function AccountListItem({
-  account: { id, title, startDate, savingType, endDate, amount, currentAmount },
-  useSideMargin = false
-}: WalletListItemProps) {
+/**
+ * 예적금 리스트아이템
+ * @component
+ */
+
+function AccountListItem(props: IProps) {
+  const {
+    account: { id, title, startDate, savingType, endDate, amount, currentAmount },
+    useSideMargin = false
+  } = props;
+
   const remainPercent = getRemainDatePercentage(startDate, endDate);
 
   return (
@@ -45,6 +53,10 @@ function AccountListItem({
     </Link>
   );
 }
+
+AccountListItem.Skeleton = ItemSkeleton;
+
+export default AccountListItem;
 
 const S = {
   Top: styled.div`
@@ -113,5 +125,3 @@ const S = {
     }
   `
 };
-
-export default React.memo(AccountListItem);

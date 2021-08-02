@@ -3,7 +3,12 @@ import styled from 'styled-components';
 import CardItem from '@components/common/CardItem';
 import PlaceHolderBar from '@components/common/PlaceHolderBar';
 
-function AccountListItemSkeleton() {
+/**
+ * 예적금 리스트아이템 로딩 스켈레톤
+ * @component
+ */
+
+function ItemSkeleton() {
   return (
     <CardItem>
       <S.Top>
@@ -24,12 +29,9 @@ function AccountListItemSkeleton() {
   );
 }
 
-const S: {
-  Top: any;
-  Content: any;
-  Bottom: any;
-  Progress: any;
-} = {
+export default React.memo(ItemSkeleton);
+
+const S = {
   Top: styled.div`
     display: flex;
     justify-content: space-between;
@@ -48,5 +50,3 @@ const S: {
     margin-top: 1.6rem;
   `
 };
-
-export default React.memo(AccountListItemSkeleton);

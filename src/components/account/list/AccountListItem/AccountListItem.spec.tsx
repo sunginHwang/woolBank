@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AccountListItem from '@components/account/AccountListItem';
+import AccountListItem from '@components/account/list/AccountListItem/index';
 
 import { INSTALLMENT_SAVINGS, TAX_TYPE } from '@support/constants';
 import withThemeRender from '@support/test/withThemeRender';
