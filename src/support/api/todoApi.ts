@@ -2,20 +2,24 @@ import apiCall from '@support/util/apiCall';
 import { ApiResType } from '@models/api/ApiResType';
 import { ITodo } from '@models/ITodo';
 
-export const saveTodo = (bucketListId: number, todo: ITodo) => {
-  return apiCall.post<ApiResType<number>>('/todo', {
+export const saveTodo = async (bucketId: number, todo: ITodo) => {
+  const res = await apiCall.post<ApiResType<number>>('/todo', {
     title: todo.title,
     isComplete: todo.isComplete,
-    bucketListId
+    bucketListId: bucketId
   });
+
+  return res.data.data;
 };
 
-export const removeTodo = (todoId: number) => {
-  return apiCall.delete<ApiResType<number>>(`/todo/${todoId}`);
+export const removeTodo = async (todoId: number) => {
+  const res = await apiCall.delete<ApiResType<number>>(`/todo/${todoId}`);
+  return res.data.data;
 };
 
-export const updateTodoState = (todoId: number, isComplete: boolean) => {
-  return apiCall.put<ApiResType<number>>(`/todo/${todoId}`, {
+export const updateTodoState = async (todoId: number, isComplete: boolean) => {
+  const res = await apiCall.put<ApiResType<number>>(`/todo/${todoId}`, {
     isComplete
   });
+  return res.data.data;
 };

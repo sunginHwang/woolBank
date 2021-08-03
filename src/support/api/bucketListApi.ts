@@ -1,7 +1,7 @@
 import apiCall from '@support/util/apiCall';
 import { ApiResType } from '@models/api/ApiResType';
 import { IBucketList } from '@models/IBucketList';
-import { IBucketListDetail } from '@models/bucketList/IBucketListDetail';
+import { IBucket } from '@models/bucketList/IBucket';
 import { IBucketListForm } from '@models/bucketList/IBucketListForm';
 
 export const fetchBucketList = async () => {
@@ -13,8 +13,9 @@ export const fetchBucketListByPass = async () => {
   return await apiCall.get<ApiResType<IBucketList>>('bucket-list');
 };
 
-export const fetchBucketListDetail = async (bucketListId: number) => {
-  return await apiCall.get<ApiResType<IBucketListDetail>>(`bucket-list/${bucketListId}`);
+export const fetchBucket = async (bucketId: number) => {
+  const res = await apiCall.get<ApiResType<IBucket>>(`bucket-list/${bucketId}`);
+  return res.data.data;
 };
 
 export const getBucketListLastUpdatedAt = () => {
