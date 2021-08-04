@@ -1,32 +1,34 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 import IcoBlackCircle from '@components/icon/IcoBlackCircle';
 
 import palette from '@style/palette';
 import useInput from '@support/hooks/UseInput';
+import useMount from '@support/hooks/useMount';
 
-export interface TodoInputProps {
+interface IProps {
   onAdd: (title: string) => void;
   onClose: () => void;
   onFocusIn: () => void;
   onFocusOut: () => void;
 }
 
-function TodoInput({ onAdd, onClose, onFocusIn, onFocusOut }: TodoInputProps) {
+/**
+ * todo input 영역
+ * @component
+ */
+
+function TodoInput({ onAdd, onClose, onFocusIn, onFocusOut }: IProps) {
   const [title, onChangeTitle] = useInput('');
   const todoInputRef = useRef<HTMLInputElement>(null);
 
-  /**
-   * 컴포넌트 생성시 바로 포커스 UX 처리
-   */
-  useEffect(() => {
+  // 컴포넌트 생성시 바로 포커스 UX 처리
+  useMount(() => {
     todoInputRef.current && todoInputRef.current.focus();
-  }, []);
+  });
 
-  /**
-   * 인풋 버튼 키보드 입력
-   */
+  // 인풋 버튼 키보드 입력
   const onTitleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') {
       return null;
@@ -35,9 +37,7 @@ function TodoInput({ onAdd, onClose, onFocusIn, onFocusOut }: TodoInputProps) {
     onAddTodo();
   };
 
-  /**
-   * Todo 추가
-   */
+  // 할일 추가
   const onAddTodo = () => {
     if (title !== '') {
       onAdd(title);
@@ -70,14 +70,9 @@ function TodoInput({ onAdd, onClose, onFocusIn, onFocusOut }: TodoInputProps) {
   );
 }
 
-const S: {
-  TodoInput: any;
-  Input: any;
-  Footer: any;
-  Button: any;
-} = {
+const S = {
   Button: styled.button<{
-    isCancel: boolean;
+    isCancel?: boolean;
   }>`
     padding: 0.7rem 1rem;
     border-radius: 0.5rem;

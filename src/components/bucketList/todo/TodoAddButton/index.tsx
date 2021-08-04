@@ -11,10 +11,12 @@ export interface AddTodoButtonProps {
   onClick?: (e: React.ChangeEvent<HTMLButtonElement>) => void;
 }
 
+/**
+ * todo 추가 버튼
+ * @component
+ */
+
 function TodoAddButton({ loading = false, onClick }: AddTodoButtonProps) {
-  /**
-   * todo 추가 하기
-   **/
   const onAddClick = (e: React.ChangeEvent<HTMLButtonElement>) => {
     // 로딩중 && 비활성화 상태 일시 버튼 클릭  안되도록
     if (!loading && onClick) {
@@ -28,6 +30,8 @@ function TodoAddButton({ loading = false, onClick }: AddTodoButtonProps) {
     </S.TodoAddButton>
   );
 }
+
+export default TodoAddButton;
 
 const S: {
   TodoAddButton: any;
@@ -44,5 +48,3 @@ const S: {
     color: ${({ theme }) => theme.colors.mainColor};
   `
 };
-
-export default TodoAddButton;

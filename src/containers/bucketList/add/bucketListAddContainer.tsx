@@ -143,7 +143,7 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
   };
 
   /**
-   * TodoList 작성
+   * Index 작성
    **/
   const onChangeTodoList = (todoList: any) => {
     dispatch({ type: 'SET_TODO_LIST', payload: { todoList } });

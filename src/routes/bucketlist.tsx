@@ -17,9 +17,9 @@ const bucketList: LayoutRouteProps[] = [{
   component: loadable(() => import('@pages/bucketList/BucketListSave'), defaultFallback),
   exact: true
 }, {
-  path: '/bucket-list/:bucketListId',
+  path: '/bucket-list/:bucketId',
   key: 'bucketListDetailPage',
-  component: loadable(() => import('@pages/bucketList/BucketListDetail'), defaultFallback),
+  component: loadable(() => import('@pages/bucketList/BucketDetailPage'), defaultFallback),
   useNavBar: false
 }];
 

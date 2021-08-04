@@ -1,6 +1,6 @@
 import { ITodo } from '@models/ITodo';
 
-export interface IBucketListDetail {
+export interface IBucket {
   id: number;
   title: string;
   description: string;

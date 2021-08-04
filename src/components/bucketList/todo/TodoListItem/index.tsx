@@ -9,7 +9,7 @@ import IcoBlackCircle from '@components/icon/IcoBlackCircle';
 import palette from '@style/palette';
 import { ITodo } from '@models/ITodo';
 
-export interface TodoListItemProps {
+interface IProps {
   todo: ITodo;
   isLoading?: boolean;
   isFreeze?: boolean;
@@ -17,10 +17,14 @@ export interface TodoListItemProps {
   onRemove: (id: number) => void;
 }
 
-function TodoListItem({ todo, isLoading = false, isFreeze = false, onToggleState, onRemove }: TodoListItemProps) {
-  /**
-   * todo 완료 상태 토글
-   */
+/**
+ * 할일 리스트 아이템 요소
+ * @component
+ */
+
+function TodoListItem(props: IProps) {
+  const { todo, isLoading = false, isFreeze = false, onToggleState, onRemove } = props;
+
   const onToggleStateClick = useCallback(
     (e: React.MouseEvent<HTMLLIElement>) => {
       if (isLoading || isFreeze) {
@@ -32,9 +36,6 @@ function TodoListItem({ todo, isLoading = false, isFreeze = false, onToggleState
     [todo, onToggleState, isLoading, isFreeze]
   );
 
-  /**
-   * todo 삭제
-   */
   const onRemoveClick = useCallback(() => {
     onRemove(todo.id);
   }, [todo, onRemove]);
@@ -64,10 +65,9 @@ function TodoListItem({ todo, isLoading = false, isFreeze = false, onToggleState
   );
 }
 
-const S: {
-  TodoListItem: any;
-  ListTitle: any;
-} = {
+export default TodoListItem;
+
+const S = {
   TodoListItem: styled.li`
     display: flex;
     padding: 1.5rem;
@@ -100,5 +100,3 @@ const S: {
     margin-left: 1rem;
   `
 };
-
-export default TodoListItem;

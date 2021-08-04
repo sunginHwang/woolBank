@@ -3,9 +3,9 @@ import _ from 'lodash';
 
 import { AsyncState } from '@models/redux';
 import { IBucketList } from '@models/IBucketList';
-import { IBucketListDetail } from '@models/bucketList/IBucketListDetail';
+import { IBucket } from '@models/bucketList/IBucket';
 import { ITodo } from '@models/ITodo';
-import { fetchBucketListByPass, fetchBucketListDetail } from '@support/api/bucketListApi';
+import { fetchBucketListByPass, fetchBucket } from '@support/api/bucketListApi';
 import Layout from '@store/modules/Layout';
 import { delay } from '@support/util/delay';
 
@@ -24,10 +24,10 @@ export const getBucketListDetail = createAsyncThunk(
   `${name}/getBucketListDetail`,
   async (bucketListId: number, { rejectWithValue, dispatch }) => {
     try {
-      const bucketListDetail = await fetchBucketListDetail(bucketListId);
+      const bucketListDetail = await fetchBucket(bucketListId);
       // ux 로딩용 딜레이
       await delay(400);
-      return bucketListDetail.data.data;
+      return bucketListDetail;
     } catch (e) {
       dispatch(Layout.actions.setErrorStatusCode(e.response.data.status));
       return rejectWithValue(e.response.data);
@@ -38,8 +38,8 @@ export const getBucketListDetail = createAsyncThunk(
 export type BucketListState = {
   bucketList: AsyncState<IBucketList[]>;
   lastUpdatedDate: null | Date; // 리스트중 가장 마지막 업데이트된 시각 (캐싱용)
-  bucketListDetail: AsyncState<null | IBucketListDetail>;
-  bucketListDetailCache: IBucketListDetail[];
+  bucketListDetail: AsyncState<null | IBucket>;
+  bucketListDetailCache: IBucket[];
 };
 
 const initialState: BucketListState = {
@@ -68,7 +68,7 @@ export default createSlice({
       bucketListDetailCacheList.splice(removeIndex, 1);
       state.bucketListDetailCache = bucketListDetailCacheList;
     },
-    setBucketListDetail: (state, action: PayloadAction<IBucketListDetail>) => {
+    setBucketListDetail: (state, action: PayloadAction<IBucket>) => {
       state.bucketListDetail.data = action.payload;
     },
     clearBucketListDetail: (state) => {
@@ -126,7 +126,7 @@ export default createSlice({
     [getBucketListDetail.pending.type]: (state) => {
       state.bucketListDetail.loading = true;
     },
-    [getBucketListDetail.fulfilled.type]: (state, action: PayloadAction<IBucketListDetail>) => {
+    [getBucketListDetail.fulfilled.type]: (state, action: PayloadAction<IBucket>) => {
       const bucketListDetail = _.merge(action.payload, {
         completeDate: new Date(action.payload.completeDate),
         createdAt: new Date(action.payload.createdAt),

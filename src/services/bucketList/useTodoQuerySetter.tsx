@@ -15,7 +15,9 @@ function useTodoQuerySetter(bucketId: number) {
 
   const removeMutation = useMutation(removeTodo);
   const saveMutation = useMutation((todo: ITodo) => saveTodo(bucketId, todo));
-  const updateStateMutation = useMutation(({ todoId, isComplete }: { todoId: number, isComplete: boolean }) => updateTodoState(todoId, isComplete));
+  const updateStateMutation = useMutation(({ todoId, isComplete }: { todoId: number, isComplete: boolean }) => {
+    return updateTodoState(todoId, isComplete);
+  });
 
   const onError = () => onToast(ERROR_MSG);
 
@@ -36,8 +38,8 @@ function useTodoQuerySetter(bucketId: number) {
   };
 
   // todo 삭제
-  const onRemoveTodo = (todoId: number) => {
-    const isConfirm = openConfirm({ message: '정말 삭제하시겠습니까?' });
+  const onRemoveTodo = async (todoId: number) => {
+    const isConfirm = await openConfirm({ message: '정말 삭제하시겠습니까?' });
 
     isConfirm && removeMutation.mutate(todoId, {
       onSuccess: () => {

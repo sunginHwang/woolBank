@@ -2,14 +2,14 @@ import apiCall from '@support/util/apiCall';
 import { ApiResType } from '@models/api/ApiResType';
 import { ITodo } from '@models/ITodo';
 
-export const saveTodo = async (bucketId: number, todo: ITodo) => {
-  const res = await apiCall.post<ApiResType<number>>('/todo', {
+export const saveTodo = async (bucketId: number, todo: ITodo): Promise<number> => {
+  const res = await apiCall.post<ApiResType<{ todoId: number }>>('/todo', {
     title: todo.title,
     isComplete: todo.isComplete,
     bucketListId: bucketId
   });
 
-  return res.data.data;
+  return res.data.data.todoId;
 };
 
 export const removeTodo = async (todoId: number) => {

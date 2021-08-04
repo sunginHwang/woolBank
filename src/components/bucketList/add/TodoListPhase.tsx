@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 import PhaseTemplate from '@components/common/PhaseTemplate';
 import BottomButton from '@components/common/BottomButton';
-import TodoAddButton from '@components/todo/TodoAddButton';
+import TodoAddButton from '@components/bucketList/todo/TodoAddButton';
 import LabelText from '@components/common/LabelText';
-import TodoListItem from '@components/todo/TodoListItem';
+import TodoListItem from '@components/bucketList/todo/TodoListItem';
 import SubLabelText from '@components/common/SubLabelText';
-import TodoInput from '@components/todo/TodoInput';
+import TodoInput from '@components/bucketList/todo/TodoInput';
 
 import { useToggle } from '@support/hooks/useToggle';
 import { IPhase } from '@models/phase/IPhase';

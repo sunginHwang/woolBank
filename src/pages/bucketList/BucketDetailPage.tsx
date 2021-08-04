@@ -2,12 +2,12 @@ import React from 'react';
 import { useParams } from 'react-router';
 
 import BucketListDetailContainer from '@containers/bucketList/detail/BucketListDetailContainer';
-import BucketListTodoContainer from '@containers/bucketList/detail/BucketListTodoContainer';
+import TodoInfo from '@components/bucketList/detail/TodoInfo';
 import PageTemplate from '@components/layout/PageTemplate';
 import { useToggle } from '@support/hooks/useToggle';
 
-function BucketListDetail() {
-  const { bucketListId } = useParams();
+function BucketDetailPage() {
+  const { bucketId } = useParams();
   const [showCompleteButton, onShowCompleteButton, offShowCompleteButton] = useToggle(true);
 
   const setShowCompleteButton = (toggle: boolean) => {
@@ -16,10 +16,10 @@ function BucketListDetail() {
 
   return (
     <PageTemplate useHeader={false} useSidePadding={false}>
-      <BucketListDetailContainer bucketListId={Number(bucketListId)} showCompleteButton={showCompleteButton} />
-      <BucketListTodoContainer bucketListId={Number(bucketListId)} onToggleShowCompleteButton={setShowCompleteButton} />
+      <BucketListDetailContainer bucketListId={Number(bucketId)} showCompleteButton={showCompleteButton} />
+      <TodoInfo bucketId={Number(bucketId)} onToggleShowCompleteButton={setShowCompleteButton} />
     </PageTemplate>
   );
 }
 
-export default BucketListDetail;
+export default BucketDetailPage;
