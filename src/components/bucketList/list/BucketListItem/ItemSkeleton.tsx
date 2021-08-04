@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import CardItem from '@components/common/CardItem';
 import EmptyCircle from '@components/common/EmptyCircle';
-import PlaceHolderBar from '@components/common/PlaceHolderBar';
+import PlaceHolderBar from '@components/atoms/PlaceHolderBar';
 
 /**
  * 버킷리스 - 리스트 아이템 스켈레톤 영역

@@ -4,9 +4,9 @@ import { format } from 'date-fns';
 import styled from 'styled-components';
 
 import Form from '@components/atoms/Form';
-import BaseInput from '@components/common/BaseInput';
+import BaseInput from '@components/atoms/BaseInput';
 import ToggleTab from '@components/common/ToggleTab';
-import BaseButton from '@components/common/BaseButton';
+import Button from '@components/atoms/Button';
 import IcoTrashCan from '@components/icon/IcoTrashCan';
 import { useConfirm } from '@components/common/Confirm/ConfirmService';
 import SelectModalList from '@components/accountBook/save/SaveForm/SelectModalList';
@@ -161,7 +161,7 @@ function SaveForm({ isInsertMode, onRemove, onFormSubmit, saveForm = initForm }:
           <S.CloseButton onClick={onRemoveClick}>
             <IcoTrashCan />
           </S.CloseButton>
-          <BaseButton
+          <Button
             message={isInsertMode ? '작성하기' : '수정하기'}
             size='full'
             color='red'

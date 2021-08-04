@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import NavigationBar from '@components/layout/NavigationBar';
 import SpinnerLoading from '@components/common/SpinnerLoading';
-import Toast from '@components/common/Toast';
+import Toast from '@components/atoms/Toast';
 import Header from '@components/layout/Header';
 import AlertModal from '@components/common/modal/AlertModal';
 

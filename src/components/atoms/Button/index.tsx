@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { ClipLoader } from 'react-spinners';
+
 import palette from '@style/palette';
 import hexToRgb from '@support/util/hexToRgb';
 
@@ -18,7 +19,7 @@ type sizeSchemeType = {
   radius?: string;
 };
 
-export interface BaseButtonProps {
+interface IProps {
   // data attribute
   dataType?: string;
   // name attribute
@@ -42,16 +43,18 @@ export interface BaseButtonProps {
  * @component
  */
 
-function BaseButton({
-  dataType,
-  message,
-  color,
-  size,
-  name,
-  loading = false,
-  active = true,
-  onClick
-}: BaseButtonProps) {
+function Button(props: IProps) {
+  const {
+    dataType,
+    message,
+    color,
+    size,
+    name,
+    loading = false,
+    active = true,
+    onClick
+  } = props;
+
   const colorScheme: colorSchemeType = useMemo(() => {
     const result = { bgColor: '', color: '', disableColor: '' };
 
@@ -142,4 +145,4 @@ const S: {
   `
 };
 
-export default BaseButton;
+export default Button;

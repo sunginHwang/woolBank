@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Progress from '@components/common/Progress';
+import Progress from '@components/atoms/Progress';
 
 import { IAccount } from '@models/IAccount';
 import { getRemainDatePercentage, parseDate } from '@support/util/date';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PhaseTemplate from '@components/common/PhaseTemplate';
 import BaseSlider from '@components/common/BaseSlider';
-import BaseButton from '@components/common/BaseButton';
+import Button from '@components/atoms/Button';
 import ToggleTab from '@components/common/ToggleTab';
 
 import { INSTALLMENT_SAVINGS_TAX } from '@support/constants';
@@ -101,7 +101,7 @@ function RateAddPhase({ isActivePhase, accountForm, goPrevPhase, goNextPhase, on
             </S.Rate>
           )}
           <S.Complete>
-            <BaseButton message='다음단계' name='rateComplete' color='red' size='full' active onClick={onCompleteClick} />
+            <Button message='다음단계' name='rateComplete' color='red' size='full' active onClick={onCompleteClick} />
           </S.Complete>
         </div>
       </S.AddRatePhase>

@@ -8,11 +8,11 @@ import { SAVING_TYPE } from '@support/constants';
 import { getKoMonth, parseDate } from '@support/util/date';
 
 import AccountSavingTypeModal from '@components/account/list/addPhase/AccountSavingTypeModal';
-import BaseInput from '@components/common/BaseInput';
+import BaseInput from '@components/atoms/BaseInput';
 import DateModal from '@components/common/modal/DateModal';
 import PhaseTemplate from '@components/common/PhaseTemplate';
 import BaseSlider from '@components/common/BaseSlider';
-import BaseButton from '@components/common/BaseButton';
+import Button from '@components/atoms/Button';
 
 type modalType = 'savingType' | 'startDate' | '';
 
@@ -196,7 +196,7 @@ function AccountInfoPhase({
           </S.AssetMonth>
         </S.Content>
         <S.Complete>
-          <BaseButton
+          <Button
             message='작성하기'
             name='accountInfoCompleteButton'
             color='red'

@@ -2,7 +2,7 @@ import React, { ReactNode, useMemo } from 'react';
 import styled from 'styled-components';
 import { format, getYear } from 'date-fns';
 
-import Label from '@components/common/Label';
+import Label from '@components/atoms/Label';
 import DateModal from '@components/common/modal/DateModal';
 import BottomMenuModal from '@components/common/modal/BottomMenuModal';
 import { useToggle } from '@support/hooks/useToggle';

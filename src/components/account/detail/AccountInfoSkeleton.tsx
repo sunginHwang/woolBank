@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import PlaceHolderBar from '@components/common/PlaceHolderBar';
-import Progress from '@components/common/Progress';
+import PlaceHolderBar from '@components/atoms/PlaceHolderBar';
+import Progress from '@components/atoms/Progress';
 
 import palette from '@style/palette';
 

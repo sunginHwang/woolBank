@@ -1,5 +1,5 @@
 import React from 'react';
-import PlaceHolderBar from '@components/common/PlaceHolderBar';
+import PlaceHolderBar from '@components/atoms/PlaceHolderBar';
 
 /**
  * 버킷리스트 상세 - 할일 로딩 리스트

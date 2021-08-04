@@ -1,5 +1,5 @@
 import React from 'react';
-import PlaceHolderBar from '@components/common/PlaceHolderBar';
+import PlaceHolderBar from '@components/atoms/PlaceHolderBar';
 
 /**
  * 메인페이지 - 저축금 정보 로딩창

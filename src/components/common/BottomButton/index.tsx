@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import BaseButton from '@components/common/BaseButton';
+import Button from '@components/atoms/Button';
 
 interface IProps {
   // 버튼 메세지
@@ -36,7 +36,7 @@ function ButtonBottom(props: IProps) {
 
   return (
     <S.Bottom>
-      <BaseButton
+      <Button
         name='bottomButton'
         color='red'
         size='wideFull'

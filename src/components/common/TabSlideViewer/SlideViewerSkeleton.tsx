@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Tabs from '@components/common/Tabs';
+import Tabs from '@components/atoms/Tabs';
 import { IAssetType } from '@models/IAssetType';
 
 const tabs: IAssetType[] = [

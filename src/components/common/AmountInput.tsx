@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import BaseButton from '@components/common/BaseButton';
+import Button from '@components/atoms/Button';
 
 export interface AmountInputProps {
   visible?: boolean;
@@ -42,7 +42,7 @@ function AmountInput({ useCompleteBtn = false, isZeroAmount, onNumberClick, onRi
             <S.InputTd data-cy='number_0' data-number={0} onClick={onNumberClick}>0</S.InputTd>
             { useCompleteBtn && (
               <S.InputTd data-cy='numberComplete' isHide={isZeroAmount} isSmall={true} onClick={onRightBottomClick}>
-                {!isZeroAmount && <S.SaveButton><BaseButton message='확인' color='red' size='full'/></S.SaveButton>}
+                {!isZeroAmount && <S.SaveButton><Button message='확인' color='red' size='full'/></S.SaveButton>}
               </S.InputTd>)
             }
             {

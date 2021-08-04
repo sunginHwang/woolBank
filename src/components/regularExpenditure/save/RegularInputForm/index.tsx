@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 
-import BaseInput from '@components/common/BaseInput';
+import BaseInput from '@components/atoms/BaseInput';
 import Form from '@components/atoms/Form';
 import { addComma } from '@support/util/String';
 

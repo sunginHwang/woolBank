@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import DownSlide from '@components/common/DownSlide';
-import BaseButton from '@components/common/BaseButton';
+import Button from '@components/atoms/Button';
 import PhaseTemplate from '@components/common/PhaseTemplate';
 
 import { addComma } from '@support/util/String';
@@ -105,7 +105,7 @@ function ConfirmPhase({
           </span>
         </S.Info>
         <S.Complete>
-          <BaseButton
+          <Button
             message='예/적금 만들기'
             color='red'
             size='full'

@@ -2,7 +2,7 @@ import React, { ChangeEvent, useCallback } from 'react';
 import styled from 'styled-components';
 
 import Form from '@components/atoms/Form';
-import BaseInput from '@components/common/BaseInput';
+import BaseInput from '@components/atoms/BaseInput';
 import ToggleTab from '@components/common/ToggleTab';
 import DateSelectModal from '@components/common/modal/DateSelectModal';
 import NumberInputModal from '@components/common/modal/NumbetInputModal';
@@ -54,7 +54,6 @@ interface ITitleProps extends IInputEvent{
   title: string;
 }
 
-
 /**
  * 제목 입력
  * @component
@@ -86,7 +85,7 @@ interface IRegularDateProps extends IInputEvent, IModalProps{
  */
 
 function RegularDate(props: IRegularDateProps) {
-  const { regularDate, onClear, onInputClick, openModalName, onCompleteModal, onCloseModal} = props;
+  const { regularDate, onClear, onInputClick, openModalName, onCompleteModal, onCloseModal } = props;
 
   // 지출 타입 선택 이벤트
   const onSelectRegularDate = (date: number) => {
@@ -154,7 +153,6 @@ function Amount(props: IAmountProps) {
     </>
   );
 }
-
 
 interface ICategoryProps extends IInputEvent, IModalProps{
   category: IAccountBookCategory;

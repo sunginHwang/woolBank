@@ -1,7 +1,7 @@
 import React from 'react';
 import useInputs from '@support/hooks/UseInputs';
 import { useToggle } from '@support/hooks/useToggle';
-import BaseButton from '@components/common/BaseButton';
+import Button from '@components/atoms/Button';
 import styled from 'styled-components';
 
 // 12시간
@@ -56,7 +56,7 @@ function TimePicker({ time, onChangeTime }: IProps) {
       </div>
       {!isValidTime && <S.ValidMsg>올바른 시간을 입력해 주세요.</S.ValidMsg>}
       <S.ConfirmArea>
-        <BaseButton message='확인' color='red' size='sm' onClick={onConfirmClick} />
+        <Button message='확인' color='red' size='sm' onClick={onConfirmClick} />
       </S.ConfirmArea>
     </S.TimePicker>
   );

@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import * as _ from 'lodash';
 
 import PageHeader from '@components/common/PageHeader';
-import Progress from '@components/common/Progress';
+import Progress from '@components/atoms/Progress';
 import IcoDowHorizontal from '@components/icon/IcoDotHorizontal';
-import PlaceHolderBar from '@components/common/PlaceHolderBar';
+import PlaceHolderBar from '@components/atoms/PlaceHolderBar';
 
 import { getRemainDatePercentage, remainDays } from '@support/util/date';
 import useEventListener from '@support/hooks/useEventListener';

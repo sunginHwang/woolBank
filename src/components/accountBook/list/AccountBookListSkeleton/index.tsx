@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import PlaceHolderBar from '@components/common/PlaceHolderBar';
+import PlaceHolderBar from '@components/atoms/PlaceHolderBar';
 
 /**
  * 가계부 리스트 스켈레톤

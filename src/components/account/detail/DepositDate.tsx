@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ClipLoader } from 'react-spinners';
 
 import PhaseTemplate from '@components/common/PhaseTemplate';
-import BaseInput from '@components/common/BaseInput';
+import BaseInput from '@components/atoms/BaseInput';
 import DateModal from '@components/common/modal/DateModal';
 
 import { DATE_FORMAT, parseDate } from '@support/util/date';

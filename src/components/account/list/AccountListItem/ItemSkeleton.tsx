@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import CardItem from '@components/common/CardItem';
-import PlaceHolderBar from '@components/common/PlaceHolderBar';
+import PlaceHolderBar from '@components/atoms/PlaceHolderBar';
 
 /**
  * 예적금 리스트아이템 로딩 스켈레톤

@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 import IcoClose from '@components//icon/IcoClose';
-import BaseButton from '@components/common/BaseButton';
+import Button from '@components/atoms/Button';
 
 import palette from '@style/palette';
 import { addComma, numberToKorean } from '@support/util/String';
@@ -131,7 +131,7 @@ function NumberInput({
         </S.InputTable>
       </S.Input>
       <S.Complete>
-        <BaseButton
+        <Button
           message='완료'
           color='red'
           size='full'

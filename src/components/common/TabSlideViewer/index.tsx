@@ -2,7 +2,7 @@ import React, { ReactNode, useState } from 'react';
 import styled from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
 
-import Tabs from '@components/common/Tabs';
+import Tabs from '@components/atoms/Tabs';
 import { IAssetType } from '@models/IAssetType';
 import SlideViewerSkeleton from './SlideViewerSkeleton';
 import EmptyList from './EmptyList';

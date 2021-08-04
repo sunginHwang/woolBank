@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router';
 
-import Tabs from '@components/common/Tabs';
+import Tabs from '@components/atoms/Tabs';
 import PageTemplate from '@components/layout/PageTemplate';
 import { IAssetType } from '@models/IAssetType';
 import { useQuery } from '@support/hooks/UseQuery';

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import PageHeader from '@components/common/PageHeader';
-import BaseInput from '@components/common/BaseInput';
+import BaseInput from '@components/atoms/BaseInput';
 import BottomButton from '@components/common/BottomButton';
 import useInput from '@support/hooks/UseInput';
 import { useToast } from '@support/hooks/useToast';

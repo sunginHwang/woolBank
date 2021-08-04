@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import PhaseTemplate from '@components/common/PhaseTemplate';
-import BaseInput from '@components/common/BaseInput';
+import BaseInput from '@components/atoms/BaseInput';
 import BaseTextArea from '@components/common/BaseTextarea';
 import BottomButton from '@components/common/BottomButton';
 import LabelText from '@components/common/LabelText';

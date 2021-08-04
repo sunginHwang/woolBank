@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import BaseButton from '@components/common/BaseButton';
+import Button from '@components/atoms/Button';
 import BottomModal from '@components/common/modal/BottomModal';
 import CategorySaveForm from '@components/accountBook/CategorySaveForm';
 import { IAccountBookCategory } from '@models/accountBook/IAccountBookCategory';
@@ -10,7 +10,6 @@ import { useToggle } from '@support/hooks/useToggle';
 import useAccountBookCategories from '@/services/accountBook/useAccountBookCategories';
 
 import AccountBookCategoryItem from './AccountBookCategoryItem';
-
 
 export interface IProps {
   open: boolean;
@@ -27,7 +26,7 @@ export interface IProps {
 function CategorySelectBox(props: IProps) {
   const { open, onClose, type, selectCategoryId, onCategorySelect } = props;
   const { accountBookCategories, saveAccountBookCategory, saveLoading } = useAccountBookCategories();
-  const [ isOpenSaveForm, onOpenSaveForm, onCloseSaveForm ] = useToggle(false);
+  const [isOpenSaveForm, onOpenSaveForm, onCloseSaveForm] = useToggle(false);
 
   const categories = accountBookCategories.filter(a => a.type === type);
   const titleMsg = `${type === 'income' ? '수입' : '지출'} 카테고리 추가`;
@@ -37,7 +36,7 @@ function CategorySelectBox(props: IProps) {
       <BottomModal title={titleMsg} visible={open} oncloseModal={onClose}>
         <S.CategorySelectBox>
           <S.CategoryList>
-            { categories.map(c => {
+            {categories.map(c => {
               return (
                 <AccountBookCategoryItem
                   key={c.id}
@@ -49,17 +48,18 @@ function CategorySelectBox(props: IProps) {
             })}
           </S.CategoryList>
           <S.Footer>
-            <BaseButton message={`+ ${titleMsg}`} color='red' size='full' onClick={onOpenSaveForm} />
+            <Button message={`+ ${titleMsg}`} color='red' size='full' onClick={onOpenSaveForm} />
           </S.Footer>
         </S.CategorySelectBox>
       </BottomModal>
-      { isOpenSaveForm && (
+      {isOpenSaveForm && (
         <CategorySaveForm
           type={type}
           isLoading={saveLoading}
           saveAccountBookCategory={saveAccountBookCategory}
-          onClose={onCloseSaveForm}/>
-      ) }
+          onClose={onCloseSaveForm}
+        />
+      )}
     </>
   );
 }
@@ -80,7 +80,7 @@ const S: {
   `,
   Footer: styled.div`
     margin: 1.5rem 2rem 0 2rem;   
-  `,
+  `
 };
 
 export default CategorySelectBox;

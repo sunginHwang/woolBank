@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import LabelText from '@components/common/LabelText';
 import PhaseTemplate from '@components/common/PhaseTemplate';
-import BaseInput from '@components/common/BaseInput';
+import BaseInput from '@components/atoms/BaseInput';
 import DateModal from '@components/common/modal/DateModal';
 import BottomButton from '@components/common/BottomButton';
 
