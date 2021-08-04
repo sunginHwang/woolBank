@@ -3,20 +3,20 @@ import { useHistory, useParams } from 'react-router';
 
 import PageTemplate from '@components/layout/PageTemplate';
 import AddDepositContainer from '@containers/account/detail/AddDepositContainer';
-import AccountDetailContainer from '@containers/account/detail/AccountDetailContainer';
-import AccountDetailModalContainer from '@containers/account/detail/AccountDetailModalContainer';
+import AccountDetailInfo from '@components/account/detail/AccountDetailInfo';
+import AccountBottomMenu from '@components/account/detail/AccountBottomMenu';
 import IcoDowHorizontal from '@components/icon/IcoDotHorizontal';
 
 import colors from '@style/theme';
 import { useQuery } from '@support/hooks/UseQuery';
 import { useToggle } from '@support/hooks/useToggle';
 
-function AccountDetail() {
+function AccountDetailPage() {
   const [isOpenDetailModal, onDetailModal, offDetailModal] = useToggle(false);
 
   const history = useHistory();
   const { mode } = useQuery(['mode']);
-  const { accountId } = useParams();
+  const { accountId } = useParams<{ accountId: string }>();
 
   /**
    * 뒤로가기 버튼 클릭
@@ -25,10 +25,7 @@ function AccountDetail() {
     history.goBack();
   };
 
-  /**
-   * 리스트 페이지 이동
-   **/
-  const onAccountList = () => {
+  const goAccountListPage = () => {
     history.push('/accounts');
   };
 
@@ -42,16 +39,16 @@ function AccountDetail() {
     <PageTemplate
       title='계좌정보'
       useSidePadding={false}
-      onBackClick={onAccountList}
+      onBackClick={goAccountListPage}
       rightHeader={renderEditButtonIcon}
     >
-      <AccountDetailContainer accountId={Number(accountId)} />
+      <AccountDetailInfo accountId={Number(accountId)} />
       <AddDepositContainer
         accountId={Number(accountId)}
         onBackClick={onBackClick}
         useDepositPhase={mode === 'deposit'}
       />
-      <AccountDetailModalContainer
+      <AccountBottomMenu
         accountId={Number(accountId)}
         isActiveModal={isOpenDetailModal}
         useEditPhase={mode === 'edit'}
@@ -61,4 +58,4 @@ function AccountDetail() {
   );
 }
 
-export default AccountDetail;
+export default AccountDetailPage;

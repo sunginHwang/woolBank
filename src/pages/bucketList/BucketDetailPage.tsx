@@ -7,7 +7,7 @@ import PageTemplate from '@components/layout/PageTemplate';
 import { useToggle } from '@support/hooks/useToggle';
 
 function BucketDetailPage() {
-  const { bucketId } = useParams();
+  const { bucketId } = useParams<{ bucketId: string }>();
   const [showCompleteButton, onShowCompleteButton, offShowCompleteButton] = useToggle(true);
 
   const setShowCompleteButton = (toggle: boolean) => {

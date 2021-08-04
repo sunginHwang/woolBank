@@ -9,11 +9,16 @@ import { addComma } from '@support/util/String';
 import palette from '@style/palette';
 import { getRateInterestByWallet } from '@support/util/bank';
 
-export interface AccountInfoProps {
+interface IProps {
   account: IAccount;
 }
 
-function AccountInfo({ account }: AccountInfoProps) {
+/**
+ * 예적금 상세 - 예적금 정보
+ * @component
+ */
+
+function AccountInfo({ account }: IProps) {
   const rateInterest = getRateInterestByWallet(account);
   const { rate, startDate, endDate, title, savingType, currentAmount, amount } = account;
 
@@ -65,14 +70,10 @@ function AccountInfo({ account }: AccountInfoProps) {
   );
 }
 
-const S: {
-  AccountInfo: any;
-  Title: any;
-  CurrentAmount: any;
-  Amount: any;
-  Interest: any;
-  Info: any;
-} = {
+export default AccountInfo;
+
+
+const S: any = {
   AccountInfo: styled.div`
     padding: 4rem 2rem;
     display: flex;
@@ -131,5 +132,3 @@ const S: {
     color: ${({ theme }) => theme.colors.greyD2};
   `
 };
-
-export default AccountInfo;

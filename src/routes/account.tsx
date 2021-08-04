@@ -7,7 +7,7 @@ import PageTemplate from '@components/layout/PageTemplate';
 const AccountList = loadable(() => import('@pages/account/AccountListPage'), {
   fallback: <PageTemplate useHeader={false} topPadding={8.8} useSidePadding={false} />
 });
-const AccountDetail = loadable(() => import('@pages/account/AccountDetail'), {
+const AccountDetail = loadable(() => import('@pages/account/AccountDetailPage'), {
   fallback: <PageTemplate title='계좌정보' useSidePadding={false} />
 });
 

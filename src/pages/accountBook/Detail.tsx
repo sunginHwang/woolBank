@@ -15,7 +15,7 @@ import useAccountBookDetail from '@/services/accountBook/useAccountBookDetail';
  */
 
 function AccountBookDetailPage() {
-  const { accountBookId } = useParams();
+  const { accountBookId } = useParams<{ accountBookId: string }>();
   const history = useHistory();
   const onToast = useToast();
   const { data, isLoading, isError, modifyAccountBook, removeAccountBook } = useAccountBookDetail(

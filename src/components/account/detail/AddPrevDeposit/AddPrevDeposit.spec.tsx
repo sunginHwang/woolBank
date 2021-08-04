@@ -1,10 +1,10 @@
 import React from 'react';
-import DepositDate from './DepositDate';
 import withThemeRender from '@support/test/withThemeRender';
+import AddPrevDeposit from './index';
 
-describe('<DepositDate />', () => {
+describe('<AddPrevDeposit />', () => {
   const setup = (isActive: boolean, onBackClick: () => void) => {
-    const utils = withThemeRender(<DepositDate isActive={isActive} onBackClick={onBackClick} />);
+    const utils = withThemeRender(<AddPrevDeposit isLoading={false} isActive={isActive} onBackClick={onBackClick} />);
     return {
       ...utils
     };

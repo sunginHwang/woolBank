@@ -22,7 +22,7 @@ export const getAccount = createAsyncThunk(
         await delay(400);
       }
 
-      return accountRes.data.data;
+      return accountRes;
     } catch (e) {
       dispatch(Layout.actions.setErrorStatusCode(e.response.data.status));
       return rejectWithValue(e.response.data);

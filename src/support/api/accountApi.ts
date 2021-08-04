@@ -12,8 +12,9 @@ export const getAccountListLastUpdatedAt = () => {
   return apiCall.get<ApiResType<Date>>('/accounts/last-update-date');
 };
 
-export const fetchAccount = (accountId: number) => {
-  return apiCall.get<ApiResType<IAccount>>(`/accounts/${accountId}`);
+export const fetchAccount = async (accountId: number) => {
+  const res = await apiCall.get<ApiResType<IAccount>>(`/accounts/${accountId}`);
+  return res.data.data;
 };
 
 export const getAccountLastUpdatedAt = (accountId: number) => {

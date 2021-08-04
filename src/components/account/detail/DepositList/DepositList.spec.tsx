@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DepositList from '@components/account/DepositList';
+import DepositList from '@components/account/detail/DepositList';
 
 import withThemeRender from '@support/test/withThemeRender';
 import { addComma } from '@support/util/String';

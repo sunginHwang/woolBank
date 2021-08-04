@@ -1,13 +1,13 @@
 import React from 'react';
 
-import DepositListItem from '@components/account/DepositListItem';
+import Item from '@components/account/detail/DepositList/Item';
 
 import withThemeRender from '@support/test/withThemeRender';
 import { addComma } from '@support/util/String';
 import { parseDate } from '@support/util/date';
 import { IDeposit } from '@models/IDeposit';
 
-describe('<DepositListItem />', () => {
+describe('<Item />', () => {
   const deposit: IDeposit = {
     amount: 10000,
     depositDate: new Date('2020-02-02'),
@@ -20,7 +20,7 @@ describe('<DepositListItem />', () => {
   }
 
   const setup = () => {
-    const utils = withThemeRender(<DepositListItem deposit={deposit} />);
+    const utils = withThemeRender(<Item deposit={deposit} />);
 
     return {
       ...utils

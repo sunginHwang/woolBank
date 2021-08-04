@@ -5,11 +5,16 @@ import { parseDate } from '@support/util/date';
 import { addComma } from '@support/util/String';
 import { IDeposit } from '@models/IDeposit';
 
-export interface DepositRecordItemProps {
+interface IProps {
   deposit: IDeposit;
 }
 
-function DepositListItem({ deposit }: DepositRecordItemProps) {
+/**
+ * 예적금 상세 - 입금 리스트 아이템
+ * @component
+ */
+
+function Item({ deposit }: IProps) {
   return (
     <S.DepositRecordItem>
       <S.Info>
@@ -21,11 +26,7 @@ function DepositListItem({ deposit }: DepositRecordItemProps) {
   );
 }
 
-const S: {
-  DepositRecordItem: any;
-  Info: any;
-  Amount: any;
-} = {
+const S = {
   DepositRecordItem: styled.div`
     display: flex;
     padding: 2rem 0;
@@ -55,4 +56,4 @@ const S: {
   `
 };
 
-export default DepositListItem;
+export default Item;

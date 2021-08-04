@@ -6,7 +6,7 @@ import IcoCloseCircle from '@components/icon/IcoCloseCircle';
 export interface BaseInputProps {
   label?: string;
   placeHolder?: string;
-  value: string | number;
+  value?: string | number;
   name?: string;
   type?: 'text' | 'number' | 'date' | 'range';
   max?: number;
@@ -25,7 +25,7 @@ export interface BaseInputProps {
 function BaseInput({
   label,
   placeHolder,
-  value,
+  value = '',
   name,
   type = 'text',
   max = 999,
