@@ -3,30 +3,27 @@ import styled from 'styled-components';
 
 import IcoCalendarMonthOutline from '@components/icon/IcoCalendarMonthOutline';
 import PlaceHolderBar from '@components/common/PlaceHolderBar';
-
 import palette from '@style/palette';
 import { parseDate } from '@support/util/date';
+import ContentSkeleton from './ContentSkeleton';
 
-export interface BucketListContentInfoProps {
+interface IProps {
   isLoading: boolean;
   description: string;
   completeDate: string | Date;
 }
 
-function BucketListContentInfo({
-  isLoading,
-  description,
-  completeDate
-}: BucketListContentInfoProps) {
+/**
+ * 버킷리스트 상세 -  컨텐츠 정보
+ * @component
+ */
+
+function ContentInfo(props: IProps) {
+  const { isLoading, description, completeDate } = props;
+
   return (
     <S.BucketListContentInfo>
-      {isLoading && (
-        <>
-          <PlaceHolderBar width='80%' height='1.4rem' />
-          <PlaceHolderBar width='60%' height='1.4rem' />
-          <PlaceHolderBar width='50%' height='1.4rem' />
-        </>
-      )}
+      {isLoading && <ContentSkeleton />}
       {!isLoading && (
         <S.ContentItem>
           <S.Message data-cy='description'>{description}</S.Message>
@@ -45,9 +42,9 @@ function BucketListContentInfo({
   );
 }
 
-export default BucketListContentInfo;
+export default ContentInfo;
 
-const S :any = {
+const S = {
   BucketListContentInfo: styled.div`
     background-color: ${({ theme }) => theme.colors.white};
     padding: 2rem 2rem 0 2rem;

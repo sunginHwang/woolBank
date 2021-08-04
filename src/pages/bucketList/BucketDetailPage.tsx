@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router';
 
-import BucketListDetailContainer from '@containers/bucketList/detail/BucketListDetailContainer';
+import BucketDetailInfo from '@components/bucketList/detail/BucketDetailInfo';
 import TodoInfo from '@components/bucketList/detail/TodoInfo';
 import PageTemplate from '@components/layout/PageTemplate';
 import { useToggle } from '@support/hooks/useToggle';
@@ -16,7 +16,7 @@ function BucketDetailPage() {
 
   return (
     <PageTemplate useHeader={false} useSidePadding={false}>
-      <BucketListDetailContainer bucketListId={Number(bucketId)} showCompleteButton={showCompleteButton} />
+      <BucketDetailInfo bucketId={Number(bucketId)} showCompleteButton={showCompleteButton} />
       <TodoInfo bucketId={Number(bucketId)} onToggleShowCompleteButton={setShowCompleteButton} />
     </PageTemplate>
   );

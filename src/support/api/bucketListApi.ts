@@ -53,10 +53,10 @@ export const updateBucketList = async (bucketListForm: IBucketListForm) => {
   return apiCall.put(`/bucket-list/${bucketListForm.id}`, data);
 };
 
-export const removeBucketList = (bucketListId: number) => {
-  return apiCall.delete<ApiResType<void>>(`/bucket-list/${bucketListId}/`);
+export const removeBucket = (bucketId: number) => {
+  return apiCall.delete<ApiResType<void>>(`/bucket-list/${bucketId}`);
 };
 
-export const completeBucketList = (bucketListId: number) => {
+export const completeBucket = (bucketListId: number) => {
   return apiCall.put<ApiResType<void>>(`/bucket-list/${bucketListId}/complete`);
 };

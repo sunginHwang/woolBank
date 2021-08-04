@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import BaseButton from '@components/common/BaseButton';
 
-export interface BottomButtonProps {
+interface IProps {
   // 버튼 메세지
   message: string;
   // 버튼 로딩중 여부
@@ -21,13 +21,15 @@ export interface BottomButtonProps {
  * @component
  */
 
-function BottomButton({
-  message,
-  loading = false,
-  active = true,
-  isShow = false,
-  onClick
-}: BottomButtonProps) {
+function ButtonBottom(props: IProps) {
+  const {
+    message,
+    loading = false,
+    active = true,
+    isShow = false,
+    onClick
+  } = props;
+
   if (!isShow) {
     return null;
   }
@@ -47,11 +49,9 @@ function BottomButton({
   )
 }
 
-export default BottomButton;
+export default ButtonBottom;
 
-const S : {
-  Bottom: any;
-} = {
+const S = {
   Bottom: styled.div`
     position: fixed;
     bottom: 2rem;

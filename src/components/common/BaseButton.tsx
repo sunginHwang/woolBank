@@ -142,6 +142,4 @@ const S: {
   `
 };
 
-console.log(S);
-
 export default BaseButton;

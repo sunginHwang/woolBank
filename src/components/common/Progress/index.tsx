@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import palette from '@style/palette';
 
-export interface ProgressProps {
+interface IProps {
   percent: number;
   color: string;
   label: string | number;
@@ -14,16 +14,23 @@ export interface ProgressProps {
   messageColor?: string;
 }
 
-function Progress({
-  percent,
-  color,
-  label,
-  labelPrefix = '',
-  labelSuffix = '',
-  startMessage = '',
-  endMessage = '',
-  messageColor = palette.greyL1
-}: ProgressProps) {
+/**
+ * 공통 - 프로그레스 영역
+ * @component
+ */
+
+function Progress(props: IProps) {
+  const {
+    percent,
+    color,
+    label,
+    labelPrefix = '',
+    labelSuffix = '',
+    startMessage = '',
+    endMessage = '',
+    messageColor = palette.greyL1
+  } = props;
+
   return (
     <S.ProgressWrapper>
       <S.Label percent={percent}>

@@ -61,7 +61,7 @@ function PageHeader(props: IProps) {
   );
 }
 
-const S: any = {
+const S = {
   HeaderWithBack: styled.div<{
     useTabs: boolean;
     useSkeleton: boolean;

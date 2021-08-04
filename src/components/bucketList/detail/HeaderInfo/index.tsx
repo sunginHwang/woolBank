@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
+import * as _ from 'lodash';
 
 import PageHeader from '@components/common/PageHeader';
 import Progress from '@components/common/Progress';
@@ -12,36 +13,40 @@ import useEventListener from '@support/hooks/useEventListener';
 import { getScrollTop } from '@support/util/document';
 import palette from '@style/palette';
 
-export interface BucketListDetailHeaderProps {
+interface IProps {
   title: string;
   imgUrl?: string;
   isLoading: boolean;
   createdDate: Date | string;
   completeDate: Date | string;
   onMenuClick: () => void;
-};
+}
 
-function BucketListDetailHeader({
-  title,
-  imgUrl,
-  isLoading,
-  createdDate,
-  completeDate,
-  onMenuClick
-}: BucketListDetailHeaderProps) {
+/**
+ * 버킷리스트 상세 - 헤더 정보
+ * @component
+ */
+
+function HeaderInfo(props: IProps) {
+  const {
+    title,
+    imgUrl,
+    isLoading,
+    createdDate,
+    completeDate,
+    onMenuClick
+  } = props;
   const now = new Date();
   const history = useHistory();
   const imgRef = useRef<HTMLDivElement>(null);
   const [isShowFixedHeader, setFixedHeader] = useState(false);
 
-  /**
-   * 스크롤 이벤트 (고정 헤더 노출 체크)
-   */
-  useEventListener('scroll', () => {
+  // 스크롤 이벤트 (고정 헤더 노출 체크)
+  useEventListener('scroll', _.debounce(() => {
     const imgHeight = imgRef.current ? imgRef.current.offsetHeight : 0;
     const isShowHeader = imgHeight - 80 <= getScrollTop();
     isShowFixedHeader !== isShowHeader && setFixedHeader(isShowHeader);
-  });
+  }, 50));
 
   const fixedHeaderMsg = isShowFixedHeader ? title : '';
   const headerIconColor = isShowFixedHeader ? palette.mainColor : palette.white;
@@ -50,9 +55,7 @@ function BucketListDetailHeader({
   // 목표 날짜 까지 이룬 %
   const remainPercent = getRemainDatePercentage(createdDate, completeDate, now);
 
-  /**
-   * 뒤로가기 버튼 클릭
-   **/
+  // 뒤로가기 버튼 클릭
   const onBackClick = () => {
     history.push('/bucket-list');
   };
@@ -65,7 +68,7 @@ function BucketListDetailHeader({
         title={fixedHeaderMsg}
         right={
           <i onClick={onMenuClick}>
-            <IcoDowHorizontal fill={headerIconColor} />
+            <IcoDowHorizontal fill={headerIconColor}/>
           </i>
         }
         useSkeleton={!isShowFixedHeader}
@@ -73,17 +76,19 @@ function BucketListDetailHeader({
       />
       <S.ImageInfo ref={imgRef} imgUrl={imgUrl}>
         <div>
-          {isLoading ? <PlaceHolderBar width='15rem' height='4.4rem' /> : <h2>{title}</h2>}
-          <Progress label={remainDay} labelPrefix='D-' percent={remainPercent} color={palette.mainColor} />
+          {isLoading ? <PlaceHolderBar width='15rem' height='4.4rem'/> : <h2>{title}</h2>}
+          <Progress label={remainDay} labelPrefix='D-' percent={remainPercent} color={palette.mainColor}/>
         </div>
       </S.ImageInfo>
     </>
   );
 }
 
-export default BucketListDetailHeader;
+export default HeaderInfo;
 
-const S: any = {
+const S: {
+  ImageInfo: any;
+} = {
   ImageInfo: styled.div<{
     imgUrl: string;
   }>`
@@ -93,7 +98,7 @@ const S: any = {
       rgba(0, 0, 0, 0.3),
       rgba(0, 0, 0, 0.1)
     ),
-    url(${({imgUrl}) => imgUrl}), no-repeat;
+    url(${({ imgUrl }) => imgUrl}), no-repeat;
     background-size: cover;
     width: 100%;
     height: 40vh;

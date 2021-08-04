@@ -50,7 +50,7 @@ function DateRange({ activeDateRange, onDateRangeChange }: IProps) {
       <BottomMenuModal
         title='통계 범위 선택'
         menus={pickerOptionTabs}
-        activeMenuType={activePicker?.type}
+        activeMenuType={activePicker?.type || ''}
         visible={isOpenPicker}
         oncloseModal={offPicker}
         onEditClick={onPickerClick}
