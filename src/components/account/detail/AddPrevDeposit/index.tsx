@@ -6,7 +6,6 @@ import PhaseTemplate from '@components/common/PhaseTemplate';
 import Button from '@components/atoms/Button';
 import MiniAmountInput from '@components/common/MiniAmountInput';
 import DateInput from '@components/common/DateInput';
-import { addComma } from '@support/util/String';
 import { useAlert } from '@support/hooks/useAlert';
 
 interface IProps {
@@ -14,7 +13,7 @@ interface IProps {
   isLoading: boolean;
   remainDepositAmount: number;
   onBackClick: () => void;
-  addDeposit: (props: {amount: number, depositDate: Date}) => void;
+  onAddDeposit: (props: { amount: number; depositDate: Date, remainDepositAmount: number }) => void;
 }
 
 /**
@@ -23,10 +22,9 @@ interface IProps {
  */
 
 function AddPrevDeposit(props: IProps) {
-  const { isActive, isLoading, remainDepositAmount, onBackClick, addDeposit } = props;
+  const { isActive, isLoading, remainDepositAmount, onBackClick, onAddDeposit } = props;
   const [depositDate, setDepositDate] = useState('');
   const [depositAmount, setDepositAmount] = useState(0);
-  const [onAlert] = useAlert();
 
   useEffect(() => {
     if (!isActive) {
@@ -40,13 +38,8 @@ function AddPrevDeposit(props: IProps) {
       return;
     }
 
-    if (depositAmount > remainDepositAmount) {
-      onAlert(`최대 입금 가능 금액은 ${addComma(remainDepositAmount)} 입니다.`);
-      return;
-    }
-
-    addDeposit({ amount: depositAmount, depositDate: new Date(depositDate) });
-  }
+    onAddDeposit({ amount: depositAmount, remainDepositAmount, depositDate: new Date(depositDate) });
+  };
 
   return (
     <PhaseTemplate active={isActive} title='이전날짜 입금하기' onBackClick={onBackClick}>

@@ -3,11 +3,12 @@ import styled from 'styled-components';
 
 import IcoClose from '@components//icon/IcoClose';
 import Button from '@components/atoms/Button';
-
 import palette from '@style/palette';
 import { addComma, numberToKorean } from '@support/util/String';
 
-export interface NumberInputProps {
+const BILLION = 1_000_000_000;
+
+interface IProps {
   currentAmount: number;
   maxAmount?: number;
   label: string;
@@ -19,29 +20,34 @@ export interface NumberInputProps {
   onClose?: () => void;
 }
 
-const BILLION = 1000000000;
+/**
+ * 금액 입금 키패드
+ * @component
+ */
 
-function NumberInput({
-  currentAmount,
-  maxAmount = BILLION,
-  label,
-  loading = false,
-  useClose = false,
-  isActiveComplete,
-  onChangeAmount,
-  onCompleteClick,
-  onClose
-}: NumberInputProps) {
+function AmountKeyPad(props: IProps) {
+  const {
+    currentAmount,
+    maxAmount = BILLION,
+    label,
+    loading = false,
+    useClose = false,
+    isActiveComplete,
+    onChangeAmount,
+    onCompleteClick,
+    onClose
+  } = props;
+
   const [isValidAmount, setIsValidAmount] = useState(true);
   const isNotInputValue = currentAmount === 0;
 
-  const displayAmount = `${addComma(currentAmount)}원`;
-
+  // 금액 클릭
   const onAddNumberClick = (e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>) => {
     const addedNumber = Number(currentAmount + String(e.currentTarget.innerText));
     changeNumber(addedNumber);
   };
 
+  // 마지막 숫자 제거
   const onRemoveLastInputClick = () => {
     const stringNumber = String(currentAmount);
     changeNumber(Number(stringNumber.substring(0, stringNumber.length - 1)));
@@ -62,12 +68,10 @@ function NumberInput({
     setIsValidAmount(true);
   };
 
-  /**
-   * 입력 창 닫기
-   **/
+  // 입력 창 닫기
   const onCloseClick = () => {
     onInitClick();
-    onClose && onClose();
+     onClose?.();
   };
 
   const getDisplayInputMessage = useCallback(() => {
@@ -85,9 +89,10 @@ function NumberInput({
   }, [isValidAmount, isNotInputValue, currentAmount, maxAmount]);
 
   const displayInputMessage = getDisplayInputMessage();
+  const displayAmount = `${addComma(currentAmount)}원`;
 
   return (
-    <S.NumberInput>
+    <S.AmountKeyPad>
       {useClose && (
         <S.Header>
           <i onClick={onCloseClick}>
@@ -141,20 +146,11 @@ function NumberInput({
           onClick={onCompleteClick}
         />
       </S.Complete>
-    </S.NumberInput>
+    </S.AmountKeyPad>
   );
 }
 
-const S: {
-  NumberInput: any;
-  Header: any;
-  InputTable: any;
-  InputTd: any;
-  Input: any;
-  InputDisplay: any;
-  InputDisplayMessage: any;
-  Complete: any;
-} = {
+const S: any = {
   NumberInput: styled.div`
     width: 100%;
     height: 100%;
@@ -225,4 +221,4 @@ const S: {
   `
 };
 
-export default NumberInput;
+export default AmountKeyPad;

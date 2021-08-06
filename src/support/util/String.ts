@@ -3,7 +3,7 @@ export const addComma = (num: number): string => {
   return num.toString().replace(addCommaReg, ',');
 };
 
-export const numberToKorean = (num: number): string => {
+export const numberToKorean = (num = 0): string => {
   if (num < 0) {
     return '';
   }

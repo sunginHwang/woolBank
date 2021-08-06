@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Index from '@components/account/detail/AccountInfo/index';
+import AccountInfo from '@components/account/detail/AccountInfo';
 
 import withThemeRender from '@support/test/withThemeRender';
 import { INSTALLMENT_SAVINGS, TAX_TYPE } from '@support/constants';
@@ -8,7 +8,7 @@ import { addComma } from '@support/util/String';
 import { parseDate } from '@support/util/date';
 import { IAccount } from '@models/IAccount';
 
-describe('<Index />', () => {
+describe('<AccountInfo />', () => {
   const account: IAccount = {
     title: '마지막 고정적금',
     amount: 40000000,
@@ -21,7 +21,7 @@ describe('<Index />', () => {
   };
 
   const setup = () => {
-    const utils = withThemeRender(<Index account={account} />);
+    const utils = withThemeRender(<AccountInfo account={account} />);
     return {
       ...utils
     };

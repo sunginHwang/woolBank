@@ -34,7 +34,7 @@ function RegularExpenditureListTab() {
   const onRemoveItemClick = async (id: number) => {
     const isConfirm = await openConfirm({
       message: '정말 삭제하시겠습니까?',
-      useAutoClose: false,
+      useAutoClose: false
     });
 
     if (isConfirm) {
@@ -50,7 +50,7 @@ function RegularExpenditureListTab() {
         setRegularExpenditureTypeList(getRemovedList(regularExpenditureTypeList, removeId));
       },
       onError: () => onToast('다시 시도해 주세요.'),
-      onSettled: () => setConfirmLoading(false),
+      onSettled: () => setConfirmLoading(false)
     });
   };
 

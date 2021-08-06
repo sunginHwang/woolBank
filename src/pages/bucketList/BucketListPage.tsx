@@ -1,8 +1,9 @@
 import React from 'react';
+import { useHistory } from 'react-router';
+
 import PageTemplate from '@components/layout/PageTemplate';
 import BucketListSlideViewer from '@components/bucketList/list/BucketListSlideViewer';
 import AddButton from '@components/common/AddButton';
-import { useHistory } from 'react-router';
 
 /**
  * 버킷리스트 페이지

@@ -4,6 +4,8 @@ import { IAccount } from '@models/IAccount';
 import { useToast } from '@support/hooks/useToast';
 import { useConfirm } from '@components/common/Confirm/ConfirmService';
 import { useHistory } from 'react-router';
+import { addComma } from '@support/util/String';
+import { useAlert } from '@support/hooks/useAlert';
 
 const initData: IAccount = {
   id: -999,
@@ -38,6 +40,7 @@ function useAccountQuery(accountId: number) {
 
 export function useAccountQuerySetter(accountId: number) {
   const onToast = useToast();
+  const [onAlert] = useAlert();
   const history = useHistory();
   const { openConfirm, setConfirmLoading } = useConfirm();
   const queryClient = useQueryClient();
@@ -107,7 +110,12 @@ export function useAccountQuerySetter(accountId: number) {
     }
   };
 
-  const onAddDeposit = ({ amount, depositDate }: {amount: number, depositDate: Date}) => {
+  const onAddDeposit = ({ amount, depositDate, remainDepositAmount }: {amount: number, depositDate: Date, remainDepositAmount: number}) => {
+    if (amount > remainDepositAmount) {
+      onAlert(`최대 입금 가능 금액은 ${addComma(remainDepositAmount)} 입니다.`);
+      return;
+    }
+
     addDepositMutation.mutate({
       accountId, depositDate, amount
     }, {

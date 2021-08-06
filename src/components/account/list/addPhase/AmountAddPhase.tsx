@@ -1,6 +1,6 @@
 import React from 'react';
 import PhaseTemplate from '@components/common/PhaseTemplate';
-import NumberInput from '@components/common/NumberInput';
+import AmountKeyPad from '@components/common/AmountKeyPad';
 import { IPhase } from '@models/phase/IPhase';
 
 interface AmountAddPhaseProps extends IPhase{
@@ -41,7 +41,7 @@ function AmountAddPhase({
       usePadding={false}
       onBackClick={goPrevPhase}
     >
-      <NumberInput
+      <AmountKeyPad
         currentAmount={amount}
         label='만기 금액 설정'
         isActiveComplete={isActiveComplete}

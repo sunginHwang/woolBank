@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export interface AddButtonProps {
+interface IProps {
   icon: string | React.ReactNode;
   onClick: () => void;
 }
 
-function AddButton({ icon, onClick }: AddButtonProps) {
+/**
+ * 추가버튼 -  우측 하단 고정
+ * @component
+ */
+
+function AddButton({ icon, onClick }: IProps) {
   const isStringIcon = typeof icon === 'string';
   return (
     <S.AddButton data-cy='addButton' onClick={onClick}>
@@ -15,9 +20,7 @@ function AddButton({ icon, onClick }: AddButtonProps) {
   );
 }
 
-const S: {
-  AddButton: any;
-} = {
+const S = {
   AddButton: styled.div`
     position: fixed;
     display: flex;

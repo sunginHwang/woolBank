@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import AddPrevDeposit from '@components/account/detail/AddPrevDeposit';
 import BottomMenuModal from '@components/common/modal/BottomMenuModal';
 import useAccountQuery, { useAccountQuerySetter } from '@/services/account/useAccountQuery';
+import getRemainDeposit from '@/services/account/getRemainDeposit';
 import { IBottomMenu } from '@models/component/IBottomMenu';
 import options from './options';
 
@@ -14,7 +15,12 @@ interface IProps {
   isActiveModal: boolean;
   useEditPhase: boolean;
   onCloseModal: () => void;
-};
+}
+
+/**
+ * 예적금 하단 메뉴 구성
+ * @component
+ */
 
 function AccountBottomMenu({
   accountId,
@@ -41,10 +47,11 @@ function AccountBottomMenu({
   };
 
   const isAccountExpiration = account ? account.isExpiration : false;
-  const isRegularDeposit = account ? account.savingType.type === 'regularDeposit' : false;
-  const remainDepositAmount = account.amount - account.currentAmount;
+  const isRegularDeposit = account.savingType.type === 'regularDeposit';
+  const remainDepositAmount = getRemainDeposit(account);
 
-  const bottomMenus = getModalMenus(!isAccountExpiration && !isRegularDeposit, !isAccountExpiration);
+  const bottomMenus = getModalMenus(!account.isExpiration && !isRegularDeposit, !isAccountExpiration);
+
   return (
     <>
       <BottomMenuModal
@@ -59,7 +66,7 @@ function AccountBottomMenu({
         isLoading={isAddDepositLoading}
         remainDepositAmount={remainDepositAmount}
         onBackClick={onBackClick}
-        addDeposit={onAddDeposit}
+        onAddDeposit={onAddDeposit}
       />
     </>
   );
