@@ -6,7 +6,6 @@ import AddButton from '@components/common/AddButton';
 import AmountKeyPad from '@components/common/AmountKeyPad';
 import useAccountQuery, { useAccountQuerySetter } from '@/services/account/useAccountQuery';
 import getRemainDeposit from '@/services/account/getRemainDeposit';
-import { delay } from '@support/util/delay';
 import useUpdateEffect from '@support/hooks/useUpdateEffect';
 
 interface IProps {
@@ -23,9 +22,7 @@ function AddDeposit(props: IProps) {
   const { isOpenKeypad, accountId } = props;
   const history = useHistory();
   const { account } = useAccountQuery(accountId);
-  const { onAddDeposit, isAddDepositLoading, isAddDepositSuccess } = useAccountQuerySetter(accountId);
-
-  const [depositAmount, setDepositAmount] = useState(0);
+  const { onAddDeposit, isAddDepositLoading } = useAccountQuerySetter(accountId);
 
   // 예적금 입력 모듈 열기
   const openDepositKeyPad = () => {
@@ -34,19 +31,11 @@ function AddDeposit(props: IProps) {
 
   // 예적금 입력 모듈 닫기
   const closeDepositKeyPad = () => {
-    setDepositAmount(0);
     history.goBack();
   };
 
-  // 입금 완료시 키패드 초기화
-  useUpdateEffect(() => {
-    if (isAddDepositSuccess) {
-      setDepositAmount(0);
-    }
-  }, [isAddDepositSuccess]);
-
-  const onCompleteClick = async () => {
-    onAddDeposit({ amount: depositAmount, depositDate: new Date(), remainDepositAmount: getRemainDeposit(account) });
+  const onAmountChange = async (amount: number) => {
+    onAddDeposit({ amount, depositDate: new Date(), remainDepositAmount: getRemainDeposit(account) });
   }
 
   const isShowDepositButton = account.currentAmount < account.amount && !account.isExpiration && account.savingType.type === 'freeInstallmentSavings';
@@ -61,13 +50,10 @@ function AddDeposit(props: IProps) {
       <S.Slide visible={isOpenKeypad}>
         <AmountKeyPad
           useClose
-          currentAmount={depositAmount}
           label='입금하실 금액을 입력해주세요.'
-          isActiveComplete={depositAmount > 0}
           loading={isAddDepositLoading}
-          onChangeAmount={setDepositAmount}
           onClose={closeDepositKeyPad}
-          onCompleteClick={onCompleteClick}
+          onAmountChange={onAmountChange}
         />
       </S.Slide>
     </>

@@ -1,22 +1,21 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import IcoClose from '@components//icon/IcoClose';
 import Button from '@components/atoms/Button';
 import palette from '@style/palette';
 import { addComma, numberToKorean } from '@support/util/String';
+import useUpdateEffect from '@support/hooks/useUpdateEffect';
 
 const BILLION = 1_000_000_000;
 
 interface IProps {
-  currentAmount: number;
+  value?: number;
   maxAmount?: number;
   label: string;
   useClose?: boolean;
   loading?: boolean;
-  isActiveComplete: boolean;
-  onChangeAmount: (number: number) => void;
-  onCompleteClick: () => void;
+  onAmountChange: (amount: number) => void;
   onClose?: () => void;
 }
 
@@ -27,29 +26,32 @@ interface IProps {
 
 function AmountKeyPad(props: IProps) {
   const {
-    currentAmount,
+    value = 0,
     maxAmount = BILLION,
     label,
     loading = false,
     useClose = false,
-    isActiveComplete,
-    onChangeAmount,
-    onCompleteClick,
+    onAmountChange,
     onClose
   } = props;
 
+  const [amount, setAmount] = useState(value);
   const [isValidAmount, setIsValidAmount] = useState(true);
-  const isNotInputValue = currentAmount === 0;
+  const isNotInputValue = amount === 0;
+
+  useUpdateEffect(() => {
+    setAmount(value);
+  }, [value]);
 
   // 금액 클릭
   const onAddNumberClick = (e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>) => {
-    const addedNumber = Number(currentAmount + String(e.currentTarget.innerText));
+    const addedNumber = Number(amount + String(e.currentTarget.innerText));
     changeNumber(addedNumber);
   };
 
   // 마지막 숫자 제거
   const onRemoveLastInputClick = () => {
-    const stringNumber = String(currentAmount);
+    const stringNumber = String(amount);
     changeNumber(Number(stringNumber.substring(0, stringNumber.length - 1)));
   };
 
@@ -59,7 +61,7 @@ function AmountKeyPad(props: IProps) {
     const isOverMaxAmount = num > maxAmount;
 
     setIsValidAmount(!isOverMaxAmount);
-    !isOverMaxAmount && onChangeAmount(num);
+    !isOverMaxAmount && setAmount(num);
   };
 
   // 금액 초기화
@@ -74,8 +76,12 @@ function AmountKeyPad(props: IProps) {
      onClose?.();
   };
 
+  const onCompleteClick = useCallback(() => {
+    onAmountChange(amount);
+  }, [amount, onAmountChange]);
+
   const getDisplayInputMessage = useCallback(() => {
-    let result = `총 적금액 : ${numberToKorean(currentAmount)}원`;
+    let result = `총 적금액 : ${numberToKorean(amount)}원`;
 
     if (isNotInputValue) {
       result = '';
@@ -86,10 +92,10 @@ function AmountKeyPad(props: IProps) {
     }
 
     return result;
-  }, [isValidAmount, isNotInputValue, currentAmount, maxAmount]);
+  }, [isValidAmount, isNotInputValue, amount, maxAmount]);
 
   const displayInputMessage = getDisplayInputMessage();
-  const displayAmount = `${addComma(currentAmount)}원`;
+  const displayAmount = `${addComma(amount)}원`;
 
   return (
     <S.AmountKeyPad>
@@ -142,7 +148,7 @@ function AmountKeyPad(props: IProps) {
           size='full'
           name='completeNumber'
           loading={loading}
-          active={isActiveComplete}
+          active={amount > 0}
           onClick={onCompleteClick}
         />
       </S.Complete>

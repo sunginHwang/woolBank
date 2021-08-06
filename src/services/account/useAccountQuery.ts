@@ -135,8 +135,7 @@ export function useAccountQuerySetter(accountId: number) {
     onAddDeposit,
     onExpiration,
     onRemove,
-    isAddDepositLoading: addDepositMutation.isLoading,
-    isAddDepositSuccess: addDepositMutation.isSuccess
+    isAddDepositLoading: addDepositMutation.isLoading
   };
 }
 

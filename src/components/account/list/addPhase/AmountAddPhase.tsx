@@ -18,20 +18,12 @@ function AmountAddPhase({
   goPrevPhase,
   goNextPhase
 }: AmountAddPhaseProps) {
-  const isActiveComplete = amount > 0;
-
   /**
    * 금액 변경
    **/
-  const onChangeAmount = (num: number) => {
-    onChangeAccount('amount', num)
-  };
-
-  /**
-   * 예적금 입력 완료
-   **/
-  const onCompleteClick = () => {
-    isActiveComplete && goNextPhase();
+  const onAmountChange = (num: number) => {
+    onChangeAccount('amount', num);
+    goNextPhase();
   };
 
   return (
@@ -42,11 +34,9 @@ function AmountAddPhase({
       onBackClick={goPrevPhase}
     >
       <AmountKeyPad
-        currentAmount={amount}
+        value={amount}
         label='만기 금액 설정'
-        isActiveComplete={isActiveComplete}
-        onCompleteClick={onCompleteClick}
-        onChangeAmount={onChangeAmount}
+        onAmountChange={onAmountChange}
       />
     </PhaseTemplate>
   );
