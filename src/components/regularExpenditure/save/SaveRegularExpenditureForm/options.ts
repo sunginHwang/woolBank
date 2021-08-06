@@ -1,5 +1,5 @@
 import { IRegularExpenditureForm } from '@models/regularExpenditre/IRegularExpenditureForm';
-import { IAssetType } from '@models/IAssetType';
+import { IAssetType } from '@models/component/IAssetType';
 
 const options: {
   initForm: IRegularExpenditureForm;

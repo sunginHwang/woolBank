@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import OneWeekAgoItem from '@components/regularExpenditure/list/OneWeekAgoItem';
-import { IRegularExpenditure } from '@models/IRegularExpenditure';
+import { IRegularExpenditure } from '@models/accountBook/IRegularExpenditure';
 
 export interface IOneWeekRemainListProps {
   // 일주일 안남은 정기지출 리스트

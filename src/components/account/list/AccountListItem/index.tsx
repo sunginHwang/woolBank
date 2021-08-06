@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import CardItem from '@components/common/CardItem';
 import { getRemainDatePercentage, parseDate } from '@support/util/date';
 import { addComma } from '@support/util/String';
-import { IAccount } from '@models/IAccount';
+import { IAccount } from '@models/account/IAccount';
 import ItemSkeleton from './ItemSkeleton';
 
 interface IProps {

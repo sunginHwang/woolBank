@@ -10,8 +10,8 @@ import useRequest from '@support/hooks/useRequest';
 import { saveAccount } from '@support/api/accountApi';
 import { INSTALLMENT_SAVINGS_TAX } from '@support/constants';
 import { useToast } from '@support/hooks/useToast';
-import { IAccountForm } from '@models/IAccountForm';
-import { IAssetType } from '@models/IAssetType';
+import { IAccountForm } from '@models/account/IAccountForm';
+import { IAssetType } from '@models/component/IAssetType';
 
 const INIT_ACCOUNT_FORM: IAccountForm = {
   title: '',

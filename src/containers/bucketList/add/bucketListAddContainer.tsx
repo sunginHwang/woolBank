@@ -12,7 +12,7 @@ import { useToast } from '@support/hooks/useToast';
 import { useAlert } from '@support/hooks/useAlert';
 import useRequest from '@support/hooks/useRequest';
 import { saveBucketList, updateBucketList } from '@support/api/bucketListApi';
-import { ITodo } from '@models/ITodo';
+import { ITodo } from '@models/bucketList/ITodo';
 import { IBucketListForm } from '@models/bucketList/IBucketListForm';
 import { parseDate } from '@support/util/date';
 

@@ -1,4 +1,4 @@
-import { IAssetType } from '@models/IAssetType';
+import { IAssetType } from '@models/component/IAssetType';
 
 const options: {
   emptyMsg: {

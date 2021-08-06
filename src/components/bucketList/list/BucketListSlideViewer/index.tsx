@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 
 import TabSlideViewer from '@components/common/TabSlideViewer';
 import BucketListItem from '@components/bucketList/list/BucketListItem';
-import { IBucketList } from '@models/IBucketList';
+import { IBucketList } from '@models/bucketList/IBucketList';
 import { fetchBucketList } from '@support/api/bucketListApi';
 
 import options from './options';

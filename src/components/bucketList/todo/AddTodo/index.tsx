@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import TodoInput from '@components/bucketList/todo/TodoInput';
 import TodoAddButton from '@components/bucketList/todo/TodoAddButton';
 import { useToggle } from '@support/hooks/useToggle';
-import { ITodo } from '@models/ITodo';
+import { ITodo } from '@models/bucketList/ITodo';
 
 interface IProps {
   onAdd: (todo: ITodo) => void;

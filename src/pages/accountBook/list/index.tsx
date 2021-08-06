@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router';
 
 import Tabs from '@components/atoms/Tabs';
 import PageTemplate from '@components/layout/PageTemplate';
-import { IAssetType } from '@models/IAssetType';
+import { IAssetType } from '@models/component/IAssetType';
 import { useQuery } from '@support/hooks/UseQuery';
 import { ListTab, StatisticTab, RegularExpenditureListTab } from './tab';
 

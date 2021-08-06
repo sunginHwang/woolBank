@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { getRemainDay } from '@support/util/date';
-import { IRegularExpenditure } from '@models/IRegularExpenditure';
+import { IRegularExpenditure } from '@models/accountBook/IRegularExpenditure';
 
 export interface OneWeekAgoItemProps {
   // 정기 지출 정보

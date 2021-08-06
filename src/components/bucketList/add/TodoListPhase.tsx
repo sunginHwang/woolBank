@@ -11,7 +11,7 @@ import TodoInput from '@components/bucketList/todo/TodoInput';
 
 import { useToggle } from '@support/hooks/useToggle';
 import { IPhase } from '@models/phase/IPhase';
-import { ITodo } from '@models/ITodo';
+import { ITodo } from '@models/bucketList/ITodo';
 
 interface TodoListPhaseProps extends IPhase {
   loading: boolean;

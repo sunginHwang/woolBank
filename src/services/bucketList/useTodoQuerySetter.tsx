@@ -1,7 +1,7 @@
 import { createBucketKey } from '@/services/bucketList/useBucket';
 import { useMutation, useQueryClient } from 'react-query';
 import { removeTodo, saveTodo, updateTodoState } from '@support/api/todoApi';
-import { ITodo } from '@models/ITodo';
+import { ITodo } from '@models/bucketList/ITodo';
 import { useToast } from '@support/hooks/useToast';
 import { IBucket } from '@models/bucketList/IBucket';
 import { useConfirm } from '@components/common/Confirm/ConfirmService';

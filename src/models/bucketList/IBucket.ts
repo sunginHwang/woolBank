@@ -1,4 +1,4 @@
-import { ITodo } from '@models/ITodo';
+import { ITodo } from '@models/bucketList/ITodo';
 
 export interface IBucket {
   id: number;

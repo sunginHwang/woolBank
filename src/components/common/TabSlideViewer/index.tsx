@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
 
 import Tabs from '@components/atoms/Tabs';
-import { IAssetType } from '@models/IAssetType';
+import { IAssetType } from '@models/component/IAssetType';
 import SlideViewerSkeleton from './SlideViewerSkeleton';
 import EmptyList from './EmptyList';
 

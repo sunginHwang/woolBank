@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import TabSlideViewer from '@components/common/TabSlideViewer';
 import AccountListItem from '@components/account/list/AccountListItem';
 import { fetchAccountList } from '@support/api/accountApi';
-import { IAccount } from '@models/IAccount';
+import { IAccount } from '@models/account/IAccount';
 import options from './options';
 
 const { emptyMsg, tabs, title } = options;

@@ -1,6 +1,6 @@
 import apiCall from '@support/util/apiCall';
 import { ApiResType } from '@models/api/ApiResType';
-import { IBucketList } from '@models/IBucketList';
+import { IBucketList } from '@models/bucketList/IBucketList';
 import { IBucket } from '@models/bucketList/IBucket';
 import { IBucketListForm } from '@models/bucketList/IBucketListForm';
 

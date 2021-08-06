@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { parseDate } from '@support/util/date';
 import { addComma } from '@support/util/String';
-import { IDeposit } from '@models/IDeposit';
+import { IDeposit } from '@models/bucketList/IDeposit';
 
 interface IProps {
   deposit: IDeposit;

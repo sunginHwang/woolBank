@@ -7,6 +7,7 @@ import AmountKeyPad from '@components/common/AmountKeyPad';
 import useAccountQuery, { useAccountQuerySetter } from '@/services/account/useAccountQuery';
 import getRemainDeposit from '@/services/account/getRemainDeposit';
 import { delay } from '@support/util/delay';
+import useUpdateEffect from '@support/hooks/useUpdateEffect';
 
 interface IProps {
   isOpenKeypad: boolean;
@@ -22,7 +23,7 @@ function AddDeposit(props: IProps) {
   const { isOpenKeypad, accountId } = props;
   const history = useHistory();
   const { account } = useAccountQuery(accountId);
-  const { onAddDeposit, isAddDepositLoading } = useAccountQuerySetter(accountId);
+  const { onAddDeposit, isAddDepositLoading, isAddDepositSuccess } = useAccountQuerySetter(accountId);
 
   const [depositAmount, setDepositAmount] = useState(0);
 
@@ -37,11 +38,15 @@ function AddDeposit(props: IProps) {
     history.goBack();
   };
 
+  // 입금 완료시 키패드 초기화
+  useUpdateEffect(() => {
+    if (isAddDepositSuccess) {
+      setDepositAmount(0);
+    }
+  }, [isAddDepositSuccess]);
+
   const onCompleteClick = async () => {
     onAddDeposit({ amount: depositAmount, depositDate: new Date(), remainDepositAmount: getRemainDeposit(account) });
-    // 키패드 내려간 후 초기화 (UX)
-    await delay(100);
-    setDepositAmount(0);
   }
 
   const isShowDepositButton = account.currentAmount < account.amount && !account.isExpiration && account.savingType.type === 'freeInstallmentSavings';
@@ -71,7 +76,7 @@ function AddDeposit(props: IProps) {
 
 export default AddDeposit;
 
-const S = {
+const S: any = {
   Slide: styled.div`
     position: fixed;
     bottom: ${(props: any) => (props.visible ? '0' : '-100%')};

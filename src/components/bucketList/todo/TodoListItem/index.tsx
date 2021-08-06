@@ -7,7 +7,7 @@ import IcoTrashCan from '@components/icon/IcoTrashCan';
 import IcoBlackCircle from '@components/icon/IcoBlackCircle';
 
 import palette from '@style/palette';
-import { ITodo } from '@models/ITodo';
+import { ITodo } from '@models/bucketList/ITodo';
 
 interface IProps {
   todo: ITodo;

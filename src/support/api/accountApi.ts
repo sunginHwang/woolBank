@@ -1,6 +1,6 @@
-import { IAccount } from '@models/IAccount';
+import { IAccount } from '@models/account/IAccount';
 import { ApiResType } from '@models/api/ApiResType';
-import { IAccountForm } from '@models/IAccountForm';
+import { IAccountForm } from '@models/account/IAccountForm';
 import apiCall from '@support/util/apiCall';
 
 export const fetchAccountList = async (): Promise<IAccount[]> => {

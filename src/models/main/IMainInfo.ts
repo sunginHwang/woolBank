@@ -1,5 +1,5 @@
-import { IAccount } from '@models/IAccount';
-import { IBucketList } from '@models/IBucketList';
+import { IAccount } from '@models/account/IAccount';
+import { IBucketList } from '@models/bucketList/IBucketList';
 
 export interface IMainInfo {
   totalSavedAmount: number;

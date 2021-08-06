@@ -2,8 +2,8 @@ import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
 import { IPhase } from '@models/phase/IPhase';
-import { IAccountForm } from '@models/IAccountForm';
-import { IAssetType } from '@models/IAssetType';
+import { IAccountForm } from '@models/account/IAccountForm';
+import { IAssetType } from '@models/component/IAssetType';
 import { SAVING_TYPE } from '@support/constants';
 import { getKoMonth, parseDate } from '@support/util/date';
 

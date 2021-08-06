@@ -10,7 +10,7 @@ import CategorySelectBox from '@components/accountBook/save/CategorySelectBox';
 
 import { addComma } from '@support/util/String';
 import { IAccountBookCategory } from '@models/accountBook/IAccountBookCategory';
-import { IAssetType } from '@models/IAssetType';
+import { IAssetType } from '@models/component/IAssetType';
 
 import options from './options';
 

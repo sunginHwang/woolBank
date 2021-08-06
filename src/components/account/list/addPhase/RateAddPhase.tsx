@@ -11,8 +11,8 @@ import { findSavingTax, getAmountWithTax, getInterest } from '@support/util/bank
 import { getRate } from '@support/util/number';
 import { diffMonth } from '@support/util/date';
 import { IPhase } from '@models/phase/IPhase';
-import { IAccountForm } from '@models/IAccountForm';
-import { IAssetType } from '@models/IAssetType';
+import { IAccountForm } from '@models/account/IAccountForm';
+import { IAssetType } from '@models/component/IAssetType';
 
 interface AddRatePhaseProps extends IPhase {
   accountForm: IAccountForm;

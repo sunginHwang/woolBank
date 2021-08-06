@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-import { IAssetType } from '@models/IAssetType';
+import { IAssetType } from '@models/component/IAssetType';
 import ToggleTab from '@components/common/ToggleTab';
 import options from './options';
 

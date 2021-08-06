@@ -10,7 +10,7 @@ import Button from '@components/atoms/Button';
 import IcoTrashCan from '@components/icon/IcoTrashCan';
 import { useConfirm } from '@components/common/Confirm/ConfirmService';
 import SelectModalList from '@components/accountBook/save/SaveForm/SelectModalList';
-import { IAssetType } from '@models/IAssetType';
+import { IAssetType } from '@models/component/IAssetType';
 import { IAccountBookCategory } from '@models/accountBook/IAccountBookCategory';
 import { IAccountBookSaveForm } from '@models/accountBook/IAccountBookSaveForm';
 import { addComma } from '@support/util/String';

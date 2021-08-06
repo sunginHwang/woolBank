@@ -5,7 +5,7 @@ import Item from '@components/account/detail/DepositList/Item';
 import withThemeRender from '@support/test/withThemeRender';
 import { addComma } from '@support/util/String';
 import { parseDate } from '@support/util/date';
-import { IDeposit } from '@models/IDeposit';
+import { IDeposit } from '@models/bucketList/IDeposit';
 
 describe('<Item />', () => {
   const deposit: IDeposit = {

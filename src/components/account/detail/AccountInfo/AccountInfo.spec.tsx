@@ -6,7 +6,7 @@ import withThemeRender from '@support/test/withThemeRender';
 import { INSTALLMENT_SAVINGS, TAX_TYPE } from '@support/constants';
 import { addComma } from '@support/util/String';
 import { parseDate } from '@support/util/date';
-import { IAccount } from '@models/IAccount';
+import { IAccount } from '@models/account/IAccount';
 
 describe('<AccountInfo />', () => {
   const account: IAccount = {

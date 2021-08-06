@@ -3,7 +3,7 @@ import { IBucket } from '@models/bucketList/IBucket';
 import { completeBucket, fetchBucket, removeBucket } from '@support/api/bucketListApi';
 import { useToast } from '@support/hooks/useToast';
 import { useConfirm } from '@components/common/Confirm/ConfirmService';
-import { IBucketList } from '@models/IBucketList';
+import { IBucketList } from '@models/bucketList/IBucketList';
 import { useHistory } from 'react-router';
 
 export const initData: IBucket = {

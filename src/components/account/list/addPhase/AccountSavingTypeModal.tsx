@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ModalDeem from '@components/common/modal/ModalDeem';
-import { IAssetType } from '@models/IAssetType';
+import { IAssetType } from '@models/component/IAssetType';
 import { INSTALLMENT_SAVINGS } from '@support/constants';
 
 export interface AccountSavingTypeModalProps {

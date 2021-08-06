@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { addDeposit, expirationAccount, fetchAccount, removeAccount } from '@support/api/accountApi';
-import { IAccount } from '@models/IAccount';
+import { IAccount } from '@models/account/IAccount';
 import { useToast } from '@support/hooks/useToast';
 import { useConfirm } from '@components/common/Confirm/ConfirmService';
 import { useHistory } from 'react-router';
@@ -135,7 +135,8 @@ export function useAccountQuerySetter(accountId: number) {
     onAddDeposit,
     onExpiration,
     onRemove,
-    isAddDepositLoading: addDepositMutation.isLoading
+    isAddDepositLoading: addDepositMutation.isLoading,
+    isAddDepositSuccess: addDepositMutation.isSuccess
   };
 }
 

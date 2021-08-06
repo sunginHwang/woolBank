@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import TodoListItem from '@components/bucketList/todo/TodoListItem';
-import { ITodo } from '@models/ITodo';
+import { ITodo } from '@models/bucketList/ITodo';
 
 interface IProps {
   todoList: ITodo[];

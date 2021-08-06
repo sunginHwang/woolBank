@@ -4,7 +4,7 @@ import OneWeekAgoList from '@components/regularExpenditure/list/OneWeekAgoList';
 import LineSeparator from '@components/common/LineSeparator';
 import RegularAmountInfo from '@components/regularExpenditure/list/RegularAmountInfo';
 import { RegularExpenditureType } from '@support/api/regularExpenditureApi';
-import { IRegularExpenditure } from '@models/IRegularExpenditure';
+import { IRegularExpenditure } from '@models/accountBook/IRegularExpenditure';
 
 const now = new Date();
 const oneWeekDay = 7;

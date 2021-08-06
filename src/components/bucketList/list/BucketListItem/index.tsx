@@ -8,7 +8,7 @@ import EmptyCircle from '@components/common/EmptyCircle';
 import { onImageFallback } from '@support/util/image';
 import { remainDays } from '@support/util/date';
 import palette from '@style/palette';
-import { IBucketList } from '@models/IBucketList';
+import { IBucketList } from '@models/bucketList/IBucketList';
 import ItemSkeleton from './ItemSkeleton';
 
 interface IProps {

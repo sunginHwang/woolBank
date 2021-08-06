@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Item from '@components/account/detail/DepositList/Item';
-import { IDeposit } from '@models/IDeposit';
+import { IDeposit } from '@models/bucketList/IDeposit';
 
 import ListSkeleton from './ListSkeleton';
 import DepositListWrapper from './DepositListWrapper';

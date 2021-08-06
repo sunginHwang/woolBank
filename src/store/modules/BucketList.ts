@@ -2,9 +2,9 @@ import { createAsyncThunk, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import _ from 'lodash';
 
 import { AsyncState } from '@models/redux';
-import { IBucketList } from '@models/IBucketList';
+import { IBucketList } from '@models/bucketList/IBucketList';
 import { IBucket } from '@models/bucketList/IBucket';
-import { ITodo } from '@models/ITodo';
+import { ITodo } from '@models/bucketList/ITodo';
 import { fetchBucketListByPass, fetchBucket } from '@support/api/bucketListApi';
 import Layout from '@store/modules/Layout';
 import { delay } from '@support/util/delay';

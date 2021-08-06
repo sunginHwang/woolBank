@@ -4,7 +4,7 @@ import AccountListItem from '@components/account/list/AccountListItem/index';
 
 import { INSTALLMENT_SAVINGS, TAX_TYPE } from '@support/constants';
 import withThemeRender from '@support/test/withThemeRender';
-import { IAccount } from '@models/IAccount';
+import { IAccount } from '@models/account/IAccount';
 
 describe('<AccountListItem />', () => {
   const setup = () => {

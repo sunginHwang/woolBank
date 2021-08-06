@@ -1,7 +1,7 @@
 import React from 'react';
 import BucketListItem from '@components/bucketList/list/BucketListItem';
 import withThemeRender from '@support/test/withThemeRender';
-import { IBucketList } from '@models/IBucketList';
+import { IBucketList } from '@models/bucketList/IBucketList';
 import { remainDays } from '@support/util/date';
 
 const initState: IBucketList = {

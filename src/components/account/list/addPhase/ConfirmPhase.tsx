@@ -12,7 +12,7 @@ import {
   getTaxTypeKo
 } from '@support/util/bank';
 import { IPhase } from '@models/phase/IPhase';
-import { IAccountForm } from '@models/IAccountForm';
+import { IAccountForm } from '@models/account/IAccountForm';
 
 interface WalletConfirmPhaseProps extends IPhase{
   accountForm: IAccountForm;

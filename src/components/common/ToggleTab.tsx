@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { IAssetType } from '@models/IAssetType';
+import { IAssetType } from '@models/component/IAssetType';
 import { useWindowDimensions } from '@support/hooks/useWindowDemensions';
 
 export interface ToggleTabProps {

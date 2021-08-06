@@ -1,7 +1,7 @@
 import apiCall from '@support/util/apiCall';
 
 import { ApiResType } from '@models/api/ApiResType';
-import { IRegularExpenditure } from '@models/IRegularExpenditure';
+import { IRegularExpenditure } from '@models/accountBook/IRegularExpenditure';
 import { IRegularExpenditureForm } from '@models/regularExpenditre/IRegularExpenditureForm';
 
 export interface RegularExpenditureType {
