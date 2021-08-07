@@ -125,9 +125,12 @@ export function useAccountQuerySetter(accountId: number) {
     addDepositMutation.mutate({
       accountId, depositDate, amount
     }, {
-      onSuccess: () => {
+      onSuccess: (savedDeposit) => {
         queryClient.setQueryData<IAccount | undefined>(createKey(accountId), prev => {
-          // todo 입금내역 최신화 시키기 (api 레벨 수정 필요)
+          if (prev) {
+            const prevDeposit = prev.deposits || [];
+            prev.deposits = [savedDeposit, ...prevDeposit];
+          }
           return prev;
         });
         onToast('입금이 완료되었습니다.');

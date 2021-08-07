@@ -2,6 +2,7 @@ import { IAccount } from '@models/account/IAccount';
 import { ApiResType } from '@models/api/ApiResType';
 import { IAccountForm } from '@models/account/IAccountForm';
 import apiCall from '@support/util/apiCall';
+import { IDeposit } from '@models/bucketList/IDeposit';
 
 export const fetchAccountList = async (): Promise<IAccount[]> => {
   const response = await apiCall.get<ApiResType<IAccount[]>>('/accounts');
@@ -25,7 +26,7 @@ export const removeAccount = (accountId: number) => {
   return apiCall.delete<ApiResType<Date>>(`/accounts/${accountId}/`);
 };
 
-export const addDeposit = ({
+export const addDeposit = async ({
   accountId,
   amount,
   depositDate
@@ -33,11 +34,13 @@ export const addDeposit = ({
   accountId: number;
   amount: number;
   depositDate?: Date;
-}) => {
-  return apiCall.post<ApiResType<boolean>>(`/accounts/${accountId}/deposit`, {
+}): Promise<IDeposit> => {
+  const result = await apiCall.post<ApiResType<IDeposit>>(`/accounts/${accountId}/deposit`, {
     amount,
     depositDate
   });
+
+  return result.data.data;
 };
 
 export const expirationAccount = (accountId: number) => {
