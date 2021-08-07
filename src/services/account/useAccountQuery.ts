@@ -7,6 +7,12 @@ import { useHistory } from 'react-router';
 import { addComma } from '@support/util/String';
 import { useAlert } from '@support/hooks/useAlert';
 
+type AddDeposit = {
+  amount: number;
+  depositDate: Date;
+  remainDepositAmount: number;
+  onSuccessCB?: () => void;
+};
 const initData: IAccount = {
   id: -999,
   title: '',
@@ -110,7 +116,7 @@ export function useAccountQuerySetter(accountId: number) {
     }
   };
 
-  const onAddDeposit = ({ amount, depositDate, remainDepositAmount }: {amount: number, depositDate: Date, remainDepositAmount: number}) => {
+  const onAddDeposit = ({ amount, depositDate, remainDepositAmount }: AddDeposit) => {
     if (amount > remainDepositAmount) {
       onAlert(`최대 입금 가능 금액은 ${addComma(remainDepositAmount)} 입니다.`);
       return;

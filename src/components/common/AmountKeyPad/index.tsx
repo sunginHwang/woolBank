@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 import IcoClose from '@components//icon/IcoClose';
@@ -16,6 +16,7 @@ interface IProps {
   useClose?: boolean;
   loading?: boolean;
   onAmountChange: (amount: number) => void;
+  isResetValue?: boolean;
   onClose?: () => void;
 }
 
@@ -31,6 +32,7 @@ function AmountKeyPad(props: IProps) {
     label,
     loading = false,
     useClose = false,
+    isResetValue,
     onAmountChange,
     onClose
   } = props;
@@ -42,6 +44,13 @@ function AmountKeyPad(props: IProps) {
   useUpdateEffect(() => {
     setAmount(value);
   }, [value]);
+
+  // 금액 초기화 처리
+  useUpdateEffect(() => {
+    if (isResetValue) {
+      setAmount(0);
+    }
+  }, [isResetValue]);
 
   // 금액 클릭
   const onAddNumberClick = (e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>) => {
@@ -148,7 +157,7 @@ function AmountKeyPad(props: IProps) {
           size='full'
           name='completeNumber'
           loading={loading}
-          active={amount > 0}
+          active={amount > 0 && amount <= maxAmount}
           onClick={onCompleteClick}
         />
       </S.Complete>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router';
 
@@ -6,7 +6,6 @@ import AddButton from '@components/common/AddButton';
 import AmountKeyPad from '@components/common/AmountKeyPad';
 import useAccountQuery, { useAccountQuerySetter } from '@/services/account/useAccountQuery';
 import getRemainDeposit from '@/services/account/getRemainDeposit';
-import useUpdateEffect from '@support/hooks/useUpdateEffect';
 
 interface IProps {
   isOpenKeypad: boolean;
@@ -51,7 +50,9 @@ function AddDeposit(props: IProps) {
         <AmountKeyPad
           useClose
           label='입금하실 금액을 입력해주세요.'
+          maxAmount={account.amount - account.currentAmount}
           loading={isAddDepositLoading}
+          isResetValue={!isOpenKeypad}
           onClose={closeDepositKeyPad}
           onAmountChange={onAmountChange}
         />
@@ -69,6 +70,6 @@ const S: any = {
     width: 100%;
     height: 100%;
     transition: all 0.3s ease;
-    z-index: ${(props) => props.theme.zIndex.modalDeem + 1};
+    z-index: ${(props) => props.theme.zIndex.layer};
   `
 };
