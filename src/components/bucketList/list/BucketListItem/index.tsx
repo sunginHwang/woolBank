@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import CardItem from '@components/common/CardItem';
-import IcoCircleCheck from '@components/icon/IcoCircleCheck';
+import IcoCircleCheck from '@components/atoms/icon/IcoCircleCheck';
 import EmptyCircle from '@components/common/EmptyCircle';
 import { onImageFallback } from '@support/util/image';
 import { remainDays } from '@support/util/date';
@@ -90,7 +90,7 @@ const S = {
     flex-direction: column;
     margin-left: 1.4rem;
     p {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: bold;
       line-height: 1.5;
 
@@ -102,7 +102,7 @@ const S = {
     }
   `,
   RemainDate: styled.p`
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.mainColor};
   `
