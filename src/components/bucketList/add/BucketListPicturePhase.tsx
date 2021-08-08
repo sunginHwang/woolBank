@@ -5,8 +5,8 @@ import LabelText from '@components/common/LabelText';
 import BucketListPrevImage from '@components/bucketList/add/BucketListPrevImage';
 import ImageCrop from '@components/common/ImageCrop';
 import PhaseTemplate from '@components/common/PhaseTemplate';
-import IcoCamera from '@components/icon/IcoCamera';
-import IcoImage from '@components/icon/IcoImage';
+import IcoCamera from '@components/atoms/icon/IcoCamera';
+import IcoImage from '@components/atoms/icon/IcoImage';
 import BottomButton from '@components/common/BottomButton';
 
 import { dataURLtoFile, getExtensionByDataURL, resizeImage } from '@support/util/file';

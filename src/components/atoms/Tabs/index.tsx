@@ -26,7 +26,7 @@ function Tabs({ tabs, activeTab, onChangeTab }: IProps) {
 
   useEffect(() => {
     setIndicatorLeftPosition(indicatorWidth * activeTabIndex);
-  }, [activeTab]);
+  }, [activeTab, indicatorWidth, activeTabIndex]);
 
   const onTabClick = (tab: IAssetType, index: number) => {
     setIndicatorLeftPosition(indicatorWidth * index);

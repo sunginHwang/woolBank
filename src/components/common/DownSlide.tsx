@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import IcoDownCircle from '@components/icon/IcoDownCircle';
-import IcoUpCircle from '@components/icon/IcoUpCircle';
+import IcoDownCircle from '@components/atoms/icon/IcoDownCircle';
+import IcoUpCircle from '@components/atoms/icon/IcoUpCircle';
 
 import { useToggle } from '@support/hooks/useToggle';
 import palette from '@style/palette';

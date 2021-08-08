@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { format } from 'date-fns';
 
@@ -6,7 +6,6 @@ import PhaseTemplate from '@components/common/PhaseTemplate';
 import Button from '@components/atoms/Button';
 import MiniAmountInput from '@components/common/MiniAmountInput';
 import DateInput from '@components/common/DateInput';
-import { useAlert } from '@support/hooks/useAlert';
 
 interface IProps {
   isActive: boolean;

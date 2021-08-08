@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { ClipLoader } from 'react-spinners';
 
-import IcoCircleCheck from '@components/icon/IcoCircleCheck';
-import IcoTrashCan from '@components/icon/IcoTrashCan';
-import IcoBlackCircle from '@components/icon/IcoBlackCircle';
+import IcoCircleCheck from '@components/atoms/icon/IcoCircleCheck';
+import IcoTrashCan from '@components/atoms/icon/IcoTrashCan';
+import IcoBlackCircle from '@components/atoms/icon/IcoBlackCircle';
 
 import palette from '@style/palette';
 import { ITodo } from '@models/bucketList/ITodo';

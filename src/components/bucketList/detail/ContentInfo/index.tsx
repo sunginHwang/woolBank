@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import IcoCalendarMonthOutline from '@components/icon/IcoCalendarMonthOutline';
+import IcoCalendarMonthOutline from '@components/atoms/icon/IcoCalendarMonthOutline';
 import PlaceHolderBar from '@components/atoms/PlaceHolderBar';
 import palette from '@style/palette';
 import { parseDate } from '@support/util/date';

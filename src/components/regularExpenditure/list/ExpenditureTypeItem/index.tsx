@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import palette from '@style/palette';
-import IcoTrashCan from '@components/icon/IcoTrashCan';
+import IcoTrashCan from '@components/atoms/icon/IcoTrashCan';
 import { IRegularExpenditure } from '@models/accountBook/IRegularExpenditure';
 import { addComma } from '@support/util/String';
 import { getRemainDay } from '@support/util/date';

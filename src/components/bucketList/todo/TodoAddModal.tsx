@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ModalDeem from '@components/common/modal/ModalDeem';
-import IcoSend from '@components/icon/IcoSend';
+import IcoSend from '@components/atoms/icon/IcoSend';
 
 import palette from '@style/palette';
 

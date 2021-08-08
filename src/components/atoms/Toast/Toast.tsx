@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export interface ToastProps {
+interface IProps {
   visible: boolean;
   message: string;
 }
 
-function Toast({ visible, message }: ToastProps) {
+/**
+ * 공통 - 토스트 메세지
+ * @component
+ */
+
+function Toast({ visible, message }: IProps) {
   if (!visible) {
     return null;
   }
@@ -20,9 +25,7 @@ function Toast({ visible, message }: ToastProps) {
   );
 }
 
-const S: {
-  Toast: any;
-} = {
+const S = {
   Toast: styled.div`
     position: fixed;
     width: 100%;

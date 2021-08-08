@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Cropper from 'react-cropper';
 
 import PageHeader from '@components/common/PageHeader';
-import IcoCircleCheck from '@components/icon/IcoCircleCheck';
+import IcoCircleCheck from '@components/atoms/icon/IcoCircleCheck';
 
 import colors from '@style/theme';
 import './cropper.css';

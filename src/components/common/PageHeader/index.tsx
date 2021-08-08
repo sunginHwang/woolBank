@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-import IcoChevronLeft from '@components/icon/IcoChevronLeft';
+import IcoChevronLeft from '@components/atoms/icon/IcoChevronLeft';
 import theme from '@style/theme';
 
 interface IProps {

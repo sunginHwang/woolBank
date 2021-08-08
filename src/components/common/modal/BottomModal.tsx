@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import ModalDeem from '@components/common/modal/ModalDeem';
-import IcoClose from '@components/icon/IcoClose';
+import IcoClose from '@components/atoms/icon/IcoClose';
 import palette from '@style/palette';
 
 

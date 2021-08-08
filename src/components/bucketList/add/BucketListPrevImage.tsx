@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import IcoCloseCircle from '@components/icon/IcoCloseCircle';
+import IcoCloseCircle from '@components/atoms/icon/IcoCloseCircle';
 
 import colors from '@style/theme';
 

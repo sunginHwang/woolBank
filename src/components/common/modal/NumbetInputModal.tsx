@@ -5,7 +5,7 @@ import BottomModal from '@components/common/modal/BottomModal';
 import AmountInput from '@components/common/AmountInput';
 import { useNumberAmount } from '@support/hooks/useNumberAmount';
 import palette from '@style/palette';
-import IcoCloseCircle from '@components/icon/IcoCloseCircle';
+import IcoCloseCircle from '@components/atoms/icon/IcoCloseCircle';
 
 export interface IProps {
   title: string;
@@ -27,7 +27,6 @@ function NumberInputModal(props: IProps) {
   const onCompleteClick = useCallback(() => {
     onComplete(amount);
   }, [amount, onComplete]);
-
 
   return (
     <BottomModal title={title} visible={visible} oncloseModal={oncloseModal}>
@@ -58,7 +57,6 @@ function TransitionArray({ values } : { values: number;}) {
     console.log('e');
     setItems(converArray(values));
   }, [values]);
-
 
   const transitions = useTransition(items, {
     keys: item => item.key,

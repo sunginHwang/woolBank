@@ -5,7 +5,7 @@ import PageTemplate from '@components/layout/PageTemplate';
 import AccountDetailInfo from '@components/account/detail/AccountDetailInfo';
 import AccountBottomMenu from '@components/account/detail/AccountBottomMenu';
 import AddDeposit from '@components/account/detail/AddDeposit';
-import IcoDowHorizontal from '@components/icon/IcoDotHorizontal';
+import IcoDowHorizontal from '@components/atoms/icon/IcoDotHorizontal';
 
 import colors from '@style/theme';
 import { useQuery } from '@support/hooks/UseQuery';

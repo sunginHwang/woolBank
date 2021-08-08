@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 
 import PageHeader from '@components/common/PageHeader';
 import Progress from '@components/atoms/Progress';
-import IcoDowHorizontal from '@components/icon/IcoDotHorizontal';
+import IcoDowHorizontal from '@components/atoms/icon/IcoDotHorizontal';
 import PlaceHolderBar from '@components/atoms/PlaceHolderBar';
 
 import { getRemainDatePercentage, remainDays } from '@support/util/date';

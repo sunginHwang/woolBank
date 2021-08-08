@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BucketListAddContainer from '@containers/bucketList/add/bucketListAddContainer';
+import BucketListAddContainer from '@components/bucketList/add/bucketListAddContainer';
 
 import { useQuery } from '@support/hooks/UseQuery';
 

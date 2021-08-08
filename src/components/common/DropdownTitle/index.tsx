@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import IcoChevronDown from '@components/icon/IcoChevronDown';
+import IcoChevronDown from '@components/atoms/icon/IcoChevronDown';
 
 interface IProps {
   onClick: () => void;
@@ -20,7 +20,6 @@ function DropdownTitle({ title, onClick }: IProps) {
   )
 }
 
-
 const S: {
   Title: any;
 } = {
@@ -34,7 +33,7 @@ const S: {
       color: ${({ theme }) => theme.colors.blackL1};
       margin-right: 0.5rem;
     }
-  `,
+  `
 };
 
 export default DropdownTitle;

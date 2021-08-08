@@ -5,7 +5,7 @@ import { LayoutRouteProps } from '@routes/index';
 import PageTemplate from '@components/layout/PageTemplate';
 
 const AccountList = loadable(() => import('@pages/account/AccountListPage'), {
-  fallback: <PageTemplate useHeader={false} topPadding={8.8} useSidePadding={false} />
+  fallback: <PageTemplate title='자산관리' useBackButton={false} useSidePadding={false} />
 });
 const AccountDetail = loadable(() => import('@pages/account/AccountDetailPage'), {
   fallback: <PageTemplate title='계좌정보' useSidePadding={false} />

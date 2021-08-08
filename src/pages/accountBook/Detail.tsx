@@ -29,7 +29,7 @@ function AccountBookDetailPage() {
       onToast('존재하지 않는 페이지 입니다.');
       history.goBack();
     }
-  }, [isError]);
+  }, [isError, onToast, history]);
 
   return (
     <PageTemplate title={data.title}>

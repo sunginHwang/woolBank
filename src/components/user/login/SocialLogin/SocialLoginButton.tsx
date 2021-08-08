@@ -5,9 +5,9 @@ import {
   ReactFacebookLoginInfo
 } from 'react-facebook-login';
 
-import IcoGoogle from '@components/icon/IcoGoogle';
-import IcoKakaoTalk from '@components/icon/IcoKakaoTalk';
-import IcoFacebook from '@components/icon/IcoFacebook';
+import IcoGoogle from '@components/atoms/icon/IcoGoogle';
+import IcoKakaoTalk from '@components/atoms/icon/IcoKakaoTalk';
+import IcoFacebook from '@components/atoms/icon/IcoFacebook';
 
 const providerMap = {
   kakaoTalk: {

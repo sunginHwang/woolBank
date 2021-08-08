@@ -7,7 +7,7 @@ import Form from '@components/atoms/Form';
 import BaseInput from '@components/atoms/BaseInput';
 import ToggleTab from '@components/common/ToggleTab';
 import Button from '@components/atoms/Button';
-import IcoTrashCan from '@components/icon/IcoTrashCan';
+import IcoTrashCan from '@components/atoms/icon/IcoTrashCan';
 import { useConfirm } from '@components/common/Confirm/ConfirmService';
 import SelectModalList from '@components/accountBook/save/SaveForm/SelectModalList';
 import { IAssetType } from '@models/component/IAssetType';

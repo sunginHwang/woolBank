@@ -1,5 +1,5 @@
 import React from 'react';
-import AccountAddContainer from '@containers/account/add/AccountAddContainer';
+import AccountAddContainer from '@components/account/add/AccountAddContainer';
 
 function AccountRegister() {
   return <AccountAddContainer />;

@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
 
-import IcoPig from '@components/icon/IcoPig';
 import { INavigationBar } from '@models/layout/INavigationBar';
 import { isIOS } from '@support/util/device';
-import IcoAccountOutline from '../../icon/IcoAccountOutline';
-import IcoBucketOutline from '../../icon/IcoBucketOutline';
-import IcoWalletOutline from '../../icon/IcoWallet';
-import IcoHomeOutline from '../../icon/IcoHomeOutline';
+import IcoPig from '@components/atoms/icon/IcoPig';
+import IcoAccountOutline from '@components/atoms/icon/IcoAccountOutline';
+import IcoBucketOutline from '@components/atoms/icon/IcoBucketOutline';
+import IcoWalletOutline from '@components/atoms/icon/IcoWallet';
+import IcoHomeOutline from '@components/atoms/icon/IcoHomeOutline';
 
 const navigations: INavigationBar[] = [
   {

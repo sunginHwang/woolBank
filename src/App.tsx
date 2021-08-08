@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import Splash from '@components/layout/Splash';
@@ -9,6 +9,7 @@ import { useToggle } from '@support/hooks/useToggle';
 import { saveToken, setHeaderAuthToken } from '@support/util/apiCall';
 import { getInitUserInfo } from '@support/api/userApi';
 import config from '@/config';
+import useMount from '@support/hooks/useMount';
 
 const { ACCESS_TOKEN } = config.auth;
 
@@ -24,13 +25,13 @@ function App() {
   /**
    * 첫 진입시 로그인 인증
    */
-  useEffect(() => {
+  useMount(() => {
     if (localStorage.getItem(ACCESS_TOKEN) === null) {
       hideInitLoading();
     } else {
       initLogin();
     }
-  }, []);
+  });
 
   const initLogin = async () => {
     try {

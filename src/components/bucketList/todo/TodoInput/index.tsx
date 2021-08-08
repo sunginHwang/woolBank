@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 
-import IcoBlackCircle from '@components/icon/IcoBlackCircle';
+import IcoBlackCircle from '@components/atoms/icon/IcoBlackCircle';
 
 import palette from '@style/palette';
 import useInput from '@support/hooks/UseInput';

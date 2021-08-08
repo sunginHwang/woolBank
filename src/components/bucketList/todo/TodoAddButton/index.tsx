@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ClipLoader } from 'react-spinners';
 
-import IcoPlus from '@components/icon/IcoPlus';
+import IcoPlus from '@components/atoms/icon/IcoPlus';
 
 import palette from '@style/palette';
 

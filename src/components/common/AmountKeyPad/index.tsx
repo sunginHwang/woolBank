@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
-import IcoClose from '@components//icon/IcoClose';
+import IcoClose from '@components/atoms/icon/IcoClose';
 import Button from '@components/atoms/Button';
 import palette from '@style/palette';
 import { addComma, numberToKorean } from '@support/util/String';
