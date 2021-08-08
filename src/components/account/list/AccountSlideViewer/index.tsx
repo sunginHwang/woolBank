@@ -15,17 +15,16 @@ const { emptyMsg, tabs, title } = options;
  */
 
 function AccountSlideViewer() {
-  const { data: accountList = [], isLoading } = useQuery<IAccount[]>('accountList', fetchAccountList);
+  const { data: accountList = [], isFetching } = useQuery<IAccount[]>('accountList', fetchAccountList);
   const renderProgressAccountList = renderList('progress', accountList);
   const renderCompleteAccountList = renderList('complete', accountList);
 
-  if (isLoading) {
+  if (isFetching) {
+    return <TabSlideViewer.Skeleton title={title} item={<AccountListItem.Skeleton />} />;
   }
 
   return (
-    <>
-      <TabSlideViewer tabs={tabs} slideViewList={[renderProgressAccountList, renderCompleteAccountList]} title={title} />
-    </>
+    <TabSlideViewer tabs={tabs} slideViewList={[renderProgressAccountList, renderCompleteAccountList]} title={title} />
   );
 }
 

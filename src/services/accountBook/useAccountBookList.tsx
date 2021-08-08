@@ -6,9 +6,7 @@ import { useCallback } from 'react';
 export const QUERY_KEY = 'accountBookList';
 
 export default function useAccountBookListQuery(selectedDate: string) {
-  return useQuery<IAccountBookListItem[]>(QUERY_KEY, () => fetchAccountBookList(selectedDate), {
-    refetchOnMount: false
-  });
+  return useQuery<IAccountBookListItem[]>(QUERY_KEY, () => fetchAccountBookList(selectedDate));
 }
 
 export function useAccountBookQuerySetter() {
@@ -50,6 +48,6 @@ export function useAccountBookQuerySetter() {
     set,
     add,
     update,
-    remove,
+    remove
   };
 }

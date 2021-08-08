@@ -19,6 +19,8 @@ const queryClient = new QueryClient({
     queries: {
       // 윈도우 포커스 fefetch 기본 제한 처리
       refetchOnWindowFocus: false,
+      // 마운트시 다시 fetch 안하도록
+      refetchOnMount: false,
       retry: 1
     }
   }
@@ -34,7 +36,7 @@ ReactDOM.render(
             <ErrorHandler>
               <ConfirmProvider>
                 <App />
-                <div id="modalDeem" />
+                <div id='modalDeem' />
               </ConfirmProvider>
             </ErrorHandler>
           </BrowserRouter>
