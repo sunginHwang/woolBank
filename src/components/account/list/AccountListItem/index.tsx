@@ -62,7 +62,6 @@ const S = {
   Top: styled.div`
     display: flex;
     justify-content: space-between;
-    font-size: 1.8rem;
     margin-bottom: 0.3rem;
 
     p {
@@ -70,11 +69,11 @@ const S = {
       overflow: hidden;
       white-space: nowrap;
       color: ${({ theme }) => theme.colors.blackL2};
-      font-size: 1.6rem;
+      font-size: 1.4rem;
     }
 
     span {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: bold;
       color: ${({ theme }) => theme.colors.greyL5};
     }
@@ -92,7 +91,7 @@ const S = {
     margin-bottom: 0.8rem;
 
     p {
-      font-size: 2.4rem;
+      font-size: 1.8rem;
       font-weight: bold;
       color: ${({ theme }) => theme.colors.mainColor};
     }
@@ -103,7 +102,7 @@ const S = {
     }
   `,
   Bottom: styled.div`
-    font-size: 1.2rem;
+    font-size: 1rem;
     display: flex;
     justify-content: space-between;
     color: ${({ theme }) => theme.colors.greyL7};
@@ -113,7 +112,7 @@ const S = {
   Progress: styled.div<{
     percent: number;
   }>`
-    margin-top: 1.6rem;
+    margin-top: 1.4rem;
     height: 0.1rem;
     border-radius: 0.3rem;
     background-color: ${({ theme }) => theme.colors.greyL2};
