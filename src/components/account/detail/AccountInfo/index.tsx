@@ -83,7 +83,7 @@ const S: any = {
     color: ${({ theme }) => theme.colors.blackL1};
   `,
   Title: styled.p`
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin-bottom: 1rem;
     > span {
       font-size: 1.2rem;
@@ -91,7 +91,7 @@ const S: any = {
     }
   `,
   CurrentAmount: styled.p`
-    font-size: 4.2rem;
+    font-size: 3.6rem;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.mainColor};
     margin-bottom: 3rem;
@@ -111,7 +111,7 @@ const S: any = {
     margin-top: ${({ isRoot }) => (isRoot ? '3rem' : '1rem')};
 
     > p {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       font-weight: bold;
 
       > span {
@@ -122,8 +122,6 @@ const S: any = {
     }
   `,
   Interest: styled.p`
-    font-size: 1.8rem !important;
-    font-weight: bold;
     color: ${({ theme }) => theme.colors.greyD2};
   `,
   Info: styled.strong`

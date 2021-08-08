@@ -50,7 +50,7 @@ const S = {
     }
   `,
   Amount: styled.div`
-    font-size: 2rem;
+    font-size: 1.6rem;
     color: ${({ theme }) => theme.colors.mainColor};
     font-weight: bold;
   `
