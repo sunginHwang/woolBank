@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import PageTemplate from '@components/layout/PageTemplate';
 import Card from '@components/common/Card';
 import { RootState } from '@/store';
-import config from '@/config';
+import config from '@/support/config';
 import { setHeaderAuthToken } from '@support/util/apiCall';
 import ConfirmModal from '@components/common/modal/ConfirmModal';
 import { useToggle } from '@support/hooks/useToggle';

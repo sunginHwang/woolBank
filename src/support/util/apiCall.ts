@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import config from '@/config';
+import config from '@/support/config';
 import { ITokenInfo } from '@models/ITokenInfo';
 
 const { WBANK_URL } = config.api;

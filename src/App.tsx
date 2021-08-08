@@ -8,7 +8,7 @@ import Routes from '@/routes';
 import { useToggle } from '@support/hooks/useToggle';
 import { saveToken, setHeaderAuthToken } from '@support/util/apiCall';
 import { getInitUserInfo } from '@support/api/userApi';
-import config from '@/config';
+import config from '@/support/config';
 import useMount from '@support/hooks/useMount';
 
 const { ACCESS_TOKEN } = config.auth;
