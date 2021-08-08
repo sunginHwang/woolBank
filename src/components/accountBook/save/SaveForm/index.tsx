@@ -37,11 +37,14 @@ interface IProps {
  * @component
  */
 
-function SaveForm({ isInsertMode, onRemove, onFormSubmit, saveForm = initForm }: IProps) {
+function SaveForm(props: IProps) {
+  const { isInsertMode, onRemove, onFormSubmit, saveForm } = props;
   const onToast = useToast();
   const { openConfirm } = useConfirm();
   const { openModalName, setModalWithType, setModal, onCloseModal } = useOpenModal();
-  const { inputs: formData, onChange, setInput, onClear, setInputs } = useInputs<IAccountBookSaveForm>(saveForm);
+  const { inputs: formData, onChange, setInput, onClear, setInputs } = useInputs<IAccountBookSaveForm>(saveForm || {
+    ...initForm, registerDateTime: new Date() // date 타입은 초기화가 안되어 강제 초기화 처리
+  });
   const addAccountBookMutation = useMutation(addAccountBook);
 
   // 폼입력시 금액 설정 input 나오도록
@@ -52,7 +55,7 @@ function SaveForm({ isInsertMode, onRemove, onFormSubmit, saveForm = initForm }:
   });
 
   useUpdateEffect(() => {
-    setInputs(saveForm);
+    saveForm && setInputs(saveForm);
   }, [saveForm]);
 
   const onSubmitClick = () => {
