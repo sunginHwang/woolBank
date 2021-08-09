@@ -4,6 +4,6 @@
 
 declare namespace NodeJS {
   interface ProcessEnv {
-    readonly REACT_APP_ENV: 'local' | 'dev' | 'prod';
+    readonly REACT_APP_ENV: 'dev' | 'prod';
   }
 }

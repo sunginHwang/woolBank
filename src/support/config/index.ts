@@ -1,13 +1,36 @@
+import dev from './dev';
+import prod from './prod';
 
-const defaultConfig = {
+const env = process.env?.REACT_APP_ENV || 'dev';
+
+export interface IEnvConfig {
   socialAuthKey: {
-    kakaoTalk: '',
-    google: '',
-    facebook: ''
+    kakaoTalk: string;
+    google: string;
+    facebook: string;
   },
   api: {
-    WBANK_URL: process.env.NODE_ENV === 'production' ? 'http://localhost:4000' : 'http://localhost:4000'
+    WBANK_URL: string;
   },
+}
+
+export interface IConfig extends IEnvConfig{
+  auth: {
+    ACCESS_TOKEN: string,
+    REFRESH_TOKEN: string,
+    ACCESS_HEADER_TOKEN: string
+  },
+  message: {
+    ACCESS_TOKEN_EXPIRED: string;
+  },
+}
+
+const envConfig: IEnvConfig = {
+  dev,
+  prod
+}[env];
+
+const defaultConfig: IConfig = {
   auth: {
     ACCESS_TOKEN: 'accessToken',
     REFRESH_TOKEN: 'refreshToken',
@@ -15,7 +38,8 @@ const defaultConfig = {
   },
   message: {
     ACCESS_TOKEN_EXPIRED: 'jwt expired'
-  }
+  },
+  ...envConfig
 }
 
 export default defaultConfig;

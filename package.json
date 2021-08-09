@@ -72,7 +72,8 @@
     "prettier": "^2.0.5"
   },
   "scripts": {
-    "start": "PORT=4001 craco start",
+    "start:dev": "PORT=4001 REACT_APP_ENV=dev craco start",
+    "start:prod": "PORT=4001 REACT_APP_ENV=prod craco start",
     "build": "craco build",
     "test": "craco test",
     "production": "serve -s build -p 4001",
