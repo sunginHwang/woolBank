@@ -11,6 +11,7 @@
       "@store/*": ["src/store/*"],
       "@style/*": ["src/style/*"],
       "@support/*": ["src/support/*"],
+      "@image/*": ["src/image/*"],
       "@types/*": ["src/types/*"]
     }
   }

@@ -15,5 +15,6 @@ export default function useUpdateEffect(effect: EffectCallback, dependencies: De
     } else {
       effect();
     }
+  // eslint-disable-next-line
   }, dependencies);
 }

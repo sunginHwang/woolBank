@@ -33,7 +33,7 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
 
   useEffect(() => {
     setIndicatorLeftPosition(indicatorWidth * activeTabIndex);
-  }, [activeTab]);
+  }, [activeTab, indicatorWidth, activeTabIndex]);
 
   const onTabClick = (tab: IAssetType, index: number) => {
     setIndicatorLeftPosition(indicatorWidth * index);

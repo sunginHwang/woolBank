@@ -1,5 +1,5 @@
 import React from 'react';
-import noData from '@/image/no_data.svg';
+import noData from '@image/no_data.svg';
 import styled from 'styled-components';
 
 interface IProps {

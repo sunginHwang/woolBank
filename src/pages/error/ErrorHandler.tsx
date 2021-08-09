@@ -18,9 +18,7 @@ const ErrorHandler = ({ children }: any) => {
     const unlisten = history.listen(() => dispatch(Layout.actions.setErrorStatusCode(200)));
     // unmount될 때 리스너 제거
     return unlisten;
-  }, []);
-
-  console.log(errorStatusCode);
+  }, [history, dispatch]);
 
   if (errorStatusCode === 404) {
     return <PageNotFound />;

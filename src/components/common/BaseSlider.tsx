@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import palette from '@style/palette';
@@ -18,29 +18,29 @@ export interface BaseSliderProps {
 }
 
 function BaseSlider({
-  min,
-  max,
-  step,
-  height = 4,
-  dataType = '',
-  hoverMessage,
-  size = 'large',
-  value,
-  onChange
-}: BaseSliderProps) {
+                      min,
+                      max,
+                      step,
+                      height = 4,
+                      dataType = '',
+                      hoverMessage,
+                      size = 'large',
+                      value,
+                      onChange
+                    }: BaseSliderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const displayRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => setSlideStyle(value), []);
 
   const onSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSlideStyle(Number(e.target.value));
     onChange && onChange(e);
   };
 
-  const getRangePercent = (value: number) => ((value - min) * 100) / (max - min);
+  const getRangePercent = useCallback((value: number) => {
+    return ((value - min) * 100) / (max - min);
+  }, [min, max]);
 
-  const setSlideStyle = (value: number) => {
+  const setSlideStyle = useCallback((value: number) => {
     if (!inputRef.current || !displayRef.current) {
       return;
     }
@@ -51,7 +51,10 @@ function BaseSlider({
     displayRef.current.style.left = `calc(${rangePercent}%  + ${
       (displaySize - rangePercent * displayPercent) * 0.1
     }rem)`;
-  };
+  }, [size, getRangePercent]);
+
+  useEffect(() => setSlideStyle(value), [value, setSlideStyle]);
+
 
   return (
     <S.BaseSlider size={size}>
