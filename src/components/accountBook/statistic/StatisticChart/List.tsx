@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 import { addComma } from '@support/util/String';
 import { IAccountBookChartData } from './index';
+import { useToggle } from '@/support/hooks/useToggle';
+import BottomSheet from '@/components/common/BotttonSheet';
 
 interface IProps {
   accountBookChartList: IAccountBookChartData[];
@@ -14,19 +16,39 @@ interface IProps {
  */
 
 function StatisticList({ accountBookChartList }: IProps) {
+  const [isOpen, onOpen, onClose] = useToggle(false);
+
   return (
-    <S.StatisticList>
-      {accountBookChartList.map(({ label, percentage, value, color }, index) => {
-        return (
-          <S.Item key={label}>
-            <S.CategoryName color={color}>
-              {label}({percentage})
-            </S.CategoryName>
-            <S.Amount>{addComma(value)}원</S.Amount>
-          </S.Item>
-        );
-      })}
-    </S.StatisticList>
+    <>
+      <S.StatisticList>
+        {accountBookChartList.map(({ label, percentage, value, color }, index) => {
+          return (
+            <S.Item key={label} onClick={onOpen}>
+              <S.CategoryName color={color}>
+                {label}({percentage})
+              </S.CategoryName>
+              <S.Amount>{addComma(value)}원</S.Amount>
+            </S.Item>
+          );
+        })}
+      </S.StatisticList>
+      <BottomSheet isOpen={isOpen} onClose={onClose} snapPhase={2}>
+        <h2>와우</h2>
+        <h2>와우</h2>
+        <h2>와우</h2>
+        <h2>와우</h2>
+        <h2>와우</h2>
+        <h2>와우</h2>
+        <h2>와우</h2>
+        <h2>와우</h2>
+        <h2>와우</h2>
+        <h2>와우</h2>
+        <h2>와우</h2>
+        <h2>와우</h2>
+        <h2>와우</h2>
+        <h2>와우</h2>
+      </BottomSheet>
+    </>
   );
 }
 

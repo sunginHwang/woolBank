@@ -26,9 +26,7 @@ function AccountDetailInfo({ accountId }: IProps) {
     <>
       <AccountInfo account={account} />
       <DepositList depositList={account.deposits} />
-      {
-        account.isExpiration && <BottomButton isShow message='만기 완료' active={false} />
-      }
+      {account.isExpiration && <BottomButton isShow message='만기 완료' active={false} />}
     </>
   );
 }

@@ -72,7 +72,6 @@ function AccountInfo({ account }: IProps) {
 
 export default AccountInfo;
 
-
 const S: any = {
   AccountInfo: styled.div`
     padding: 4rem 2rem;
