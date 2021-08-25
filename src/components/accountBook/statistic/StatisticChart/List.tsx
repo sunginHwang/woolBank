@@ -58,12 +58,6 @@ function StatisticList({ accountBookChartList }: IProps) {
           <div>
             <p>와우</p>
           </div>
-          <div>
-            <p>와우</p>
-          </div>
-          <div>
-            <p>와우</p>
-          </div>
         </Box>
       </BottomSheet>
     </>
