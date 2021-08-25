@@ -32,21 +32,39 @@ function StatisticList({ accountBookChartList }: IProps) {
           );
         })}
       </S.StatisticList>
-      <BottomSheet isOpen={isOpen} onClose={onClose} snapPhase={2}>
-        <h2>와우</h2>
-        <h2>와우</h2>
-        <h2>와우</h2>
-        <h2>와우</h2>
-        <h2>와우</h2>
-        <h2>와우</h2>
-        <h2>와우</h2>
-        <h2>와우</h2>
-        <h2>와우</h2>
-        <h2>와우</h2>
-        <h2>와우</h2>
-        <h2>와우</h2>
-        <h2>와우</h2>
-        <h2>와우</h2>
+      <BottomSheet useDeem={false} isOpen={isOpen} onClose={onClose} snapPhase={3}>
+        <Box>
+          <div>
+            <p>와우</p>
+          </div>
+          <div>
+            <p>와우</p>
+          </div>
+          <div>
+            <p>와우</p>
+          </div>
+          <div>
+            <p>와우</p>
+          </div>
+          <div>
+            <p>와우</p>
+          </div>
+          <div>
+            <p>와우</p>
+          </div>
+          <div>
+            <p>와우</p>
+          </div>
+          <div>
+            <p>와우</p>
+          </div>
+          <div>
+            <p>와우</p>
+          </div>
+          <div>
+            <p>와우</p>
+          </div>
+        </Box>
       </BottomSheet>
     </>
   );
@@ -86,3 +104,18 @@ const S = {
     color: ${({ theme }) => theme.colors.greyL1};
   `
 };
+
+const Box = styled.div`
+  background-color: #eee;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  > div {
+    min-height: 24px;
+    background-color: red;
+  }
+`;

@@ -1,49 +1,81 @@
 import React, { ReactNode } from 'react';
 import Sheet from 'react-modal-sheet';
+import styled from 'styled-components';
 
-export const MIN_Y = 60; // 바텀시트가 최대로 높이 올라갔을 때의 y 값
-export const MAX_Y = window.innerHeight - 140; // 바텀시트가 최소로 내려갔을 때의 y 값
-export const BOTTOM_SHEET_HEIGHT = window.innerHeight - MIN_Y; // 바텀시트의 세로 길이
+const bodyEl = document.querySelector('body');
 
 interface IProps {
+  // 시트 열기 닫기
   isOpen?: boolean;
+  // 시트 닫기
   onClose: () => void;
   children: ReactNode;
+  // customHeader태그
   header?: ReactNode;
+  // 올라오는 phase 정하기
   snapPhase?: number;
+  // 딤처리 사용여부
+  useDeem?: boolean;
 }
 
 function BottomSheet(props: IProps) {
-  const { isOpen = false, snapPhase = 0, header, onClose, children } = props;
+  const { isOpen = false, snapPhase = 0, useDeem = true, header, onClose, children } = props;
+  const MAX_Y = window.innerHeight - 140; // 바텀시트가 최소로 내려갔을 때의 y 값
 
   React.useEffect(() => {
-    const bodyEl = document.querySelector('body');
-
     if (!bodyEl) {
       return;
     }
 
+    if (!useDeem) {
+      return;
+    }
+
     isOpen ? (bodyEl.style.overflow = 'hidden') : bodyEl.style.removeProperty('overflow');
-  }, [isOpen]);
+  }, [isOpen, useDeem]);
 
   return (
     <Sheet
       isOpen={isOpen}
       onClose={onClose}
-      snapPoints={[MAX_Y, 600, 400, 100, 0]}
+      snapPoints={[MAX_Y, 600, 400, 300, 100, 0]}
       initialSnap={snapPhase}
       springConfig={{ stiffness: 150, damping: 20, mass: 1 }}
-      onSnap={(snapIndex) => console.log('> Current snap point index:', snapIndex)}
     >
-      <Sheet.Container>
-        {header || <Sheet.Header />}
-        <Sheet.Content disableDrag>{children}</Sheet.Content>
-      </Sheet.Container>
-      <div onClick={onClose}>
-        <Sheet.Backdrop />
-      </div>
+      <>
+        <Sheet.Container>
+          {header || <Sheet.Header />}
+          <Sheet.Content>{children}</Sheet.Content>
+        </Sheet.Container>
+        {useDeem && (
+          <div onClick={onClose}>
+            <Sheet.Backdrop />
+          </div>
+        )}
+      </>
     </Sheet>
   );
 }
 
 export default BottomSheet;
+
+const BoxList = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  padding-top: 0px;
+  overflow: auto;
+`;
+
+const Box = styled.div`
+  background-color: #eee;
+  border-radius: 12px;
+  min-height: 200px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 24px;
+`;
