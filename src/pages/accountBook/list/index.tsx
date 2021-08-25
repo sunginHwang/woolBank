@@ -31,7 +31,6 @@ function AccountBook() {
   const history = useHistory();
   const { pathname } = useLocation();
   const { tab } = useQuery(['tab']);
-
   const onTabChange = (activeTab: IAssetType) => {
     const searchParam = new URLSearchParams({ tab: activeTab.type });
     // history 추가가 아닌 queryString 만 replace 전환
