@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { addComma } from '@support/util/String';
 import { IAccountBookChartData } from './index';
 import { useToggle } from '@/support/hooks/useToggle';
-import BottomSheet from '@/components/common/BotttonSheet';
+import CategoryBottomSheet from '../CategoryBottomSheet';
 
 interface IProps {
   accountBookChartList: IAccountBookChartData[];
@@ -32,34 +32,7 @@ function StatisticList({ accountBookChartList }: IProps) {
           );
         })}
       </S.StatisticList>
-      <BottomSheet useDeem={false} isOpen={isOpen} onClose={onClose} snapPhase={3}>
-        <Box>
-          <div>
-            <p>와우</p>
-          </div>
-          <div>
-            <p>와우</p>
-          </div>
-          <div>
-            <p>와우</p>
-          </div>
-          <div>
-            <p>와우</p>
-          </div>
-          <div>
-            <p>와우</p>
-          </div>
-          <div>
-            <p>와우</p>
-          </div>
-          <div>
-            <p>와우</p>
-          </div>
-          <div>
-            <p>와우</p>
-          </div>
-        </Box>
-      </BottomSheet>
+      <CategoryBottomSheet isOpen={isOpen} onClose={onClose} />
     </>
   );
 }
@@ -98,18 +71,3 @@ const S = {
     color: ${({ theme }) => theme.colors.greyL1};
   `
 };
-
-const Box = styled.div`
-  background-color: #eee;
-  border-radius: 12px;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-
-  > div {
-    min-height: 24px;
-    background-color: red;
-  }
-`;

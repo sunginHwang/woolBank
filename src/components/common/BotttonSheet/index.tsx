@@ -58,24 +58,3 @@ function BottomSheet(props: IProps) {
 }
 
 export default BottomSheet;
-
-const BoxList = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  padding-top: 0px;
-  overflow: auto;
-`;
-
-const Box = styled.div`
-  background-color: #eee;
-  border-radius: 12px;
-  min-height: 200px;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 24px;
-`;
