@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useHistory, useLocation } from 'react-router';
 
 import { addComma } from '@support/util/String';
-import { IAccountBookChartData } from './index';
-import { useToggle } from '@/support/hooks/useToggle';
-import CategoryBottomSheet from '../CategoryBottomSheet';
+import { useQuery } from '@/support/hooks/UseQuery';
 import { IAccountBookStatisticListItem } from '@/models/accountBook/statistic/IAccountBookStatistic';
+import CategoryBottomSheet from '@components/accountBook/statistic/CategoryBottomSheet';
+import { IAccountBookChartData } from './index';
 
 interface IActiveSheet {
   color: string;
@@ -29,16 +30,25 @@ interface IProps {
  */
 
 function StatisticList({ accountBookChartList }: IProps) {
-  const [isOpen, onOpen, onClose] = useToggle(false);
+  const history = useHistory();
+  const location = useLocation();
+  const { sheet } = useQuery(['sheet']);
   const [activeSheetList, setActiveSheetList] = useState<IActiveSheet>(initActiveSheet);
+
+  const onCloseSheet = () => {
+    history.goBack();
+  };
+
+  const isSheetOpen = sheet === 'open';
 
   return (
     <>
       <S.StatisticList>
         {accountBookChartList.map(({ label, percentage, value, color, list }) => {
           const onItemClick = () => {
+            const { pathname, search } = location;
+            history.push({ pathname, search: `${search}&sheet=open` });
             setActiveSheetList({ color, label, list });
-            onOpen();
           };
           return (
             <S.Item key={label} onClick={onItemClick}>
@@ -51,11 +61,11 @@ function StatisticList({ accountBookChartList }: IProps) {
         })}
       </S.StatisticList>
       <CategoryBottomSheet
-        isOpen={isOpen}
+        isOpen={isSheetOpen}
         title={activeSheetList.label}
         titleColor={activeSheetList.color}
         list={activeSheetList.list}
-        onClose={onClose}
+        onClose={onCloseSheet}
       />
     </>
   );
