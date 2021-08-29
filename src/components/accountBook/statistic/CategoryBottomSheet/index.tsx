@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { format } from 'date-fns';
 import BottomSheet from '@/components/common/BotttonSheet';
+import { IAccountBookStatisticListItem } from '@/models/accountBook/statistic/IAccountBookStatistic';
+import { addComma } from '@/support/util/String';
 
 interface IProps {
+  title: string;
+  titleColor: string;
+  list: IAccountBookStatisticListItem[];
   isOpen: boolean;
   onClose: () => void;
 }
@@ -12,19 +18,20 @@ interface IProps {
  * @component
  */
 
-function CategoryBottomSheet({ isOpen, onClose }: IProps) {
+function CategoryBottomSheet(props: IProps) {
+  const { isOpen, title, titleColor, list, onClose } = props;
   return (
-    <BottomSheet useDeem isOpen={isOpen} onClose={onClose} snapPhase={3}>
+    <BottomSheet useDeem isOpen={isOpen} onClose={onClose} snapPhase={1}>
       <S.CategoryBottomSheet>
-        <S.Title>문화 / 데이트</S.Title>
+        <S.Title color={titleColor}>{title}</S.Title>
         <S.List>
-          {[...Array(40)].map((_, key) => (
+          {list.map(({ title, amount, registerDateTime }, key) => (
             <S.Item key={key}>
               <div className='left'>
-                <p>와우{key}</p>
-                <span>07-21</span>
+                <p>{title}</p>
+                <span>{format(registerDateTime, 'MM-dd')}</span>
               </div>
-              <span className='amount'>20,000원</span>
+              <span className='amount'>{addComma(amount)}원</span>
             </S.Item>
           ))}
         </S.List>
@@ -39,11 +46,11 @@ const S = {
   CategoryBottomSheet: styled.div`
     padding: 0 2rem;
   `,
-  Title: styled.h3`
+  Title: styled.h3<{ color: string }>`
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
-    color: #f47560;
+    color: ${({ color }) => color};
   `,
   List: styled.ul`
     margin-bottom: 2rem;

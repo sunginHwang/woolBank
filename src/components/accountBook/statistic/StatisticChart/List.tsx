@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { addComma } from '@support/util/String';
 import { IAccountBookChartData } from './index';
 import { useToggle } from '@/support/hooks/useToggle';
 import CategoryBottomSheet from '../CategoryBottomSheet';
+import { IAccountBookStatisticListItem } from '@/models/accountBook/statistic/IAccountBookStatistic';
+
+interface IActiveSheet {
+  color: string;
+  label: string;
+  list: IAccountBookStatisticListItem[];
+}
+
+const initActiveSheet: IActiveSheet = {
+  color: '',
+  label: '',
+  list: []
+};
 
 interface IProps {
   accountBookChartList: IAccountBookChartData[];
@@ -17,13 +30,18 @@ interface IProps {
 
 function StatisticList({ accountBookChartList }: IProps) {
   const [isOpen, onOpen, onClose] = useToggle(false);
+  const [activeSheetList, setActiveSheetList] = useState<IActiveSheet>(initActiveSheet);
 
   return (
     <>
       <S.StatisticList>
-        {accountBookChartList.map(({ label, percentage, value, color }, index) => {
+        {accountBookChartList.map(({ label, percentage, value, color, list }) => {
+          const onItemClick = () => {
+            setActiveSheetList({ color, label, list });
+            onOpen();
+          };
           return (
-            <S.Item key={label} onClick={onOpen}>
+            <S.Item key={label} onClick={onItemClick}>
               <S.CategoryName color={color}>
                 {label}({percentage})
               </S.CategoryName>
@@ -32,7 +50,13 @@ function StatisticList({ accountBookChartList }: IProps) {
           );
         })}
       </S.StatisticList>
-      <CategoryBottomSheet isOpen={isOpen} onClose={onClose} />
+      <CategoryBottomSheet
+        isOpen={isOpen}
+        title={activeSheetList.label}
+        titleColor={activeSheetList.color}
+        list={activeSheetList.list}
+        onClose={onClose}
+      />
     </>
   );
 }

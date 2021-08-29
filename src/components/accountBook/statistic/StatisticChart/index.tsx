@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { ResponsivePie } from '@nivo/pie';
-import { IAccountBookStatistic } from '@models/accountBook/statistic/IAccountBookStatistic';
+import {
+  IAccountBookStatistic,
+  IAccountBookStatisticListItem
+} from '@models/accountBook/statistic/IAccountBookStatistic';
 import { PIE_CHART_COLOR_LIST } from '@support/constants';
 import EmptyData from '@components/common/EmptyData';
 import List from './List';
@@ -13,6 +16,7 @@ export interface IAccountBookChartData {
   value: number;
   percentage: string;
   color: string;
+  list: IAccountBookStatisticListItem[];
 }
 
 interface IProps {
@@ -26,11 +30,12 @@ interface IProps {
 
 function StatisticChart({ accountBookStatistics }: IProps) {
   const accountBookChartList: IAccountBookChartData[] = accountBookStatistics.map(
-    ({ categoryName, amount, percentage }, index) => {
+    ({ categoryName, amount, percentage, list }, index) => {
       return {
         id: categoryName,
         label: categoryName,
         value: amount,
+        list,
         percentage: `${percentage}%`,
         color: PIE_CHART_COLOR_LIST[index] || PIE_CHART_COLOR_LIST[0]
       };

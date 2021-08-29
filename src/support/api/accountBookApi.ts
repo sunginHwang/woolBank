@@ -39,7 +39,6 @@ export const addAccountBook = async (accountBook: IAccountBookSaveForm): Promise
   return newAccountBook;
 };
 
-
 /*
  * 가계부 수정 api
  * */
@@ -99,8 +98,16 @@ export const fetchAccountBookStatistics = async (filterRequest: IAccountBookStat
     startDate: format(filterRequest.startDate, 'yyyy-MM-dd HH:mm:ss'),
     endDate: format(filterRequest.endDate, 'yyyy-MM-dd HH:mm:ss')
   };
+
   const apiResult = await apiCall.get<ApiResType<IAccountBookStatistic[]>>('account-books/statistics', {
     params
   });
-  return apiResult.data.data;
+
+  const accountBookStatisticList = apiResult.data.data.map((item) => {
+    const listConvertDate = item.list.map((i) => {
+      return { ...i, registerDateTime: new Date(i.registerDateTime) };
+    });
+    return { ...item, list: listConvertDate };
+  });
+  return accountBookStatisticList;
 };
