@@ -56,7 +56,7 @@ function PageHeader(props: IProps) {
         <p data-cy='title'>{title}</p>
         <S.rightHeader>{right}</S.rightHeader>
       </div>
-      { tabs }
+      {tabs}
     </S.HeaderWithBack>
   );
 }
@@ -67,9 +67,9 @@ const S = {
     useSkeleton: boolean;
     useBigTitle: boolean;
   }>`
-    height: ${({ useTabs }) => useTabs ? '9.8rem' : '4.8rem'};
+    height: ${({ useTabs }) => (useTabs ? '9.8rem' : '4.8rem')};
     display: flex;
-    flex-direction: ${({ useTabs }) => useTabs ? 'column' : 'row'};;
+    flex-direction: ${({ useTabs }) => (useTabs ? 'column' : 'row')};
     justify-content: space-between;
     align-items: center;
     position: fixed;
@@ -91,7 +91,7 @@ const S = {
         margin-left: 2rem;
       }
       &:last-child {
-        margin-right: ${({ useTabs }) => useTabs ? 0 : 2}rem;
+        margin-right: ${({ useTabs }) => (useTabs ? 0 : 2)}rem;
       }
 
       > div {
@@ -110,9 +110,10 @@ const S = {
 
       > p {
         flex: 2;
-        text-align: ${({ useBigTitle }) => useBigTitle ? 'left' : 'center'};
-        font-size: ${({ useBigTitle }) => useBigTitle ? 1.8 : 1.4}rem;
+        text-align: ${({ useBigTitle }) => (useBigTitle ? 'left' : 'center')};
+        font-size: ${({ useBigTitle }) => (useBigTitle ? 1.8 : 1.4)}rem;
         font-weight: 800;
+        white-space: nowrap;
         color: ${({ theme }) => theme.colors.blackL1};
       }
     }
