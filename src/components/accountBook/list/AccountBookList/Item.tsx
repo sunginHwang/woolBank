@@ -20,9 +20,9 @@ function Item({ accountBookListItem }: IProps) {
 
   const onItemClick = () => {
     history.push(`/account-books/${id}`);
-  }
+  };
 
-  const isIncomeType = type ==='income';
+  const isIncomeType = type === 'income';
   const displayAmount = `${addComma(isIncomeType ? amount : -amount)}원`;
 
   return (
@@ -30,7 +30,8 @@ function Item({ accountBookListItem }: IProps) {
       <div>
         <S.Category>{category.name}</S.Category>
         <S.Info>
-          <span>{title}</span>{isRegularExpenditure && <S.Label>매월</S.Label>}
+          <span>{title}</span>
+          {isRegularExpenditure && <S.Label>매월</S.Label>}
         </S.Info>
       </div>
       <S.Price useRedColor={isIncomeType}>{displayAmount}</S.Price>
@@ -55,12 +56,12 @@ const S: {
       display: flex;
       justify-content: flex-start;
     }
-    
   `,
   Price: styled.p<{
     useRedColor: boolean;
   }>`
-    color: ${({ theme, useRedColor }) => useRedColor ? theme.colors.redL1 : theme.colors.blackL1 };
+    white-space: nowrap;
+    color: ${({ theme, useRedColor }) => (useRedColor ? theme.colors.redL1 : theme.colors.blackL1)};
   `,
   Category: styled.p`
     width: 7.5rem;
@@ -76,14 +77,25 @@ const S: {
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
+
+    > span {
+      text-overflow: ellipsis;
+      word-break: break-all;
+      overflow-wrap: break-word;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
   `,
   Label: styled.label`
-    font-size: .8rem;
+    width: 2rem;
+    font-size: 0.8rem;
     background-color: ${({ theme }) => theme.colors.greyL2};
     border-radius: 1.3rem;
-    padding: .3rem .7rem;
-    margin-left: .7rem;
-  `,
-}
+    padding: 0.3rem 0.7rem;
+    margin-left: 0.7rem;
+  `
+};
 
 export default React.memo(Item);
