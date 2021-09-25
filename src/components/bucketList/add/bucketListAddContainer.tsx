@@ -1,13 +1,11 @@
 import React, { useReducer, useState } from 'react';
 import { useHistory } from 'react-router';
-import { useSelector } from 'react-redux';
 
 import BucketListInfoPhase from '@components/bucketList/add/BucketListInfoPhase';
 import BucketListCompleteDatePhase from '@components/bucketList/add/BucketListCompleteDatePhase';
 import BucketListPicturePhase from '@components/bucketList/add/BucketListPicturePhase';
 import TodoListPhase from '@components/bucketList/add/TodoListPhase';
 
-import { RootState } from '@/store';
 import { useToast } from '@support/hooks/useToast';
 import { useAlert } from '@support/hooks/useAlert';
 import useRequest from '@support/hooks/useRequest';
@@ -15,6 +13,7 @@ import { saveBucketList, updateBucketList } from '@support/api/bucketListApi';
 import { ITodo } from '@models/bucketList/ITodo';
 import { IBucketListForm } from '@models/bucketList/IBucketListForm';
 import { parseDate } from '@support/util/date';
+import useBucket from '@/services/bucketList/useBucket';
 
 export interface BucketListAddContainerProps {
   bucketListId?: number;
@@ -69,7 +68,9 @@ const saveBucketListForm: IBucketListForm = {
 
 type SaveModeType = 'insert' | 'update';
 
-function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
+// todo 버킷 수정 후 데이터 연동 처리 필요
+function BucketListAddContainer({ bucketListId = -1 }: BucketListAddContainerProps) {
+  console.log(bucketListId);
   const saveMode: SaveModeType = bucketListId ? 'update' : 'insert';
   const isUpdateMode = saveMode === 'update';
   // 업데이트의 경우 todoList 입력 페이즈는 비노출
@@ -81,22 +82,19 @@ function BucketListAddContainer({ bucketListId }: BucketListAddContainerProps) {
   const [onUpdateRequest, updateLoading] = useRequest(updateBucketList);
   const onToast = useToast();
   const [onAlert] = useAlert();
-  const bucketListDetailDetailCache = useSelector((state: RootState) => state.BucketList.bucketListDetailCache);
+  const { bucket } = useBucket(bucketListId);
   /**
    * 버킷리스트 수정 정보 조회
    **/
   const getUpdateBucketListForm = (bucketListId: number): IBucketListForm => {
-    // 버킷리스트 상세 캐시에서 업데이트 할 id 와 매칭되는 정보 조회
-    const bucketListDetail = bucketListDetailDetailCache.find((bucketList) => bucketList.id === bucketListId);
-
-    if (bucketListDetail) {
+    if (bucket.id !== -1) {
       return {
-        id: bucketListDetail.id,
-        title: bucketListDetail.title,
-        description: bucketListDetail.description,
-        completeDate: parseDate(bucketListDetail.completeDate),
-        thumbImageUrl: bucketListDetail.thumbImageUrl,
-        imageUrl: bucketListDetail.imageUrl,
+        id: bucket.id,
+        title: bucket.title,
+        description: bucket.description,
+        completeDate: parseDate(bucket.completeDate),
+        thumbImageUrl: bucket.thumbImageUrl,
+        imageUrl: bucket.imageUrl,
         mainImgFile: null,
         todoList: []
       };
