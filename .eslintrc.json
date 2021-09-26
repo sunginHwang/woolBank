@@ -5,13 +5,8 @@
     "browser": true
   },
   "parser": "babel-eslint",
-  "extends": [
-    "standard",
-    "standard-react"
-  ],
-  "plugins": [
-    "react-hooks"
-  ],
+  "extends": ["standard", "standard-react"],
+  "plugins": ["react-hooks"],
   "rules": {
     "space-before-function-paren": [
       "error",
@@ -20,8 +15,9 @@
         "named": "never"
       }
     ],
+    "react/prop-types": "off",
     "semi": "off",
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "no-unused-expressions": "off"
   }
 }
-

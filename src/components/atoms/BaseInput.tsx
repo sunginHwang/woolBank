@@ -22,6 +22,12 @@ export interface BaseInputProps {
   onClick?: (e: React.ChangeEvent<HTMLDivElement>) => void;
 }
 
+/**
+ * 공통 - 인풋 - 레거시
+ * @component
+ */
+
+
 function BaseInput({
   label,
   placeHolder,
@@ -114,14 +120,12 @@ const S: {
   BaseInput: any;
   ValueLength: any;
 } = {
-  BaseInput: styled.div<{
-    focus: boolean;
-  }>`
+  BaseInput: styled.div<{ focus: boolean }>`
     display: flex;
     flex-direction: column;
     position: relative;
     margin: 1rem 0;
-    
+
     label {
       font-size: 1.2rem;
       font-weight: 500;
