@@ -21,7 +21,7 @@ const S = {
     > div + div {
       margin-top: 4rem;
     }
-  `,
+  `
 }
 
 export default Form;

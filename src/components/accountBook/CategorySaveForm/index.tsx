@@ -13,7 +13,7 @@ import { ISaveAccountBookCategory } from '@/services/accountBook/useAccountBookC
 interface IProps {
   type: AccountBookCategoryType;
   isLoading: boolean;
-  saveAccountBookCategory: ({ name, type, onSuccessCb }: ISaveAccountBookCategory) => void;
+  saveAccountBookCategory: (props: ISaveAccountBookCategory) => void;
   onClose: () => void;
 }
 

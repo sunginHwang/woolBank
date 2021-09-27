@@ -27,5 +27,5 @@ const viewer = css`
 
 export default {
   mainButton,
-  viewer,
+  viewer
 };

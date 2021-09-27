@@ -53,7 +53,7 @@ const S: {
     max-height: 27rem;
     overflow-y: scroll;
   `,
-  BottomModal: styled.div<{ visible: boolean }>`
+  BottomModal: styled.div < { visible: boolean } > `
     position: fixed;
     width: 100%;
     transition: all 0.3s ease;

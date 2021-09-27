@@ -28,25 +28,21 @@ interface IProps {
  */
 
 function HeaderInfo(props: IProps) {
-  const {
-    title,
-    imgUrl,
-    isLoading,
-    createdDate,
-    completeDate,
-    onMenuClick
-  } = props;
+  const { title, imgUrl = '', isLoading, createdDate, completeDate, onMenuClick } = props;
   const now = new Date();
   const history = useHistory();
   const imgRef = useRef<HTMLDivElement>(null);
   const [isShowFixedHeader, setFixedHeader] = useState(false);
 
   // 스크롤 이벤트 (고정 헤더 노출 체크)
-  useEventListener('scroll', _.debounce(() => {
-    const imgHeight = imgRef.current ? imgRef.current.offsetHeight : 0;
-    const isShowHeader = imgHeight - 80 <= getScrollTop();
-    isShowFixedHeader !== isShowHeader && setFixedHeader(isShowHeader);
-  }, 50));
+  useEventListener(
+    'scroll',
+    _.debounce(() => {
+      const imgHeight = imgRef.current ? imgRef.current.offsetHeight : 0;
+      const isShowHeader = imgHeight - 80 <= getScrollTop();
+      isShowFixedHeader !== isShowHeader && setFixedHeader(isShowHeader);
+    }, 50)
+  );
 
   const fixedHeaderMsg = isShowFixedHeader ? title : '';
   const headerIconColor = isShowFixedHeader ? palette.mainColor : palette.white;
@@ -60,7 +56,6 @@ function HeaderInfo(props: IProps) {
     history.push('/bucket-list');
   };
 
-
   return (
     <>
       <PageHeader
@@ -68,7 +63,7 @@ function HeaderInfo(props: IProps) {
         title={fixedHeaderMsg}
         right={
           <i onClick={onMenuClick}>
-            <IcoDowHorizontal fill={headerIconColor}/>
+            <IcoDowHorizontal fill={headerIconColor} />
           </i>
         }
         useSkeleton={!isShowFixedHeader}
@@ -76,8 +71,8 @@ function HeaderInfo(props: IProps) {
       />
       <S.ImageInfo ref={imgRef} imgUrl={imgUrl}>
         <div>
-          {isLoading ? <PlaceHolderBar width='15rem' height='4.4rem'/> : <h2>{title}</h2>}
-          <Progress label={remainDay} labelPrefix='D-' percent={remainPercent} color={palette.mainColor}/>
+          {isLoading ? <PlaceHolderBar width='15rem' height='4.4rem' /> : <h2>{title}</h2>}
+          <Progress label={remainDay} labelPrefix='D-' percent={remainPercent} color={palette.mainColor} />
         </div>
       </S.ImageInfo>
     </>
@@ -86,19 +81,10 @@ function HeaderInfo(props: IProps) {
 
 export default HeaderInfo;
 
-const S: {
-  ImageInfo: any;
-} = {
-  ImageInfo: styled.div<{
-    imgUrl: string;
-  }>`
+const S = {
+  ImageInfo: styled.div<{ imgUrl: string }>`
     background-color: ${({ theme }) => theme.colors.greyD2};
-    background: 
-    linear-gradient(
-      rgba(0, 0, 0, 0.3),
-      rgba(0, 0, 0, 0.1)
-    ),
-    url(${({ imgUrl }) => imgUrl}), no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1)), url(${({ imgUrl }) => imgUrl}), no-repeat;
     background-size: cover;
     width: 100%;
     height: 40vh;

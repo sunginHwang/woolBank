@@ -85,7 +85,7 @@ const S = {
       margin-top: 2rem;
     }
   `,
-  CategoryName: styled.span<{ color: string }>`
+  CategoryName: styled.span < { color: string } > `
     font-weight: bold;
     color: ${({ theme }) => theme.colors.blackL1};
     position: relative;

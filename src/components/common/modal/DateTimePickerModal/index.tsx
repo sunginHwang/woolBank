@@ -23,8 +23,8 @@ type modalPhase = 'date' | 'time';
 function DateTimePickerModal(props: IProps) {
   const { date, visible, onChangeDateTime, oncloseModal } = props;
 
-  const [ dateTime, setDateTime ] = useState<Date>(date);
-  const [ modalPhase, setModalPhase ] = useState<modalPhase>('date');
+  const [dateTime, setDateTime] = useState<Date>(date);
+  const [modalPhase, setModalPhase] = useState<modalPhase>('date');
 
   useEffect(() => {
     setModalPhase('date');
@@ -47,11 +47,10 @@ function DateTimePickerModal(props: IProps) {
 
   return (
     <BottomModal visible={visible} title='시간 선택' oncloseModal={oncloseModal}>
-      { isDatePhase && <Calendar value={date} showFixedNumberOfWeeks onChange={onChangeCalendar}/> }
-      { !isDatePhase && <TimePicker time={time} onChangeTime={onChangeTime} /> }
+      {isDatePhase && <Calendar value={date} showFixedNumberOfWeeks onChange={onChangeCalendar} />}
+      {!isDatePhase && <TimePicker time={time} onChangeTime={onChangeTime} />}
     </BottomModal>
   );
 }
-
 
 export default DateTimePickerModal;

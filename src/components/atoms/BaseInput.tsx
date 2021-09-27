@@ -27,7 +27,6 @@ export interface BaseInputProps {
  * @component
  */
 
-
 function BaseInput({
   label,
   placeHolder,
@@ -76,10 +75,13 @@ function BaseInput({
   const valueLength = String(value).length;
 
   // ios 는 number 타입 안먹기때문에 추가 option 처리
-  const defaultProps = type === 'number' ? {
-    inputmode: 'numeric',
-    pattern: '[0-9]*'
-  } : {};
+  const defaultProps =
+    type === 'number'
+      ? {
+          inputmode: 'numeric',
+          pattern: '[0-9]*'
+        }
+      : {};
 
   return (
     <>

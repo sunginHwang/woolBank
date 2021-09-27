@@ -26,7 +26,7 @@ function StatisticTab() {
     data = [],
     refetch,
     isSuccess,
-    isFetching,
+    isFetching
   } = useQuery<IAccountBookStatistic[]>('fetchAccountBookStatistic', () => fetchAccountBookStatistics(searchFilter));
 
   useUpdateEffect(() => {

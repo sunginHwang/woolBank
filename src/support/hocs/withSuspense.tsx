@@ -1,6 +1,6 @@
 import React from 'react';
 
-const withSuspense = <T,>(WrappedComponent: any, FallbackComponent: React.ReactNode = null) => {
+const withSuspense = <T, >(WrappedComponent: any, FallbackComponent: React.ReactNode = null) => {
   return class extends React.Component<T> {
     render() {
       if (!FallbackComponent) {

@@ -100,9 +100,7 @@ const S: any = {
       font-weight: normal;
     }
   `,
-  Amount: styled.div<{
-    isRoot: boolean;
-  }>`
+  Amount: styled.div<{ isRoot: boolean }>`
     display: flex;
     justify-content: space-between;
     align-items: center;

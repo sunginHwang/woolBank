@@ -8,7 +8,7 @@ const accountBook: LayoutRouteProps[] = [
   {
     path: '/account-books',
     key: 'accountBookListPage',
-    component: loadable(() => import('@pages/accountBook/list'), {
+    component: loadable(() => import('@pages/accountBook/Test'), {
       fallback: <PageTemplate title='가계부' useBackButton={false} useSidePadding={false} />
     }),
     exact: true
@@ -39,7 +39,7 @@ const accountBook: LayoutRouteProps[] = [
     }),
     exact: true,
     useNavBar: false
-  },
+  }
 ];
 
 export default accountBook;

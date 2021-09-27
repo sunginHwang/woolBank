@@ -87,17 +87,14 @@ function ToggleTab({ tabs, activeTab, useOutline = true, useListType = false, on
   );
 }
 
-const S: {
-  ToggleTab: any;
-  Tab: any;
-  TabOutLine: any;
-  ListTab: any;
-  BottomLine: any;
-} = {
-  ToggleTab: styled.div<{
-    useOutline: boolean;
-    useListType: boolean;
-  }>`
+type ToggleTabSProps = {
+  useOutline: boolean;
+  useListType: boolean;
+};
+
+type BottomLineProps = { width: number; left: number };
+const S = {
+  ToggleTab: styled.div<ToggleTabSProps>`
     width: 100%;
     position: relative;
     height: ${({ useOutline }) => (useOutline ? '4' : '5')}rem;
@@ -113,42 +110,33 @@ const S: {
       font-size: 1.3rem;
     }
   `,
-  Tab: styled.button<{
-    active: boolean;
-  }>`
+  Tab: styled.button<{ active: boolean }>`
     width: 100%;
     font-weight: bold;
     color: ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.greyL1)};
   `,
-  ListTab: styled.button<{
-    active: boolean;
-  }>`
+  ListTab: styled.button<{ active: boolean }>`
     margin-right: 2.5rem;
     font-weight: 800;
     color: ${({ active, theme }) => (active ? theme.colors.blackL2 : theme.colors.greyL5)};
   `,
-  TabOutLine: styled.button<{
-    active: boolean;
-  }>`
+  TabOutLine: styled.button<{ active: boolean }>`
     width: 100%;
     border: 0.1rem solid ${({ active, theme }) => (active ? theme.colors.subColor4 : theme.colors.greyL6)};
     background-color: ${({ active, theme }) => (active ? theme.colors.subColor4 : theme.colors.white)};
     color: ${({ active, theme }) => (active ? theme.colors.white : theme.colors.greyL6)};
-    
+
     &:first-child {
       border-bottom-left-radius: 1.3rem;
       border-top-left-radius: 1.3rem;
     }
-    
+
     &:last-child {
       border-bottom-right-radius: 1.3rem;
       border-top-right-radius: 1.3rem;
     }
   `,
-  BottomLine: styled.span<{
-    width: number;
-    left: number;
-  }>`
+  BottomLine: styled.span<BottomLineProps>`
     bottom: 0;
     width: ${({ width }) => width}px;
     left: ${({ left }) => left}px;

@@ -15,31 +15,31 @@ const navigations: INavigationBar[] = [
     name: '홈',
     value: 'home',
     link: '/',
-    icon: <IcoHomeOutline/>
+    icon: <IcoHomeOutline />
   },
   {
     name: '자산관리',
     value: 'accounts',
     link: '/accounts',
-    icon: <IcoWalletOutline/>
+    icon: <IcoWalletOutline />
   },
   {
     name: '버킷리스트',
     value: 'bucketList',
     link: '/bucket-list',
-    icon: <IcoBucketOutline/>
+    icon: <IcoBucketOutline />
   },
   {
     name: '가계부',
     value: 'accountBooks',
     link: '/account-books',
-    icon: <IcoPig/>
+    icon: <IcoPig />
   },
   {
     name: '내 정보',
     value: 'me',
     link: '/mypage',
-    icon: <IcoAccountOutline/>
+    icon: <IcoAccountOutline />
   }
 ];
 
@@ -71,16 +71,10 @@ function NavigationBar() {
   );
 }
 
-
 export default NavigationBar;
 
-const S: {
-  NavigationBar: any;
-  NavigationBarTag: any;
-} = {
-  NavigationBar: styled.div<{
-    isExtend: boolean;
-  }>`
+const S = {
+  NavigationBar: styled.div<{ isExtend: boolean }>`
     display: flex;
     align-items: ${({ isExtend }) => (isExtend ? 'flex-start' : 'center')};
     justify-content: center;
@@ -96,9 +90,7 @@ const S: {
     background-color: ${({ theme }) => theme.colors.white};
     z-index: ${({ theme }) => theme.zIndex.navigationBar};
   `,
-  NavigationBarTag: styled.div<{
-    active: boolean;
-  }>`
+  NavigationBarTag: styled.div<{ active: boolean }>`
     letter-spacing: 0;
     text-align: center;
     width: 100%;

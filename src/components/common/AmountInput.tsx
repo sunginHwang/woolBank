@@ -14,43 +14,71 @@ export interface AmountInputProps {
   onRightBottomClick: () => void;
 }
 
-function AmountInput({ useCompleteBtn = false, isZeroAmount, onNumberClick, onRightBottomClick, onBackNumberClick }: AmountInputProps) {
-
+function AmountInput({
+  useCompleteBtn = false,
+  isZeroAmount,
+  onNumberClick,
+  onRightBottomClick,
+  onBackNumberClick
+}: AmountInputProps) {
   return (
     <S.Input>
       <S.InputTable>
         <tbody>
           <tr>
-            <S.InputTd data-cy='number_1' data-number={1} onClick={onNumberClick}>1</S.InputTd>
-            <S.InputTd data-cy='number_2' data-number={2} onClick={onNumberClick}>2</S.InputTd>
-            <S.InputTd data-cy='number_3' data-number={3} onClick={onNumberClick}>3</S.InputTd>
+            <S.InputTd data-cy='number_1' data-number={1} onClick={onNumberClick}>
+              1
+            </S.InputTd>
+            <S.InputTd data-cy='number_2' data-number={2} onClick={onNumberClick}>
+              2
+            </S.InputTd>
+            <S.InputTd data-cy='number_3' data-number={3} onClick={onNumberClick}>
+              3
+            </S.InputTd>
           </tr>
           <tr>
-            <S.InputTd data-cy='number_4' data-number={4} onClick={onNumberClick}>4</S.InputTd>
-            <S.InputTd data-cy='number_5' data-number={5} onClick={onNumberClick}>5</S.InputTd>
-            <S.InputTd data-cy='number_6' data-number={6} onClick={onNumberClick}>6</S.InputTd>
+            <S.InputTd data-cy='number_4' data-number={4} onClick={onNumberClick}>
+              4
+            </S.InputTd>
+            <S.InputTd data-cy='number_5' data-number={5} onClick={onNumberClick}>
+              5
+            </S.InputTd>
+            <S.InputTd data-cy='number_6' data-number={6} onClick={onNumberClick}>
+              6
+            </S.InputTd>
           </tr>
           <tr>
-            <S.InputTd data-cy='number_7' data-number={7} onClick={onNumberClick}>7</S.InputTd>
-            <S.InputTd data-cy='number_8' data-number={8} onClick={onNumberClick}>8</S.InputTd>
-            <S.InputTd data-cy='number_9' data-number={9} onClick={onNumberClick}>9</S.InputTd>
+            <S.InputTd data-cy='number_7' data-number={7} onClick={onNumberClick}>
+              7
+            </S.InputTd>
+            <S.InputTd data-cy='number_8' data-number={8} onClick={onNumberClick}>
+              8
+            </S.InputTd>
+            <S.InputTd data-cy='number_9' data-number={9} onClick={onNumberClick}>
+              9
+            </S.InputTd>
           </tr>
           <tr>
-            <S.InputTd data-cy='numberBack' isHide={isZeroAmount}  onClick={onBackNumberClick}>
+            <S.InputTd data-cy='numberBack' isHide={isZeroAmount} onClick={onBackNumberClick}>
               {!isZeroAmount && '←'}
             </S.InputTd>
-            <S.InputTd data-cy='number_0' data-number={0} onClick={onNumberClick}>0</S.InputTd>
-            { useCompleteBtn && (
+            <S.InputTd data-cy='number_0' data-number={0} onClick={onNumberClick}>
+              0
+            </S.InputTd>
+            {useCompleteBtn && (
               <S.InputTd data-cy='numberComplete' isHide={isZeroAmount} isSmall={true} onClick={onRightBottomClick}>
-                {!isZeroAmount && <S.SaveButton><Button message='확인' color='red' size='full'/></S.SaveButton>}
-              </S.InputTd>)
-            }
-            {
-              !useCompleteBtn && (
-                <S.InputTd data-cy='numberX' isHide={isZeroAmount} onClick={onRightBottomClick}>
-                  {!isZeroAmount && 'x'}
-                </S.InputTd>)
-            }
+                {!isZeroAmount && (
+                  <S.SaveButton>
+                    <Button message='확인' color='red' size='full' />
+                  </S.SaveButton>
+                )}
+              </S.InputTd>
+            )}
+            {!useCompleteBtn && (
+              <S.InputTd data-cy='numberX' isHide={isZeroAmount} onClick={onRightBottomClick}>
+                {!isZeroAmount && 'x'}
+              </S.InputTd>
+            )}
           </tr>
         </tbody>
       </S.InputTable>
@@ -58,12 +86,11 @@ function AmountInput({ useCompleteBtn = false, isZeroAmount, onNumberClick, onRi
   );
 }
 
-const S: {
-  InputTable: any;
-  InputTd: any;
-  Input: any;
-  SaveButton: any;
-} = {
+type InputTdProps = {
+  isHide?: boolean;
+  isSmall?: boolean;
+};
+const S = {
   SaveButton: styled.div`
     padding: 0 2rem;
     margin: -4px 0;
@@ -82,19 +109,16 @@ const S: {
     color: ${({ theme }) => theme.colors.blackL1};
     height: 83%;
   `,
-  InputTd: styled.td<{
-    isHide: boolean;
-    isSmall?: boolean;
-  }>`
+  InputTd: styled.td<InputTdProps>`
     font-size: 1.8rem;
     width: 33.33333%;
     padding: ${({ isSmall }) => (isSmall ? '.3rem' : '1rem')} 0;
-    
+
     &:active {
       border-radius: 1.6rem;
       background-color: ${({ isHide, theme }) => (isHide ? theme.colors.white : theme.colors.greyL3)};
     }
-  `,
+  `
 };
 
 export default AmountInput;

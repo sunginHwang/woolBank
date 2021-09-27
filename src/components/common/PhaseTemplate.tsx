@@ -34,13 +34,12 @@ function PhaseTemplate({
 
 export default PhaseTemplate;
 
-const S: {
-  PhaseTemplate: any;
-  Content: any;
-} = {
-  PhaseTemplate: styled.div<{
-    active: boolean;
-  }>`
+type ContentProps = {
+  usePadding: boolean;
+  useScroll: boolean;
+};
+const S = {
+  PhaseTemplate: styled.div<{ active: boolean }>`
     width: 100%;
     height: calc(100% - 5.5rem);
     position: fixed;
@@ -49,10 +48,7 @@ const S: {
     z-index: ${({ theme }) => theme.zIndex.phase};
     transition: all 0.3s ease 0s;
   `,
-  Content: styled.div<{
-    usePadding: boolean;
-    useScroll: boolean;
-  }>`
+  Content: styled.div<ContentProps>`
     padding: ${({ usePadding }) => (usePadding ? '5.5rem 2rem 0 2rem' : '5.5rem 0 0 0')};
     overflow-y: ${({ useScroll }) => (useScroll ? 'scroll' : 'hidden')};
     height: 100%;

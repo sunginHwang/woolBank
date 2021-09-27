@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import  { ReactFacebookLoginInfo, ReactFacebookFailureResponse } from 'react-facebook-login';
+import ReactFacebookLogin, { ReactFacebookLoginInfo, ReactFacebookFailureResponse } from 'react-facebook-login';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import KaKaoLogin from 'react-kakao-login';
@@ -29,7 +29,6 @@ const { socialAuthKey } = config;
  */
 
 function SocialLogin() {
-
   const user = useSelector((state: RootState) => state.Auth.user);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -39,47 +38,56 @@ function SocialLogin() {
    * facebook 간편 로그인 성공 콜백
    */
   const onFacebookLogin = (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => {
+    const isFacebookLoginSuccess = (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => {
+      //@ts-ignore
+      return response.id !== undefined;
+    };
 
-    const isFacebookLoginSuccess = (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse): response is ReactFacebookLoginInfo => {
-      return (response as ReactFacebookLoginInfo).id !== undefined;
-    }
-
-    if(!isFacebookLoginSuccess(response)){
+    if (!isFacebookLoginSuccess(response)) {
       onLoginFailure();
       return null;
     }
 
-    onSocialLogin( {
+    //@ts-ignore
+    onSocialLogin({
+      //@ts-ignore
       name: response.name || '',
+      //@ts-ignore
       email: response.email || '',
+      //@ts-ignore
       imageUrl: response.picture?.data.url || '',
+      //@ts-ignore
       socialId: response.id,
       loginType: 'facebook'
     });
-
-  }
+  };
 
   /**
    * google 간편 로그인 성공 콜백
    */
   const onGoogleLogin = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    const isGoogleLoginSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline): response is GoogleLoginResponse => {
-      return (response as GoogleLoginResponse).tokenId !== undefined;
-    }
+    const isGoogleLoginSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+      //@ts-ignore
+      return response.tokenId !== undefined;
+    };
 
-    if(!isGoogleLoginSuccess(response)){
+    if (!isGoogleLoginSuccess(response)) {
       onLoginFailure();
       return null;
     }
 
-    onSocialLogin( {
+    onSocialLogin({
+      //@ts-ignore
       name: response.profileObj.name,
+      //@ts-ignore
       email: response.profileObj.email,
+      //@ts-ignore
       imageUrl: response.profileObj.imageUrl,
+      //@ts-ignore
       socialId: response.profileObj.googleId,
       loginType: 'google'
     });
-  }
+  };
 
   /**
    * kakaoTalk 간편 로그인 성공 콜백
@@ -89,10 +97,11 @@ function SocialLogin() {
       name: response.profile.properties.nickname || '',
       email: response.profile.kakao_account.email || '',
       imageUrl: response.profile.properties.thumbnail_image || '',
-      socialId: String((response.profile as any).id as any), // kakaoTalk 인터페이스 스펙이랑 다름.
+      //@ts-ignore
+      socialId: String(response.profile.id), // kakaoTalk 인터페이스 스펙이랑 다름.
       loginType: 'kakaoTalk'
     });
-  }
+  };
 
   /**
    * 소셜로그인 인증
@@ -104,9 +113,9 @@ function SocialLogin() {
     try {
       const res = await createSocialUser(socialUser);
       const { user, accessToken, refreshToken } = res.data.data;
-      const tokenInfo: ITokenInfo = { accessToken, refreshToken};
+      const tokenInfo: ITokenInfo = { accessToken, refreshToken };
       // token 로컬 스토리지 저장
-      saveToken(tokenInfo)
+      saveToken(tokenInfo);
       // api header 토큰 세팅
       setHeaderAuthToken(tokenInfo);
       dispatch(Auth.actions.setUser(user));
@@ -116,12 +125,11 @@ function SocialLogin() {
     } finally {
       dispatch(Layout.actions.hideLoading());
     }
-
-  }
+  };
 
   const onLoginFailure = () => {
     onAlert('다시 로그인 해 주세요.');
-  }
+  };
 
   const isLogin = user.id > 0;
 
@@ -134,32 +142,25 @@ function SocialLogin() {
       <FacebookLogin
         appId={socialAuthKey.facebook}
         fields='name,email,picture'
-        render={(renderProps: any) => (
-          <SocialLoginButton provider='facebook' handleLoginClick={renderProps.onClick} />
-        )}
+        render={(renderProps: any) => <SocialLoginButton provider='facebook' handleLoginClick={renderProps.onClick} />}
         callback={onFacebookLogin}
       />
       <GoogleLogin
         clientId={socialAuthKey.google}
         cookiePolicy='single_host_origin'
-        render={renderProps => (
-          <SocialLoginButton provider='google' handleLoginClick={renderProps.onClick} />
-        )}
+        render={(renderProps) => <SocialLoginButton provider='google' handleLoginClick={renderProps.onClick} />}
         onSuccess={onGoogleLogin}
         onFailure={onLoginFailure}
       />
       <KaKaoLogin
         jsKey={socialAuthKey.kakaoTalk}
         getProfile={true}
-        render={renderProps => (
-          <SocialLoginButton provider='kakaoTalk' handleLoginClick={renderProps.onClick} />
-        )}
+        render={(renderProps) => <SocialLoginButton provider='kakaoTalk' handleLoginClick={renderProps.onClick} />}
         onSuccess={onKakaoTalkLogin}
         onFailure={onLoginFailure}
       />
     </LoginBox>
   );
 }
-
 
 export default SocialLogin;

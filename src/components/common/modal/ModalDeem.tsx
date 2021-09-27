@@ -32,9 +32,7 @@ function ModalDeem({ visible, children, onDeemClick }: ModalDeemProps) {
 const S: {
   ModalDeem: any;
 } = {
-  ModalDeem: styled.div<{
-    visible: boolean;
-  }>`
+  ModalDeem: styled.div<{ visible: boolean }>`
     position: fixed;
     visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
     width: 100%;

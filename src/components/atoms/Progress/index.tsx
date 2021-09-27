@@ -49,19 +49,15 @@ function Progress(props: IProps) {
   );
 }
 
-const S: {
-  ProgressWrapper: any;
-  Progress: any;
-  Bar: any;
-  Info: any;
-  Label: any;
-} = {
+type BarProps = {
+  percent: number;
+  color: string;
+};
+const S = {
   ProgressWrapper: styled.div`
     width: 100%;
   `,
-  Label: styled.span<{
-    percent: number;
-  }>`
+  Label: styled.span<{ percent: number }>`
     width: 5rem;
     max-width: 6rem;
     height: 3rem;
@@ -97,18 +93,13 @@ const S: {
     background-color: ${({ theme }) => theme.colors.greyL2};
     border-radius: 1.2rem;
   `,
-  Bar: styled.div<{
-    percent: number;
-    color: string;
-  }>`
+  Bar: styled.div<BarProps>`
     height: 0.5rem;
     border-radius: 1.2rem;
     width: ${({ percent }) => percent}%;
     background-color: ${({ color }) => color};
   `,
-  Info: styled.div<{
-    color: string;
-  }>`
+  Info: styled.div<{ color: string }>`
     display: flex;
     width: 100%;
     margin-top: 0.5rem;

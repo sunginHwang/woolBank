@@ -82,7 +82,7 @@ function AmountKeyPad(props: IProps) {
   // 입력 창 닫기
   const onCloseClick = () => {
     onInitClick();
-     onClose?.();
+    onClose?.();
   };
 
   const onCompleteClick = useCallback(() => {
@@ -116,7 +116,7 @@ function AmountKeyPad(props: IProps) {
         </S.Header>
       )}
       <S.InputDisplay>
-        <S.InputDisplayMessage>{label}</S.InputDisplayMessage>
+        <S.InputDisplayMessage active={false}>{label}</S.InputDisplayMessage>
         <p>{displayAmount}</p>
         <S.InputDisplayMessage active={!isValidAmount}>{displayInputMessage}</S.InputDisplayMessage>
       </S.InputDisplay>
@@ -124,25 +124,45 @@ function AmountKeyPad(props: IProps) {
         <S.InputTable>
           <tbody>
             <tr>
-              <S.InputTd data-cy='number_1' onClick={onAddNumberClick}>1</S.InputTd>
-              <S.InputTd data-cy='number_2' onClick={onAddNumberClick}>2</S.InputTd>
-              <S.InputTd data-cy='number_3' onClick={onAddNumberClick}>3</S.InputTd>
+              <S.InputTd data-cy='number_1' onClick={onAddNumberClick}>
+                1
+              </S.InputTd>
+              <S.InputTd data-cy='number_2' onClick={onAddNumberClick}>
+                2
+              </S.InputTd>
+              <S.InputTd data-cy='number_3' onClick={onAddNumberClick}>
+                3
+              </S.InputTd>
             </tr>
             <tr>
-              <S.InputTd data-cy='number_4' onClick={onAddNumberClick}>4</S.InputTd>
-              <S.InputTd data-cy='number_5' onClick={onAddNumberClick}>5</S.InputTd>
-              <S.InputTd data-cy='number_6' onClick={onAddNumberClick}>6</S.InputTd>
+              <S.InputTd data-cy='number_4' onClick={onAddNumberClick}>
+                4
+              </S.InputTd>
+              <S.InputTd data-cy='number_5' onClick={onAddNumberClick}>
+                5
+              </S.InputTd>
+              <S.InputTd data-cy='number_6' onClick={onAddNumberClick}>
+                6
+              </S.InputTd>
             </tr>
             <tr>
-              <S.InputTd data-cy='number_7' onClick={onAddNumberClick}>7</S.InputTd>
-              <S.InputTd data-cy='number_8' onClick={onAddNumberClick}>8</S.InputTd>
-              <S.InputTd data-cy='number_9' onClick={onAddNumberClick}>9</S.InputTd>
+              <S.InputTd data-cy='number_7' onClick={onAddNumberClick}>
+                7
+              </S.InputTd>
+              <S.InputTd data-cy='number_8' onClick={onAddNumberClick}>
+                8
+              </S.InputTd>
+              <S.InputTd data-cy='number_9' onClick={onAddNumberClick}>
+                9
+              </S.InputTd>
             </tr>
             <tr>
               <S.InputTd data-cy='numberBack' isHide={isNotInputValue} onClick={onRemoveLastInputClick}>
                 {!isNotInputValue && '←'}
               </S.InputTd>
-              <S.InputTd data-cy='number_0' onClick={onAddNumberClick}>0</S.InputTd>
+              <S.InputTd data-cy='number_0' onClick={onAddNumberClick}>
+                0
+              </S.InputTd>
               <S.InputTd isHide={isNotInputValue} onClick={onInitClick} data-cy='numberX'>
                 {!isNotInputValue && 'x'}
               </S.InputTd>
@@ -165,7 +185,8 @@ function AmountKeyPad(props: IProps) {
   );
 }
 
-const S: any = {
+type InputTdProps = { isHide?: boolean };
+const S = {
   AmountKeyPad: styled.div`
     width: 100%;
     height: 100%;
@@ -208,9 +229,7 @@ const S: any = {
     color: ${({ theme }) => theme.colors.blackL1};
     height: 83%;
   `,
-  InputTd: styled.td<{
-    isHide: boolean;
-  }>`
+  InputTd: styled.td<InputTdProps>`
     font-size: 2.8rem;
     width: 33.33333%;
 
@@ -226,9 +245,7 @@ const S: any = {
     height: 5.5rem;
     min-height: 5.5rem;
   `,
-  InputDisplayMessage: styled.span<{
-    active: boolean;
-  }>`
+  InputDisplayMessage: styled.span<{ active: boolean }>`
     font-size: 1.4rem;
     height: 2.1rem;
     margin-top: 1rem;

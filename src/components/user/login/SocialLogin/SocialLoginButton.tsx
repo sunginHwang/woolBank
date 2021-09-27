@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  ReactFacebookFailureResponse,
-  ReactFacebookLoginInfo
-} from 'react-facebook-login';
+import { ReactFacebookFailureResponse, ReactFacebookLoginInfo } from 'react-facebook-login';
 
 import IcoGoogle from '@components/atoms/icon/IcoGoogle';
 import IcoKakaoTalk from '@components/atoms/icon/IcoKakaoTalk';
@@ -26,8 +23,8 @@ const providerMap = {
 
 interface IProps {
   provider: 'facebook' | 'google' | 'kakaoTalk';
-  handleLoginClick: (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => void;
-};
+  handleLoginClick: () => void;
+}
 
 /**
  * 소셜 로그인 버튼
@@ -46,12 +43,8 @@ function SocialLoginButton({ provider, handleLoginClick }: IProps) {
 
 export default SocialLoginButton;
 
-const S: {
-  SocialLoginButton: any;
-} = {
-  SocialLoginButton: styled.button<{
-    color: string;
-  }>`
+const S = {
+  SocialLoginButton: styled.button<{ color: string }>`
     width: 4.8rem;
     height: 4.8rem;
     display: flex;
@@ -63,4 +56,3 @@ const S: {
     border: 0.1rem solid rgb(222, 226, 230);
   `
 };
-

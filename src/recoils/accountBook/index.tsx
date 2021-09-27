@@ -14,7 +14,7 @@ const atoms = {
   accountBookCategoriesState: atom<IAccountBookCategory[]>({
     key: `${PREFIX}ATOM/accountBookCategoriesState`,
     default: []
-  }),
+  })
 };
 
 export default {

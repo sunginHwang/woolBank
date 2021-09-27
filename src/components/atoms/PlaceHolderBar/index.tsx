@@ -17,11 +17,12 @@ function PlaceHolderBar({ width = '100%', height = '1rem' }: IProps) {
 
 export default PlaceHolderBar;
 
+type PlaceHolderBarProps = {
+  width: string;
+  height: string;
+};
 const S = {
-  PlaceHolderBar: styled.div<{
-    width: string;
-    height: string;
-  }>`
+  PlaceHolderBar: styled.div<PlaceHolderBarProps>`
     width: ${({ width }) => width};
     height: ${({ height }) => height};
     animation: ${({ theme }) => theme.animations.loading} 1.3s infinite ease-in-out;

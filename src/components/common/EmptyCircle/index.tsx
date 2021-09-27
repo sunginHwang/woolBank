@@ -11,15 +11,13 @@ interface IProps {
  */
 
 function EmptyCircle({ size }: IProps) {
-  return <S.EmptyCircle size={size/10} />;
+  return <S.EmptyCircle size={size / 10} />;
 }
 
 export default EmptyCircle;
 
 const S = {
-  EmptyCircle: styled.div < {
-    size: number;
-  } > `
+  EmptyCircle: styled.div<{ size: number }>`
     width: ${({ size }) => `${size}rem`};
     height: ${({ size }) => `${size}rem`};
     min-width: ${({ size }) => `${size}rem`};

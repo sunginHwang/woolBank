@@ -8,7 +8,6 @@ import SaveRegularExpenditureForm from '@components/regularExpenditure/save/Save
  */
 
 function SaveRegularExpenditure() {
-
   return (
     <PageTemplate title='정기 지출 등록'>
       <SaveRegularExpenditureForm />

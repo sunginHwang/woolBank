@@ -109,9 +109,7 @@ const S = {
     font-weight: bold;
     opacity: 0.7;
   `,
-  Progress: styled.div<{
-    percent: number;
-  }>`
+  Progress: styled.div<{ percent: number }>`
     margin-top: 1.4rem;
     height: 0.1rem;
     border-radius: 0.3rem;

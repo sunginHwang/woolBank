@@ -46,7 +46,9 @@ const S = {
   CategoryBottomSheet: styled.div`
     padding: 0 2rem;
   `,
-  Title: styled.h3<{ color: string }>`
+  Title: styled.h3<{
+    color: string;
+  }>`
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1.5rem;

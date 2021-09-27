@@ -3,7 +3,7 @@ import { useQueryClient } from 'react-query';
 import { useHistory } from 'react-router';
 import { useRecoilState } from 'recoil';
 
-import AddButton from '@components/common/AddButton';
+import AddButton from '@components/atoms/AddButton';
 import AccountBookList from '@components/accountBook/list/AccountBookList';
 import MonthStatistics from '@components/accountBook/list/MonthStatistics';
 import AccountBookListSkeleton from '@components/accountBook/list/AccountBookListSkeleton';
@@ -51,7 +51,7 @@ function ListTab() {
         totalExpenditureAmount={totalExpenditureAmount}
       />
       {isFetching ? <AccountBookListSkeleton /> : <AccountBookList accountBookList={accountBookList} />}
-      <AddButton icon='+' onClick={moveSavePage} />
+      <AddButton onClick={moveSavePage} />
     </>
   );
 }

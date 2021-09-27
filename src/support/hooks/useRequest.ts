@@ -10,13 +10,7 @@ type onRequestType = {
   onFinally?: Function;
 };
 
-type UseRequestReturnType<T> = [
-  (requestType: onRequestType) => void,
-  boolean,
-  Error | null,
-  T | null,
-  () => void
-];
+type UseRequestReturnType<T> = [(requestType: onRequestType) => void, boolean, Error | null, T | null, () => void];
 
 export default function useRequest<T>(axiosRequest: PromiseCreator<T>): UseRequestReturnType<T> {
   const [loading, setLoading] = useState(false);
@@ -40,6 +34,7 @@ export default function useRequest<T>(axiosRequest: PromiseCreator<T>): UseReque
 
       setData(response.data);
     } catch (e) {
+      //@ts-ignore
       setError(e);
 
       if (onError && typeof onError === 'function') {

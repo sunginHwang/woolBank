@@ -6,11 +6,12 @@ import PageHeader from '@components/common/PageHeader';
 import MainHeader from '@components/layout/PageTemplate/MainHeader';
 
 import palette from '@style/palette';
+import { white } from '../../../style';
 
 const TOP_PADDING = {
   NORMAL: 5.5,
-  TOP: 10.5,
-}
+  TOP: 10.5
+};
 
 interface IProps {
   title?: string;
@@ -61,11 +62,9 @@ function PageTemplate(props: IProps) {
   return (
     <>
       {isMain ? (
-        <S.PageTemplate topPadding={defaultTopPadding} >
+        <S.PageTemplate topPadding={defaultTopPadding}>
           <MainHeader />
-          <S.Content useSidePadding >
-            {children}
-          </S.Content>
+          <S.Content useSidePadding>{children}</S.Content>
         </S.PageTemplate>
       ) : (
         <S.PageTemplate topPadding={topAreaPadding}>
@@ -78,7 +77,7 @@ function PageTemplate(props: IProps) {
               onBackClick={onHeaderBackClick}
             />
           )}
-          <S.Content useSidePadding={useSidePadding} bgColor={bgColor} >
+          <S.Content useSidePadding={useSidePadding} bgColor={bgColor}>
             {children}
           </S.Content>
         </S.PageTemplate>
@@ -89,22 +88,17 @@ function PageTemplate(props: IProps) {
 
 export default PageTemplate;
 
-const S: {
-  PageTemplate: any;
-  Content: any;
-} = {
-  PageTemplate: styled.main<{
-    topPadding: number;
-    useSidePadding: boolean;
-  }>`
+type ContentType = {
+  bgColor?: string;
+  useSidePadding: boolean;
+};
+const S = {
+  PageTemplate: styled.main<{ topPadding: number }>`
     width: 100%;
-    padding-top: ${({ topPadding }) => `${topPadding}rem`} // 헤더 사용 유무에 따른 상단 패딩 조정
+    padding-top: ${({ topPadding }) => `${topPadding}rem`}; // 헤더 사용 유무에 따른 상단 패딩 조정
   `,
-  Content: styled.div<{
-    bgColor: string;
-    useSidePadding: boolean;
-  }>`
-    background-color: ${({ bgColor }) => bgColor};
+  Content: styled.div<ContentType>`
+    background-color: ${({ bgColor = white }) => bgColor};
     padding: 0 ${({ useSidePadding }) => (useSidePadding ? '2rem' : '0')};
   `
 };

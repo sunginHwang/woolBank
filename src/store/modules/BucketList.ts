@@ -29,7 +29,9 @@ export const getBucketListDetail = createAsyncThunk(
       await delay(400);
       return bucketListDetail;
     } catch (e) {
+      // @ts-ignore
       dispatch(Layout.actions.setErrorStatusCode(e.response.data.status));
+      // @ts-ignore
       return rejectWithValue(e.response.data);
     }
   }

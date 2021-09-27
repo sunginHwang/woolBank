@@ -88,9 +88,7 @@ const S = {
       height: 2.4rem;
     }
   `,
-  ListTitle: styled.div<{
-    isComplete: boolean;
-  }>`
+  ListTitle: styled.div<{ isComplete: boolean }>`
     font-size: 1.4rem;
     margin-top: 0.1rem;
     line-height: 1.2rem;

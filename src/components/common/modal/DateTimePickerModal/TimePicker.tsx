@@ -19,10 +19,9 @@ interface IProps {
 
 function TimePicker({ time, onChangeTime }: IProps) {
   const HH_MM = time.split(':');
-  const { inputs, onChange } = useInputs({ hours: '', minutes: '', });
-  const [ isValidTime , , offValidTime ] = useToggle(true);
-  const [ isAm, onAm, offAm ] = useToggle(Number(HH_MM[0]) <= HALF_DAY_HOUR);
-
+  const { inputs, onChange } = useInputs({ hours: '', minutes: '' });
+  const [isValidTime, , offValidTime] = useToggle(true);
+  const [isAm, onAm, offAm] = useToggle(Number(HH_MM[0]) <= HALF_DAY_HOUR);
 
   const onConfirmClick = () => {
     // input 에 시간 or 분이 없으면 props 의 시간을 반환 처리
@@ -30,28 +29,48 @@ function TimePicker({ time, onChangeTime }: IProps) {
     const minutes = Number(inputs.minutes || Number(HH_MM[1]));
     // 24:00 이 마지막 시각
     const isOver24 = !isAm && hour === 12 && minutes > 0;
-    const isValid = (hour > 0 && hour <= HALF_DAY_HOUR && minutes < 61) && !isOver24;
+    const isValid = hour > 0 && hour <= HALF_DAY_HOUR && minutes < 61 && !isOver24;
 
     if (isValid) {
-      onChangeTime(`${String(isAm ? hour : hour + HALF_DAY_HOUR).padStart(2,'0')}:${String(minutes).padStart(2,'0')}`)
+      onChangeTime(
+        `${String(isAm ? hour : hour + HALF_DAY_HOUR).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
+      );
     } else {
       offValidTime();
     }
-  }
+  };
 
-  const hours24 = Number(HH_MM[0]) > HALF_DAY_HOUR ? Number(HH_MM[0]) - HALF_DAY_HOUR : HH_MM[0];
+  const hours24 = String(Number(HH_MM[0]) > HALF_DAY_HOUR ? Number(HH_MM[0]) - HALF_DAY_HOUR : HH_MM[0]);
 
   return (
     <S.TimePicker>
       <div>
         <S.AmPm>
-          <S.AmPmItem isActive={isAm} onClick={onAm}>오전</S.AmPmItem>
-          <S.AmPmItem isActive={!isAm} onClick={offAm}>오후</S.AmPmItem>
+          <S.AmPmItem isActive={isAm} onClick={onAm}>
+            오전
+          </S.AmPmItem>
+          <S.AmPmItem isActive={!isAm} onClick={offAm}>
+            오후
+          </S.AmPmItem>
         </S.AmPm>
         <S.Time>
-          <S.TimeInput type='number' name='hours' placeholder={hours24} maxLength={2} value={inputs.hours} onChange={onChange} />
+          <S.TimeInput
+            type='number'
+            name='hours'
+            placeholder={hours24}
+            maxLength={2}
+            value={inputs.hours}
+            onChange={onChange}
+          />
           <S.TimeSeparator>:</S.TimeSeparator>
-          <S.TimeInput type='number' name='minutes' placeholder={HH_MM[1]} maxLength={2} value={inputs.minutes} onChange={onChange} />
+          <S.TimeInput
+            type='number'
+            name='minutes'
+            placeholder={HH_MM[1]}
+            maxLength={2}
+            value={inputs.minutes}
+            onChange={onChange}
+          />
         </S.Time>
       </div>
       {!isValidTime && <S.ValidMsg>올바른 시간을 입력해 주세요.</S.ValidMsg>}
@@ -62,26 +81,15 @@ function TimePicker({ time, onChangeTime }: IProps) {
   );
 }
 
-const S: {
-  AmPm: any;
-  AmPmItem: any;
-  TimeInput: any;
-  Time: any;
-  TimeSeparator: any;
-  TimePicker: any;
-  ConfirmArea: any;
-  ValidMsg: any;
-} = {
-  AmPmItem: styled.span<{
-    isActive: boolean;
-  }>`
-    color:${({ isActive, theme }) => isActive ? theme.colors.blackL1: theme.colors.greyL1 };
-    font-weight:${({ isActive }) => isActive ? 700: 400 };
-    font-size:${({ isActive }) => isActive ? '2rem' : '1.6rem' };
+const S = {
+  AmPmItem: styled.span<{ isActive: boolean }>`
+    color: ${({ isActive, theme }) => (isActive ? theme.colors.blackL1 : theme.colors.greyL1)};
+    font-weight: ${({ isActive }) => (isActive ? 700 : 400)};
+    font-size: ${({ isActive }) => (isActive ? '2rem' : '1.6rem')};
   `,
   TimePicker: styled.div`
     padding: 0 2rem;
-    
+
     > div:first-child {
       display: flex;
       align-items: center;
@@ -96,17 +104,17 @@ const S: {
   ValidMsg: styled.div`
     margin: 2rem 0 2rem 5.5rem;
     font-size: 1.4rem;
-    color:${({ theme }) => theme.colors.redL1};
+    color: ${({ theme }) => theme.colors.redL1};
   `,
   AmPm: styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-right: 4rem;
-    
+
     span {
       display: block;
-      
+
       :first-child {
         margin-bottom: 1.5rem;
       }
@@ -124,17 +132,17 @@ const S: {
   `,
   TimeInput: styled.input`
     border: none;
-    border-bottom: .1rem solid ${({ theme }) => theme.colors.greyL2};
+    border-bottom: 0.1rem solid ${({ theme }) => theme.colors.greyL2};
     font-size: 3.4rem;
     width: 8rem;
     text-align: center;
     font-weight: bold;
-    color:${({ theme }) => theme.colors.blackL1};
-    
+    color: ${({ theme }) => theme.colors.blackL1};
+
     input + input {
       margin: 1rem 0;
     }
-  `,
+  `
 };
 
 export default TimePicker;

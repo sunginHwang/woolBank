@@ -27,22 +27,19 @@ function AccountBookCategoryItem(props: IProps) {
   );
 }
 
-
 const S: {
   AccountBookCategoryItem: any;
 } = {
-  AccountBookCategoryItem: styled.div<{
-    isActive: boolean;
-  }>`
+  AccountBookCategoryItem: styled.div<{ isActive: boolean }>`
     height: 6rem;
     font-size: 1.2rem;
     color: ${({ theme }) => theme.colors.blackL1};
-    background-color: ${({ theme, isActive }) => isActive ? theme.colors.greyL2 : theme.colors.white };
+    background-color: ${({ theme, isActive }) => (isActive ? theme.colors.greyL2 : theme.colors.white)};
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: .8rem;
-  `,
+    border-radius: 0.8rem;
+  `
 };
 
 export default AccountBookCategoryItem;

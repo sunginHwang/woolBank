@@ -5,4 +5,3 @@ export interface IAccountBookStatisticFilter {
   endDate: Date;
   type: AccountBookCategoryType;
 }
-

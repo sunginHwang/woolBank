@@ -61,12 +61,13 @@ function PageHeader(props: IProps) {
   );
 }
 
+type HeaderWithBackProps = {
+  useTabs: boolean;
+  useSkeleton: boolean;
+  useBigTitle: boolean;
+};
 const S = {
-  HeaderWithBack: styled.div<{
-    useTabs: boolean;
-    useSkeleton: boolean;
-    useBigTitle: boolean;
-  }>`
+  HeaderWithBack: styled.div<HeaderWithBackProps>`
     height: ${({ useTabs }) => (useTabs ? '9.8rem' : '4.8rem')};
     display: flex;
     flex-direction: ${({ useTabs }) => (useTabs ? 'column' : 'row')};

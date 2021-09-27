@@ -18,16 +18,16 @@ export interface BaseSliderProps {
 }
 
 function BaseSlider({
-                      min,
-                      max,
-                      step,
-                      height = 4,
-                      dataType = '',
-                      hoverMessage,
-                      size = 'large',
-                      value,
-                      onChange
-                    }: BaseSliderProps) {
+  min,
+  max,
+  step,
+  height = 4,
+  dataType = '',
+  hoverMessage,
+  size = 'large',
+  value,
+  onChange
+}: BaseSliderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const displayRef = useRef<HTMLDivElement>(null);
 
@@ -36,25 +36,30 @@ function BaseSlider({
     onChange && onChange(e);
   };
 
-  const getRangePercent = useCallback((value: number) => {
-    return ((value - min) * 100) / (max - min);
-  }, [min, max]);
+  const getRangePercent = useCallback(
+    (value: number) => {
+      return ((value - min) * 100) / (max - min);
+    },
+    [min, max]
+  );
 
-  const setSlideStyle = useCallback((value: number) => {
-    if (!inputRef.current || !displayRef.current) {
-      return;
-    }
-    const rangePercent = getRangePercent(value);
-    const displaySize = size === 'medium' ? 10 : 20;
-    const displayPercent = size === 'medium' ? 0.2 : 0.4;
-    inputRef.current.style.background = `linear-gradient(90deg, ${palette.mainColor} ${rangePercent}%, rgb(215, 220, 223) ${rangePercent}%)`;
-    displayRef.current.style.left = `calc(${rangePercent}%  + ${
-      (displaySize - rangePercent * displayPercent) * 0.1
-    }rem)`;
-  }, [size, getRangePercent]);
+  const setSlideStyle = useCallback(
+    (value: number) => {
+      if (!inputRef.current || !displayRef.current) {
+        return;
+      }
+      const rangePercent = getRangePercent(value);
+      const displaySize = size === 'medium' ? 10 : 20;
+      const displayPercent = size === 'medium' ? 0.2 : 0.4;
+      inputRef.current.style.background = `linear-gradient(90deg, ${palette.mainColor} ${rangePercent}%, rgb(215, 220, 223) ${rangePercent}%)`;
+      displayRef.current.style.left = `calc(${rangePercent}%  + ${
+        (displaySize - rangePercent * displayPercent) * 0.1
+      }rem)`;
+    },
+    [size, getRangePercent]
+  );
 
   useEffect(() => setSlideStyle(value), [value, setSlideStyle]);
-
 
   return (
     <S.BaseSlider size={size}>
@@ -77,15 +82,13 @@ function BaseSlider({
   );
 }
 
-const S: any = {
-  BaseSlider: styled.div<{
-    size: SliderSize;
-  }>`
+const S = {
+  BaseSlider: styled.div<{ size: SliderSize }>`
     background: transparent;
     border: none;
     position: relative;
- 
-    input[type=range] {
+
+    input[type='range'] {
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
@@ -93,65 +96,64 @@ const S: any = {
       width: 100%;
       outline: none;
       background: linear-gradient(90deg, ${({ theme }) => theme.colors.mainColor} 0%, rgb(215, 220, 223) 0);
-        
-      &:focus{
+
+      &:focus {
         outline: none;
       }
-      
+
       &::-webkit-slider-runnable-track {
-          width: 100%;
-          height: ${({ size }) => (size === 'medium' ? '.2' : '.4')}rem;
-          cursor: pointer;
-          border-radius: 1.3rem;
+        width: 100%;
+        height: ${({ size }) => (size === 'medium' ? '.2' : '.4')}rem;
+        cursor: pointer;
+        border-radius: 1.3rem;
       }
-      
+
       &::-webkit-slider-thumb {
-          height: ${({ size }) => (size === 'medium' ? '2' : '4')}rem;
-          width:  ${({ size }) => (size === 'medium' ? '2' : '4')}rem;
-          border: .3rem solid ${({ theme }) => theme.colors.mainColor};
-          border-radius: 50%;
-          background: #fff;
-          cursor: pointer;
-          -webkit-appearance: none;
-          margin-top: ${({ size }) => (size === 'medium' ? '-0.8' : '-1.8')}rem;
+        height: ${({ size }) => (size === 'medium' ? '2' : '4')}rem;
+        width: ${({ size }) => (size === 'medium' ? '2' : '4')}rem;
+        border: 0.3rem solid ${({ theme }) => theme.colors.mainColor};
+        border-radius: 50%;
+        background: #fff;
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: ${({ size }) => (size === 'medium' ? '-0.8' : '-1.8')}rem;
       }
     }
-    
-     >div{
+
+    > div {
       position: absolute;
       top: ${({ size }) => (size === 'medium' ? '-70%' : '-130%')};
       left: 2rem;
-      
-      span{
-        width:  ${({ size }) => (size === 'medium' ? '6' : '7')}rem;
+
+      span {
+        width: ${({ size }) => (size === 'medium' ? '6' : '7')}rem;
         height: ${({ size }) => (size === 'medium' ? '3' : '4')}rem;
-        line-height: ${({ size }) => (size === 'medium' ? '3' : '4')}rem;;
+        line-height: ${({ size }) => (size === 'medium' ? '3' : '4')}rem;
         text-align: center;
         background: ${({ theme }) => theme.colors.mainColor};
         color: #fff;
-        font-size: ${({ size }) => (size === 'medium' ? '1.2' : '1.4')}rem;;
+        font-size: ${({ size }) => (size === 'medium' ? '1.2' : '1.4')}rem;
         display: block;
         position: absolute;
         left: 50%;
         transform: translate(-50%, 0);
         border-radius: 2.3rem;
-     }
-     
-     span:before{
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-top: .5rem solid ${({ theme }) => theme.colors.mainColor};
-      border-left: .5rem solid transparent;
-      border-right: .5rem solid transparent;
-      top: 100%;
-      left: 50%;
-      margin-left: -.5rem;
-      margin-top: -.1rem;
+      }
+
+      span:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: 0.5rem solid ${({ theme }) => theme.colors.mainColor};
+        border-left: 0.5rem solid transparent;
+        border-right: 0.5rem solid transparent;
+        top: 100%;
+        left: 50%;
+        margin-left: -0.5rem;
+        margin-top: -0.1rem;
+      }
     }
-  }
-}
   `
 };
 

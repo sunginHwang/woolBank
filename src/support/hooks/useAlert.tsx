@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import Layout from '@store/modules/Layout';
 
-export const useAlert = () => {
+export const useAlert = (): [(message: string) => void, () => void] => {
   const dispatch = useDispatch();
 
   const onAlert = useCallback(
@@ -16,5 +16,5 @@ export const useAlert = () => {
     dispatch(Layout.actions.hideAlert());
   }, [dispatch]);
 
-  return [onAlert, offAlert] as [typeof onAlert, typeof offAlert];
+  return [onAlert, offAlert];
 };

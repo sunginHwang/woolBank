@@ -13,5 +13,5 @@ const loading = keyframes`
 `;
 
 export default {
-  loading,
+  loading
 };

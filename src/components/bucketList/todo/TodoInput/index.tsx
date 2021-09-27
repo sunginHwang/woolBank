@@ -44,7 +44,7 @@ function TodoInput({ onAdd, onClose, onFocusIn, onFocusOut }: IProps) {
       // 바로 focus 아웃 시키면 키보드 에 버튼이 보이고 내려가는 ux 상 안이쁘게 보여서 딜레이 처리
       setTimeout(() => onFocusOut(), 150);
     }
-  }
+  };
 
   return (
     <S.TodoInput>
@@ -64,21 +64,24 @@ function TodoInput({ onAdd, onClose, onFocusIn, onFocusOut }: IProps) {
       </S.Input>
       <S.Footer>
         <S.Button onClick={onAddTodo}>작업 추가</S.Button>
-        <S.Button onClick={onClose} isCancel>취소</S.Button>
+        <S.Button onClick={onClose} isCancel>
+          취소
+        </S.Button>
       </S.Footer>
     </S.TodoInput>
   );
 }
 
+type ButtonProps = {
+  isCancel?: boolean;
+};
 const S = {
-  Button: styled.button<{
-    isCancel?: boolean;
-  }>`
+  Button: styled.button<ButtonProps>`
     padding: 0.7rem 1rem;
     border-radius: 0.5rem;
     font-size: 1.2rem;
-    background-color: ${({ theme, isCancel }) => isCancel ? theme.colors.white : theme.colors.mainColor};
-    color: ${({ theme, isCancel }) => isCancel ? theme.colors.blackL1 : theme.colors.white};
+    background-color: ${({ theme, isCancel }) => (isCancel ? theme.colors.white : theme.colors.mainColor)};
+    color: ${({ theme, isCancel }) => (isCancel ? theme.colors.blackL1 : theme.colors.white)};
   `,
   Footer: styled.div`
     display: flex;
@@ -90,7 +93,7 @@ const S = {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    flex: 1
+    flex: 1;
   `,
   TodoInput: styled.div`
     display: flex;

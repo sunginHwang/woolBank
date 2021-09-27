@@ -44,16 +44,7 @@ interface IProps {
  */
 
 function Button(props: IProps) {
-  const {
-    dataType,
-    message,
-    color,
-    size,
-    name,
-    loading = false,
-    active = true,
-    onClick
-  } = props;
+  const { dataType, message, color, size, name, loading = false, active = true, onClick } = props;
 
   const colorScheme: colorSchemeType = useMemo(() => {
     const result = { bgColor: '', color: '', disableColor: '' };
@@ -101,7 +92,7 @@ function Button(props: IProps) {
     return result;
   }, [size]);
 
-  const onButtonClick = (e: React.ChangeEvent<HTMLButtonElement>) => {
+  const onButtonClick = (e: any) => {
     // 로딩중 && 비활성화 상태 일시 버튼 클릭  안되도록
     if (!loading && active && onClick) {
       onClick(e);
@@ -123,21 +114,19 @@ function Button(props: IProps) {
     </S.BaseButton>
   );
 }
-
-const S: {
-  BaseButton: any;
-} = {
-  BaseButton: styled.button<{
-    sizeScheme: sizeSchemeType;
-    colorScheme: colorSchemeType;
-    active: boolean;
-  }>`
+type ButtonProps = {
+  sizeScheme: sizeSchemeType;
+  colorScheme: colorSchemeType;
+  active: boolean;
+};
+const S = {
+  BaseButton: styled.button<ButtonProps>`
     border-radius: ${({ sizeScheme }) => sizeScheme.radius || '0.8rem'};
     width: ${({ sizeScheme }) => (sizeScheme ? sizeScheme.width : '')};
     height: ${({ sizeScheme }) => (sizeScheme ? sizeScheme.height : '')};
     padding: ${({ sizeScheme }) => sizeScheme.padding && sizeScheme.padding};
     font-size: ${({ sizeScheme }) => sizeScheme.fontSize && sizeScheme.fontSize};
-    background-color: ${({ colorScheme, active }) => active ? colorScheme.bgColor : colorScheme.disableColor};
+    background-color: ${({ colorScheme, active }) => (active ? colorScheme.bgColor : colorScheme.disableColor)};
     color: ${({ colorScheme, active }) => {
       const opacity = active ? 1 : 0.5;
       return `rgba(${hexToRgb(colorScheme.color)}, ${opacity})`;

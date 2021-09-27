@@ -25,11 +25,7 @@ function DownSlide({ children }: DownSlideProps) {
   );
 }
 
-const S: {
-  DownSlide: any;
-  Slider: any;
-  Content: any;
-} = {
+const S = {
   DownSlide: styled.div`
     color: ${({ theme }) => theme.colors.white};
     display: flex;
@@ -50,9 +46,7 @@ const S: {
       border: 0.1rem dashed ${({ theme }) => theme.colors.white};
     }
   `,
-  Content: styled.div<{
-    isShow: boolean;
-  }>`
+  Content: styled.div<{ isShow: boolean }>`
     margin: 2rem 0;
     color: ${({ theme }) => theme.colors.white};
     border-bottom: 0.1rem dashed ${({ theme }) => theme.colors.white};

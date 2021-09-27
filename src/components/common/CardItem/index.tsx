@@ -18,9 +18,7 @@ function CardItem({ children, useSideMargin = false }: IProps) {
 export default CardItem;
 
 const S = {
-  CardItem: styled.div<{
-    useSideMargin: boolean;
-  }>`
+  CardItem: styled.div<{ useSideMargin: boolean }>`
     padding: 2rem;
     ${({ useSideMargin }) => useSideMargin && 'margin: 0 2rem'};
     background-color: ${({ theme }) => theme.colors.white};

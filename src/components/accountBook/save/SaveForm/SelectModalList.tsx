@@ -6,7 +6,6 @@ import NumberInputModal from '@components/common/modal/NumbetInputModal';
 import { IAccountBookCategory } from '@models/accountBook/IAccountBookCategory';
 import { IAccountBookSaveForm } from '@models/accountBook/IAccountBookSaveForm';
 
-
 interface IProps {
   openModalName: string;
   formData: IAccountBookSaveForm;

@@ -14,7 +14,6 @@ interface IProps {
   children: React.ReactNode;
 }
 function DayGroup({ days, totalAmount, children }: IProps) {
-
   return (
     <S.DayGroup>
       <S.DayInfo>
@@ -51,7 +50,7 @@ const S: {
   `,
   Price: styled.span`
     font-weight: 600;
-  `,
+  `
 }
 
 export default DayGroup;

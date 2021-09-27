@@ -32,6 +32,7 @@ export default function useFetch<T>(
       setData(result.data.data);
       setLoading(false);
     } catch (error) {
+      //@ts-ignore
       setError(error);
       setLoading(false);
     }

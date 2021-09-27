@@ -33,9 +33,7 @@ const S: {
   AccountSavingTypeModal: any;
   Title: any;
 } = {
-  AccountSavingTypeModal: styled.div<{
-    visible: boolean;
-  }>`
+  AccountSavingTypeModal: styled.div<{ visible: boolean }>`
     position: fixed;
     bottom: ${({ visible }) => (visible ? '0' : '-30rem')};
     width: 100%;
@@ -64,7 +62,7 @@ const S: {
     padding: 2rem;
     display: flex;
     justify-content: center;
-    
+
     p {
       font-size: 1.6rem;
       font-weight: 600;

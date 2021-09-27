@@ -14,16 +14,21 @@ export interface BaseTextAreaProps {
 function BaseTextArea({ label, value, name = '', placeHolder, onChange, onFocusIn, onFocusOut }: BaseTextAreaProps) {
   return (
     <S.BaseTextArea>
-      {label && <S.Label>{label}</S.Label>}
-      <textarea data-cy={name} name={name} value={value} placeholder={placeHolder} onFocus={onFocusIn} onBlur={onFocusOut} onChange={onChange} />
+      {label && <S.Label focus={false}>{label}</S.Label>}
+      <textarea
+        data-cy={name}
+        name={name}
+        value={value}
+        placeholder={placeHolder}
+        onFocus={onFocusIn}
+        onBlur={onFocusOut}
+        onChange={onChange}
+      />
     </S.BaseTextArea>
   );
 }
 
-const S: {
-  BaseTextArea: any;
-  Label: any;
-} = {
+const S = {
   BaseTextArea: styled.div`
     display: flex;
     margin: 1rem 0;
@@ -37,9 +42,7 @@ const S: {
       height: 100%;
     }
   `,
-  Label: styled.label<{
-    focus: boolean;
-  }>`
+  Label: styled.label<{ focus: boolean }>`
     font-size: 1.2rem;
     font-weight: 500;
     color: ${({ focus, theme }) => (focus ? theme.colors.mainColor : theme.colors.mainColor)};

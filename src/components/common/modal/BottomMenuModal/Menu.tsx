@@ -14,33 +14,30 @@ interface IProps {
  */
 
 function Menu({ menu, isActive, onMenuSelect }: IProps) {
-
   const onClick = () => {
-   onMenuSelect(menu.type);
+    onMenuSelect(menu.type);
   };
 
   return (
     <S.Menu key={menu.type} isActive={isActive} onClick={onClick}>
       {menu.value}
     </S.Menu>
-  )
+  );
 }
 
 export default Menu;
 
 const S = {
-  Menu: styled.p<{
-    isActive: boolean;
-  }>`
+  Menu: styled.p<{ isActive: boolean }>`
     margin: 0 1rem;
     padding: 1.4rem;
     font-size: 1.6rem;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.blackL1};
     text-align: left;
-    background-color: ${({ isActive, theme }) => isActive ? theme.colors.greyL2 : theme.colors.white};
-    border-radius: .8rem;
-    
+    background-color: ${({ isActive, theme }) => (isActive ? theme.colors.greyL2 : theme.colors.white)};
+    border-radius: 0.8rem;
+
     &:last-child {
       margin-bottom: 2.5rem;
       margin-bottom: calc(constant(safe-area-inset-bottom) + 2.5rem);

@@ -41,7 +41,8 @@ function Tabs({ tabs, activeTab, onChangeTab }: IProps) {
             key={tab.type}
             active={tab.name === activeTab.name}
             data-cy={tab.name}
-            onClick={() => onTabClick(tab, index)}>
+            onClick={() => onTabClick(tab, index)}
+          >
             {tab.name}
           </S.Tab>
         );
@@ -53,6 +54,10 @@ function Tabs({ tabs, activeTab, onChangeTab }: IProps) {
 
 export default Tabs;
 
+type BottomLineProps = {
+  width: number;
+  left: number;
+};
 const S = {
   Tabs: styled.div`
     width: 100%;
@@ -64,23 +69,18 @@ const S = {
       font-size: 1.4rem;
     }
   `,
-  Tab: styled.button<{
-    active: boolean;
-  }>`
+  Tab: styled.button<{ active: boolean }>`
     width: 100%;
     height: 100%;
     font-weight: bold;
-    border-bottom: ${({ active, theme }) => active ? '' : `.2rem solid ${theme.colors.greyL2}`};
+    border-bottom: ${({ active, theme }) => (active ? '' : `.2rem solid ${theme.colors.greyL2}`)};
     color: ${({ active, theme }) => (active ? theme.colors.redL2 : theme.colors.greyL1)};
   `,
-  BottomLine: styled.span<{
-    width: number;
-    left: number;
-  }>`
-    bottom: -.1rem;
+  BottomLine: styled.span<BottomLineProps>`
+    bottom: -0.1rem;
     width: ${({ width }) => width}px;
     left: ${({ left }) => left}px;
-    height: .2rem;
+    height: 0.2rem;
     position: absolute;
     transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     background-color: ${({ theme }) => theme.colors.redL2};

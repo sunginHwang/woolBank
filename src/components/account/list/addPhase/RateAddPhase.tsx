@@ -109,14 +109,11 @@ function RateAddPhase({ isActivePhase, accountForm, goPrevPhase, goNextPhase, on
   );
 }
 
-const S: {
-  AddRatePhase: any;
-  Header: any;
-  Amount: any;
-  Complete: any;
-  Rate: any;
-  RateItem: any;
-} = {
+type RateItemType = {
+  isTotal?: boolean;
+  isTax?: boolean;
+};
+const S = {
   AddRatePhase: styled.div`
     justify-content: space-between;
     overflow-y: scroll;
@@ -170,10 +167,7 @@ const S: {
       margin-top: 2rem;
     }
   `,
-  RateItem: styled.div<{
-    isTotal: boolean;
-    isTax: boolean;
-  }>`
+  RateItem: styled.div<RateItemType>`
     display: flex;
     justify-content: space-between;
     margin-top: ${({ isTotal }) => (isTotal ? '1' : '0')}rem;

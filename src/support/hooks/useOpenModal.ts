@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
-
 export default function useOpenModal(modalName = '') {
-  const [ openModalName, setModalName ] = useState(modalName);
+  const [openModalName, setModalName] = useState(modalName);
 
   const setModalWithType = (e: React.ChangeEvent<HTMLElement | HTMLDivElement>) => {
     const type = e.currentTarget.dataset.type || '';
@@ -19,7 +18,6 @@ export default function useOpenModal(modalName = '') {
     openModalName,
     setModalWithType,
     setModal,
-    onCloseModal,
-  }
-
+    onCloseModal
+  };
 }
