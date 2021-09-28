@@ -21,7 +21,7 @@ const iosNumberType = {
  * @component
  */
 
-export const Input = React.forwardRef<HTMLInputElement, IProps>(
+const Input = React.forwardRef<HTMLInputElement, IProps>(
   ({ label, type, isShowCloseBtn, onFocusIn, onFocusOut, onClear, ...props }, ref) => {
     const innerRef = useRef<HTMLDivElement>(null);
     const [focus, setFocus] = useState(false);
@@ -56,7 +56,9 @@ export const Input = React.forwardRef<HTMLInputElement, IProps>(
   }
 );
 
-const StyledInput = styled.div < { isFocus: boolean } > `
+export default Input;
+
+const StyledInput = styled.div<{ isFocus: boolean }>`
   display: flex;
   flex-direction: column;
   position: relative;
